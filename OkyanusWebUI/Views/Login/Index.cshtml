@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="login">
+    <div class="main-agileits">
+        <div class="form-w3agile">
+            <h3>Giriş Yap</h3>
+            <form method="post">
+                <div class="key">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <input type="text" value="Mailiniz" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Mailiniz';}" >
+                    <div class="clearfix"></div>
+                </div>
+                <div class="key">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="password" value="Şifreniz" name="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Şifreniz';}" >
+                    <div class="clearfix"></div>
+                </div>
+                <input type="submit" value="Giriş">
+            </form>
+        </div>
+        <div class="forg">
+            <a href="#" class="forg-left">Şifremi Unuttum</a>
+            <a href="/Register/Index/" class="forg-right">Kayıt Ol</a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+

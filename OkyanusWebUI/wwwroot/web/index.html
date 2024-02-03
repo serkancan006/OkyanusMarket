@@ -28,7 +28,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <script type="text/javascript" src="js/easing.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event){		
+		$(".scroll").on(function(event){		
 			event.preventDefault();
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
@@ -114,7 +114,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 							<li class="dropdown ">
 								<a href="#" class="dropdown-toggle  hyper" data-toggle="dropdown" ><span>Kitchen<b class="caret"></b></span></a>
 								<ul class="dropdown-menu multi">
-									<div class="row">
+									<li class="row">
 										<div class="col-sm-3">
 											<ul class="multi-column-dropdown">
 			
@@ -152,14 +152,14 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 											<a href="kitchen.html"><img src="images/me.png" class="img-responsive" alt=""></a>
 										</div>
 										<div class="clearfix"></div>
-									</div>	
+									</li>	
 								</ul>
 							</li>
 							<li class="dropdown">
 							
 								<a href="#" class="dropdown-toggle hyper" data-toggle="dropdown" ><span> Personal Care <b class="caret"></b></span></a>
 								<ul class="dropdown-menu multi multi1">
-									<div class="row">
+									<li class="row">
 										<div class="col-sm-3">
 											<ul class="multi-column-dropdown">
 												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Ayurvedic </a></li>
@@ -195,13 +195,13 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 											<a href="care.html"><img src="images/me1.png" class="img-responsive" alt=""></a>
 										</div>
 										<div class="clearfix"></div>
-									</div>	
+									</li>	
 								</ul>
 							</li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle hyper" data-toggle="dropdown" ><span>Household<b class="caret"></b></span></a>
 								<ul class="dropdown-menu multi multi2">
-									<div class="row">
+									<li class="row">
 										<div class="col-sm-3">
 											<ul class="multi-column-dropdown">
 												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Cleaning Accessories</a></li>
@@ -237,7 +237,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 											<a href="hold.html"><img src="images/me2.png" class="img-responsive" alt=""></a>
 										</div>
 										<div class="clearfix"></div>
-									</div>	
+									</li>	
 								</ul>
 							</li>
 							
@@ -687,7 +687,6 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				</div>
 			</div>
 		
-	</div>
 	</div>
 	</div>
 

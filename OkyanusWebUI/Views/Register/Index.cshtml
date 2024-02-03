@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="login">
+    <div class="main-agileits">
+        <div class="form-w3agile form1">
+            <h3>Kayıt Ol</h3>
+            <form method="post">
+                <div class="key">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <input type="text" value="Kullanıcı Adı" name="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Kullanıcı Adı';}" >
+                    <div class="clearfix"></div>
+                </div>
+                <div class="key">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <input type="text" value="Mailiniz" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Mailiniz';}" >
+                    <div class="clearfix"></div>
+                </div>
+                <div class="key">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="password" value="Şifreniz" name="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Şifreniz';}" >
+                    <div class="clearfix"></div>
+                </div>
+                <div class="key">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="password" value="Şifre Tekrar" name="Confirm Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Şifre Tekrar';}" >
+                    <div class="clearfix"></div>
+                </div>
+                <input type="submit" value="Kayıt Ol">
+            </form>
+        </div>
+
+    </div>
+</div>
+
+

@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@await Html.PartialAsync("/Views/_Layout/VideoPlayerPartial.cshtml")
+
+@await Component.InvokeAsync("_CarouselPartial")
+@await Component.InvokeAsync("_SliderPartial")
+@await Component.InvokeAsync("_ProductPartial")
+@await Component.InvokeAsync("_ProductModalPartial")
+
+@*https://w3layouts.com/template/big-store-ecommerce-online-shopping-flat-bootstrap-responsive-web-template/*@
