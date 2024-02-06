@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Okyanus.BusinessLayer.ValidationRules
 {
-    public class ProductValidators
+    public class AboutValidators
     {
     }
 }
