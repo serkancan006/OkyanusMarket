@@ -12,10 +12,7 @@ namespace Okyanus.DataAccessLayer.Concrete
 {
     public class Context : IdentityDbContext<AppUser, AppRole, int>
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseOracle("User Id=SYS;Password=123456789;Data Source=//localhost:1521/orcl;DBA Privilege=SYSDBA");
-        }
+        public Context(DbContextOptions<Context> options) : base(options) { }
 
         public DbSet<About> Abouts { get; set; }
         public DbSet<BranchUs> BranchUses { get; set; }
@@ -26,6 +23,7 @@ namespace Okyanus.DataAccessLayer.Concrete
         public DbSet<Product> Products { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
 
 
     }

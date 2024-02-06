@@ -1,10 +1,12 @@
+using Microsoft.EntityFrameworkCore;
 using Okyanus.DataAccessLayer.Concrete;
 using Okyanus.EntityLayer.Entities.identitiy;
 
 var builder = WebApplication.CreateBuilder(args);
-
+// appsettings.json dosyasýndan yapýlandýrmayý alýn
+var configuration = builder.Configuration;
 // Add services to the container.
-builder.Services.AddDbContext<Context>();
+builder.Services.AddDbContext<Context>(options => options.UseOracle(configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
 {
