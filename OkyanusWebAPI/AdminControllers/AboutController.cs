@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Okyanus.BusinessLayer.Abstract;
 
 namespace OkyanusWebAPI.AdminControllers
 {
@@ -7,10 +9,20 @@ namespace OkyanusWebAPI.AdminControllers
     [ApiController]
     public class AboutController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult actionResult()
+        private readonly IAboutService _aboutService;
+        private readonly IMapper _mapper;
+
+        public AboutController(IAboutService aboutService, IMapper mapper)
         {
-            return Ok();
+            _aboutService = aboutService;
+            _mapper = mapper;
+        }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            var values = _aboutService.TWhere(x => x.Status == true).ToList();
+            return Ok(values);
         }
     }
 }

@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Okyanus.BusinessLayer.Container;
 using Okyanus.DataAccessLayer.Concrete;
@@ -21,7 +22,7 @@ builder.Services.ContainerDependencies();
 builder.Services.AddAutoMapper(typeof(Program));
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddFluentValidation(); //fluent validation için baþka iþlemler de yapýlabilir...
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
