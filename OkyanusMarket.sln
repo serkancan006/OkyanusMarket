@@ -14,9 +14,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Çözüm Öğeleri", "Çözüm Öğeleri", "{A965437B-E7F4-498E-964D-5E561C1F9D87}"
 	ProjectSection(SolutionItems) = preProject
 		Readme.txt = Readme.txt
+		Yapilacaklar.txt = Yapilacaklar.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OkyanusWebUI", "OkyanusWebUI\OkyanusWebUI.csproj", "{0C5C1AD4-2DF8-4FC6-BB6E-51D8AD7EFBEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OkyanusWebUI", "OkyanusWebUI\OkyanusWebUI.csproj", "{0C5C1AD4-2DF8-4FC6-BB6E-51D8AD7EFBEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

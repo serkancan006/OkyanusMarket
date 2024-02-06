@@ -1,19 +1,24 @@
 using Microsoft.EntityFrameworkCore;
+using Okyanus.BusinessLayer.Container;
 using Okyanus.DataAccessLayer.Concrete;
 using Okyanus.EntityLayer.Entities.identitiy;
+using OkyanusWebUI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-// appsettings.json dosyasýndan yapýlandýrmayý alýn
+//app settings
 var configuration = builder.Configuration;
-// Add services to the container.
+// Context
 builder.Services.AddDbContext<Context>(options => options.UseOracle(configuration.GetConnectionString("DefaultConnection")));
-
+//identitiy
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
 {
     options.User.RequireUniqueEmail = true;
-}).AddEntityFrameworkStores<Context>()
+}).AddEntityFrameworkStores<Context>().AddErrorDescriber<CustomIdentityValidator>()
 .AddEntityFrameworkStores<Context>();
-
+// Add services to the container.
+builder.Services.ContainerDependencies();
+// AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
 
 
 builder.Services.AddControllers();
@@ -29,7 +34,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
