@@ -9,7 +9,8 @@ namespace Okyanus.EntityLayer.Entities
 {
     public class About : BaseEntity
     {
-        public string misyon { get; set; }
-        public string vizyon { get; set; }
+        public string AboutDesc { get; set; }
+        public string Misyon { get; set; }
+        public string Vizyon { get; set; }
     }
 }

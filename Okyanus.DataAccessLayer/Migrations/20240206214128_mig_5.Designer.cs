@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Okyanus.DataAccessLayer.Concrete;
 using Oracle.EntityFrameworkCore.Metadata;
@@ -11,9 +12,10 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace Okyanus.DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240206214128_mig_5")]
+    partial class mig_5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,21 +150,17 @@ namespace Okyanus.DataAccessLayer.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<string>("AboutDesc")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TIMESTAMP(7)");
-
-                    b.Property<string>("Misyon")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("TIMESTAMP(7)");
 
-                    b.Property<string>("Vizyon")
+                    b.Property<string>("misyon")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("vizyon")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 

@@ -12,7 +12,7 @@
 //    {
 //        public AboutDenemeValidators()
 //        {
-//            RuleFor(x => x.misyon).NotEmpty().WithMessage("misyon boş olamaz");
+//            RuleFor(x => x.Misyon).NotEmpty().WithMessage("misyon boş olamaz");
 //        }
 //    }
 //}

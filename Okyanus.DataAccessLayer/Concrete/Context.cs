@@ -42,7 +42,7 @@ namespace Okyanus.DataAccessLayer.Concrete
                         case EntityState.Added:
                             baseEntity.CreatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
                             baseEntity.UpdatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
-                            baseEntity.Status = true;
+                            //baseEntity.Status = true;
                             break;
                         case EntityState.Modified:
                             baseEntity.UpdatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
