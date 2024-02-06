@@ -7,12 +7,12 @@ namespace OkyanusWebAPI.AdminControllers
 {
     [Route("api/admin/[controller]")]
     [ApiController]
-    public class AboutController : ControllerBase
+    public class AboutDenemeController : ControllerBase
     {
         private readonly IAboutService _aboutService;
         private readonly IMapper _mapper;
 
-        public AboutController(IAboutService aboutService, IMapper mapper)
+        public AboutDenemeController(IAboutService aboutService, IMapper mapper)
         {
             _aboutService = aboutService;
             _mapper = mapper;

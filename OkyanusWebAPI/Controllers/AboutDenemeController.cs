@@ -10,13 +10,13 @@ namespace OkyanusWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AboutController : ControllerBase
+    public class AboutDenemeController : ControllerBase
     {
         private readonly IAboutService _aboutService;
         private readonly IMapper _mapper;
         private readonly IValidator<About> _validator;
 
-        public AboutController(IAboutService aboutService, IMapper mapper, IValidator<About> validator)
+        public AboutDenemeController(IAboutService aboutService, IMapper mapper, IValidator<About> validator)
         {
             _aboutService = aboutService;
             _mapper = mapper;

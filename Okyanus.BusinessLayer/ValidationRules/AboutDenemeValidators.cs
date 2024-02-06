@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Okyanus.BusinessLayer.ValidationRules
 {
-    public class AboutValidators : AbstractValidator<About>
+    public class AboutDenemeValidators : AbstractValidator<About>
     {
-        public AboutValidators()
+        public AboutDenemeValidators()
         {
             RuleFor(x => x.misyon).NotEmpty().WithMessage("misyon boş olamaz");
         }
