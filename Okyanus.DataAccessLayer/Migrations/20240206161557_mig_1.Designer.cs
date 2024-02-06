@@ -12,8 +12,8 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace Okyanus.DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240206094532_mig_2_add_basket")]
-    partial class mig_2_add_basket
+    [Migration("20240206161557_mig_1")]
+    partial class mig_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,21 @@ namespace Okyanus.DataAccessLayer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("CategoryProduct", b =>
+                {
+                    b.Property<int>("CategoriesID")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<int>("ProductsID")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.HasKey("CategoriesID", "ProductsID");
+
+                    b.HasIndex("ProductsID");
+
+                    b.ToTable("CategoryProduct");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
@@ -129,11 +144,20 @@ namespace Okyanus.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.About", b =>
                 {
-                    b.Property<int>("AboutID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AboutID"), 1L, 1);
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("misyon")
                         .IsRequired()
@@ -143,69 +167,117 @@ namespace Okyanus.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.HasKey("AboutID");
+                    b.HasKey("ID");
 
                     b.ToTable("Abouts");
                 });
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.Basket", b =>
                 {
-                    b.Property<int>("BasketID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BasketID"), 1L, 1);
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.HasKey("BasketID");
+                    b.Property<double>("Count")
+                        .HasColumnType("BINARY_DOUBLE");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("BINARY_DOUBLE");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("BINARY_DOUBLE");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProductID");
 
                     b.ToTable("Baskets");
                 });
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.BranchUs", b =>
                 {
-                    b.Property<int>("BranchUsID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BranchUsID"), 1L, 1);
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("BranchAdres")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.HasKey("BranchUsID");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.HasKey("ID");
 
                     b.ToTable("BranchUses");
                 });
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.Category", b =>
                 {
-                    b.Property<int>("CategoryID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryID"), 1L, 1);
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.HasKey("CategoryID");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.HasKey("ID");
 
                     b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.Contact", b =>
                 {
-                    b.Property<int>("ContactID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactID"), 1L, 1);
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Adres")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("Mail")
                         .IsRequired()
@@ -219,11 +291,17 @@ namespace Okyanus.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.HasKey("ContactID");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.HasKey("ID");
 
                     b.ToTable("Contacts");
                 });
@@ -345,37 +423,84 @@ namespace Okyanus.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.Order", b =>
                 {
-                    b.Property<int>("OrderID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"), 1L, 1);
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.HasKey("OrderID");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("BINARY_DOUBLE");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.HasKey("ID");
 
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.OrderDetail", b =>
                 {
-                    b.Property<int>("OrderDetailID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailID"), 1L, 1);
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.HasKey("OrderDetailID");
+                    b.Property<int>("Count")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<int>("OrderID")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("BINARY_DOUBLE");
+
+                    b.Property<double>("UnitPrice")
+                        .HasColumnType("BINARY_DOUBLE");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OrderID");
+
+                    b.HasIndex("ProductID");
 
                     b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.Product", b =>
                 {
-                    b.Property<int>("ProductID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"), 1L, 1);
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -391,6 +516,9 @@ namespace Okyanus.DataAccessLayer.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("BINARY_DOUBLE");
 
+                    b.Property<int>("ProductID")
+                        .HasColumnType("NUMBER(10)");
+
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
@@ -398,39 +526,61 @@ namespace Okyanus.DataAccessLayer.Migrations
                     b.Property<bool>("ProductType")
                         .HasColumnType("NUMBER(1)");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.HasKey("ProductID");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.HasKey("ID");
 
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.Slider", b =>
                 {
-                    b.Property<int>("SliderID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SliderID"), 1L, 1);
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.HasKey("SliderID");
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.HasKey("ID");
 
                     b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.SocialMedia", b =>
                 {
-                    b.Property<int>("SocialMediaID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SocialMediaID"), 1L, 1);
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("MediaName")
                         .IsRequired()
@@ -440,9 +590,30 @@ namespace Okyanus.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.HasKey("SocialMediaID");
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.HasKey("ID");
 
                     b.ToTable("SocialMedias");
+                });
+
+            modelBuilder.Entity("CategoryProduct", b =>
+                {
+                    b.HasOne("Okyanus.EntityLayer.Entities.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Okyanus.EntityLayer.Entities.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -494,6 +665,48 @@ namespace Okyanus.DataAccessLayer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Okyanus.EntityLayer.Entities.Basket", b =>
+                {
+                    b.HasOne("Okyanus.EntityLayer.Entities.Product", "Product")
+                        .WithMany("Baskets")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Okyanus.EntityLayer.Entities.OrderDetail", b =>
+                {
+                    b.HasOne("Okyanus.EntityLayer.Entities.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Okyanus.EntityLayer.Entities.Product", "Product")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Okyanus.EntityLayer.Entities.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("Okyanus.EntityLayer.Entities.Product", b =>
+                {
+                    b.Navigation("Baskets");
+
+                    b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618
         }
