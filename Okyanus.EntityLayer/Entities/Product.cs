@@ -9,7 +9,6 @@ namespace Okyanus.EntityLayer.Entities
 {
     public class Product : BaseEntity
     {
-        public int ProductID { get; set; }
         public string ProductName { get; set; }
         public string Title { get; set; }
         public double Price { get; set; }

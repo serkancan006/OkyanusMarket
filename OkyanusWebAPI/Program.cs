@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Okyanus.BusinessLayer.Container;
 using Okyanus.DataAccessLayer.Concrete;
 using Okyanus.EntityLayer.Entities.identitiy;
-using OkyanusWebUI.Models;
+using OkyanusWebAPI.Models.identitiy;
 
 var builder = WebApplication.CreateBuilder(args);
 //app settings
