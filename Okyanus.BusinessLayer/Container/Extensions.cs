@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Okyanus.BusinessLayer.Abstract;
+using Okyanus.BusinessLayer.Abstract.ExternalService;
 using Okyanus.BusinessLayer.Concrete;
+using Okyanus.BusinessLayer.Concrete.ExternalService;
 using Okyanus.DataAccessLayer.Abstract;
 using Okyanus.DataAccessLayer.EntityFramework;
 using System;
@@ -45,6 +47,12 @@ namespace Okyanus.BusinessLayer.Container
 
             services.AddScoped<ISocialMediaDal, EfSocialMediaDal>();
             services.AddScoped<ISocialMediaService, SocialMediaManager>();
+
+
+
+
+            services.AddScoped<IMailService, MailManager>();
+
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace OkyanusWebAPI.Models.identitiy
+namespace OkyanusWebAPI.Models
 {
     public class CustomIdentityValidator : IdentityErrorDescriber
     {

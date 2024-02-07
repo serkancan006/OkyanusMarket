@@ -27,7 +27,7 @@ namespace OkyanusWebAPI.Mapping
 
             CreateMap<ResultBranchUsVM, BranchUs>().ReverseMap();
             CreateMap<UpdateBranchUsVM, BranchUs>().ReverseMap();
-            CreateMap<CreateBasketVM, BranchUs>().ReverseMap();
+            CreateMap<CreateBranchUsVM, BranchUs>().ReverseMap();
 
             CreateMap<ResultCategoryVM, Category>().ReverseMap();
             CreateMap<UpdateCategoryVM, Category>().ReverseMap();
@@ -41,9 +41,9 @@ namespace OkyanusWebAPI.Mapping
             CreateMap<UpdateOrderVM, Order>().ReverseMap();
             CreateMap<CreateOrderVM, Order>().ReverseMap();
 
-            CreateMap<ResultOrderDetailVM, ResultOrderDetailVM>().ReverseMap();
-            CreateMap<UpdateOrderDetailVM, ResultOrderDetailVM>().ReverseMap();
-            CreateMap<CreateOrderDetailVM, ResultOrderDetailVM>().ReverseMap();
+            CreateMap<ResultOrderDetailVM, OrderDetail>().ReverseMap();
+            CreateMap<UpdateOrderDetailVM, OrderDetail>().ReverseMap();
+            CreateMap<CreateOrderDetailVM, OrderDetail>().ReverseMap();
 
             CreateMap<ResultProductVM, Product>().ReverseMap();
             CreateMap<UpdateProductVM, Product>().ReverseMap();

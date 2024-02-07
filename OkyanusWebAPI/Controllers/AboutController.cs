@@ -25,7 +25,7 @@ namespace OkyanusWebAPI.Controllers
         public IActionResult AboutList()
         {
             var values = _AboutService.TGetListAll();
-            var result = _mapper.Map<List<ResultBasketVM>>(values);
+            var result = _mapper.Map<List<ResultAboutVM>>(values);
             return Ok(result);
         }
 
@@ -57,7 +57,7 @@ namespace OkyanusWebAPI.Controllers
         public IActionResult GetAbout(int id)
         {
             var values = _AboutService.TGetByID(id);
-            var result = _mapper.Map<ResultBasketVM>(values);
+            var result = _mapper.Map<ResultAboutVM>(values);
             return Ok(result);
         }
 
