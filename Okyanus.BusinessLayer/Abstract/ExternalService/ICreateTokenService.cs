@@ -1,4 +1,5 @@
 ﻿using Okyanus.BusinessLayer.Concrete.ExternalService;
+using Okyanus.EntityLayer.Entities.identitiy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Okyanus.BusinessLayer.Abstract.ExternalService
 {
     public interface ICreateTokenService
     {
-        TokenDto TokenCreate(int second = 60);
-        TokenDto TokenCreateAdmin(int second = 60);
+        TokenDto TokenCreate(AppUser user, int second = 60);
+        TokenDto TokenCreateAdmin(AppUser user, int second = 60);
     }
 }

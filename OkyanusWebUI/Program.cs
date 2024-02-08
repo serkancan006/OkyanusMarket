@@ -1,9 +1,33 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
+var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 builder.Services.AddHttpClient();
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+// Add Jwt Bearer Token
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(opt =>
+{
+    opt.RequireHttpsMetadata = true; //https olmak zorunludur.
+    opt.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidIssuer = configuration["JwtTokenOptions:ValidIssuer"],  
+        ValidAudience = configuration["JwtTokenOptions:ValidAudience"],  
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtTokenOptions:IssuerSigningKey"])),
+        ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,  //geçerlilik süresini dogrulamasý için false olursa süre dogrulama yapmaz.
+        ClockSkew = TimeSpan.Zero   //zaman farký hesaplama 
+    };
+});
 
 var app = builder.Build();
 
@@ -19,7 +43,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

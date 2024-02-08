@@ -39,12 +39,12 @@ namespace OkyanusWebAPI.Controllers
                             if (userRoles.Contains("Admin"))
                             {
                                 // Kullanıcı Admin içeriği rolü içeriyorsa 
-                                var value = _createTokenService.TokenCreateAdmin();
+                                var value = _createTokenService.TokenCreateAdmin(user);
                                 return Ok(new { message = "Admini girişi başarılı.", value });
                             }
                             else
                             {
-                                var value = _createTokenService.TokenCreate();
+                                var value = _createTokenService.TokenCreate(user);
                                 return Ok(new { message = "Kullanıcı girişi başarılı.", value });
                             }
                         }

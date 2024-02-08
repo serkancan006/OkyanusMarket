@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Okyanus.BusinessLayer.Abstract.ExternalService;
+using Okyanus.EntityLayer.Entities.identitiy;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,14 +20,20 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
             _configuration = configuration;
         }
 
-        public TokenDto TokenCreate(int second = 60)
+        public TokenDto TokenCreate(AppUser user, int second = 60)
         {
             var bytes = Encoding.UTF8.GetBytes(_configuration["JwtTokenOptions:IssuerSigningKey"]);
             SymmetricSecurityKey key = new SymmetricSecurityKey(bytes);
             SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
+            List<Claim> claims = new List<Claim>()
+            {
+                //new Claim(ClaimTypes.NameIdentifier,Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.GivenName, user.Name),
+                new Claim(ClaimTypes.Surname, user.Surname),
+            };
             DateTime expires = DateTime.Now.AddSeconds(second);
-            JwtSecurityToken token = new JwtSecurityToken(issuer: _configuration["JwtTokenOptions:ValidIssuer"], audience: _configuration["JwtTokenOptions:ValidAudience"], notBefore: DateTime.Now, expires: expires, signingCredentials: credentials);
+            JwtSecurityToken token = new JwtSecurityToken(issuer: _configuration["JwtTokenOptions:ValidIssuer"], audience: _configuration["JwtTokenOptions:ValidAudience"], notBefore: DateTime.Now, expires: expires, signingCredentials: credentials, claims: claims);
 
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             TokenDto Token = new()
@@ -38,7 +45,7 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
             return Token;
         }
 
-        public TokenDto TokenCreateAdmin(int second = 60)
+        public TokenDto TokenCreateAdmin(AppUser user, int second = 60)
         {
             var bytes = Encoding.UTF8.GetBytes(_configuration["JwtTokenOptions:IssuerSigningKey"]);
             SymmetricSecurityKey key = new SymmetricSecurityKey(bytes);
@@ -46,8 +53,11 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
 
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier,Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.Role,"Admin"),
+                //new Claim(ClaimTypes.NameIdentifier,Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.GivenName, user.Name),
+                new Claim(ClaimTypes.Surname, user.Surname),
+                new Claim(ClaimTypes.Role, "Admin")
                 //new Claim(ClaimTypes.Role,"Instructor"),
             };
 
