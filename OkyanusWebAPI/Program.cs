@@ -1,10 +1,13 @@
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Okyanus.BusinessLayer.Container;
 using Okyanus.DataAccessLayer.Concrete;
 using Okyanus.EntityLayer.Entities.identitiy;
 using OkyanusWebAPI.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 //app settings
@@ -18,6 +21,24 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     options.SignIn.RequireConfirmedEmail = true;
 }).AddEntityFrameworkStores<Context>().AddErrorDescriber<CustomIdentityValidator>().AddDefaultTokenProviders()
 .AddEntityFrameworkStores<Context>();
+// Add Jwt Bearer Token
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(opt =>
+{
+    opt.RequireHttpsMetadata = true; //https olmak zorunludur.
+    opt.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidIssuer = configuration["JwtTokenOptions:ValidIssuer"],  //client
+        ValidAudience = configuration["JwtTokenOptions:ValidAudience"],  //client
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtTokenOptions:IssuerSigningKey"])),
+        ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,  //geçerlilik süresini dogrulamasý için false olursa süre dogrulama yapmaz.
+        ClockSkew = TimeSpan.Zero   //zaman farký hesaplama 
+    };
+});
 // Add services to the container.
 builder.Services.ContainerDependencies();
 // AutoMapper
@@ -43,6 +64,8 @@ app.UseStaticFiles();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+//app.UseAuthorization();
 
 app.MapControllers();
 

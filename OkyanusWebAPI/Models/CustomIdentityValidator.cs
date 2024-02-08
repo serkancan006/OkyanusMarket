@@ -60,5 +60,6 @@ namespace OkyanusWebAPI.Models
                 Description = $"E-posta adresi '{email}' zaten kullanımda."
             };
         }
+
     }
 }

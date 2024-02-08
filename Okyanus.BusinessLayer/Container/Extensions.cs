@@ -52,6 +52,7 @@ namespace Okyanus.BusinessLayer.Container
 
 
             services.AddScoped<IMailService, MailManager>();
+            services.AddScoped<ICreateTokenService, CreateTokenManager>();
 
         }
     }
