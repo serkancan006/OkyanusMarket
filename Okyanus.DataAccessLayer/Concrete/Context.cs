@@ -53,25 +53,6 @@ namespace Okyanus.DataAccessLayer.Concrete
                             break;
                     }
                 }
-
-                if (entry.Entity is AppUser appUser)
-                {
-                    switch (entry.State)
-                    {
-                        case EntityState.Added:
-                            appUser.CreatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
-                            appUser.UpdatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
-                            appUser.Status = true;
-                            break;
-                        case EntityState.Modified:
-                            appUser.UpdatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
-                            entry.Property("CreatedDate").IsModified = false;
-                            break;
-                        default:
-                            // Bilinmeyen bir durumla karşılaşıldığında yapılacaklar
-                            break;
-                    }
-                }
             }
 
             return base.SaveChanges(acceptAllChangesOnSuccess);

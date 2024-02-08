@@ -30,6 +30,9 @@ namespace OkyanusWebAPI.Controllers
                 Name = registerUserVM.Name,
                 Surname = registerUserVM.Surname,
                 PhoneNumber = registerUserVM.PhoneNumber,
+                CreatedDate = DateTime.UtcNow,
+                UpdatedDate = DateTime.UtcNow,
+                Status = true
             };
 
             var result = await _userManager.CreateAsync(user, registerUserVM.Password);
