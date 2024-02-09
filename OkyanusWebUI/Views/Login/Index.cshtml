@@ -1,4 +1,4 @@
-﻿
+﻿@model LoginUserVM
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,12 +11,12 @@
             <form method="post">
                 <div class="key">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <input type="text" value="Mailiniz" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Mailiniz';}" >
+                    <input type="text" value="Mailiniz" asp-for="UserNameOrEmail" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Mailiniz';}" >
                     <div class="clearfix"></div>
                 </div>
                 <div class="key">
                     <i class="fa fa-lock" aria-hidden="true"></i>
-                    <input type="password" value="Şifreniz" name="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Şifreniz';}" >
+                    <input type="password" value="Şifreniz" asp-for="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Şifreniz';}" >
                     <div class="clearfix"></div>
                 </div>
                 <input type="submit" value="Giriş">

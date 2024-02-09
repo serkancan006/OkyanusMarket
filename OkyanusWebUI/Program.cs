@@ -1,10 +1,15 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using OkyanusWebUI.Service;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<CustomHttpClient>();
 
 
 // Add services to the container.
@@ -29,6 +34,9 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+//Notfy Service
+builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -50,4 +58,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+//app.UseNotyf();
 app.Run();

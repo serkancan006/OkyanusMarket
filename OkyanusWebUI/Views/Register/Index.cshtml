@@ -1,4 +1,5 @@
-﻿
+﻿@model RegisterUserVM
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,24 +11,49 @@
             <h3>Kayıt Ol</h3>
             <form method="post">
                 <div class="key">
+                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                    <input type="text" value="Adınız" asp-for="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Adınız';}">
+                    <div class="clearfix"></div>
+                </div>
+                <div class="key">
+                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                    <input type="text" value="Soyadınız" asp-for="Surname" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Soyadınız';}">
+                    <div class="clearfix"></div>
+                </div>
+                <div class="key">
                     <i class="fa fa-user" aria-hidden="true"></i>
-                    <input type="text" value="Kullanıcı Adı" name="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Kullanıcı Adı';}" >
+                    <input type="text" value="Kullanıcı Adınız" asp-for="UserName" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Kullanıcı Adınız';}">
                     <div class="clearfix"></div>
                 </div>
                 <div class="key">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <input type="text" value="Mailiniz" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Mailiniz';}" >
+                    <input type="text" value="Mailiniz" asp-for="Mail" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Mailiniz';}">
+                    <div class="clearfix"></div>
+                </div>
+                <div class="key">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <input type="text" value="Telefonunuz" asp-for="PhoneNumber" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Telefonunuz';}">
                     <div class="clearfix"></div>
                 </div>
                 <div class="key">
                     <i class="fa fa-lock" aria-hidden="true"></i>
-                    <input type="password" value="Şifreniz" name="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Şifreniz';}" >
+                    <input type="password" value="Şifreniz" asp-for="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Şifreniz';}">
+                    @*<span class="show-hide" onclick="togglePasswordVisibility(this.previousElementSibling)">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </span>*@
                     <div class="clearfix"></div>
                 </div>
                 <div class="key">
                     <i class="fa fa-lock" aria-hidden="true"></i>
-                    <input type="password" value="Şifre Tekrar" name="Confirm Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Şifre Tekrar';}" >
+                    <input type="password" value="Şifre Tekrar" asp-for="ConfirmPassword" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Şifre Tekrar';}">
+                    @*<span class="show-hide" onclick="togglePasswordVisibility(this.previousElementSibling)">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </span>*@
+                    <span asp-validation-for="ConfirmPassword" id="confirmPasswordHelp" class="form-text text-danger"></span>
                     <div class="clearfix"></div>
+                </div>
+                <div class="text-danger" asp-validation-summary="ModelOnly">
+
                 </div>
                 <input type="submit" value="Kayıt Ol">
             </form>
@@ -36,4 +62,12 @@
     </div>
 </div>
 
-
+<script>
+    function togglePasswordVisibility(inputField) {
+        if (inputField.type === "password") {
+            inputField.type = "text";
+        } else {
+            inputField.type = "password";
+        }
+    }
+</script>

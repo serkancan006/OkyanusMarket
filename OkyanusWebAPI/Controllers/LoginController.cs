@@ -30,6 +30,11 @@ namespace OkyanusWebAPI.Controllers
 
                 if (user != null)
                 {
+                    // Kullanıcı e-posta adresini onaylamamışsa
+                    if (!user.EmailConfirmed)
+                    {
+                        return BadRequest(new { message = "Lütfen e-posta adresinizi onaylayınız.", status = false });
+                    }
                     var result = await _signInManager.PasswordSignInAsync(user, loginUserVM.Password, false, true);
                     if (result.Succeeded)
                     {
@@ -53,6 +58,7 @@ namespace OkyanusWebAPI.Controllers
                     else
                         return BadRequest(new { message = "Kullanıcı adı veya şifre hatalı.", status = false, error = result });
                 }
+                return BadRequest(new { message = "Bu kullanıcı bulunamadı", status = false });
             }
             return BadRequest(new { message = "Gönderilen veriler hatalı.", status = false });
         }
