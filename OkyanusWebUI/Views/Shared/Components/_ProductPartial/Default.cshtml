@@ -22,7 +22,7 @@
                         </a>
                         <div class="mid-1">
                             <div class="women">
-                                <h6>@item.ProductName</h6> <!-- Ürün ismi ve ağırlığı -->
+                                <h6>@(item.ProductName.Length > 20 ? item.ProductName.Substring(0, 20) : item.ProductName)</h6> <!-- Ürün ismi ve ağırlığı -->
                             </div>
                             <div class="mid-2">
                                 <p><label>&#8378;@item.Price</label><em class="item_price">&#8378;@item.DiscountedPrice</em></p> <!-- Normal ve indirimli fiyat -->
