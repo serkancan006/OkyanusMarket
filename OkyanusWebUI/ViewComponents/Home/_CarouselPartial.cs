@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Mvc;
+using OkyanusWebUI.Service;
 
 namespace OkyanusWebUI.ViewComponents.Home
 {
