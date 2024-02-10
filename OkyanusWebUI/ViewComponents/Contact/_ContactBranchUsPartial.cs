@@ -1,29 +1,30 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using OkyanusWebUI.Models.ProductVM;
+using OkyanusWebUI.Models.BranchUsVM;
+using OkyanusWebUI.Models.MyPhoneVM;
 using OkyanusWebUI.Service;
 
-namespace OkyanusWebUI.ViewComponents.Home
+namespace OkyanusWebUI.ViewComponents.Contact
 {
-    public class _ProductPartial : ViewComponent
+    public class _ContactBranchUsPartial : ViewComponent
     {
         private readonly CustomHttpClient _customHttpClient;
-        public _ProductPartial(CustomHttpClient customHttpClient)
+        public _ContactBranchUsPartial(CustomHttpClient customHttpClient)
         {
             _customHttpClient = customHttpClient;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "Product" });
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "BranchUs" });
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultProductVM>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultBranchUsVM>>(jsonData);
                 return View(values);
             }
             return View();
         }
+
     }
 }

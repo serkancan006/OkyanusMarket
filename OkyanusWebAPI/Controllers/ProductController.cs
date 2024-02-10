@@ -28,6 +28,15 @@ namespace OkyanusWebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("[action]")]
+        public IActionResult DiscountedProductList()
+        {
+            var values = _ProductService.TGetListAll();
+            values = values.Where(x => x.DiscountedPrice != null).ToList();
+            var result = _mapper.Map<List<ResultProductVM>>(values);
+            return Ok(result);
+        }
+
         [HttpPost]
         public IActionResult AddProduct(CreateProductVM ProductVM)
         {

@@ -35,7 +35,7 @@
 
         var goToCartIcon = function ($addTocartBtn) {
             var $cartIcon = $(".my-cart-icon");
-            var $image = $('<img width="30px" height="30px" src="' + $addTocartBtn.data("image") + '"/>').css({ "position": "fixed", "z-index": "999" });
+            var $image = $('<img width="30px" height="30px" src="' + $addTocartBtn.data("/web/images") + '"/>').css({ "position": "fixed", "z-index": "999" });
             $addTocartBtn.prepend($image);
             var position = $cartIcon.position();
             $image.animate({

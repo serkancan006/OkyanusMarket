@@ -4,7 +4,9 @@ using OkyanusWebAPI.Models.AboutVM;
 using OkyanusWebAPI.Models.BasketVM;
 using OkyanusWebAPI.Models.BranchUsVM;
 using OkyanusWebAPI.Models.CategoryVM;
+using OkyanusWebAPI.Models.ContactMessageVM;
 using OkyanusWebAPI.Models.ContactVM;
+using OkyanusWebAPI.Models.MyPhoneVM;
 using OkyanusWebAPI.Models.OrderDetailVM;
 using OkyanusWebAPI.Models.OrderVM;
 using OkyanusWebAPI.Models.ProductVM;
@@ -56,7 +58,15 @@ namespace OkyanusWebAPI.Mapping
             CreateMap<ResultSocialMediaVM, SocialMedia>().ReverseMap();
             CreateMap<UpdateSocialMediaVM, SocialMedia>().ReverseMap();
             CreateMap<CreateSocialMediaVM, SocialMedia>().ReverseMap();
-            
+
+            CreateMap<ResultMyPhoneVM, MyPhone>().ReverseMap();
+            CreateMap<UpdateMyPhoneVM, MyPhone>().ReverseMap();
+            CreateMap<CreateMyPhoneVM, MyPhone>().ReverseMap();
+
+            CreateMap<ResultContactMessageVM, ContactMessage>().ReverseMap();
+            CreateMap<UpdateContactMessageVM, ContactMessage>().ReverseMap();
+            CreateMap<CreateContactMessageVM, ContactMessage>().ReverseMap();
+
         }
     }
 }

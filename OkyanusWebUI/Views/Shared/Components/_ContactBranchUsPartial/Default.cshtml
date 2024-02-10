@@ -1,0 +1,12 @@
+﻿@model List<ResultBranchUsVM>
+<div>
+    <div class="map-grid">
+        <h5>Şubelerimiz</h5>
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li><i class="fa fa-arrow-right" aria-hidden="true"></i>@item.BranchAdres</li>
+            }
+        </ul>
+    </div>
+</div>

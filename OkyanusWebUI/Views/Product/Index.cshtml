@@ -8,137 +8,91 @@
 @await Component.InvokeAsync("_SliderPartial")
 
 
-
-<!--content-->
-<div class="kic-top ">
-    <div class="container ">
-        <div class="kic ">
-            <h3>Popular Categories</h3>
-
-        </div>
-        <div class="col-md-4 kic-top1">
-            <a href="single.html">
-                <img src="~/web/images/ki.jpg" class="img-responsive" alt="">
-            </a>
-            <h6>Dal</h6>
-            <p>Nam libero tempore</p>
-        </div>
-        <div class="col-md-4 kic-top1">
-            <a href="single.html">
-                <img src="~/web/images/ki1.jpg" class="img-responsive" alt="">
-            </a>
-            <h6>Snacks</h6>
-            <p>Nam libero tempore</p>
-        </div>
-        <div class="col-md-4 kic-top1">
-            <a href="single.html">
-                <img src="~/web/images/ki2.jpg" class="img-responsive" alt="">
-            </a>
-            <h6>Spice</h6>
-            <p>Nam libero tempore</p>
-        </div>
-    </div>
-</div>
-
 <!--content-->
 <div class="product container">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="category-sidebar col-md-3">
-            <h3>Kategoriler</h3>
-            <div class="search-container">
-                <input type="text" placeholder="Ürün Ara" class="form-control">
-                <a href="#">
-                    <i class="fa fa-search"></i>
-                </a>
-            </div>
-            <ul class="categories-list">
-                <li><a href="#">Category 1</a></li>
-                <li><a href="#">Category 2</a></li>
-                <li><a href="#">Category 3</a></li>
-                <!-- Add more categories as needed -->
-            </ul>
-            <div class="checkbox-container">
-                <input type="checkbox" id="checkbox1" />
-                <label for="checkbox1">Checkbox 1</label>
-                <br />
-                <input type="checkbox" id="checkbox2" />
-                <label for="checkbox2">Checkbox 2</label>
-                <!-- Add more checkboxes as needed -->
-            </div>
-        </div>
-
-
 
         <!-- Product -->
-        <div class="col-md-9">
-            <div class="spec ">
-                <h3>Ürünler</h3>
-                <div class="ser-t">
-                    <b></b>
-                    <span><i></i></span>
-                    <b class="line"></b>
-                </div>
+        <div class="spec ">
+            <h3>Ürünler</h3>
+            <div class="ser-t">
+                <b></b>
+                <span><i></i></span>
+                <b class="line"></b>
             </div>
-            <div class=" con-w3l agileinf">
-                <div class="col-md-4 pro-1">
-                    <div class="col-m">
-                        <a href="#" data-toggle="modal" data-target="#myModal1" class="offer-img">
-                            <img src="~/web/images/of24.png" class="img-responsive" alt="">
-                        </a>
-                        <div class="mid-1">
-                            <div class="women">
-                                <h6><a href="single.html">Wheat</a>(500 g)</h6>
-                            </div>
-                            <div class="mid-2">
-                                <p><label>$7.00</label><em class="item_price">$6.00</em></p>
 
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="add">
-                                <button class="btn btn-danger my-cart-btn my-cart-b" data-id="24" data-name="Wheat" data-summary="summary 24" data-price="6.00" data-quantity="1" data-image="images/of24.png">Add to Cart</button>
-                            </div>
-                        </div>
-                    </div>
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-3">
+                    @await Component.InvokeAsync("_ProductSidebarPartial")
                 </div>
 
 
-
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content modal-info">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body modal-spa">
-                <div class="col-md-5 span-2">
-                    <div class="item">
-                        <img src="~/web/images/of24.png" class="img-responsive" alt="">
-                    </div>
-                </div>
-                <div class="col-md-7 span-1 ">
-                    <h3>Wheat(500 g)</h3>
-                    <p class="in-para"> There are many variations of passages of Lorem Ipsum.</p>
-                    <div class="price_single">
-                        <span class="reducedfrom "><del>$2.00</del>$1.50</span>
-
+                <div class="col-md-9">
+                    <div class=" con-w3l agileinf">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-md-3 pro-1">
+                                <div class="col-m">
+                                    <a href="" data-toggle="modal" data-target="#myModal_@item.ID" class="offer-img">
+                                        <img src="@item.ImageUrl" class="img-responsive" alt="">
+                                    </a>
+                                    <div class="mid-1">
+                                        <div class="women">
+                                            <h6>@(item.ProductName.Length > 20 ? item.ProductName.Substring(0, 13) : item.ProductName)</h6>
+                                        </div>
+                                        <div class="mid-2">
+                                            <p><label>&#8378;@item.Price</label><em class="item_price">&#8378;@item?.DiscountedPrice</em></p>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="add add-2">
+                                            <button class="btn btn-danger my-cart-btn my-cart-b" data-id="@item?.ID" data-name="@item?.ProductName" data-summary="summary 1" data-price="@item?.DiscountedPrice" data-quantity="1" data-image="images/of16.png">Sepete Ekle</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                         <div class="clearfix"></div>
                     </div>
-                    <h4 class="quick">Quick Overview:</h4>
-                    <p class="quick_desc"> Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; es</p>
-                    <div class="add-to">
-                        <button class="btn btn-danger my-cart-btn my-cart-btn1 " data-id="24" data-name="Wheat" data-summary="summary 24" data-price="1.50" data-quantity="1" data-image="images/of24.png">Add to Cart</button>
-                    </div>
                 </div>
-                <div class="clearfix"> </div>
+
             </div>
         </div>
-    </div>
+</div>
+
+<div>
+    <!-- product -->
+    @foreach (var item in Model)
+    {
+        <div class="modal fade" id="myModal_@item.ID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_@item.ID">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content modal-info">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body modal-spa">
+                        <div class="col-md-5 span-2">
+                            <div class="item">
+                                <img src="@item.ImageUrl" class="img-responsive" alt=""> <!-- Görsel yolunu güncelleyin -->
+                            </div>
+                        </div>
+                        <div class="col-md-7 span-1 ">
+                            <h3>@item.ProductName</h3> <!-- Ürün ismi ve ağırlığı -->
+                            <p class="in-para">@item.Description</p> <!-- Ürün açıklaması -->
+                            <div class="price_single">
+                                <span class="reducedfrom"><del>&#8378;@item.Price</del> &#8378;@item.DiscountedPrice</span> <!-- Normal ve indirimli fiyat -->
+                                <div class="clearfix"></div>
+                            </div>
+                            <h4 class="quick">Quick Overview:</h4>
+                            <p class="quick_desc">@item.Title</p> <!-- Hızlı genel bakış -->
+                            <div class="add-to">
+                                <button class="btn btn-danger my-cart-btn my-cart-btn1" data-id="@item.ID" data-name="@item.ProductName" data-summary="summary 1" data-price="@item.DiscountedPrice" data-quantity="1" data-image="@item.ImageUrl">Sepete Ekle</button> <!-- Ürün ID'si, ismi ve indirimli fiyatı -->
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
 

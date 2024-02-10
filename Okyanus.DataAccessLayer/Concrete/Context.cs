@@ -25,6 +25,8 @@ namespace Okyanus.DataAccessLayer.Concrete
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
         public DbSet<Basket> Baskets { get; set; }
+        public DbSet<MyPhone> MyPhones { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
 
 
 

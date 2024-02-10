@@ -1,45 +1,26 @@
 ﻿/* Sidebar */
 .category-sidebar {
-background-color: #f8f9fa;
-padding: 15px;
-border-radius: 5px;
+margin-top:20px;
+margin-bottom:30px;
 }
 
 .category-sidebar h3 {
 color: #6c757d;
-margin-top: 5px;
 }
 
 .search-container {
-margin-top: 15px;
 display: flex;
-justify-content: space-between;
 }
 
 .search-container input {
-width: 100%;
-padding: 8px;
-box-sizing: border-box;
 border: 1px solid dodgerblue;
 border-radius: 5px;
 border-right: none;
 }
 
-.search-container button {
-width: 20%;
-padding: 8px;
-box-sizing: border-box;
-border: none;
-border-radius: 5px;
-background-color: #6c757d;
-color: white;
-cursor: pointer;
-}
-
 .search-container a {
 width: 15%;
 padding: 8px;
-box-sizing: border-box;
 border: none;
 border-radius: 5px;
 background-color: dodgerblue;
@@ -48,21 +29,17 @@ cursor: pointer;
 }
 
 .search-container a:hover {
-color: white;
 background-color: orange;
 }
 
 
 /* Categories List */
 .categories-list {
-padding: 0;
 list-style: none;
 margin-top: 15px;
+text-align: left;
 }
 
-.categories-list li {
-margin-bottom: 5px;
-}
 
 .categories-list a {
 text-decoration: none;
@@ -81,11 +58,13 @@ color: white;
 
 /* Checkboxes */
 .checkbox-container {
-margin-top: 15px;
+margin-top: 10px;
+text-align: left;
+margin-left: 5px;
 }
 
 .checkbox-container input {
-margin-right: 5px;
+margin-bottom: 8px;
 }
 
 .checkbox-container label {

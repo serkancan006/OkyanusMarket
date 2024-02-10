@@ -48,9 +48,16 @@ namespace Okyanus.BusinessLayer.Container
             services.AddScoped<ISocialMediaDal, EfSocialMediaDal>();
             services.AddScoped<ISocialMediaService, SocialMediaManager>();
 
+            services.AddScoped<IMyPhoneDal, EfMyPhoneDal>();
+            services.AddScoped<IMyPhoneService, MyPhoneManager>();
+
+            services.AddScoped<IContactMessageDal, EfContactMessageDal>();
+            services.AddScoped<IContactMessageService, ContactMessageManager>();
 
 
 
+
+            //External Service
             services.AddScoped<IMailService, MailManager>();
             services.AddScoped<ICreateTokenService, CreateTokenManager>();
 

@@ -1,0 +1,12 @@
+﻿@model List<ResultMyPhoneVM>
+<div>
+    <div class="map-grid">
+        <h5>Telefonlarımız</h5>
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>@item.PhoneName : @item.PhoneNumber</li>
+            }
+        </ul>
+    </div>
+</div>

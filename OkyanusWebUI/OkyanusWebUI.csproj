@@ -17,8 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewComponents\Contact\" />
-    <Folder Include="ViewComponents\Product\" />
+    <Folder Include="wwwroot\web\pdf\" />
   </ItemGroup>
 
 </Project>
