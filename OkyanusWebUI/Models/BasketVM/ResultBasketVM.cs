@@ -6,8 +6,10 @@
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
 
-        public string AboutDesc { get; set; }
-        public string Misyon { get; set; }
-        public string Vizyon { get; set; }
+        public double Price { get; set; }
+        public double Count { get; set; }
+        public double TotalPrice { get; set; }
+        public int ProductID { get; set; }
+        //public Product Product { get; set; }
     }
 }

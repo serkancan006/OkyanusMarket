@@ -11,53 +11,90 @@
 <!--content-->
 <div class="product container">
 
-        <!-- Product -->
-        <div class="spec ">
-            <h3>Ürünler</h3>
-            <div class="ser-t">
-                <b></b>
-                <span><i></i></span>
-                <b class="line"></b>
+    <!-- Product -->
+    <div class="spec ">
+        <h3>Ürünler</h3>
+        <div class="ser-t">
+            <b></b>
+            <span><i></i></span>
+            <b class="line"></b>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                @await Component.InvokeAsync("_ProductSidebarPartial")
             </div>
 
-            <div class="row">
-                <!-- Sidebar -->
-                <div class="col-md-3">
-                    @await Component.InvokeAsync("_ProductSidebarPartial")
-                </div>
 
-
-                <div class="col-md-9">
-                    <div class=" con-w3l agileinf">
-                        @foreach (var item in Model)
-                        {
-                            <div class="col-md-3 pro-1">
-                                <div class="col-m">
-                                    <a href="" data-toggle="modal" data-target="#myModal_@item.ID" class="offer-img">
-                                        <img src="@item.ImageUrl" class="img-responsive" alt="">
-                                    </a>
-                                    <div class="mid-1">
-                                        <div class="women">
-                                            <h6>@(item.ProductName.Length > 20 ? item.ProductName.Substring(0, 13) : item.ProductName)</h6>
-                                        </div>
-                                        <div class="mid-2">
-                                            <p><label>&#8378;@item.Price</label><em class="item_price">&#8378;@item?.DiscountedPrice</em></p>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                        <div class="add add-2">
-                                            <button class="btn btn-danger my-cart-btn my-cart-b" data-id="@item?.ID" data-name="@item?.ProductName" data-summary="summary 1" data-price="@item?.DiscountedPrice" data-quantity="1" data-image="images/of16.png">Sepete Ekle</button>
-                                        </div>
+            <div class="col-md-9">
+                <div class=" con-w3l agileinf">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-3 pro-1">
+                            <div class="col-m">
+                                <a href="" data-toggle="modal" data-target="#myModal_@item.ID" class="offer-img">
+                                    <img src="@item.ImageUrl" class="img-responsive" alt="">
+                                </a>
+                                <div class="mid-1">
+                                    <div class="women">
+                                        <h6>@(item.ProductName.Length > 20 ? item.ProductName.Substring(0, 13) : item.ProductName)</h6>
+                                    </div>
+                                    <div class="mid-2">
+                                        <p><label>&#8378;@item.Price</label><em class="item_price">&#8378;@item?.DiscountedPrice</em></p>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="add add-2">
+                                        <button class="btn btn-danger my-cart-btn my-cart-b" data-id="@item?.ID" data-name="@item?.ProductName" data-summary="summary 1" data-price="@item?.DiscountedPrice" data-quantity="1" data-image="images/of16.png">Sepete Ekle</button>
                                     </div>
                                 </div>
                             </div>
-                        }
-                        <div class="clearfix"></div>
-                    </div>
+                        </div>
+                    }
+                    <div class="clearfix"></div>
                 </div>
-
             </div>
+
         </div>
+    </div>
 </div>
+
+<!-- pagination -->
+<nav class="text-center">
+    <ul class="pagination pagination-lg">
+        <li><a href="?PageNumber=1" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+        @for (int i = 1; i < 6; i++)
+        {
+            int page = 0;
+            if (ViewBag.PageNumber - 4 < 0)
+            {
+                page = i;
+            }
+            else if (ViewBag.PageNumber + 5 > ViewBag.TotalPages && ViewBag.TotalPages - 5 > 0)
+            {
+                page = ViewBag.TotalPages - 5 + i;
+            }
+            else
+            {
+                page = ViewBag.PageNumber - 3 + i;
+            }
+
+            string pageStr = page.ToString();
+
+            if (page == ViewBag.PageNumber)
+            {
+                <li class="active"><a href="?PageNumber=@pageStr">@pageStr</a></li>
+            }
+            else
+            {
+                <li><a href="?PageNumber=@pageStr">@pageStr</a></li>
+            }
+        }
+        <li><a href="?PageNumber=@ViewBag.TotalPages" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+    </ul>
+</nav>
+
+
 
 <div>
     <!-- product -->

@@ -1,0 +1,56 @@
+﻿@model List<ResultBasketVM>
+<div class="modal fade" id="my-basket-modal" tabindex="-1" role="dialog" aria-labelledby="myBasketModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-shopping-cart"></span> Sepetim</h4>
+            </div>
+            <div class="modal-body">
+                @if (Model != null)
+                {
+                    <table class="table table-hover table-responsive" id="my-cart-table">
+                        <thead>
+                            <tr>
+                                <th>Resim</th>
+                                <th>Ürün Adı</th>
+                                <th>Fiyat</th>
+                                <th>Miktar</th>
+                                <th>Toplam</th>
+                                <th>Ürünü Kaldır</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <!-- Her ürün için bir satır oluştur -->
+                                <tr data-id="1" data-price="19.99">
+                                    <td class="text-center" style="width: 50px;"><img width="50px" height="50px" src="~/web/images/of18.png" /></td>
+                                    <td>Ürün Adı</td>
+                                    <td>$19.99</td>
+                                    <td><input type="number" min="1" style="width: 70px;" class="my-product-quantity" value="1" /></td>
+                                    <td class="my-product-total">$19.99</td>
+                                    <td class="text-center" style="width: 30px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger my-product-remove">X</a></td>
+                                </tr>
+                                <!-- Başka ürünler için aynı yapıyı tekrarla -->
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button"> × </button>
+                        Sepetinizde Ürün bulunmamaktadır.
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+                <!-- Sepet içeriğinin altında belki de ödeme işlemi için bir düğme olabilir -->
+                <button type="button" class="btn btn-success" style="background-color: #029241;">Ödeme Yap</button>
+            </div>
+        </div>
+    </div>
+</div>

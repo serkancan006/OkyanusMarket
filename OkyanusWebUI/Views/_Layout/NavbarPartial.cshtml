@@ -37,9 +37,12 @@
                     </ul>
                 </div>
             </nav>
-            <div class="cart">
-                <span class="fa fa-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge"></span></span>
+            <div class="cart" data-toggle="modal" data-target="#my-basket-modal">
+                <span class="fa fa-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge">0</span></span>
             </div>
+          
+            @await Component.InvokeAsync("_BasketModalPartial")
+
             <div class="clearfix"></div>
         </div>
 

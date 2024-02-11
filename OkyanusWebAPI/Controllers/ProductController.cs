@@ -26,11 +26,11 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet]
         public IActionResult ProductList([FromQuery] FilteredParamaters filteredParamaters)
         {
-            var values = _ProductService.TInclude(x => x.Categories);
+            var values = _ProductService.TInclude(x => x.Categories).ToList();
 
             if (!string.IsNullOrEmpty(filteredParamaters.searchName))
             {
-                values = values.Where(x => x.ProductName.Contains(filteredParamaters.searchName));
+                values = values.Where(x => x.ProductName.Contains(filteredParamaters.searchName)).ToList();
             }
 
             //if (!string.IsNullOrEmpty(categoryName))
@@ -40,13 +40,13 @@ namespace OkyanusWebAPI.Controllers
             if (filteredParamaters.categoryNames != null && filteredParamaters.categoryNames.Any() && filteredParamaters.categoryNames.Count > 0)
             {
                
-                values = values.Where(p => p.Categories != null && p.Categories.Any(x => filteredParamaters.categoryNames.Any(y => y == x.CategoryName)));
+                values = values.Where(p => p.Categories != null && p.Categories.Any(x => filteredParamaters.categoryNames.Any(y => y == x.CategoryName))).ToList();
             }
 
             var totalCount = values.Count();
             var totalPages = (int)Math.Ceiling((double)totalCount / filteredParamaters.pageSize);
 
-            values = values.Skip((filteredParamaters.pageNumber - 1) * filteredParamaters.pageSize).Take(filteredParamaters.pageSize);
+            values = values.Skip((filteredParamaters.pageNumber - 1) * filteredParamaters.pageSize).Take(filteredParamaters.pageSize).ToList();
 
             var product = _mapper.Map<List<ResultProductVM>>(values).ToList();
             return Ok(new { TotalCount = totalCount, TotalPages = totalPages, Product = product });
