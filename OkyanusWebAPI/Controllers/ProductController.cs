@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Okyanus.BusinessLayer.Abstract;
+using Okyanus.DataAccessLayer.Concrete;
 using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models.ProductVM;
 
@@ -21,12 +23,30 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProductList()
+        public IActionResult ProductList(string? searchName, string? categoryName, int pageNumber = 1, int pageSize = 20)
         {
-            var values = _ProductService.TGetListAll();
-            var result = _mapper.Map<List<ResultProductVM>>(values);
-            return Ok(result);
+            var values = _ProductService.TInclude(x => x.Categories).ToList();
+
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                values = values.Where(x => x.ProductName.Contains(searchName)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(categoryName))
+            {
+                values = values.Where(p => p.Categories != null && p.Categories.Any(x => x.CategoryName == categoryName)).ToList();
+            }
+
+            var totalCount = values.Count();
+            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+            values = values.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+            var product = _mapper.Map<List<ResultProductVM>>(values);
+            return Ok(new { TotalCount = totalCount, TotalPages = totalPages, Product = product });
         }
+
+
 
         [HttpGet("[action]")]
         public IActionResult DiscountedProductList()
