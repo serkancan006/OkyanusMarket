@@ -11,10 +11,12 @@ namespace OkyanusWebUI.Controllers
     {
         private readonly CustomHttpClient _customHttpClient;
         private readonly INotyfService _notyfService;
-        public LoginController(CustomHttpClient customHttpClient, INotyfService notyfService)
+        private readonly TokenService _tokenService;
+        public LoginController(CustomHttpClient customHttpClient, INotyfService notyfService, TokenService tokenService)
         {
             _customHttpClient = customHttpClient;
             _notyfService = notyfService;
+            _tokenService = tokenService;
         }
 
         [HttpGet]
@@ -38,8 +40,7 @@ namespace OkyanusWebUI.Controllers
                 var responseObject = JsonConvert.DeserializeObject<JObject>(responseContent);
                 var token = responseObject?["value"]?["token"]?.ToString();
                 var expires = responseObject?["value"]?["expires"]?.ToString();
-                var existingToken = HttpContext.Request.Cookies["Token"];
-                var existingExpires = HttpContext.Request.Cookies["TokenExpires"];
+                _tokenService.SetToken(token, expires);
                 _notyfService.Success("Kullanıcı Girişi Başarılı");
                 return RedirectToAction("Index", "Home");
             }

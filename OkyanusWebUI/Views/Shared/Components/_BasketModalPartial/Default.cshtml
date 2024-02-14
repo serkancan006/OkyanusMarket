@@ -1,4 +1,5 @@
-﻿@model List<ResultBasketVM>
+﻿@model List<OkyanusWebUI.Service.CartItem>
+
 <div class="modal fade" id="my-basket-modal" tabindex="-1" role="dialog" aria-labelledby="myBasketModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -7,7 +8,7 @@
                 <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-shopping-cart"></span> Sepetim</h4>
             </div>
             <div class="modal-body">
-                @if (Model != null)
+                @if (Model != null )
                 {
                     <table class="table table-hover table-responsive" id="my-cart-table">
                         <thead>
@@ -15,28 +16,30 @@
                                 <th>Resim</th>
                                 <th>Ürün Adı</th>
                                 <th>Fiyat</th>
+                                <th>Fiyat</th>
                                 <th>Miktar</th>
                                 <th>Toplam</th>
                                 <th>Ürünü Kaldır</th>
                             </tr>
                         </thead>
                         <tbody>
-
                             @foreach (var item in Model)
                             {
                                 <!-- Her ürün için bir satır oluştur -->
                                 <tr data-id="1" data-price="19.99">
-                                    <td class="text-center" style="width: 50px;"><img width="50px" height="50px" src="~/web/images/of18.png" /></td>
-                                    <td>Ürün Adı</td>
-                                    <td>$19.99</td>
-                                    <td><input type="number" min="1" style="width: 70px;" class="my-product-quantity" value="1" /></td>
-                                    <td class="my-product-total">$19.99</td>
+                                    <td class="text-center" style="width: 50px;"><img width="50px" height="50px" src="@item.ImageUrl" /></td>
+                                    <td>@item.Name</td>
+                                    <td>₺@item.Price</td>
+                                    <td><input type="number" min="1" style="width: 70px;" class="my-product-quantity" value="@item.Quantity" /></td>
+                                    <td class="my-product-total">₺@item.TotalPrice</td>
                                     <td class="text-center" style="width: 30px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger my-product-remove">X</a></td>
                                 </tr>
                                 <!-- Başka ürünler için aynı yapıyı tekrarla -->
                             }
                         </tbody>
                     </table>
+                    <p>Total Price: @ViewBag.TotalPrice</p>
+                    <p>Total Items: @ViewBag.TotalItems</p>
                 }
                 else
                 {
@@ -54,3 +57,4 @@
         </div>
     </div>
 </div>
+

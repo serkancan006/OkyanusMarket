@@ -8,6 +8,6 @@
         public double? DiscountedPrice { get; set; }
         public string ImageUrl { get; set; }
         public string Description { get; set; }
-        public bool ProductType { get; set; }  // 0 => adet -- 1 => kg
+        public Birim ProductType { get; set; }  
     }
 }

@@ -9,13 +9,13 @@ namespace OkyanusWebUI.Service
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly TokenService _tokenService;
 
-        public CustomHttpClient(HttpClient httpClient, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public CustomHttpClient(HttpClient httpClient, IConfiguration configuration, TokenService tokenService)
         {
             _httpClient = httpClient;
             _configuration = configuration;
-            _httpContextAccessor = httpContextAccessor;
+            _tokenService = tokenService;
         }
 
         private string Url(RequestParameters requestParameters)
@@ -35,7 +35,7 @@ namespace OkyanusWebUI.Service
                 url = $"{Url(requestParameters)}{(id != null ? $"/{id}" : "")}{(requestParameters.QueryString != null ? $"?{requestParameters.QueryString}" : "")}";
             }
 
-            var token = _httpContextAccessor.HttpContext?.Request.Cookies["Token"];
+            var token = _tokenService.GetToken();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var responseMessage = await _httpClient.GetAsync(url);
             return responseMessage;
@@ -57,7 +57,7 @@ namespace OkyanusWebUI.Service
 
             var jsonData = JsonConvert.SerializeObject(content);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var token = _httpContextAccessor.HttpContext?.Request.Cookies["Token"];
+            var token = _tokenService.GetToken();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var responseMessage = await _httpClient.PostAsync(url, stringContent);
             return responseMessage;
@@ -92,7 +92,7 @@ namespace OkyanusWebUI.Service
 
                 multipartContent.Add(fileContent);
 
-                var token = _httpContextAccessor.HttpContext?.Request.Cookies["Token"];
+                var token = _tokenService.GetToken();
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var responseMessage = await _httpClient.PostAsync(url, multipartContent);
@@ -159,7 +159,7 @@ namespace OkyanusWebUI.Service
                 }
 
                 // Kimlik doğrulama ve istek gönderme
-                var token = _httpContextAccessor.HttpContext?.Request.Cookies["Token"];
+                var token = _tokenService.GetToken();
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var responseMessage = await _httpClient.PostAsync(url, formData);
@@ -218,7 +218,7 @@ namespace OkyanusWebUI.Service
                 }
 
                 // Kimlik doğrulama ve istek gönderme
-                var token = _httpContextAccessor.HttpContext?.Request.Cookies["Token"];
+                var token = _tokenService.GetToken();
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var responseMessage = await _httpClient.PutAsync(url, formData);
@@ -232,7 +232,7 @@ namespace OkyanusWebUI.Service
 
             var jsonData = JsonConvert.SerializeObject(content);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var token = _httpContextAccessor.HttpContext?.Request.Cookies["Token"];
+            var token = _tokenService.GetToken();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var responseMessage = await _httpClient.PutAsync(url, stringContent);
             return responseMessage;
@@ -241,7 +241,7 @@ namespace OkyanusWebUI.Service
         public async Task<HttpResponseMessage> Delete(RequestParameters requestParameters, int id)
         {
             var url = requestParameters.FullEndPoint ?? $"{Url(requestParameters)}/{id}";
-            var token = _httpContextAccessor.HttpContext?.Request.Cookies["Token"];
+            var token = _tokenService.GetToken();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var responseMessage = await _httpClient.DeleteAsync(url);
             return responseMessage;

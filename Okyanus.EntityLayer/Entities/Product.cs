@@ -15,9 +15,15 @@ namespace Okyanus.EntityLayer.Entities
         public double? DiscountedPrice { get; set; }
         public string ImageUrl { get; set; }
         public string Description { get; set; }
-        public bool ProductType { get; set; }  // 0 => adet -- 1 => kg
+        public Birim ProductType { get; set; }  // 0 => kg -- 1 => Adet
         public List<Category> Categories { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
         public List<Basket> Baskets { get; set; }
+    }
+
+    public enum Birim
+    {
+        Kg,
+        Adet
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace OkyanusWebUI.Models.ProductVM
+﻿using OkyanusWebUI.Service;
+
+namespace OkyanusWebUI.Models.ProductVM
 {
     public class ResultProductVM
     {
@@ -12,6 +14,7 @@
         public double? DiscountedPrice { get; set; }
         public string ImageUrl { get; set; }
         public string Description { get; set; }
-        public bool ProductType { get; set; }  // 0 => adet -- 1 => kg
+        public Birim ProductType { get; set; }  
+
     }
 }

@@ -9,7 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession(options =>
+{
+    //options.IdleTimeout = TimeSpan.FromSeconds(10);
+    //options.Cookie.Name = ".UserCookie";
+    //options.Cookie.HttpOnly = true;
+    //options.Cookie.IsEssential = true;
+});
+builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<CustomHttpClient>();
+builder.Services.AddScoped<BasketService>();
+
 
 
 // Add services to the container.
@@ -25,8 +35,8 @@ builder.Services.AddAuthentication(options =>
     opt.RequireHttpsMetadata = true; //https olmak zorunludur.
     opt.TokenValidationParameters = new TokenValidationParameters()
     {
-        ValidIssuer = configuration["JwtTokenOptions:ValidIssuer"],  
-        ValidAudience = configuration["JwtTokenOptions:ValidAudience"],  
+        ValidIssuer = configuration["JwtTokenOptions:ValidIssuer"],
+        ValidAudience = configuration["JwtTokenOptions:ValidAudience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtTokenOptions:IssuerSigningKey"])),
         ValidateIssuerSigningKey = true,
         ValidateLifetime = true,  //geçerlilik süresini dogrulamasý için false olursa süre dogrulama yapmaz.
@@ -36,6 +46,7 @@ builder.Services.AddAuthentication(options =>
 
 //Notfy Service
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
+
 
 var app = builder.Build();
 
@@ -47,12 +58,27 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
+//Middleware
+app.Use(async (context, next) =>
+{
+    var tokenService = context.RequestServices.GetRequiredService<TokenService>();
+    var jwt = tokenService.GetToken();
+
+    if (jwt != null)
+        context.Request.Headers.Append("Authorization", "Bearer " + jwt);
+
+    await next();
+});
+
 
 app.MapControllerRoute(
     name: "default",
