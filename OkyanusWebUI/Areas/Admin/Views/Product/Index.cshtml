@@ -1,0 +1,120 @@
+﻿@model List<ResultProductVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Ürünler Sayfası</h1>
+<p class="mb-4">
+    Ürünler ile ilgili işlemlerinizi ürünler tablosundan yönetebilirsiniz
+</p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+
+
+        <div class="input-group input-group-sm w-25">
+            <form class="input-group input-group-sm" asp-controller="Product" asp-action="Index" asp-area="Admin" method="get">
+                <input type="hidden" name="PageNumber" value="@ViewBag.PageNumber" />
+                <input type="hidden" name="PageSize" value="@ViewBag.PageSize" />
+                <input type="text" name="SearchName" class="form-control" placeholder="Arama yap..." value="@ViewBag.SearchName">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="fa fa-search"></i> <!-- Arama ikonu, Font Awesome kullanılarak sağlanmıştır -->
+                    </button>
+                </div>
+            </form>
+        </div>
+
+            <div class="dropdown">
+                <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @ViewBag.PageSize
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 5,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">5</a>
+                    <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 10,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">10</a>
+                    <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 25,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">25</a>
+                    <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 50,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">50</a>
+                </div>
+            </div>
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Resmi</th>
+                        <th>Adı</th>
+                        <th>Fiyatı</th>
+                        <th>İndirimli Fiyat</th>
+                        <th>Tipi</th>
+                        <th>Sil</th>
+                        <th>Güncelle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>@count</td>
+                            <td><img src="@item.ImageUrl" width="50" height="50" /></td>
+                            <td>@item.ProductName</td>
+                            <td>@item.Price</td>
+                            <td>@item.DiscountedPrice</td>
+                            <td>@item.ProductType</td>
+                            <td><a href="#" class="btn btn-danger">Sil</a></td>
+                            <td><a href="#" class="btn btn-warning">Güncelle</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-2 row">
+            <a href="#" class="btn btn-primary">Yeni Ürün Ekle</a>
+            <!-- pagination -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination pagination-sm mt-2">
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 5,  PageNumber = 1, SearchName= ViewBag.SearchName })">«</a></li>
+                    @for (int i = 1; i < 6; i++)
+                    {
+                        int page = 0;
+                        if (ViewBag.PageNumber - 4 < 0)
+                        {
+                            page = i;
+                        }
+                        else if (ViewBag.PageNumber + 5 > ViewBag.TotalPages && ViewBag.TotalPages - 5 > 0)
+                        {
+                            page = ViewBag.TotalPages - 5 + i;
+                        }
+                        else
+                        {
+                            page = ViewBag.PageNumber - 3 + i;
+                        }
+
+                        string pageStr = page.ToString();
+
+                        if (page == ViewBag.PageNumber)
+                        {
+                            <li class="page-item active"><a class="page-link" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = ViewBag.PageSize,  PageNumber = pageStr, SearchName= ViewBag.SearchName })">@pageStr</a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = ViewBag.PageSize,  PageNumber = pageStr, SearchName= ViewBag.SearchName })">@pageStr</a></li>
+                        }
+                    }
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 5,  PageNumber = ViewBag.TotalPages, SearchName= ViewBag.SearchName })">»</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
+

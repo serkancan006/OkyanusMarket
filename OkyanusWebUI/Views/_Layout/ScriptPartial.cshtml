@@ -24,6 +24,7 @@
         $().UItoTop({ easingType: 'easeOutQuart' });
     });
 </script>
+
 <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 <!-- //smooth scrolling -->
 <!-- for bootstrap working -->
@@ -32,7 +33,7 @@
 <script type='text/javascript' src="~/web/js/jquery.mycart.js"></script>
 <script type="text/javascript">
     $(function () {
-
+        // Tıklanan ürünü sepet simgesine animasyonlu olarak ekleme işlevi
         var goToCartIcon = function ($addTocartBtn) {
             var $cartIcon = $(".my-cart-icon");
             var $image = $('<img width="30px" height="30px" src="' + $addTocartBtn.data("/web/images") + '"/>').css({ "position": "fixed", "z-index": "999" });
@@ -46,19 +47,25 @@
             });
         }
 
+        // Alışveriş sepeti özelliğini etkinleştirmek için myCart eklentisini başlatma
         $('.my-cart-btn').myCart({
-            classCartIcon: 'my-cart-icon',
-            classCartBadge: 'my-cart-badge',
-            affixCartIcon: true,
+            classCartIcon: 'my-cart-icon', // Sepet simgesinin sınıf adı
+            classCartBadge: 'my-cart-badge', // Sepet miktarı bildirim alanının sınıf adı
+            affixCartIcon: true, // Sepet simgesini ekranın üstünde sabitleme
             checkoutCart: function (products) {
+                // Ödeme işlemi gerçekleştiğinde sepeti kontrol etme işlevi
+                // Her ürün için konsola ürün bilgilerini yazdırma
                 $.each(products, function () {
                     console.log(this);
                 });
             },
             clickOnAddToCart: function ($addTocart) {
+                // Sepete ürün eklenirken tıklama işlevi
+                // Ürün ekleme animasyonu için goToCartIcon işlevini çağırma
                 goToCartIcon($addTocart);
             },
             getDiscountPrice: function (products) {
+                // İndirim fiyatını hesaplama işlevi
                 var total = 0;
                 $.each(products, function () {
                     total += this.quantity * this.price;

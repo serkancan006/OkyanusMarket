@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+@await Html.PartialAsync("./_AdminLayout/HeadPartial.cshtml")
+<body id="page-top">
+    <div id="wrapper">
+        @await Html.PartialAsync("./_AdminLayout/SidebarPartial.cshtml")
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                @await Html.PartialAsync("./_AdminLayout/NavbarPartial.cshtml")
+
+                <div class="container-fluid">
+
+                    @RenderBody()
+
+                </div>
+            </div>
+            @await Html.PartialAsync("./_AdminLayout/FooterPartial.cshtml")
+        </div>
+    </div>
+    @await Html.PartialAsync("./_AdminLayout/ScriptPartial.cshtml")
+</body>
+</html>

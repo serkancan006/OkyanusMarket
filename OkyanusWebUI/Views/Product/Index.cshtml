@@ -35,17 +35,28 @@
                             <div class="col-m">
                                 <a href="" data-toggle="modal" data-target="#myModal_@item.ID" class="offer-img">
                                     <img src="@item.ImageUrl" class="img-responsive" alt="">
+                                    @if (item.DiscountedPrice != null)
+                                    {
+                                        <div class="offer"><p><span>İndirimde</span></p></div>
+                                    }
                                 </a>
                                 <div class="mid-1">
                                     <div class="women">
                                         <h6>@(item.ProductName.Length > 20 ? item.ProductName.Substring(0, 13) : item.ProductName)</h6>
                                     </div>
                                     <div class="mid-2">
-                                        <p><label>&#8378;@item.Price</label><em class="item_price">&#8378;@item?.DiscountedPrice</em></p>
+                                        @if (item.DiscountedPrice != null)
+                                        {
+                                            <p><label>&#8378;@item.Price</label><em class="item_price">&#8378;@item?.DiscountedPrice</em></p>
+                                        }
+                                        else
+                                        {
+                                            <p><em class="item_price">&#8378;@item.Price</em></p>
+                                        }
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="add add-2">
-                                        <button class="btn btn-danger my-cart-btn my-cart-b" data-id="@item?.ID" data-name="@item?.ProductName" data-summary="summary 1" data-price="@item?.DiscountedPrice" data-quantity="1" data-image="images/of16.png">Sepete Ekle</button>
+                                        <button class="btn btn-danger my-cart-btn my-cart-b" data-id="@item?.ID" data-name="@item?.ProductName" data-summary="summary 1" data-price="@item.Price" data-quantity="1" data-image="@item.ImageUrl">Sepete Ekle</button>
                                         @*<a class="btn btn-danger my-cart-btn my-cart-b" href="/Basket/AddBasketItem/@item?.ID" >Sepete Ekle</a>*@
                                     </div>
                                 </div>
@@ -117,13 +128,21 @@
                             <h3>@item.ProductName</h3> <!-- Ürün ismi ve ağırlığı -->
                             <p class="in-para">@item.Description</p> <!-- Ürün açıklaması -->
                             <div class="price_single">
-                                <span class="reducedfrom"><del>&#8378;@item.Price</del> &#8378;@item.DiscountedPrice</span> <!-- Normal ve indirimli fiyat -->
+                                @if (item.DiscountedPrice != null)
+                                {
+                                    <span class="reducedfrom"><del>&#8378;@item.Price</del> &#8378;@item.DiscountedPrice</span> <!-- Normal ve indirimli fiyat -->
+
+                                }
+                                else
+                                {
+                                <span class="reducedfrom">&#8378;@item.Price</span>
+                                }
                                 <div class="clearfix"></div>
                             </div>
                             <h4 class="quick">Detaylar:</h4>
                             <p class="quick_desc">@item.Title</p> <!-- Hızlı genel bakış -->
                             <div class="add-to">
-                            <button class="btn btn-danger my-cart-btn my-cart-btn1" data-id="@item.ID" data-name="@item.ProductName" data-summary="summary 1" data-price="@item.DiscountedPrice" data-quantity="1" data-image="@item.ImageUrl">Sepete Ekle</button>
+                            <button class="btn btn-danger my-cart-btn my-cart-btn1" data-id="@item.ID" data-name="@item.ProductName" data-summary="summary 1" data-price="@item.Price" data-quantity="1" data-image="@item.ImageUrl">Sepete Ekle</button>
                             @*<a class="btn btn-danger my-cart-btn my-cart-btn1" href="/Basket/AddBasketItem/@item?.ID">Sepete Ekle</a>*@
                             </div>
                         </div>
