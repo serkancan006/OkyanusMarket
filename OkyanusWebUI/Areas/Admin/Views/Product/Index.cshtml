@@ -6,6 +6,10 @@
     int count = 0;
 }
 
+
+
+
+
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Ürünler Sayfası</h1>
 <p class="mb-4">
@@ -30,17 +34,17 @@
             </form>
         </div>
 
-            <div class="dropdown">
-                <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    @ViewBag.PageSize
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 5,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">5</a>
-                    <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 10,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">10</a>
-                    <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 25,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">25</a>
-                    <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 50,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">50</a>
-                </div>
+        <div class="dropdown">
+            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @ViewBag.PageSize
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 5,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">5</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 10,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">10</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 25,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">25</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 50,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">50</a>
             </div>
+        </div>
 
     </div>
     <div class="card-body">

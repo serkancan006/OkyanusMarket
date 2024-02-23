@@ -19,6 +19,11 @@ namespace OkyanusWebUI.Controllers
 
         public async Task<IActionResult> Index([FromQuery] FilteredParameters filteredParameters)
         {
+            return View();
+        }
+
+        public async Task<IActionResult> GetProducts([FromQuery] FilteredParameters filteredParameters)
+        {
             var queryString = BuildQueryString(filteredParameters);
 
             var responseMessage = await _customHttpClient.Get(new() { Controller = "Product", QueryString = queryString });
@@ -26,12 +31,9 @@ namespace OkyanusWebUI.Controllers
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<ProductListResponse>(jsonData);
-                ViewBag.TotalPages = values?.TotalPages;
-                ViewBag.PageNumber = filteredParameters.PageNumber;
-                ViewBag.PageSize = filteredParameters.PageSize;
-                return View(values?.Product);
+                return Json(values);
             }
-            return View();
+            return Json("Beklenmedik bir hata oluştu.");
         }
 
         public class FilteredParameters

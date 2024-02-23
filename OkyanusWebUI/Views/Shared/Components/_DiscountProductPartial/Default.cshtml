@@ -29,7 +29,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="add add-2">
-                                <button class="btn btn-danger my-cart-btn my-cart-b" data-id="@item.ID" data-name="@item.ProductName" data-summary="summary 1" data-price="@item.DiscountedPrice" data-quantity="1" data-image="@item.ImageUrl">Sepete Ekle</button> <!-- Ürün ID'si, ismi ve indirimli fiyatı -->
+                                <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket('@item.ID')">Sepete Ekle</button>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                             <h4 class="quick">Detaylar:</h4>
                             <p class="quick_desc">@item.Title</p> <!-- Hızlı genel bakış -->
                             <div class="add-to">
-                                <button class="btn btn-danger my-cart-btn my-cart-btn1" data-id="@item.ID" data-name="@item.ProductName" data-summary="summary 1" data-price="@item.DiscountedPrice" data-quantity="1" data-image="@item.ImageUrl">Sepete Ekle</button> <!-- Ürün ID'si, ismi ve indirimli fiyatı -->
+                                <button class="btn btn-danger my-cart-btn my-cart-btn1" onclick="addBasket('@item.ID')">Sepete Ekle</button> <!-- Ürün ID'si, ismi ve indirimli fiyatı -->
                             </div>
                         </div>
                         <div class="clearfix"></div>

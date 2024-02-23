@@ -7,11 +7,12 @@ using Microsoft.OpenApi.Models;
 using Okyanus.BusinessLayer.Container;
 using Okyanus.DataAccessLayer.Concrete;
 using Okyanus.EntityLayer.Entities.identitiy;
+using OkyanusWebAPI.Hubs;
 using OkyanusWebAPI.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-//app settings
+//appsettings.json
 var configuration = builder.Configuration;
 // Context
 builder.Services.AddDbContext<Context>(options => options.UseOracle(configuration.GetConnectionString("DefaultConnection")));
@@ -22,7 +23,7 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     options.SignIn.RequireConfirmedEmail = true;
 }).AddEntityFrameworkStores<Context>().AddErrorDescriber<CustomIdentityValidator>().AddDefaultTokenProviders()
 .AddEntityFrameworkStores<Context>();
-// Add Jwt Bearer Token
+// Add Jwt Bearer Token Authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -85,6 +86,17 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+//signalR
+builder.Services.AddSignalR();
+//Cors
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("https://localhost:7077", "http://localhost:7077").AllowAnyHeader().AllowAnyHeader().AllowCredentials();
+    });
+});
+
 
 var app = builder.Build();
 
@@ -95,13 +107,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1"));
 }
 app.UseStaticFiles();
+//CORS 
+app.UseCors();
 app.UseHttpsRedirection();
-
+//Authentication ve Authorization
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+//signalR
+//app.MapHub<SignalRHub>("/signalRHub");
+//Html sayfa döndürürüken mvc
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

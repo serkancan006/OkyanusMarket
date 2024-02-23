@@ -2,28 +2,38 @@
 
 <div class="category-sidebar">
     <h3>Kategoriler</h3>
-    <form method="get" asp-controller="Product" asp-action="Index">
         <div class="search-container">
-            <input type="text" placeholder="Ürün Ara" class="form-control" name="SearchName">
-            <button type="submit" class="search-container-button">
+            <input type="text" placeholder="Ürün Ara" class="form-control" name="SearchName" id="productSearchName">
+            <button type="submit" class="search-container-button" onclick="filteredProductName()">
                 <i class="fa fa-search"></i>
             </button>
         </div>
-    </form>
 
     <ul class="categories-list">
         <li><a href="/Product/Index/">Tümü</a></li>
         @foreach (var item in Model)
         {
-            <li><a href="?CategoryNames=@item.CategoryName">@item.CategoryName</a></li>
+            <li><a style="cursor:pointer" onclick="filteredProductCategory('@item.CategoryName')">@item.CategoryName</a></li>
         }
     </ul>
-    <!--<div class="checkbox-container">
+    <!--
+        <div class="checkbox-container">
         <input type="checkbox" id="checkbox1" />
         <label for="checkbox1">Checkbox 1</label>
         <br />
         <input type="checkbox" id="checkbox2" />
-        <label for="checkbox2">Checkbox 2</label>-->
-        <!-- Add more checkboxes as needed -->
-    <!--</div>-->
+        <label for="checkbox2">Checkbox 2</label>
+        </div>
+    -->
 </div>
+
+<script>
+    function filteredProductName() {
+        filteredParameters.SearchName = $('#productSearchName').val();
+        getProducts();
+    }
+    function filteredProductCategory(categoryName) {
+        filteredParameters.CategoryNames = categoryName;
+        getProducts();
+    }
+</script>

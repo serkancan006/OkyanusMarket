@@ -30,51 +30,35 @@
 <!-- for bootstrap working -->
 <script src="~/web/js/bootstrap.js"></script>
 <!-- //for bootstrap working -->
-<script type='text/javascript' src="~/web/js/jquery.mycart.js"></script>
-<script type="text/javascript">
-    $(function () {
-        // Tıklanan ürünü sepet simgesine animasyonlu olarak ekleme işlevi
-        var goToCartIcon = function ($addTocartBtn) {
-            var $cartIcon = $(".my-cart-icon");
-            var $image = $('<img width="30px" height="30px" src="' + $addTocartBtn.data("/web/images") + '"/>').css({ "position": "fixed", "z-index": "999" });
-            $addTocartBtn.prepend($image);
-            var position = $cartIcon.position();
-            $image.animate({
-                top: position.top,
-                left: position.left
-            }, 500, "linear", function () {
-                $image.remove();
-            });
-        }
-
-        // Alışveriş sepeti özelliğini etkinleştirmek için myCart eklentisini başlatma
-        $('.my-cart-btn').myCart({
-            classCartIcon: 'my-cart-icon', // Sepet simgesinin sınıf adı
-            classCartBadge: 'my-cart-badge', // Sepet miktarı bildirim alanının sınıf adı
-            affixCartIcon: true, // Sepet simgesini ekranın üstünde sabitleme
-            checkoutCart: function (products) {
-                // Ödeme işlemi gerçekleştiğinde sepeti kontrol etme işlevi
-                // Her ürün için konsola ürün bilgilerini yazdırma
-                $.each(products, function () {
-                    console.log(this);
-                });
-            },
-            clickOnAddToCart: function ($addTocart) {
-                // Sepete ürün eklenirken tıklama işlevi
-                // Ürün ekleme animasyonu için goToCartIcon işlevini çağırma
-                goToCartIcon($addTocart);
-            },
-            getDiscountPrice: function (products) {
-                // İndirim fiyatını hesaplama işlevi
-                var total = 0;
-                $.each(products, function () {
-                    total += this.quantity * this.price;
-                });
-                return total * 1;
-            }
-        });
-
-    });
-</script>
+@*<script type='text/javascript' src="~/web/js/jquery.mycart.js"></script>*@
 
 @await Component.InvokeAsync("Notyf")
+
+<script>
+    function addBasket(id) {
+        alert(id);
+    }
+</script>
+
+
+
+
+@*<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(() => {
+            var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7080/SignalRHub").build();
+            console.log(connection.state);
+            connection.start().then(() => {
+                console.log(connection.state);
+                //setInterval(() => {
+                //    connection.invoke("SendProduct");
+                //}, 1000)
+                connection.invoke("SendProduct");
+            }).catch((err) => { console.log(err) });
+
+            connection.on("ReceiveProduct", (value) => {
+                console.log(value);
+            });
+
+        });
+</script>*@
