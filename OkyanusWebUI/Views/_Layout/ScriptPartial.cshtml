@@ -36,7 +36,37 @@
 
 <script>
     function addBasket(id) {
-        alert(id);
+        $.ajax({
+            url: '/Basket/AddBasketItem/'+id,
+            type: 'GET',
+            success: function (data) {
+                //console.log(data);
+                $("#basketModalContainer").html(data);
+            },
+            error: function (err) {
+                console.error("hata oluştu!", err);
+            }
+        });
+    }
+
+
+</script>
+
+<script>
+    function updateBasketItemQuantity(id, quantity) {
+        $.ajax({
+            url: '/Basket/UpdateBasketItemQuantity/',
+            type: 'POST',
+            data: { id: id, quantity: quantity },
+            success: function (data) {
+                console.log(data);
+                $("#basketModalContainer").html(data);
+            },
+            error: function (err) {
+                console.error("hata oluştu!", err);
+            }
+        });
+
     }
 </script>
 

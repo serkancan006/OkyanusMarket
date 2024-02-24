@@ -37,8 +37,18 @@ namespace OkyanusWebUI.Service
 
             var token = _tokenService.GetToken();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var responseMessage = await _httpClient.GetAsync(url);
-            return responseMessage;
+            try
+            {
+                var responseMessage = await _httpClient.GetAsync(url);
+                return responseMessage;
+            }
+            catch (Exception ex)
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                {
+                    Content = new StringContent($"Get işlemi sırasında bir hata oluştu: {ex.Message}")
+                };
+            }
         }
 
         //queryString: `imageId=${imageId}`

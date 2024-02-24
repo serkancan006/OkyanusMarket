@@ -1,5 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using OkyanusWebUI.Models.ProductVM;
 using OkyanusWebUI.Service;
 
 namespace OkyanusWebUI.Controllers
@@ -18,30 +20,36 @@ namespace OkyanusWebUI.Controllers
         }
 
 
-        //public async Task<IActionResult> AddBasketItem(int id)
-        //{
-        //    var responseMessage = await _customHttpClient.Get(new() { Controller = "Product" }, id);
-        //    if (responseMessage.IsSuccessStatusCode)
-        //    {
-        //        var jsonData = await responseMessage.Content.ReadAsStringAsync();
-        //        var values = JsonConvert.DeserializeObject<ResultProductVM>(jsonData);
-        //        if (values != null)
-        //        {
-        //            CartItem cartItem = new CartItem()
-        //            {
-        //                ImageUrl = values.ImageUrl,
-        //                Name = values.ProductName,
-        //                Price = values.DiscountedPrice ?? values.Price,
-        //                ProductId = values.ID,
-        //                Quantity = 1
-        //            };
-        //            _basketService.AddItem(cartItem);
-        //        }
-        //    }
-        //    return Redirect(Request.Headers["Referer"].ToString());
-        //}
+        public async Task<IActionResult> AddBasketItem(int id)
+        {
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "Product" }, id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<ResultProductVM>(jsonData);
+                if (values != null)
+                {
+                    CartItem cartItem = new CartItem()
+                    {
+                        ImageUrl = values.ImageUrl,
+                        Name = values.ProductName,
+                        Price = values.DiscountedPrice ?? values.Price,
+                        ProductId = values.ID,
+                        Quantity = 1
+                    };
+                    _basketService.AddItem(cartItem);
+                }
+            }
+            return PartialView("NavbarPartial");
+            //return Redirect(Request.Headers["Referer"].ToString());
+        }
 
-
+        [HttpPost]
+        public async Task<IActionResult> UpdateBasketItemQuantity(int id, int quantitiy)
+        {
+            _basketService.UpdateQuantity(id, quantitiy);
+            return PartialView("NavbarPartial");
+        }
 
     }
 }

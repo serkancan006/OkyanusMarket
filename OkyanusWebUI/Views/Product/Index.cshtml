@@ -51,13 +51,12 @@
         let totalPages;
 
         function getProducts() {
-
             $.ajax({
                 url: '/Product/GetProducts',
                 type: 'GET',
                 data: filteredParameters,
                 success: function (data) {
-                    console.log(data);
+                    //console.log(data);
                     // Verileri işleme
                     var products = data.product;
                     totalCount = data.totalCount;
@@ -123,7 +122,7 @@
                     createPagination();
                 },
                 error: function (err) {
-                    console.error("hata oluştu!", err);
+                    //console.error("Ajax hata olustu!", err);
                 }
             });
         }

@@ -33,7 +33,7 @@ namespace OkyanusWebUI.Controllers
                 var values = JsonConvert.DeserializeObject<ProductListResponse>(jsonData);
                 return Json(values);
             }
-            return Json("Beklenmedik bir hata oluştu.");
+            return StatusCode(500, "Bir hata oluştu Product - GetProducts");
         }
 
         public class FilteredParameters

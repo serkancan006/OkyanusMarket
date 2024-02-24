@@ -1,24 +1,27 @@
 ﻿@model List<ResultSliderVM>
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        @{ int index = 0; }
-        @foreach (var item in Model)
-        {
-            <li data-target="#myCarousel" data-slide-to="@index" class="@(index == 0 ? "active" : "")"></li>
-            index++;
-        }
-    </ol>
+@if (Model != null)
+{
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            @{ int index = 0; }
+            @foreach (var item in Model)
+            {
+                <li data-target="#myCarousel" data-slide-to="@index" class="@(index == 0 ? "active" : "")"></li>
+                index++;
+            }
+        </ol>
 
-    <div class="carousel-inner" role="listbox">
-        @{ int index2 = 0; }
-        @foreach (var item in Model)
-        {
-            <div class="item @(index2 == 0 ? "active" : "")">
-                <img src="@item.ImageUrl">
-            </div>
-            index2++;
-        }
+        <div class="carousel-inner" role="listbox">
+            @{ int index2 = 0; }
+            @foreach (var item in Model)
+            {
+                <div class="item @(index2 == 0 ? "active" : "")">
+                    <img src="@item.ImageUrl">
+                </div>
+                index2++;
+            }
+        </div>
     </div>
-</div>
+}

@@ -3,18 +3,22 @@
     int counter = 0;
 }
 
-<ul class="social-fo">
-    @foreach (var item in Model)
-    {
-        <li><a href="@item.MediaUrl" class="@GetSocialMediaClass(counter)"><i class="fa fa-@item.MediaName" aria-hidden="true"></i></a></li>
-        counter++;
-    }
-</ul>
+@if (Model != null)
+{
 
-@functions {
-    string GetSocialMediaClass(int counter)
-    {
-        string[] classes = { "face", "twi", "pin", "dri" };
-        return classes[counter % 4];
+    <ul class="social-fo">
+        @foreach (var item in Model)
+        {
+            <li><a href="@item.MediaUrl" class="@GetSocialMediaClass(counter)"><i class="fa fa-@item.MediaName" aria-hidden="true"></i></a></li>
+            counter++;
+        }
+    </ul>
+
+    @functions {
+        string GetSocialMediaClass(int counter)
+        {
+            string[] classes = { "face", "twi", "pin", "dri" };
+            return classes[counter % 4];
+        }
     }
 }
