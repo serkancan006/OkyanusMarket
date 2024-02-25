@@ -43,6 +43,7 @@
                 <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 10,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">10</a>
                 <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 25,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">25</a>
                 <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 50,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">50</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Product", new { area = "Admin", pageSize = 100,  PageNumber = ViewBag.PageNumber, SearchName= ViewBag.SearchName })">100</a>
             </div>
         </div>
 
@@ -59,7 +60,7 @@
                         <th>İndirimli Fiyat</th>
                         <th>Tipi</th>
                         <th>Sil</th>
-                        <th>Güncelle</th>
+                        <th>Detaylar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,8 +74,8 @@
                             <td>@item.Price</td>
                             <td>@item.DiscountedPrice</td>
                             <td>@item.ProductType</td>
-                            <td><a href="#" class="btn btn-danger">Sil</a></td>
-                            <td><a href="#" class="btn btn-warning">Güncelle</a></td>
+                            <td><a href="#" class="btn btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz!');">Sil</a></td>
+                            <td><a href="#" class="btn btn-warning">Detaylar</a></td>
                         </tr>
                     }
                 </tbody>

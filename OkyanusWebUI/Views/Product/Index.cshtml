@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<!-- pagination -->
+<!-- Pagination -->
 <nav class="text-center" id="paginationContainer">
 </nav>
 <!-- Product Modals -->
@@ -41,6 +41,8 @@
 </div>
 
     <script type="text/javascript">
+        'use strict';
+
         let filteredParameters = {
             PageNumber: 1,
             PageSize: 20,
@@ -58,12 +60,12 @@
                 success: function (data) {
                     //console.log(data);
                     // Verileri işleme
-                    var products = data.product;
+                    let products = data.product;
                     totalCount = data.totalCount;
                     totalPages = data.totalPages;
 
-                    var htmlContent = '';
-                    var htmlContent2 = '';
+                    let htmlContent = '';
+                    let htmlContent2 = '';
                     products.forEach(function (item) {
                         htmlContent += `<div class="col-md-3 pro-1">
                                 <div class="col-m">
@@ -132,12 +134,12 @@
         });
 
         function createPagination() {
-            var paginationhtmlContent = '';
+            let paginationhtmlContent = '';
             paginationhtmlContent += '<ul class="pagination pagination-lg">';
             paginationhtmlContent += '<li><a onclick="changePage(1)" aria-label="Previous"><span aria-hidden="true">«</span></a></li>';
 
-            var startPage = 1;
-            var endPage = totalPages > 5 ? 5 : totalPages;
+            let startPage = 1;
+            let endPage = totalPages > 5 ? 5 : totalPages;
 
             if (totalPages > 5) {
                 if (filteredParameters.PageNumber <= 3) {
@@ -151,7 +153,7 @@
                 }
             }
 
-            for (var i = startPage; i <= endPage; i++) {
+            for (let i = startPage; i <= endPage; i++) {
                 if (i === filteredParameters.PageNumber) {
                     paginationhtmlContent += `<li class="active"><a onclick="changePage(${i})">${i}</a></li>`;
                 } else {
@@ -174,7 +176,7 @@
 
 
         // Interval'ı saklıyoruz kapatmak için
-        var intervalID = setInterval(getProducts, 10000);
+        let intervalID = setInterval(getProducts, 10000);
         // Modal açıldığında, interval'ı durdur
         $(document).on('shown.bs.modal', '.modal', function () {
             clearInterval(intervalID);

@@ -1,0 +1,30 @@
+﻿@model ResultContactMessageVM
+
+@{
+    ViewData["Title"] = "DetailContactMessage";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <h2>Mesaj Detayları</h2>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                        <p class="mb-1">Adı: @Model.Name</p>
+                        <small>
+                            Gönderim Tarihi: @Model.CreatedDate.ToString("dd-MMM-yyyy HH:mm")
+                        </small>
+                    </div>
+                    <small>E-posta: @Model.Email</small>
+                    <p class="mt-4">@Model.Message</p>
+                </li>
+                <!-- Diğer mesajları buraya ekleyebilirsiniz -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+

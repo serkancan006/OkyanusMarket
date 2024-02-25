@@ -19,6 +19,14 @@ namespace OkyanusWebUI.Controllers
             _notyfService = notyfService;
         }
 
+        public IActionResult GetBasketItems()
+        {
+            var items = _basketService.GetItems();
+            var totalPrice = _basketService.GetTotalPrice();
+            var totalItems = _basketService.GetTotalItems();
+
+            return Json(new { items, totalPrice, totalItems });
+        }
 
         public async Task<IActionResult> AddBasketItem(int id)
         {
@@ -37,18 +45,26 @@ namespace OkyanusWebUI.Controllers
                         ProductId = values.ID,
                         Quantity = 1
                     };
+                    _notyfService.Success("sepete eklendi!");
                     _basketService.AddItem(cartItem);
                 }
             }
-            return PartialView("NavbarPartial");
+            return Ok();
+            //return ViewComponent("_BasketModalPartial");
             //return Redirect(Request.Headers["Referer"].ToString());
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateBasketItemQuantity(int id, int quantitiy)
+        public IActionResult UpdateBasketItemQuantity(int id, int quantity)
         {
-            _basketService.UpdateQuantity(id, quantitiy);
-            return PartialView("NavbarPartial");
+            _basketService.UpdateQuantity(id, quantity);
+            return Ok();
+        }
+
+        public IActionResult deleteBasketItem(int id)
+        {
+            _basketService.RemoveItem(id);
+            return Ok();
         }
 
     }

@@ -1,0 +1,26 @@
+﻿@model UpdateAboutVM
+@{
+    ViewData["Title"] = "UpdateAbout";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <form method="post">
+        <input type="hidden" asp-for="ID" />
+
+        <label>Hakkımızda Açıklama</label>
+        <textarea rows="4" type="text" asp-for="AboutDesc" class="form-control"></textarea>
+        <br />
+
+        <label>Misyonumuz</label>
+        <textarea rows="4" type="text" asp-for="Misyon" class="form-control"></textarea>
+        <br />
+
+        <label>Vizyonumuz</label>
+        <textarea rows="4" type="text" asp-for="Vizyon" class="form-control"></textarea>
+        <br />
+
+        <button class="btn btn-primary">Hakkımızda Güncelle</button>
+    </form>
+</div>
+

@@ -1,5 +1,4 @@
-﻿@model List<OkyanusWebUI.Service.CartItem>
-
+﻿
 <div class="header">
     <div class="container">
 
@@ -42,63 +41,11 @@
 
 
             <div class="cart" data-toggle="modal" data-target="#my-basket-modal">
-                <span class="fa fa-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge">@ViewBag.TotalItems</span></span>
+                <span class="fa fa-shopping-cart my-cart-icon"><span id="totalBasketItem" class="badge badge-notify my-cart-badge"></span></span>
             </div>
 
             <div class="modal fade" id="my-basket-modal" tabindex="-1" role="dialog" aria-labelledby="myBasketModalLabel">
-                <div class="modal-dialog" role="document" id="basketModalContainer">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-shopping-cart"></span> Sepetim</h4>
-                        </div>
-                        <div class="modal-body">
-                            @if (Model != null)
-                            {
-                                <table class="table table-hover table-responsive" id="my-cart-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Resim</th>
-                                            <th>Ürün Adı</th>
-                                            <th>Fiyat</th>
-                                            <th>Miktar</th>
-                                            <th>Toplam</th>
-                                            <th>Ürünü Kaldır</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in Model)
-                                        {
-                                            <!-- Her ürün için bir satır oluştur -->
-                                            <tr data-id="1" data-price="19.99">
-                                                <td class="text-center" style="width: 50px;"><img width="50px" height="50px" src="@item.ImageUrl" /></td>
-                                                <td>@item.Name</td>
-                                                <td>₺@item.Price</td>
-                                                <td><input type="number" min="1" style="width: 70px;" class="my-product-quantity" value="@item.Quantity" onchange="updateBasketItemQuantity('@item.ProductId,@item.Quantity')" /></td>
-                                                <td class="my-product-total">₺@item.TotalPrice</td>
-                                                <td class="text-center" style="width: 30px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger my-product-remove">X</a></td>
-                                            </tr>
-                                            <!-- Başka ürünler için aynı yapıyı tekrarla -->
-                                        }
-                                    </tbody>
-                                </table>
-                                <p>Total Price: @ViewBag.TotalPrice</p>
-                                <p>Total Items: @ViewBag.TotalItems</p>
-                            }
-                            else
-                            {
-                                <div class="alert alert-danger alert-dismissable">
-                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button"> × </button>
-                                    Sepetinizde Ürün bulunmamaktadır.
-                                </div>
-                            }
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
-                            <!-- Sepet içeriğinin altında belki de ödeme işlemi için bir düğme olabilir -->
-                            <button type="button" class="btn btn-success" style="background-color: #029241;">Ödeme Yap</button>
-                        </div>
-                    </div>
+                <div class="modal-dialog" role="document" id="basketModalContentHtml">
 
                 </div>
             </div>
@@ -109,3 +56,104 @@
     </div>
 </div>
 <br />
+
+<script>
+    'use strict';
+
+    $(document).ready(function () {
+        getBasketItems();
+    });
+
+    function getBasketItems() {
+        $.ajax({
+            url: '/Basket/GetBasketItems/',
+            type: 'GET',
+            success: function (data) {
+                //console.log(data);
+                let basketItems = data.items;
+                let totalPrice = data.totalPrice;
+                let totalItems = data.totalItems;
+                $('#totalBasketItem').text(totalItems);
+                let basketModalContentHtml = '';
+                basketModalContentHtml += '<div class="modal-content">';
+                basketModalContentHtml += '<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-shopping-cart"></span> Sepetim</h4></div>';
+
+                if (basketItems != null && basketItems.length > 0) {
+                    basketModalContentHtml += '<table class="table table-hover table-responsive" id="my-cart-table"><thead><tr><th>Resim</th><th>Ürün Adı</th><th>Fiyat</th><th>Miktar</th><th>Toplam</th><th>Ürünü Kaldır</th></tr></thead><tbody>';
+                    basketItems.forEach(function (item) {
+                        basketModalContentHtml += `
+                <tr>
+                    <td class="text-center" style="width: 50px;"><img width="50px" height="50px" src="${item.imageUrl}" /></td>
+                    <td>${item.name}</td>
+                    <td>₺${item.price}</td>
+                    <td><input type="number" min="1" style="width: 70px;" class="my-product-quantity" value="${item.quantity}" onchange="updateBasketItemQuantity(${item.productId}, this.value)"/></td>
+                    <td class="my-product-total">₺${item.totalPrice}</td>
+                    <td class="text-center" style="width: 30px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger my-product-remove" onclick="deleteBasketItem(${item.productId})">X</a></td>
+                </tr>`;
+                    });
+
+                    basketModalContentHtml += `<tr><td class="text-center" style="width: 50px;"></td><td></td><td></td><td>Toplam Fiyat:</td><td>${totalPrice}</td><td></td></tr>`;
+
+                    basketModalContentHtml += '</tbody></table>';
+                } else {
+                    basketModalContentHtml += '<div class="alert alert-danger alert-dismissable"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>Sepetinizde ürün bulunmamaktadır.</div>';
+                }
+
+                basketModalContentHtml += '<div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button><button type="button" class="btn btn-success" style="background-color:#029241;">Ödeme Yap</button></div>';
+                basketModalContentHtml += '</div>';
+
+                // Append the generated HTML content to the modal
+                $('#basketModalContentHtml').html(basketModalContentHtml);
+            },
+            error: function (err) {
+                console.error("Hata oluştu!", err);
+            }
+        });
+    }
+
+    function addBasket(id) {
+        $.ajax({
+            url: '/Basket/AddBasketItem/'+id,
+            type: 'POST',
+            success: function (data) {
+                //console.log(data);
+                getBasketItems();
+                toastNotifySuccess("sepete ürün eklendi!", 3000);
+            },
+            error: function (err) {
+                //console.error("hata oluştu!", err);
+            }
+        });
+    }
+
+    function updateBasketItemQuantity(id, quantity) {
+        $.ajax({
+            url: '/Basket/UpdateBasketItemQuantity/',
+            type: 'POST',
+            data: { id: id, quantity: quantity },
+            success: function (data) {
+                //console.log(data);
+                getBasketItems();
+            },
+            error: function (err) {
+                //console.error("hata oluştu!", err);
+            }
+        });
+    }
+
+    function deleteBasketItem(id) {
+        $.ajax({
+            url: '/Basket/deleteBasketItem/'+id,
+            type: 'DELETE',
+            success: function (data) {
+                //console.log("Ürün başarıyla silindi.");
+                getBasketItems();
+            },
+            error: function (err) {
+                //console.error("Ürün silinirken bir hata oluştu:", err);
+            }
+        });
+    }
+
+</script>
+

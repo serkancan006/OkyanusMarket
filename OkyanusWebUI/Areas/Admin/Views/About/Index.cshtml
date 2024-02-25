@@ -1,0 +1,48 @@
+﻿@model List<ResultAboutVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Hakkımızda Sayfası</h1>
+<p class="mb-4">
+    Hakkımızda ile ilgili işlemlerinizi hakkımızda tablosundan yönetebilirsiniz
+</p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Hakkımızda</th>
+                        <th>Misyonumuz</th>
+                        <th>Vİzyonumuz</th>
+                        <th>Detaylar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>@count</td>
+                            <td>@(item.AboutDesc.Length > 20 ? item.AboutDesc.Substring(0, 20) : item.AboutDesc)</td>
+                            <td>@(item.Misyon.Length > 20 ? item.Misyon.Substring(0, 20) : item.Misyon)</td>
+                            <td>@(item.Vizyon.Length > 20 ? item.Vizyon.Substring(0, 20) : item.Vizyon)</td>
+                            <td><a href="/Admin/About/UpdateAbout/@item.ID" class="btn btn-warning">Detaylar</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
