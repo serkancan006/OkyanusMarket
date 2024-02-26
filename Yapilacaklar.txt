@@ -1,6 +1,21 @@
---Seeds
+--Ürün Resim Ekleme
+--Ürün Kategori Ekleme
+--Slider Ekleme
+--Ýconlar
+--ErrorPage
+--Son 3 Mesaj ve Sipariþ
+
+--Sipariþ Verme ve Admin Ýþlemleri - SignalR ?
+--Üye Ýþlemleri
+--Þifremi Unuttum - Belki refactoring
+--Authorize tamamlama
+
 --Validation
---Dto
 --Identitiy Error
---Ýliþkiler
---Consume
+
+--Seeds
+--Log
+--Global Exception ve Exception
+
+--Test ve Refactoring
+--extra mesaj atma
