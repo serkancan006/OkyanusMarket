@@ -1,0 +1,23 @@
+﻿@model UpdateSocialMediaVM
+
+@{
+    ViewData["Title"] = "UpdateSocialMedia";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <form method="post">
+        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="MediaName" class="form-control" />
+
+        <p>@Model.MediaName</p>
+        <br />
+
+        <label>Sosyal Medya</label>
+        <input type="text" asp-for="MediaUrl" class="form-control" />
+        <br />
+
+        <button class="btn btn-primary">Sosyal Medya Güncelle</button>
+    </form>
+</div>
+

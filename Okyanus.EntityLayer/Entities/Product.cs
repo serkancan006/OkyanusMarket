@@ -13,7 +13,7 @@ namespace Okyanus.EntityLayer.Entities
         public string Title { get; set; }
         public double Price { get; set; }
         public double? DiscountedPrice { get; set; }
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
         public string Description { get; set; }
         public Birim ProductType { get; set; }  // 0 => kg -- 1 => Adet
         public List<Category> Categories { get; set; }

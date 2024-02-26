@@ -1,0 +1,21 @@
+﻿@model CreateMyPhoneVM
+@{
+    ViewData["Title"] = "AddMyPhone";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <form method="post">
+
+        <label>Telefon Türü</label>
+        <input type="text" asp-for="PhoneName" class="form-control" />
+        <br />
+
+        <label>Telefon Numarası</label>
+        <input type="text" asp-for="PhoneNumber" class="form-control" />
+        <br />
+
+        <button class="btn btn-primary">Telefon Ekle</button>
+    </form>
+</div>
+

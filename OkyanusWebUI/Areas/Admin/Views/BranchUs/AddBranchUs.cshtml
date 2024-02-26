@@ -1,8 +1,17 @@
-﻿
+﻿@model CreateBranchUsVM
 @{
     ViewData["Title"] = "AddBranchUs";
     Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
 }
 
-<h1>AddBranchUs</h1>
+<div class="container">
+    <form method="post">
+
+        <label>Şube Adresi</label>
+        <input type="text" asp-for="BranchAdres" class="form-control" />
+        <br />
+
+        <button class="btn btn-primary">Şubeyi Ekle</button>
+    </form>
+</div>
 

@@ -1,4 +1,4 @@
-﻿@model List<ResultContactMessageVM>
+﻿@model List<ResultMyPhoneVM>
 
 @{
     ViewData["Title"] = "Index";
@@ -8,9 +8,9 @@
 
 
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Mesajlar Sayfası</h1>
+<h1 class="h3 mb-2 text-gray-800">Telefonlarımız Sayfası</h1>
 <p class="mb-4">
-    Mesajlar ile ilgili işlemlerinizi Mesajlar tablosundan yönetebilirsiniz
+    Telefonlarımız ile ilgili işlemlerinizi Telefonlarımız tablosundan yönetebilirsiniz
 </p>
 
 <!-- DataTales Example -->
@@ -23,10 +23,8 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Adı</th>
-                        <th>Mail Adresi</th>
-                        <th>Mesaj</th>
-                        <th>Tarih</th>
+                        <th>Telefon Türü</th>
+                        <th>Telefon Numarası</th>
                         <th>Detaylar</th>
                         <th>Sil</th>
                     </tr>
@@ -37,16 +35,17 @@
                         count++;
                         <tr>
                             <td>@count</td>
-                            <td>@item.Name</td>
-                            <td>@item.Email</td>
-                            <td>@(item.Message.Length > 20 ? item.Message.Substring(0, 20)+"..." : item.Message)</td>
-                            <td>@item.CreatedDate.ToString("dd-MMM-yyyy HH:mm")</td>
-                            <td><a href="/Admin/ContactMessage/DetailContactMessage/@item.ID" class="btn btn-warning">Detaylar</a></td>
-                            <td><a href="/Admin/ContactMessage/DeleteContactMessage/@item.ID" class="btn btn-danger" >Sil</a></td>
+                            <td>@item.PhoneName</td>
+                            <td>@item.PhoneNumber</td>
+                            <td><a href="/Admin/MyPhone/UpdateMyPhone/@item.ID" class="btn btn-warning">Detaylar</a></td>
+                            <td><a href="/Admin/MyPhone/DeleteMyPhone/@item.ID" class="btn btn-danger">Sil</a></td>
                         </tr>
                     }
                 </tbody>
             </table>
+            <a href="/Admin/MyPhone/AddMyPhone/" class="btn btn-primary">Yeni Telefon Ekle</a>
         </div>
     </div>
 </div>
+
+

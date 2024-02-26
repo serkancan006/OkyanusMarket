@@ -32,6 +32,61 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult AddProduct()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddProduct(CreateProductVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var responseMessage = await _customHttpClient.Post<CreateProductVM>(new() { Controller = "Product" }, model);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var responseMessage = await _customHttpClient.Delete(new() { Controller = "Product" }, id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateProduct(int id)
+        {
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "Product" }, id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<UpdateProductVM>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProduct(UpdateProductVM model)
+        {
+            var responseMessage = await _customHttpClient.Put<UpdateProductVM>(new() { Controller = "Product" }, model);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
         public class FilteredParameters
         {
             public string? SearchName { get; set; }

@@ -1,8 +1,20 @@
-﻿
+﻿@model UpdateBranchUsVM
 @{
     ViewData["Title"] = "UpdateBranchUs";
     Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
 }
 
-<h1>UpdateBranchUs</h1>
+<div class="container">
+    <form method="post">
+        <input type="hidden" asp-for="ID" />
+
+        <label>Şube Adresi</label>
+        <input type="text" asp-for="BranchAdres" class="form-control" />
+        <br />
+
+        <button class="btn btn-primary">Şubeyi Güncelle</button>
+    </form>
+</div>
+
+
 

@@ -1,0 +1,21 @@
+﻿@model CreateCategoryVM
+@{
+    ViewData["Title"] = "AddCategory";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <form method="post">
+
+        <label>Kategori Adı</label>
+        <input type="text" asp-for="CategoryName" class="form-control" />
+        <br />
+
+        <label>Kategori Açıklaması</label>
+        <input type="text" asp-for="Description" class="form-control" />
+        <br />
+
+        <button class="btn btn-primary">Kategori Ekle</button>
+    </form>
+</div>
+

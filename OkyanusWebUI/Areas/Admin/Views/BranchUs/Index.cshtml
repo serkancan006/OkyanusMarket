@@ -1,8 +1,49 @@
-﻿
+﻿@model List<ResultBranchUsVM>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+    int count = 0;
 }
 
-<h1>Index</h1>
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Şubelerimiz Sayfası</h1>
+<p class="mb-4">
+    Şubelerimiz ile ilgili işlemlerinizi Şubelerimiz tablosundan yönetebilirsiniz
+</p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Şube Adresi</th>
+                        <th>Detaylar</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>@count</td>
+                            <td>@item.BranchAdres</td>
+                            <td><a href="/Admin/BranchUs/UpdateBranchUs/@item.ID" class="btn btn-warning">Detaylar</a></td>
+                            <td><a href="/Admin/BranchUs/DeleteBranchUs/@item.ID" class="btn btn-danger">Sil</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a href="/Admin/BranchUs/AddBranchUs/" class="btn btn-primary">Yeni Şube Ekle</a>
+        </div>
+    </div>
+</div>
+
 

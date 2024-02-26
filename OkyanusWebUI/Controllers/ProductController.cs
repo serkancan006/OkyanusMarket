@@ -17,7 +17,7 @@ namespace OkyanusWebUI.Controllers
             _notyfService = notyfService;
         }
 
-        public async Task<IActionResult> Index([FromQuery] FilteredParameters filteredParameters)
+        public IActionResult Index()
         {
             return View();
         }
