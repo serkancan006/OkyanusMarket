@@ -7,6 +7,7 @@ using Okyanus.DataAccessLayer.Concrete;
 using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models;
 using OkyanusWebAPI.Models.ProductVM;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace OkyanusWebAPI.Controllers
 {
@@ -15,12 +16,14 @@ namespace OkyanusWebAPI.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _ProductService;
+        private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
 
-        public ProductController(IProductService ProductService, IMapper mapper)
+        public ProductController(IProductService ProductService, IMapper mapper, ICategoryService categoryService)
         {
             _ProductService = ProductService;
             _mapper = mapper;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -61,6 +64,51 @@ namespace OkyanusWebAPI.Controllers
             values = values.Where(x => x.DiscountedPrice != null).ToList();
             var result = _mapper.Map<List<ResultProductVM>>(values);
             return Ok(result);
+        }
+
+        [HttpGet("[action]/{id}")]
+        public IActionResult AssignCategoryForProductList(int id)
+        {
+            var product = _ProductService.TInclude(x => x.Categories).FirstOrDefault(y => y.ID == id);
+           
+            var productCategoriesList = _categoryService.TGetListAll().Select(c => new AssignCategoryForProduct
+            {
+                CategoryID = c.ID,
+                CategoryName = c.CategoryName,
+                IsSelected = product?.Categories.Any(pc => pc.ID == c.ID) ?? false
+            }).ToList();
+
+            AssignCategoryForProductListResponse response = new AssignCategoryForProductListResponse()
+            {
+                ProductName = product?.ProductName,
+                ProductCategories = productCategoriesList
+            };
+            return Ok(response);
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult AssignCategoryForProduct(AssignCategoryRequest request)
+        {
+            try
+            {
+                var product = _ProductService.TInclude(x => x.Categories).FirstOrDefault(y => y.ID == request.ProductID);
+                if (product == null)
+                {
+                    return NotFound("Ürün bulunamadı.");
+                }
+                product.Categories.Clear();
+
+                var categoriesToAdd = _categoryService.TGetListAll().Where(c => request.CategoryIDs.Any(id => id == c.ID) && !product.Categories.Any(pc => pc.ID == c.ID)).ToList();
+
+                product.Categories.AddRange(categoriesToAdd);
+                _ProductService.TUpdate(product);
+
+                return Ok("Kategoriler başarıyla güncellendi.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Bir hata oluştu: {ex.Message}");
+            }
         }
 
         [HttpPost]

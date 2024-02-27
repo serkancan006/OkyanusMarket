@@ -1,0 +1,33 @@
+﻿@model AssignCategoryForProductListResponse
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="assignCategoryModalLabel">@Model.ProductName adlı ürüne kategori ata</h5>
+        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <!-- Assign Category Form -->
+        <form asp-area="Admin" asp-controller="Product" asp-action="AssignCategoryForProduct" method="post">
+            <input type="hidden" asp-for="ProductID" value="@Model.ProductID" />
+            <input type="hidden" asp-for="ProductName" value="@Model.ProductName" />
+
+            <div class="row">
+                @for (var i = 0; i < Model.ProductCategories.Count; i++)
+                {
+                    <div class="col-sm-3 mt-1 col-6">
+                        <input type="checkbox" asp-for="@Model.ProductCategories[i].IsSelected" />
+                        <input type="hidden" asp-for="@Model.ProductCategories[i].CategoryID" />
+                        <input type="hidden" asp-for="@Model.ProductCategories[i].CategoryName" />
+                        <label>@Model.ProductCategories[i].CategoryName</label>
+                    </div>
+                }
+            </div>
+
+            <br />
+            <button type="submit" class="btn btn-primary mt-3">Kategorileri Ata</button>
+        </form>
+    </div>
+    <div class="modal-footer"></div>
+</div>

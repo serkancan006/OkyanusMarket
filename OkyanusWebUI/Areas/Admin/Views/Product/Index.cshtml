@@ -54,15 +54,15 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Resmi</th>
-                        <th>Adı</th>
-                        <th>Fiyatı</th>
-                        <th>İndirimli Fiyat</th>
+                        <th>Resim</th>
+                        <th>Ad</th>
+                        <th>Fiyat</th>
+                        <th>İndirim.Fiy</th>
                         <th>Tipi</th>
                         <th>Detaylar</th>
                         <th>Sil</th>
-                        <th>Kategori Ekle</th>
-                        <th>Resim Ekle</th>
+                        <th>Kategori</th>
+                        <th>Resim</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,12 +72,14 @@
                         <tr>
                             <td>@count</td>
                             <td><img src="@(item.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" width="50" height="50" /></td>
-                            <td>@item.ProductName</td>
+                            <td>@(item.ProductName.Length > 20 ? item.ProductName.Substring(0, 20) : item.ProductName)</td>
                             <td>@item.Price</td>
                             <td>@item.DiscountedPrice</td>
                             <td>@item.ProductType</td>
                             <td><a href="/Admin/Product/UpdateProduct/@item.ID" class="btn btn-warning">Detaylar</a></td>
                             <td><a href="/Admin/Product/DeleteProduct/@item.ID" class="btn btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz!');">Sil</a></td>
+                            <td><button data-toggle="modal" data-target="#assignCategoryModal" class="btn btn-success" onclick="openCategoryModal(@item.ID)">K.Ekle</button></td>
+                            <td><button data-toggle="modal" data-target="#addProductImage" class="btn btn-info">R.Ekle</button></td>
                         </tr>
                     }
                 </tbody>
@@ -125,3 +127,29 @@
     </div>
 </div>
 
+
+<!-- Assign Category Modal -->
+<div class="modal" id="assignCategoryModal" tabindex="-1" role="dialog" aria-labelledby="assignCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" style="width:90%;" id="assignCategoryModalContainer">
+
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function openCategoryModal(id) {
+        $.ajax({
+            url: '/Admin/Product/AssignCategoryForProductList/'+ id,
+            type: 'GET',
+            success: function (data) {
+                //console.log(data);
+                $('#assignCategoryModalContainer').html(data);
+            },
+            error: function (err) {
+                //console.error("Ajax hata olustu!", err);
+            }
+        });
+    }
+
+
+</script>

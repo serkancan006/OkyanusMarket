@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using OkyanusWebUI.Models.ProductVM;
 using OkyanusWebUI.Service;
+using System.Reflection;
 
 namespace OkyanusWebUI.Areas.Admin.Controllers
 {
@@ -86,6 +87,28 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             }
             return View();
         }
+
+        public IActionResult AssignCategoryForProductList(int id)
+        {
+            return ViewComponent("AssignCategoryPartial", new { productID = id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignCategoryForProduct(AssignCategoryForProductListResponse request)
+        {
+            AssignCategoryRequest assignCategoryRequestApi = new AssignCategoryRequest()
+            {
+                ProductID = request.ProductID,
+                CategoryIDs = request.ProductCategories.Where(x => x.IsSelected == true).Select(x => x.CategoryID).ToList()
+            };
+            var responseMessage = await _customHttpClient.Post<AssignCategoryRequest>(new() { Controller = "Product", Action = "AssignCategoryForProduct" }, assignCategoryRequestApi);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return BadRequest();
+        }
+
 
         public class FilteredParameters
         {
