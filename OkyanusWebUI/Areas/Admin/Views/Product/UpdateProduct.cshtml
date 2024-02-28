@@ -9,6 +9,7 @@
 <div class="container">
     <form method="post">
         <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="ImageUrl" value="@Model.ImageUrl" />
 
         <label>Ürün Adı</label>
         <input type="text" asp-for="ProductName" class="form-control" />
@@ -19,11 +20,13 @@
         <br />
 
         <label>Ürün Fiyatı</label>
-        <input type="text" asp-for="Price" class="form-control" />
+        <input type="number" step="0.01" asp-for="Price" class="form-control" />
+
         <br />
 
         <label>Ürün İndirimli Fiyat (indirim vermek istediğiniz ürün için girin)</label>
-        <input type="text" asp-for="DiscountedPrice" class="form-control" />
+        <input type="number" step="0.01" asp-for="DiscountedPrice" class="form-control" />
+
         <br />
 
         @*<label>Ürün Resmi</label>

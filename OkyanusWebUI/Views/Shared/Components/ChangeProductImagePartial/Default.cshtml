@@ -1,0 +1,29 @@
+﻿@model ChangeProductImageRequest
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="productImageModalLabel">Resim Değiştirme</h5>
+        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form asp-area="Admin" asp-controller="Product" asp-action="changeImageProduct" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <!-- Sol sütun - Dosya yükleme -->
+                <div class="form-group col-md-6">
+                    <input type="file" id="FormFile" asp-for="FormFile" class="form-control-file" accept=".png, .jpeg, .jpg" onchange="previewImage(event)" />
+                    <input type="hidden" id="ProductID" asp-for="ProductID" value="@Model.ProductID" class="form-control" placeholder="Ürün ID" />
+                </div>
+                <!-- Sağ sütun - Resim önizleme -->
+                <div class="col-md-6">
+                    <label>Resim Önizleme</label>
+                    <div id="imagePreview"></div>
+                </div>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">Resmi Onayla</button>
+        </form>
+    </div>
+    <div class="modal-footer"></div>
+</div>

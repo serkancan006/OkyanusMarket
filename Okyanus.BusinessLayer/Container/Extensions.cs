@@ -60,6 +60,7 @@ namespace Okyanus.BusinessLayer.Container
             //External Service
             services.AddScoped<IMailService, MailManager>();
             services.AddScoped<ICreateTokenService, CreateTokenManager>();
+            services.AddScoped<IFileOperationsService, FileOperationsManager>();
 
         }
     }

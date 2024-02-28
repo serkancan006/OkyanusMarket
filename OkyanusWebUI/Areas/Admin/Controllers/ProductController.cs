@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using OkyanusWebUI.Models.ProductVM;
 using OkyanusWebUI.Service;
 using System.Reflection;
+using System.Text;
 
 namespace OkyanusWebUI.Areas.Admin.Controllers
 {
@@ -10,9 +11,11 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly CustomHttpClient _customHttpClient;
-        public ProductController(CustomHttpClient customHttpClient)
+        private readonly FileOperationService _fileOperationService;
+        public ProductController(CustomHttpClient customHttpClient, FileOperationService fileOperationService)
         {
             _customHttpClient = customHttpClient;
+            _fileOperationService = fileOperationService;
         }
 
         public async Task<IActionResult> Index([FromQuery] FilteredParameters filteredParameters)
@@ -109,6 +112,85 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             return BadRequest();
         }
 
+        [HttpGet]
+        public IActionResult changeImageProduct(int id)
+        {
+            return ViewComponent("ChangeProductImagePartial", new { productID = id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeImageProduct(ChangeProductImageRequest request)
+        {
+            if (request.FormFile == null)
+            {
+                var changeImageRequestApi = new ChangeProductImageApiRequest
+                {
+                    ProductID = request.ProductID,
+                    ImagePath = null
+                };
+
+                var responseMessage = await _customHttpClient.Post<ChangeProductImageApiRequest>(
+                    new() { Controller = "Product", Action = "ChangeProductImage" },
+                    changeImageRequestApi
+                );
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var oldProductImage = await responseMessage.Content.ReadAsStringAsync();
+                    //Console.WriteLine(oldProductImage);
+                    if (oldProductImage != null)
+                    {
+                    _fileOperationService.DeleteFile(oldProductImage);
+                    }
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                var (fileName, databasePath) = await _fileOperationService.SaveFileAsync(request.FormFile, "images/product/");
+
+                var changeImageRequestApi = new ChangeProductImageApiRequest
+                {
+                    ProductID = request.ProductID,
+                    ImagePath = databasePath
+                };
+
+                var responseMessage = await _customHttpClient.Post<ChangeProductImageApiRequest>(
+                    new() { Controller = "Product", Action = "ChangeProductImage" },
+                    changeImageRequestApi
+                );
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var oldProductImage = await responseMessage.Content.ReadAsStringAsync();
+                    //Console.WriteLine(oldProductImage);
+                    if (oldProductImage != null)
+                    {
+                        _fileOperationService.DeleteFile(oldProductImage);
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    // Hata durumunda dosyayı silme işlemi
+                    _fileOperationService.DeleteFile(databasePath);
+                    return BadRequest();
+                }
+            }
+
+        }
+
+
+        private class ChangeProductImageApiRequest
+        {
+            public string? ImagePath { get; set; }
+            public int ProductID { get; set; }
+        }
 
         public class FilteredParameters
         {

@@ -19,6 +19,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<CustomHttpClient>();
 builder.Services.AddScoped<BasketService>();
+builder.Services.AddScoped<FileOperationService>();
 
 
 

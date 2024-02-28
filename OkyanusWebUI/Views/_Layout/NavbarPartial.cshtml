@@ -39,7 +39,6 @@
                 </div>
             </nav>
 
-
             <div class="cart" data-toggle="modal" data-target="#my-basket-modal">
                 <span class="fa fa-shopping-cart my-cart-icon"><span id="totalBasketItem" class="badge badge-notify my-cart-badge"></span></span>
             </div>
@@ -79,14 +78,15 @@
                 basketModalContentHtml += '<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-shopping-cart"></span> Sepetim</h4></div>';
 
                 if (basketItems != null && basketItems.length > 0) {
-                    basketModalContentHtml += '<table class="table table-hover table-responsive" id="my-cart-table"><thead><tr><th>Resim</th><th>Ürün Adı</th><th>Fiyat</th><th>Miktar</th><th>Toplam</th><th>Ürünü Kaldır</th></tr></thead><tbody>';
+                    basketModalContentHtml += '<table class="table table-hover table-responsive" id="my-cart-table"><thead><tr><th>Resim</th><th>Ürün Adı</th><th>Fiyat</th><th>Miktar</th><th>Birim</th><th>Toplam</th><th>Ürünü Kaldır</th></tr></thead><tbody>';
                     basketItems.forEach(function (item) {
                         basketModalContentHtml += `
                 <tr>
-                    <td class="text-center" style="width: 50px;"><img width="50px" height="50px" src="${item.imageUrl}" /></td>
+                    <td class="text-center" style="width: 50px;"><img width="50px" height="50px" src="${item.imageUrl ? item.imageUrl : "/web/images/resimhazirlaniyor.png"}" /></td>
                     <td>${item.name}</td>
                     <td>₺${item.price}</td>
-                    <td><input type="number" min="1" style="width: 70px;" class="my-product-quantity" value="${item.quantity}" onchange="updateBasketItemQuantity(${item.productId}, this.value)"/></td>
+                    <td><input type="number" min="${item.birim === 'Kg' ? 0.1 : 1}" step="${item.birim === 'Kg' ? 0.1 : 1}" style="width: 70px;" class="my-product-quantity" value="${item.quantity}" onchange="updateBasketItemQuantity(${item.productId}, '${item.birim}', this.value)" /></td>
+                    <td>${item.birim}</td>
                     <td class="my-product-total">₺${item.totalPrice}</td>
                     <td class="text-center" style="width: 30px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger my-product-remove" onclick="deleteBasketItem(${item.productId})">X</a></td>
                 </tr>`;
@@ -126,11 +126,11 @@
         });
     }
 
-    function updateBasketItemQuantity(id, quantity) {
+    function updateBasketItemQuantity(id, birim, quantity) {
         $.ajax({
             url: '/Basket/UpdateBasketItemQuantity/',
             type: 'POST',
-            data: { id: id, quantity: quantity },
+            data: { id: id, quantity: quantity, birim: birim },
             success: function (data) {
                 //console.log(data);
                 getBasketItems();

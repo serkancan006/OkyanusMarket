@@ -111,6 +111,20 @@ namespace OkyanusWebAPI.Controllers
             }
         }
 
+        [HttpPost("[action]")]
+        public IActionResult ChangeProductImage(ChangeProductImageRequest request)
+        {
+            var product = _ProductService.TGetByID(request.ProductID);
+            var oldProductImage = product.ImageUrl;
+            product.ImageUrl = request.ImagePath;
+            _ProductService.TUpdate(product);
+            if (oldProductImage == null)
+            {
+                return Ok();
+            }
+            return Ok(oldProductImage.Substring(1));
+        }
+
         [HttpPost]
         public IActionResult AddProduct(CreateProductVM ProductVM)
         {

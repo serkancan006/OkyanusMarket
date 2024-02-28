@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OkyanusWebUI.Models.ProductVM;
 using OkyanusWebUI.Service;
+using System.Globalization;
 
 namespace OkyanusWebUI.Controllers
 {
@@ -43,7 +44,8 @@ namespace OkyanusWebUI.Controllers
                         Name = values.ProductName,
                         Price = values.DiscountedPrice ?? values.Price,
                         ProductId = values.ID,
-                        Quantity = 1
+                        Quantity = 1,
+                        Birim = ((Birim)values.ProductType).ToString(),
                     };
                     _notyfService.Success("sepete eklendi!");
                     _basketService.AddItem(cartItem);
@@ -55,9 +57,23 @@ namespace OkyanusWebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateBasketItemQuantity(int id, int quantity)
+        public IActionResult UpdateBasketItemQuantity(int id, string quantity, string birim)
         {
-            _basketService.UpdateQuantity(id, quantity);
+            Console.WriteLine(birim);
+            double convertQuantity = double.Parse(quantity.Replace(',', '.'), CultureInfo.InvariantCulture);
+            if (convertQuantity <= 0)
+            {
+                return Ok();
+            }
+            if (birim == "Adet")
+            {
+                // Tam sayı kontrolü
+                if (convertQuantity % 1 != 0)
+                {
+                    convertQuantity = (int)convertQuantity;
+                }
+            }
+            _basketService.UpdateQuantity(id, convertQuantity);
             return Ok();
         }
 

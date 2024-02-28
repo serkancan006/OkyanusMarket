@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using OkyanusWebUI.Models.ProductVM;
 using System.Linq;
 
 namespace OkyanusWebUI.Service
@@ -75,7 +76,7 @@ namespace OkyanusWebUI.Service
         }
 
         // Ürün miktarını güncelle
-        public void UpdateQuantity(int itemId, int newQuantity)
+        public void UpdateQuantity(int itemId, double newQuantity)
         {
             var itemToUpdate = Items.FirstOrDefault(item => item.ProductId == itemId);
             if (itemToUpdate != null)
@@ -109,7 +110,8 @@ namespace OkyanusWebUI.Service
         public string Name { get; set; }
         public string ImageUrl { get; set; }
         public double Price { get; set; }
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
+        public string Birim { get; set; }
         public double TotalPrice => Price * Quantity;
         //public double TotalPrice
         //{

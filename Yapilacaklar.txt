@@ -1,9 +1,6 @@
---Ürün Resim Ekleme
---Ürün Kategori Ekleme
 --Slider Ekleme
 --Ýconlar
 --ErrorPage
---Son 3 Mesaj ve Sipariþ
 
 --Sipariþ Verme ve Admin Ýþlemleri - SignalR ?
 --Üye Ýþlemleri
@@ -19,3 +16,4 @@
 
 --Test ve Refactoring
 --extra mesaj atma
+--Son 3 Mesaj ve Sipariþ

@@ -78,8 +78,8 @@
                             <td>@item.ProductType</td>
                             <td><a href="/Admin/Product/UpdateProduct/@item.ID" class="btn btn-warning">Detaylar</a></td>
                             <td><a href="/Admin/Product/DeleteProduct/@item.ID" class="btn btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz!');">Sil</a></td>
-                            <td><button data-toggle="modal" data-target="#assignCategoryModal" class="btn btn-success" onclick="openCategoryModal(@item.ID)">K.Ekle</button></td>
-                            <td><button data-toggle="modal" data-target="#addProductImage" class="btn btn-info">R.Ekle</button></td>
+                            <td><button data-toggle="modal" data-target="#assignCategoryModal" class="btn btn-success" onclick="openCategoryModal(@item.ID)">K.Ata</button></td>
+                            <td><button data-toggle="modal" data-target="#productImageModal" class="btn btn-info" onclick="openImageModal(@item.ID)" >R.Değiştir</button></td>
                         </tr>
                     }
                 </tbody>
@@ -135,11 +135,18 @@
     </div>
 </div>
 
+<!-- Updateing Product Modal -->
+<div class="modal" id="productImageModal" tabindex="-1" role="dialog" aria-labelledby="productImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" style="width:90%;" id="productImageModalContainer">
+
+    </div>
+</div>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script>
     function openCategoryModal(id) {
         $.ajax({
-            url: '/Admin/Product/AssignCategoryForProductList/'+ id,
+            url: '/Admin/Product/AssignCategoryForProductList/' + id,
             type: 'GET',
             success: function (data) {
                 //console.log(data);
@@ -151,5 +158,25 @@
         });
     }
 
+    function openImageModal(id) {
+        $.ajax({
+            url: '/Admin/Product/changeImageProduct/' + id,
+            type: 'GET',
+            success: function (data) {
+                //console.log(data);
+                $('#productImageModalContainer').html(data);
+            },
+            error: function (err) {
+            }
+        });
+    }
 
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('imagePreview');
+            output.innerHTML = '<img src="' + reader.result + '" width="40%" />';
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
 </script>
