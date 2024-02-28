@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "AddSlider";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<h1 class="mb-2">Yeni Slider Ekleme Sayfası</h1>
+
+<form method="post" asp-action="AddSlider" asp-controller="Slider" asp-area="Admin" enctype="multipart/form-data">
+    <div class="form-group">
+        <input type="file" class="form-control-file" name="file" accept="image/*">
+    </div>
+    <div class="form-group">
+        <label for="sliderDescription">Açıklama</label>
+        <textarea type="text" rows="3" class="form-control" id="sliderDescription" name="description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+

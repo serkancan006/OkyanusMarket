@@ -12,7 +12,7 @@
             <div class="row">
                 <!-- Sol sütun - Dosya yükleme -->
                 <div class="form-group col-md-6">
-                    <input type="file" id="FormFile" asp-for="FormFile" class="form-control-file" accept=".png, .jpeg, .jpg" onchange="previewImage(event)" />
+                    <input type="file" id="FormFile" asp-for="FormFile" class="form-control-file" accept="image/*" onchange="previewImage(event)" />
                     <input type="hidden" id="ProductID" asp-for="ProductID" value="@Model.ProductID" class="form-control" placeholder="Ürün ID" />
                 </div>
                 <!-- Sağ sütun - Resim önizleme -->

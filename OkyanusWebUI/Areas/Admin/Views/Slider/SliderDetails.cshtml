@@ -1,0 +1,11 @@
+﻿@model ResultSliderVM
+
+@{
+    ViewData["Title"] = "SliderDetails";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<img src="@Model.ImageUrl" width="100%"/>
+<h5 class="mt-2">Açıklama</h5>
+<p class="mt-1">@Model.Description</p>
+

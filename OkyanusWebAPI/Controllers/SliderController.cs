@@ -40,8 +40,9 @@ namespace OkyanusWebAPI.Controllers
         public IActionResult DeleteSlider(int id)
         {
             var values = _SliderService.TGetByID(id);
+            var oldImageSlider = values.ImageUrl;
             _SliderService.TDelete(values);
-            return Ok("Slider Silindi");
+            return Ok(oldImageSlider?.Substring(1));
         }
 
         [HttpPut]
