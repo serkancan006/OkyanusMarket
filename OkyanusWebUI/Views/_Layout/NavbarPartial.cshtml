@@ -1,4 +1,8 @@
-﻿
+﻿@inject OkyanusWebUI.Service.TokenService tokenService
+@{ 
+    bool isAuthenticate = tokenService.IsAuthonticate();
+}
+
 <div class="header">
     <div class="container">
 
@@ -8,8 +12,16 @@
         <div class="head-t">
             <ul class="card">
                 @*<li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i>İstek Listesi</a></li>*@
-                <li><a href="/Login/Index/"><i class="fa fa-user" aria-hidden="true"></i>Giriş</a></li>
-                <li><a href="/Register/Index/"><i class="fa fa-arrow-right" aria-hidden="true"></i>Kayıt Ol</a></li>
+                @if (isAuthenticate)
+                {
+                    @*<li><a href="#"><i class="fa fa-first-order" aria-hidden="true"></i>Siparişlerim</a></li>*@
+                    <li><a href="/Login/LogOut/"><i class="fa fa-close" aria-hidden="true"></i>Çıkış Yap</a></li>
+                }
+                else
+                {
+                    <li><a href="/Login/Index/"><i class="fa fa-user" aria-hidden="true"></i>Giriş</a></li>
+                    <li><a href="/Register/Index/"><i class="fa fa-arrow-right" aria-hidden="true"></i>Kayıt Ol</a></li>
+                }
                 @*<li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>Siparişler</a></li>*@
                 @*<li><a href="#"><i class="fa fa-ship" aria-hidden="true"></i>Sorular</a></li>*@
             </ul>
@@ -92,14 +104,14 @@
                 </tr>`;
                     });
 
-                    basketModalContentHtml += `<tr><td class="text-center" style="width: 50px;"></td><td></td><td></td><td>Toplam Fiyat:</td><td>${totalPrice}</td><td></td></tr>`;
+                    basketModalContentHtml += `<tr><td class="text-center" style="width: 50px;"></td><td><td></td></td><td></td><td>Toplam Fiyat:</td><td>${totalPrice}</td><td></td></tr>`;
 
                     basketModalContentHtml += '</tbody></table>';
                 } else {
                     basketModalContentHtml += '<div class="alert alert-danger alert-dismissable"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>Sepetinizde ürün bulunmamaktadır.</div>';
                 }
 
-                basketModalContentHtml += '<div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button><button type="button" class="btn btn-success" style="background-color:#029241;">Ödeme Yap</button></div>';
+                basketModalContentHtml += `<div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button><button type="button" class="btn btn-success" style="background-color:#029241;" onclick="createOrder('@isAuthenticate')">Sipariş Ver</button></div>`;
                 basketModalContentHtml += '</div>';
 
                 // Append the generated HTML content to the modal
@@ -113,7 +125,7 @@
 
     function addBasket(id) {
         $.ajax({
-            url: '/Basket/AddBasketItem/'+id,
+            url: '/Basket/AddBasketItem/' + id,
             type: 'POST',
             success: function (data) {
                 //console.log(data);
@@ -143,7 +155,7 @@
 
     function deleteBasketItem(id) {
         $.ajax({
-            url: '/Basket/deleteBasketItem/'+id,
+            url: '/Basket/deleteBasketItem/' + id,
             type: 'DELETE',
             success: function (data) {
                 //console.log("Ürün başarıyla silindi.");
@@ -155,5 +167,26 @@
         });
     }
 
+    function createOrder(isAuth) {
+        if (isAuth == "True") {
+            window.location.href = '/Order'; 
+        }
+        else {
+            Swal.fire({
+                title: 'Giriş yapmadan sipariş vermek istiyor musunuz?',
+                icon: 'question',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Giriş Yap',
+                denyButtonText: 'Devam Et'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/Login';
+                } else if (result.isDenied) {
+                    window.location.href = '/Order'; 
+                }
+            });
+        }
+    }
 </script>
 

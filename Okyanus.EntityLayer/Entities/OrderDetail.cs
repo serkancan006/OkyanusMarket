@@ -9,7 +9,7 @@ namespace Okyanus.EntityLayer.Entities
 {
     public class OrderDetail : BaseEntity
     {
-        public int Count { get; set; }
+        public double Count { get; set; }
         public double UnitPrice { get; set; }
         public double TotalPrice { get; set; }
         public int ProductID { get; set; }

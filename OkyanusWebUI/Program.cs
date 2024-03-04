@@ -1,8 +1,12 @@
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using OkyanusWebUI.Models.OrderVM;
 using OkyanusWebUI.Service;
+using OkyanusWebUI.Validations;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,10 +25,13 @@ builder.Services.AddScoped<CustomHttpClient>();
 builder.Services.AddScoped<BasketService>();
 builder.Services.AddScoped<FileOperationService>();
 
-
+//FluenValidation
+//builder.Services.AddTransient<IValidator<CreateOrderVM>, CreateOrderValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateOrderValidator>();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddControllersWithViews().AddFluentValidation().AddRazorRuntimeCompilation();
+
 
 // Add Jwt Bearer Token
 builder.Services.AddAuthentication(options =>

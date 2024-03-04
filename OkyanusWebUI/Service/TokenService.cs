@@ -14,24 +14,36 @@
 
         public void SetToken(string token, string expires)
         {
-            _httpContextAccessor.HttpContext.Session.SetString(TokenKey, token);
-            _httpContextAccessor.HttpContext.Session.SetString(TokenExpiresKey, expires);
+            _httpContextAccessor?.HttpContext?.Session.SetString(TokenKey, token);
+            _httpContextAccessor?.HttpContext?.Session.SetString(TokenExpiresKey, expires);
         }
 
-        public string GetToken()
+        public string? GetToken()
         {
-            return _httpContextAccessor.HttpContext.Session.GetString(TokenKey);
+            return _httpContextAccessor?.HttpContext?.Session.GetString(TokenKey);
         }
 
-        public string GetTokenExpires()
+        public string? GetTokenExpires()
         {
-            return _httpContextAccessor.HttpContext.Session.GetString(TokenExpiresKey);
+            return _httpContextAccessor?.HttpContext?.Session.GetString(TokenExpiresKey);
         }
 
         public void ClearToken()
         {
-            _httpContextAccessor.HttpContext.Session.Remove(TokenKey);
-            _httpContextAccessor.HttpContext.Session.Remove(TokenExpiresKey);
+            _httpContextAccessor?.HttpContext?.Session.Remove(TokenKey);
+            _httpContextAccessor?.HttpContext?.Session.Remove(TokenExpiresKey);
+        }
+
+        public bool IsAuthonticate()
+        {
+            if (_httpContextAccessor?.HttpContext?.Session.GetString(TokenKey) == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
 

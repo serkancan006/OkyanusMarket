@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Packaging;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
+using OkyanusWebAPI.Models.OrderDetailVM;
 using OkyanusWebAPI.Models.OrderVM;
 
 namespace OkyanusWebAPI.Controllers
@@ -13,11 +15,13 @@ namespace OkyanusWebAPI.Controllers
     {
         private readonly IOrderService _OrderService;
         private readonly IMapper _mapper;
+        private readonly IOrderDetailService _orderDetailService;
 
-        public OrderController(IOrderService OrderService, IMapper mapper)
+        public OrderController(IOrderService OrderService, IMapper mapper, IOrderDetailService orderDetailService)
         {
             _OrderService = OrderService;
             _mapper = mapper;
+            _orderDetailService = orderDetailService;
         }
 
         [HttpGet]
@@ -29,10 +33,36 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddOrder(CreateOrderVM OrderVM)
+        public IActionResult AddOrder(CreateOrderRequestVM createOrderRequestVM)
         {
-            var value = _mapper.Map<Order>(OrderVM);
+            CreateOrderVM createOrderVM = new CreateOrderVM() 
+            {
+                Description = createOrderRequestVM.Description,
+                OrderAdress = createOrderRequestVM.OrderAdress,
+                OrderApartman = createOrderRequestVM.OrderApartmanNo,
+                OrderFirstName = createOrderRequestVM.OrderFirstName,
+                OrderDaire = createOrderRequestVM.OrderDaireNo,
+                OrderMail = createOrderRequestVM.OrderMail,
+                OrderSurname = createOrderRequestVM.OrderSurname,
+                OrderIlce = createOrderRequestVM.OrderIlce,
+                OrderSehir = createOrderRequestVM.OrderSehir,
+                OrderPhone = createOrderRequestVM.OrderPhone,
+                OrderKat = createOrderRequestVM.OrderKat,
+                TotalPrice = createOrderRequestVM.TotalPrice,
+            };
+            var value = _mapper.Map<Order>(createOrderVM);
             _OrderService.TAdd(value);
+            List<CreateOrderDetailVM> createOrderDetailVM = new List<CreateOrderDetailVM>();
+            createOrderDetailVM.AddRange(createOrderRequestVM.OrderItems.Select(item => new CreateOrderDetailVM()
+            {
+                ProductID = item.ProductId,
+                Count = item.Quantity,
+                UnitPrice = item.Price,
+                TotalPrice = item.TotalPrice,
+                OrderID = value.ID,
+            }));
+            var orderItemList = _mapper.Map<List<OrderDetail>>(createOrderDetailVM);
+            _orderDetailService.TAddRange(orderItemList);
             return Ok("Order Eklendi");
         }
 

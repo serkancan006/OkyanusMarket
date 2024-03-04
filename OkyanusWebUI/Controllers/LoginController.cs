@@ -56,5 +56,13 @@ namespace OkyanusWebUI.Controllers
             }
             //return View();
         }
+
+        public IActionResult LogOut()
+        {
+            _tokenService.ClearToken();
+            _notyfService.Information("Çıkış Yapıldı!");
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

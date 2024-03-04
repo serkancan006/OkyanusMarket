@@ -1,6 +1,4 @@
---ErrorPage
-
---Sipariþ Verme ve Admin Ýþlemleri - SignalR ?
+--Siparis Verme ve Admin Islemleri ile birlikte -> SignalR ?
 --Üye Ýþlemleri
 --Þifremi Unuttum - Belki refactoring
 --Authorize tamamlama
@@ -13,5 +11,5 @@
 --Global Exception ve Exception
 
 --Test ve Refactoring
---extra mesaj atma
+--extra mail atma
 --Son 3 Mesaj ve Sipariþ

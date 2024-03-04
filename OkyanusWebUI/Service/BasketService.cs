@@ -26,10 +26,10 @@ namespace OkyanusWebUI.Service
         // Sepeti yükle
         private void LoadCart()
         {
-            string cartJson = _httpContextAccessor.HttpContext.Session.GetString(SessionKey);
+            string? cartJson = _httpContextAccessor?.HttpContext?.Session.GetString(SessionKey);
             if (!string.IsNullOrEmpty(cartJson))
             {
-                Items = JsonConvert.DeserializeObject<List<CartItem>>(cartJson);
+                Items = JsonConvert.DeserializeObject<List<CartItem>>(cartJson) ?? new List<CartItem>();
             }
         }
 
@@ -37,7 +37,7 @@ namespace OkyanusWebUI.Service
         private void SaveCart()
         {
             string cartJson = JsonConvert.SerializeObject(Items);
-            _httpContextAccessor.HttpContext.Session.SetString(SessionKey, cartJson);
+            _httpContextAccessor?.HttpContext?.Session.SetString(SessionKey, cartJson);
         }
 
         // Sepete ürün ekle
@@ -108,7 +108,7 @@ namespace OkyanusWebUI.Service
     {
         public int ProductId { get; set; }
         public string Name { get; set; }
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
         public double Price { get; set; }
         public double Quantity { get; set; }
         public string Birim { get; set; }
