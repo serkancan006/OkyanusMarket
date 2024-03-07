@@ -5,18 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form method="post">
-    <input type="hidden" asp-for="@Model.OrderItems" value="@Model.OrderItems" />
-    <input type="hidden" asp-for="@Model.TotalPrice" value="@Model.TotalPrice" />
-    <div class="container">
-        <br />
-        <div class="row">
-            <div class="col-md-9">
+<div class="container">
+    <br />
+    <div class="row">
+        <div class="col-md-9">
+            <form method="post">
                 <div>
                     <h4 style="margin-bottom:20px;margin-top:20px">Adres Bilgileri</h4>
                     <div class="form-group">
                         <label for="OrderAdress">Tam Adres:</label>
-                        <input type="text" class="form-control" id="OrderAdress" asp-for="@Model.OrderAdress" >
+                        <input type="text" class="form-control" id="OrderAdress" asp-for="@Model.OrderAdress">
                         <span class="text-danger" asp-validation-for="@Model.OrderAdress"></span>
                     </div>
                     <div class="row">
@@ -87,43 +85,16 @@
                         <span class="text-danger" asp-validation-for="@Model.OrderPhone"></span>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <h4 style="margin-bottom:20px; margin-top:10px">Sipariş Özeti</h4>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Ürün Adı</th>
-                                <th>Fiyat</th>
-                                <th>Miktar</th>
-                                <th>Toplam</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.OrderItems)
-                            {
-                                <tr>
-                                    <td>@item.Name</td>
-                                    <td>@item.Price</td>
-                                    <td>@item.Quantity</td>
-                                    <td>@item.TotalPrice</td>
-                                </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>Toplam Fiyat: </td>
-                                <td>@Model.TotalPrice</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <span class="text-danger" asp-validation-for="@Model.OrderItems"></span>
-                </div>
-            </div>
+                <button type="submit" class="btn btn-success" style="margin-bottom:30px">Siparişi Ver</button>
+            </form>
         </div>
-        <button type="submit" class="btn btn-success" style="margin-bottom:30px">Siparişi Ver</button>
+        
+        <div class="col-md-3">
+            <h4 style="margin-bottom:20px; margin-top:10px">Sipariş Özeti</h4>
+            @await Component.InvokeAsync("_OrderSummaryPartial")
+            <span class="text-danger" asp-validation-for="@Model.OrderItems"></span> <br />
+            <span class="text-danger" asp-validation-for="@Model.TotalPrice"></span>
+
+        </div>
     </div>
-</form>
+</div>

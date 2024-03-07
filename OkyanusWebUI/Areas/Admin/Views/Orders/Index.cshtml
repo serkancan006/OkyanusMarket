@@ -1,0 +1,53 @@
+﻿@model List<ResultOrderVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Kategori Sayfası</h1>
+<p class="mb-4">
+    Siparişler ile ilgili işlemlerinizi Siparişler tablosundan yönetebilirsiniz
+</p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Alıcı</th>
+                        <th>Telefon</th>
+                        <th>Fiyat</th>
+                        <th>Tarih</th>
+                        <th>Detay</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>@count</td>
+                            <td>@item.OrderFirstName @item.OrderSurname</td>
+                            <td>@item.OrderPhone</td>
+                            <td>@item.TotalPrice</td>
+                            <td>@item.CreatedDate.ToString("dd-MMM-yyyy HH:mm")</td>
+                            <td><a href="/Admin/Order/UpdateOrder/@item.ID" class="btn btn-warning">Detaylar</a></td>
+                            <td><a href="/Admin/Order/DeleteOrder/@item.ID" class="btn btn-danger" onclick="return confirm('Dikkat Siparişi Silmek istediğinize emin misiniz? Sipariş silindiğinde siparişe ait detaylarda silinir!');">Sil</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

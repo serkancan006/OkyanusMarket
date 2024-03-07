@@ -10,3 +10,26 @@
 
 <!-- My Custom JS-->
 <script src="~/lib/sweetalert2/dist/sweetalert2.min.js"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+<script type="text/javascript">
+        'use strict';
+
+        $(document).ready(() => {
+            let connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7080/SignalRHub").build();
+            console.log(connection.state);
+            connection.start().then(() => {
+                console.log(connection.state);
+                //setInterval(() => {
+                //    connection.invoke("SendProduct");
+                //}, 1000)
+                connection.invoke("SendOrder");
+            }).catch((err) => { console.log(err) });
+
+            connection.on("ReceiveOrder", (value) => {
+                console.log(value);
+                //toastNotifyInfo("Yeni Sipariş Geldi!", 3000);
+            });
+
+        });
+</script>

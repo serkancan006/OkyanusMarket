@@ -9,20 +9,19 @@ namespace OkyanusWebAPI.Hubs
 {
     public class SignalRHub : Hub
     {
-        private readonly IProductService _productService;
+        private readonly IOrderService _orderService;
         private readonly IMapper _mapper;
 
-
-        public SignalRHub(IProductService productService, IMapper mapper)
+        public SignalRHub(IOrderService orderService, IMapper mapper)
         {
-            _productService = productService;
+            _orderService = orderService;
             _mapper = mapper;
         }
 
-        public async Task SendProduct()
+        public async Task SendOrder()
         {
-            var value = _productService.TGetListAll();
-            await Clients.All.SendAsync("ReceiveProduct", value);
+            var value = _orderService.TGetListAll();
+            await Clients.All.SendAsync("ReceiveOrder", value);
         }
 
     }

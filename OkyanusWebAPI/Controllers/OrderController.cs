@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Packaging;
+using Microsoft.AspNetCore.SignalR;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
+using OkyanusWebAPI.Hubs;
 using OkyanusWebAPI.Models.OrderDetailVM;
 using OkyanusWebAPI.Models.OrderVM;
 
@@ -16,12 +17,14 @@ namespace OkyanusWebAPI.Controllers
         private readonly IOrderService _OrderService;
         private readonly IMapper _mapper;
         private readonly IOrderDetailService _orderDetailService;
+        private readonly IHubContext<SignalRHub> _hubContext;
 
-        public OrderController(IOrderService OrderService, IMapper mapper, IOrderDetailService orderDetailService)
+        public OrderController(IOrderService OrderService, IMapper mapper, IOrderDetailService orderDetailService, IHubContext<SignalRHub> hubContext)
         {
             _OrderService = OrderService;
             _mapper = mapper;
             _orderDetailService = orderDetailService;
+            _hubContext = hubContext;
         }
 
         [HttpGet]
@@ -33,7 +36,7 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddOrder(CreateOrderRequestVM createOrderRequestVM)
+        public async Task<IActionResult> AddOrder(CreateOrderRequestVM createOrderRequestVM)
         {
             CreateOrderVM createOrderVM = new CreateOrderVM() 
             {
@@ -63,6 +66,8 @@ namespace OkyanusWebAPI.Controllers
             }));
             var orderItemList = _mapper.Map<List<OrderDetail>>(createOrderDetailVM);
             _orderDetailService.TAddRange(orderItemList);
+            var orders = _OrderService.TGetListAll();
+            await _hubContext.Clients.All.SendAsync("ReceiveOrder", orders);
             return Ok("Order Eklendi");
         }
 

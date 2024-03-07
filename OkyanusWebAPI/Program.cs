@@ -10,6 +10,7 @@ using Okyanus.EntityLayer.Entities.identitiy;
 using OkyanusWebAPI.Hubs;
 using OkyanusWebAPI.Models;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 //appsettings.json
@@ -48,7 +49,17 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 
 //builder.Services.AddControllers().AddFluentValidation(); //fluent validation için baþka iþlemler de yapýlabilir...
-builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    options.JsonSerializerOptions.MaxDepth = 128;
+}).AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    options.SerializerSettings.MaxDepth = 128;
+    options.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+});
+
 builder.Services.AddControllersWithViews();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -87,7 +98,11 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 //signalR
-builder.Services.AddSignalR();
+builder.Services.AddSignalR().AddJsonProtocol(options =>
+{
+    options.PayloadSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.PayloadSerializerOptions.MaxDepth = 128;
+});
 //Cors
 builder.Services.AddCors(options =>
 {
@@ -116,7 +131,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 //signalR
-//app.MapHub<SignalRHub>("/signalRHub");
+app.MapHub<SignalRHub>("/signalRHub");
 //Html sayfa döndürürüken mvc
 app.MapControllerRoute(
     name: "default",
