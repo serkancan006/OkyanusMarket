@@ -49,16 +49,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 
 //builder.Services.AddControllers().AddFluentValidation(); //fluent validation için baþka iþlemler de yapýlabilir...
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-    options.JsonSerializerOptions.MaxDepth = 128;
-}).AddNewtonsoftJson(options =>
-{
-    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-    options.SerializerSettings.MaxDepth = 128;
-    options.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
-});
+builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 builder.Services.AddControllersWithViews();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -98,11 +89,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 //signalR
-builder.Services.AddSignalR().AddJsonProtocol(options =>
-{
-    options.PayloadSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-    options.PayloadSerializerOptions.MaxDepth = 128;
-});
+builder.Services.AddSignalR();
 //Cors
 builder.Services.AddCors(options =>
 {
