@@ -28,6 +28,14 @@ namespace OkyanusWebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("[action]/{id}")]
+        public IActionResult OrderDetailList(int id)
+        {
+            var values = _OrderDetailService.TInclude(y=>y.Product).Where(x => x.OrderID == id).ToList();
+            var result = _mapper.Map<List<ResultOrderDetailVM>>(values);
+            return Ok(result);
+        }
+
         [HttpPost]
         public IActionResult AddOrderDetail(CreateOrderDetailVM OrderDetailVM)
         {

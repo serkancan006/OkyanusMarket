@@ -1,0 +1,38 @@
+﻿@model bool
+@{
+    ViewData["Title"] = "EMailConfirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (Model == true)
+{
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="height:100vh">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center text-success">Email Onaylama</h1>
+                        <p class="card-text text-center">Emailiniz başarıyla onaylanmıştır. Teşekkür ederiz!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="height:100vh">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center text-danger">Email Onaylama Hata</h1>
+                        <p class="card-text text-center">Email onaylanırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

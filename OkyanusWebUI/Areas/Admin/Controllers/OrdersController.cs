@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using OkyanusWebUI.Models.OrderDetailVM;
 using OkyanusWebUI.Models.OrderVM;
 using OkyanusWebUI.Service;
 
@@ -26,6 +27,30 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             return View();
         }
 
-      
+        public async Task<IActionResult> DetailOrder(int id)
+        {
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "Order" }, id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<ResultOrderVM>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+
+        public async Task<IActionResult> OrderItems(int id)
+        {
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "OrderDetail", Action= "OrderDetailList" }, id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultOrderDetailVM>>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+
+
     }
 }

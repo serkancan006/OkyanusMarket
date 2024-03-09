@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Okyanus.BusinessLayer.Abstract;
+using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models;
+using OkyanusWebAPI.Models.OrderVM;
 using OkyanusWebAPI.Models.ProductVM;
 
 namespace OkyanusWebAPI.Hubs
@@ -21,7 +23,8 @@ namespace OkyanusWebAPI.Hubs
         public async Task SendOrder()
         {
             var value = _orderService.TGetListAll();
-            await Clients.All.SendAsync("ReceiveOrder", value);
+            var orderList = _mapper.Map<List<ResultOrderVM>>(value);
+            await Clients.All.SendAsync("ReceiveOrder", orderList);
         }
 
     }

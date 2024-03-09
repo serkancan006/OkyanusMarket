@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Okyanus.BusinessLayer.Abstract.ExternalService;
 using Okyanus.EntityLayer.Entities.identitiy;
 using OkyanusWebAPI.Models.Identitiy;
+using System.Text;
+using System.Web;
 
 namespace OkyanusWebAPI.Controllers
 {
@@ -13,11 +15,13 @@ namespace OkyanusWebAPI.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IMailService _mailService;
+        private readonly IConfiguration _configuration;
 
-        public RegisterController(UserManager<AppUser> userManager, IMailService mailService)
+        public RegisterController(UserManager<AppUser> userManager, IMailService mailService, IConfiguration configuration)
         {
             _userManager = userManager;
             _mailService = mailService;
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -40,12 +44,10 @@ namespace OkyanusWebAPI.Controllers
             {
                 // Kullanıcı oluşturuldu, şimdi doğrulama e-postası gönder
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var callbackUrl = Url.Action("Index", "EmailConfirmView", new
-                {
-                    userId = user.Id,
-                    token = token
-                }, protocol: HttpContext.Request.Scheme);
-                _mailService.SendMailConfirm(user.UserName, user.Email, "Hesabını onayla", callbackUrl);
+                token = HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(token)));
+                //"https://localhost:7080/EmailConfirmView?userEmail=satakig519@hidelux.com&token=token"
+                string callbackurl = _configuration["WebSiteHosts:Https"] + $"/Login/EMailConfirm?userEmail={user.Email}&token={token}";
+                _mailService.SendMailConfirm(user.UserName, user.Email, "Hesap Onaylama", callbackurl);
                 return Ok("Kullanıcı başarıyla eklendi.Lütfen Mailinizi Aktif Ediniz.");
             }
             else

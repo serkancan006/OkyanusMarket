@@ -41,8 +41,8 @@
                             <td>@item.OrderPhone</td>
                             <td>@item.TotalPrice</td>
                             <td>@item.CreatedDate.ToString("dd-MMM-yyyy HH:mm")</td>
-                            <td><a href="/Admin/Order/UpdateOrder/@item.ID" class="btn btn-warning">Detaylar</a></td>
-                            <td><a href="/Admin/Order/DeleteOrder/@item.ID" class="btn btn-danger" onclick="return confirm('Dikkat Siparişi Silmek istediğinize emin misiniz? Sipariş silindiğinde siparişe ait detaylarda silinir!');">Sil</a></td>
+                            <td><a href="/Admin/Orders/DetailOrder/@item.ID" class="btn btn-warning">Detaylar</a></td>
+                            <td><a href="/Admin/Orders/DeleteOrder/@item.ID" class="btn btn-danger" onclick="return confirm('Dikkat Siparişi Silmek istediğinize emin misiniz? Sipariş silindiğinde siparişe ait detaylarda silinir!');">Sil</a></td>
                         </tr>
                     }
                 </tbody>

@@ -4,6 +4,9 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using OkyanusWebUI.Service;
 using OkyanusWebUI.Models.LoginVM;
+using System.Text;
+using System.Web;
+using System.Reflection;
 
 namespace OkyanusWebUI.Controllers
 {
@@ -57,6 +60,80 @@ namespace OkyanusWebUI.Controllers
             //return View();
         }
 
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(string Email)
+        {
+            var responseMessage = await _customHttpClient.Post(new() { Controller = "Login", Action = "ForgotPassword" }, Email);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                _notyfService.Success("Mail adresinize link gönderilmiştir!");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                _notyfService.Error("Bir hata oluştu. Tekrar Deneyin!");
+                return View();
+            }
+        }
+
+        public IActionResult ResetPassword(string userEmail, string token)
+        {
+            string decodedToken = Encoding.UTF8.GetString(Convert.FromBase64String(HttpUtility.UrlDecode(token)));
+            //Console.WriteLine(decodedToken);
+            ResetPasswordVM resetPasswordVM = new ResetPasswordVM()
+            {
+                Email = userEmail,
+                ResetToken = decodedToken
+            };
+            return View(resetPasswordVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
+        {
+            ResetPasswordVMApi resetPasswordVMApi = new ResetPasswordVMApi()
+            {
+                NewPassword = model.NewPassword,
+                Email = model.Email,
+                ResetToken = model.ResetToken
+            };
+            var responseMessage = await _customHttpClient.Post(new() { Controller = "Login", Action = "ResetPassword" }, resetPasswordVMApi);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        public async Task<IActionResult> EMailConfirm(string userEmail, string token)
+        {
+            string decodedToken = Encoding.UTF8.GetString(Convert.FromBase64String(HttpUtility.UrlDecode(token)));
+            //Console.WriteLine(decodedToken);
+            EMailConfirmVM eMailConfirmVM = new EMailConfirmVM()
+            {
+                Email = userEmail,
+                ConfirmToken = decodedToken
+            };
+            var responseMessage = await _customHttpClient.Post(new() { Controller = "Login", Action = "EMailConfirm" }, eMailConfirmVM);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return View(true);
+            }
+            else
+            {
+                return View(false);
+            }
+        }
+
         public IActionResult LogOut()
         {
             _tokenService.ClearToken();
@@ -65,4 +142,26 @@ namespace OkyanusWebUI.Controllers
         }
 
     }
+
+    public class ResetPasswordVMApi
+    {
+        public string Email { get; set; }
+        public string ResetToken { get; set; }
+        public string NewPassword { get; set; }
+    }
+
+    public class ResetPasswordVM
+    {
+        public string Email { get; set; }
+        public string ResetToken { get; set; }
+        public string NewPassword { get; set; }
+        public string NewPasswordConfirm { get; set; }
+    }
+
+    public class EMailConfirmVM
+    {
+        public string Email { get; set; }
+        public string ConfirmToken { get; set; }
+    }
+
 }

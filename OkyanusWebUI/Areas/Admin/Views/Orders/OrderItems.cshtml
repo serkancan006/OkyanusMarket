@@ -1,0 +1,52 @@
+﻿@model List<ResultOrderDetailVM>
+@{
+    ViewData["Title"] = "OrderItems";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Sipariş Ürünleri</h1>
+<p class="mb-4">
+</p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Resim</th>
+                        <th>Ürün Adı</th>
+                        <th>Satılan Fiyat</th>
+                        <th>Adet</th>
+                        <th>Ürün Türü</th>
+                        <th>Toplam Fiyat</th>
+                        <th>Ürüne git</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>@count</td>
+                            <td><img src="@(item.Product.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" width="50" height="50"/></td>
+                            <td>@item.Product.ProductName</td>
+                            <td>@item.UnitPrice</td>
+                            <td>@item.Count</td>
+                            <td>@item.Product.ProductType</td>
+                            <td>@item.TotalPrice</td>
+                            <td><a class="btn btn-outline-secondary btn-sm" href="/Admin/Product/UpdateProduct/@item.ProductID">detay</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

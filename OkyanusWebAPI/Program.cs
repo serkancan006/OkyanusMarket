@@ -119,9 +119,6 @@ app.UseAuthorization();
 app.MapControllers();
 //signalR
 app.MapHub<SignalRHub>("/signalRHub");
-//Html sayfa döndürürüken mvc
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

@@ -67,7 +67,8 @@ namespace OkyanusWebAPI.Controllers
             var orderItemList = _mapper.Map<List<OrderDetail>>(createOrderDetailVM);
             _orderDetailService.TAddRange(orderItemList);
             var orders = _OrderService.TGetListAll();
-            await _hubContext.Clients.All.SendAsync("ReceiveOrder", orders);
+            var orderList = _mapper.Map<List<ResultOrderVM>>(orders);
+            await _hubContext.Clients.All.SendAsync("ReceiveOrder", orderList);
             return Ok("Order Eklendi");
         }
 
