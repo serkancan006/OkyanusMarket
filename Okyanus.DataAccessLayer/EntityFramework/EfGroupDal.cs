@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Okyanus.DataAccessLayer.EntityFramework
 {
-    public class EfCategoryDal : GenericRepository<Category>, ICategoryDal
+    public class EfGroupDal : GenericRepository<Group>, IGroupDal
     {
-        public EfCategoryDal(Context context) : base(context)
+        public EfGroupDal(Context context) : base(context)
         {
         }
 

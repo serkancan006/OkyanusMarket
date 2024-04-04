@@ -3,9 +3,9 @@ using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models.AboutVM;
 using OkyanusWebAPI.Models.BasketVM;
 using OkyanusWebAPI.Models.BranchUsVM;
-using OkyanusWebAPI.Models.CategoryVM;
 using OkyanusWebAPI.Models.ContactMessageVM;
 using OkyanusWebAPI.Models.ContactVM;
+using OkyanusWebAPI.Models.GroupVM;
 using OkyanusWebAPI.Models.MyPhoneVM;
 using OkyanusWebAPI.Models.OrderDetailVM;
 using OkyanusWebAPI.Models.OrderVM;
@@ -31,9 +31,9 @@ namespace OkyanusWebAPI.Mapping
             CreateMap<UpdateBranchUsVM, BranchUs>().ReverseMap();
             CreateMap<CreateBranchUsVM, BranchUs>().ReverseMap();
 
-            CreateMap<ResultCategoryVM, Category>().ReverseMap();
-            CreateMap<UpdateCategoryVM, Category>().ReverseMap();
-            CreateMap<CreateCategoryVM, Category>().ReverseMap();
+            CreateMap<ResultGroupVM, Group>().ReverseMap();
+            CreateMap<UpdateGroupVM, Group>().ReverseMap();
+            CreateMap<CreateGroupVM, Group>().ReverseMap();
 
             CreateMap<ResultContactVM, Contact>().ReverseMap();
             CreateMap<UpdateContactVM, Contact>().ReverseMap();

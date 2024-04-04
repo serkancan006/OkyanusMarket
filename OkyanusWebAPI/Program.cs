@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Okyanus.BusinessLayer.Container;
 using Okyanus.DataAccessLayer.Concrete;
+using Okyanus.DataAccessLayer.OptionsPattern;
 using Okyanus.EntityLayer.Entities.identitiy;
 using OkyanusWebAPI.Hubs;
 using OkyanusWebAPI.Models;
@@ -15,6 +16,7 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 //appsettings.json
 var configuration = builder.Configuration;
+//builder.Services.AddSingleton<IConfiguration>(configuration);
 // Context
 builder.Services.AddDbContext<Context>(options => options.UseOracle(configuration.GetConnectionString("DefaultConnection")));
 //identitiy
@@ -44,6 +46,8 @@ builder.Services.AddAuthentication(options =>
 });
 // Add services to the container.
 builder.Services.ContainerDependencies();
+//Options Pattern
+builder.Services.Configure<MailOptions>(configuration.GetSection("MailOptions"));
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -107,6 +111,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1"));
+    SeedDatabase.Seed(app.Services);
 }
 app.UseStaticFiles();
 //CORS 

@@ -8,6 +8,8 @@ namespace OkyanusWebAPI.Models.OrderDetailVM
         public int ID { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public bool Status { get; set; }
+
 
         public double Count { get; set; }
         public double UnitPrice { get; set; }

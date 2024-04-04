@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Okyanus.DataAccessLayer.OptionsPattern;
 using Okyanus.EntityLayer.Entities;
 using Okyanus.EntityLayer.Entities.Common;
 using Okyanus.EntityLayer.Entities.identitiy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,20 +19,27 @@ namespace Okyanus.DataAccessLayer.Concrete
     {
         public Context(DbContextOptions<Context> options) : base(options) { }
 
+        //Fluent Api
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
         public DbSet<About> Abouts { get; set; }
         public DbSet<BranchUs> BranchUses { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Group> Groups { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
-        public DbSet<Basket> Baskets { get; set; }
         public DbSet<MyPhone> MyPhones { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
 
-
+      
 
         //Interceptor
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -44,11 +55,12 @@ namespace Okyanus.DataAccessLayer.Concrete
                         case EntityState.Added:
                             baseEntity.CreatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
                             baseEntity.UpdatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
-                            //baseEntity.Status = true;
+                            baseEntity.Status = true;
                             break;
                         case EntityState.Modified:
                             baseEntity.UpdatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
                             entry.Property("CreatedDate").IsModified = false;
+                            entry.Property("Status").IsModified = false;
                             break;
                         default:
                             // Bilinmeyen bir durumla karşılaşıldığında yapılacaklar

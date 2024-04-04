@@ -10,90 +10,90 @@ using System.Threading.Tasks;
 
 namespace Okyanus.BusinessLayer.Concrete
 {
-    public class CategoryManager : ICategoryService
+    public class GroupManager : IGroupService
     {
-        ICategoryDal _CategoryDal;
-        public CategoryManager(ICategoryDal CategoryDal)
+        IGroupDal _CategoryDal;
+        public GroupManager(IGroupDal CategoryDal)
         {
             _CategoryDal = CategoryDal;
         }
 
-        public void TAdd(Category entity)
+        public void TAdd(Group entity)
         {
             _CategoryDal.Add(entity);
         }
 
-        public void TAddRange(IEnumerable<Category> entities)
+        public void TAddRange(IEnumerable<Group> entities)
         {
             _CategoryDal.AddRange(entities);
         }
 
-        public bool TAny(Expression<Func<Category, bool>> filter = null, bool tracking = true)
+        public bool TAny(Expression<Func<Group, bool>> filter = null, bool tracking = true)
         {
             return _CategoryDal.Any(filter, tracking);
         }
 
-        public IQueryable<Category> TAsQueryable(bool tracking = true)
+        public IQueryable<Group> TAsQueryable(bool tracking = true)
         {
             return _CategoryDal.AsQueryable(tracking);
         }
 
-        public int TCount(Expression<Func<Category, bool>> filter = null, bool tracking = true)
+        public int TCount(Expression<Func<Group, bool>> filter = null, bool tracking = true)
         {
             return _CategoryDal.Count();
         }
 
-        public void TDelete(Category entity)
+        public void TDelete(Group entity)
         {
             _CategoryDal.Delete(entity);
         }
 
-        public void TDeleteRange(IEnumerable<Category> entities)
+        public void TDeleteRange(IEnumerable<Group> entities)
         {
             _CategoryDal.DeleteRange(entities);
         }
 
-        public Category TGetByID(int id)
+        public Group TGetByID(int id)
         {
             return _CategoryDal.GetByID(id);
         }
 
-        public Category TGetFirstOrDefault(Expression<Func<Category, bool>> filter, bool tracking = true)
+        public Group TGetFirstOrDefault(Expression<Func<Group, bool>> filter, bool tracking = true)
         {
             return _CategoryDal.GetFirstOrDefault(filter, tracking);
         }
 
-        public List<Category> TGetListAll(bool tracking = true)
+        public List<Group> TGetListAll(bool tracking = true)
         {
             return _CategoryDal.GetListAll();
         }
 
-        public IQueryable<Category> TInclude(Expression<Func<Category, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<Group> TInclude(Expression<Func<Group, object>> navigationPropertyPath, bool tracking = true)
         {
             return _CategoryDal.Include(navigationPropertyPath, tracking);
         }
 
-        public IQueryable<Category> TOrderBy(Expression<Func<Category, object>> keySelector, bool tracking = true)
+        public IQueryable<Group> TOrderBy(Expression<Func<Group, object>> keySelector, bool tracking = true)
         {
             return _CategoryDal.OrderBy(keySelector, tracking);
         }
 
-        public IQueryable<Category> TOrderByDescending(Expression<Func<Category, object>> keySelector, bool tracking = true)
+        public IQueryable<Group> TOrderByDescending(Expression<Func<Group, object>> keySelector, bool tracking = true)
         {
             return _CategoryDal.OrderByDescending(keySelector, tracking);
         }
 
-        public void TUpdate(Category entity)
+        public void TUpdate(Group entity)
         {
             _CategoryDal.Update(entity);
         }
 
-        public void TUpdateRange(IEnumerable<Category> entities)
+        public void TUpdateRange(IEnumerable<Group> entities)
         {
             _CategoryDal.UpdateRange(entities);
         }
 
-        public IQueryable<Category> TWhere(Expression<Func<Category, bool>> filter, bool tracking = true)
+        public IQueryable<Group> TWhere(Expression<Func<Group, bool>> filter, bool tracking = true)
         {
             return _CategoryDal.Where(filter, tracking);
         }

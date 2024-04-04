@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Okyanus.BusinessLayer.Abstract
+namespace Okyanus.DataAccessLayer.Abstract
 {
-    public interface ICategoryService : IGenericService<Category>
+    public interface IGroupDal : IGenericDal<Group>
     {
     }
 }

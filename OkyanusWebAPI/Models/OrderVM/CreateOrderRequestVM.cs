@@ -3,7 +3,6 @@
     public class CreateOrderRequestVM
     {
         public string? Description { get; set; }
-        public double TotalPrice { get; set; }
 
         public string OrderFirstName { get; set; }
         public string OrderSurname { get; set; }
@@ -22,12 +21,7 @@
     public class CartItem
     {
         public int ProductId { get; set; }
-        public string Name { get; set; }
-        public string? ImageUrl { get; set; }
-        public double Price { get; set; }
         public double Quantity { get; set; }
-        public string Birim { get; set; }
-        public double TotalPrice { get; set; }
         //public double TotalPrice => Price * Quantity;
         //public double TotalPrice
         //{

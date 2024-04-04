@@ -16,7 +16,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession(options =>
 {
     //options.IdleTimeout = TimeSpan.FromSeconds(10);
-    //options.Cookie.Name = ".UserCookie";
+    //options.Cookie.Name = "UserCookie";
     //options.Cookie.HttpOnly = true;
     //options.Cookie.IsEssential = true;
 });
@@ -47,7 +47,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 //Notfy Service
-builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
+builder.Services.AddNotyf(config => { config.DurationInSeconds = 5; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
 
 
 var app = builder.Build();

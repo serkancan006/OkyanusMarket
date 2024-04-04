@@ -27,8 +27,8 @@ namespace Okyanus.BusinessLayer.Container
             services.AddScoped<IBranchUsDal, EfBranchUsDal>();
             services.AddScoped<IBranchUsService, BranchUsManager>();
 
-            services.AddScoped<ICategoryDal, EfCategoryDal>();
-            services.AddScoped<ICategoryService, CategoryManager>();
+            services.AddScoped<IGroupDal, EfGroupDal>();
+            services.AddScoped<IGroupService, GroupManager>();
 
             services.AddScoped<IContactDal, EfContactDal>();
             services.AddScoped<IContactService, ContactManager>();

@@ -16,9 +16,13 @@ namespace Okyanus.EntityLayer.Entities
         public string? ImageUrl { get; set; }
         public string Description { get; set; }
         public Birim ProductType { get; set; }  // 0 => kg -- 1 => Adet
-        public List<Category> Categories { get; set; }
+        public string ANAGRUP { get; set; }
+        public string? ALTGRUP1 { get; set; } = "0";
+        public string? ALTGRUP2 { get; set; } = "0";
+        public string? ALTGRUP3 { get; set; } = "0";
+        public string Marka { get; set; }
+        public string AnaBarcode { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
-        public List<Basket> Baskets { get; set; }
     }
 
     public enum Birim

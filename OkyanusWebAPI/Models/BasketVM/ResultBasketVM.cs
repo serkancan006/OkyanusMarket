@@ -7,6 +7,8 @@ namespace OkyanusWebAPI.Models.BasketVM
         public int ID { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public bool Status { get; set; }
+
 
         public double Price { get; set; }
         public double Count { get; set; }

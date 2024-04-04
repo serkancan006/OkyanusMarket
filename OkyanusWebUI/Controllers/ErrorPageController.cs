@@ -14,8 +14,9 @@ namespace OkyanusWebUI.Controllers
                     errorMessage = "Hatalı işlem!";
                     break;
                 case (int)HttpStatusCode.Unauthorized:
-                    errorMessage = "Yetkisiz işlem. Lütfen giriş yapınız!";
-                    break;
+                    //errorMessage = "Yetkisiz işlem. Lütfen giriş yapınız!";
+                    //break;
+                    return RedirectToAction("Index", "Login");
                 case (int)HttpStatusCode.Forbidden:
                     errorMessage = "Erişim Yetkiniz yok!";
                     break;

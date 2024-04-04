@@ -19,7 +19,8 @@ namespace Okyanus.DataAccessLayer.Migrations
                     Misyon = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Vizyon = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,27 +81,12 @@ namespace Okyanus.DataAccessLayer.Migrations
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
                     BranchAdres = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BranchUses", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    CategoryName = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,7 +99,8 @@ namespace Okyanus.DataAccessLayer.Migrations
                     Email = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Message = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -132,11 +119,33 @@ namespace Okyanus.DataAccessLayer.Migrations
                     Phone = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     MapLocation = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contacts", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Groups",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    ANAGRUP = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    ALTGRUP1 = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    ALTGRUP2 = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    ALTGRUP3 = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    GRUPADI = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Groups", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -148,7 +157,8 @@ namespace Okyanus.DataAccessLayer.Migrations
                     PhoneName = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -174,7 +184,8 @@ namespace Okyanus.DataAccessLayer.Migrations
                     OrderSehir = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     OrderIlce = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -194,8 +205,15 @@ namespace Okyanus.DataAccessLayer.Migrations
                     ImageUrl = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     ProductType = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    ANAGRUP = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    ALTGRUP1 = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    ALTGRUP2 = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    ALTGRUP3 = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Marka = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    AnaBarcode = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -211,7 +229,8 @@ namespace Okyanus.DataAccessLayer.Migrations
                     ImageUrl = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -227,7 +246,8 @@ namespace Okyanus.DataAccessLayer.Migrations
                     MediaName = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     MediaUrl = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -341,54 +361,6 @@ namespace Okyanus.DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Baskets",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Price = table.Column<double>(type: "BINARY_DOUBLE", nullable: false),
-                    Count = table.Column<double>(type: "BINARY_DOUBLE", nullable: false),
-                    TotalPrice = table.Column<double>(type: "BINARY_DOUBLE", nullable: false),
-                    ProductID = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Baskets", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Baskets_Products_ProductID",
-                        column: x => x.ProductID,
-                        principalTable: "Products",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CategoryProduct",
-                columns: table => new
-                {
-                    CategoriesID = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    ProductsID = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CategoryProduct", x => new { x.CategoriesID, x.ProductsID });
-                    table.ForeignKey(
-                        name: "FK_CategoryProduct_Categories_CategoriesID",
-                        column: x => x.CategoriesID,
-                        principalTable: "Categories",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CategoryProduct_Products_ProductsID",
-                        column: x => x.ProductsID,
-                        principalTable: "Products",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OrderDetails",
                 columns: table => new
                 {
@@ -400,7 +372,8 @@ namespace Okyanus.DataAccessLayer.Migrations
                     ProductID = table.Column<int>(type: "NUMBER(10)", nullable: false),
                     OrderID = table.Column<int>(type: "NUMBER(10)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -459,14 +432,10 @@ namespace Okyanus.DataAccessLayer.Migrations
                 filter: "\"NormalizedUserName\" IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Baskets_ProductID",
-                table: "Baskets",
-                column: "ProductID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CategoryProduct_ProductsID",
-                table: "CategoryProduct",
-                column: "ProductsID");
+                name: "IX_Groups_ANAGRUP_ALTGRUP1_ALTGRUP2_ALTGRUP3_GRUPADI",
+                table: "Groups",
+                columns: new[] { "ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3", "GRUPADI" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_OrderID",
@@ -500,19 +469,16 @@ namespace Okyanus.DataAccessLayer.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Baskets");
-
-            migrationBuilder.DropTable(
                 name: "BranchUses");
-
-            migrationBuilder.DropTable(
-                name: "CategoryProduct");
 
             migrationBuilder.DropTable(
                 name: "ContactMessages");
 
             migrationBuilder.DropTable(
                 name: "Contacts");
+
+            migrationBuilder.DropTable(
+                name: "Groups");
 
             migrationBuilder.DropTable(
                 name: "MyPhones");
@@ -531,9 +497,6 @@ namespace Okyanus.DataAccessLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Orders");

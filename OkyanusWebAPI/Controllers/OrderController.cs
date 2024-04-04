@@ -18,13 +18,15 @@ namespace OkyanusWebAPI.Controllers
         private readonly IMapper _mapper;
         private readonly IOrderDetailService _orderDetailService;
         private readonly IHubContext<SignalRHub> _hubContext;
+        private readonly IProductService _productService;
 
-        public OrderController(IOrderService OrderService, IMapper mapper, IOrderDetailService orderDetailService, IHubContext<SignalRHub> hubContext)
+        public OrderController(IOrderService OrderService, IMapper mapper, IOrderDetailService orderDetailService, IHubContext<SignalRHub> hubContext, IProductService productService)
         {
             _OrderService = OrderService;
             _mapper = mapper;
             _orderDetailService = orderDetailService;
             _hubContext = hubContext;
+            _productService = productService;
         }
 
         [HttpGet]
@@ -51,7 +53,7 @@ namespace OkyanusWebAPI.Controllers
                 OrderSehir = createOrderRequestVM.OrderSehir,
                 OrderPhone = createOrderRequestVM.OrderPhone,
                 OrderKat = createOrderRequestVM.OrderKat,
-                TotalPrice = createOrderRequestVM.TotalPrice,
+                TotalPrice = createOrderRequestVM.OrderItems.Sum(x => (_productService.TGetByID(x.ProductId).DiscountedPrice ?? _productService.TGetByID(x.ProductId).Price) * x.Quantity),
             };
             var value = _mapper.Map<Order>(createOrderVM);
             _OrderService.TAdd(value);
@@ -60,15 +62,14 @@ namespace OkyanusWebAPI.Controllers
             {
                 ProductID = item.ProductId,
                 Count = item.Quantity,
-                UnitPrice = item.Price,
-                TotalPrice = item.TotalPrice,
+                UnitPrice = _productService.TGetByID(item.ProductId).DiscountedPrice ?? _productService.TGetByID(item.ProductId).Price,
                 OrderID = value.ID,
             }));
             var orderItemList = _mapper.Map<List<OrderDetail>>(createOrderDetailVM);
             _orderDetailService.TAddRange(orderItemList);
-            var orders = _OrderService.TGetListAll();
-            var orderList = _mapper.Map<List<ResultOrderVM>>(orders);
-            await _hubContext.Clients.All.SendAsync("ReceiveOrder", orderList);
+            //var orders = _OrderService.TGetListAll();
+            //var orderList = _mapper.Map<List<ResultOrderVM>>(orders);
+            //await _hubContext.Clients.All.SendAsync("ReceiveOrder", orderList);
             return Ok("Order Eklendi");
         }
 
