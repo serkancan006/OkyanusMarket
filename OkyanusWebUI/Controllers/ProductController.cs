@@ -39,7 +39,8 @@ namespace OkyanusWebUI.Controllers
         public class FilteredParameters
         {
             public string? SearchName { get; set; }
-            public List<string>? CategoryNames { get; set; }
+            public string? MarkaAdi { get; set; }
+            public string? CategoryName { get; set; }
             public int? PageNumber { get; set; } = 1;
             public int? PageSize { get; set; } = 20;
         }
@@ -56,13 +57,14 @@ namespace OkyanusWebUI.Controllers
             {
                 queryString += $"&searchName={filteredParameters.SearchName}";
             }
-
-            if (filteredParameters.CategoryNames != null && filteredParameters.CategoryNames.Any())
+            if (!string.IsNullOrEmpty(filteredParameters.MarkaAdi))
             {
-                foreach (var categoryName in filteredParameters.CategoryNames)
-                {
-                    queryString += $"&categoryNames={Uri.EscapeDataString(categoryName)}";
-                }
+                queryString += $"&markaAdi={filteredParameters.MarkaAdi}";
+            }
+
+            if (filteredParameters.CategoryName != null && filteredParameters.CategoryName.Any())
+            {
+                queryString += $"&categoryName={filteredParameters.CategoryName}";
             }
             return queryString;
         }

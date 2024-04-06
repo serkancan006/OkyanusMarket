@@ -71,7 +71,13 @@
                         count++;
                         <tr>
                             <td>@count</td>
-                            <td><img src="@(item.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" width="50" height="50" /></td>
+                            <td class="offer-img">
+                                <img src="@(item.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" width="80" height="80" />
+                                @if (item.DiscountedPrice != null)
+                                {
+                                    <div class="offer mr-3"><p><span style="font-size:9px">İndirimde</span></p></div>
+                                }
+                            </td>
                             <td>@(item.ProductName.Length > 20 ? item.ProductName.Substring(0, 20) : item.ProductName)</td>
                             <td>@item.Price</td>
                             <td>@item.DiscountedPrice</td>

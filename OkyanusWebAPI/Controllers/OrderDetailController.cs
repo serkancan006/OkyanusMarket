@@ -20,13 +20,13 @@ namespace OkyanusWebAPI.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public IActionResult OrderDetailList()
-        {
-            var values = _OrderDetailService.TGetListAll();
-            var result = _mapper.Map<List<ResultOrderDetailVM>>(values);
-            return Ok(result);
-        }
+        //[HttpGet]
+        //public IActionResult OrderDetailList()
+        //{
+        //    var values = _OrderDetailService.TGetListAll();
+        //    var result = _mapper.Map<List<ResultOrderDetailVM>>(values);
+        //    return Ok(result);
+        //}
 
         [HttpGet("[action]/{id}")]
         public IActionResult OrderDetailList(int id)
@@ -36,29 +36,29 @@ namespace OkyanusWebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        public IActionResult AddOrderDetail(CreateOrderDetailVM OrderDetailVM)
-        {
-            var value = _mapper.Map<OrderDetail>(OrderDetailVM);
-            _OrderDetailService.TAdd(value);
-            return Ok("OrderDetail Eklendi");
-        }
+        //[HttpPost]
+        //public IActionResult AddOrderDetail(CreateOrderDetailVM OrderDetailVM)
+        //{
+        //    var value = _mapper.Map<OrderDetail>(OrderDetailVM);
+        //    _OrderDetailService.TAdd(value);
+        //    return Ok("OrderDetail Eklendi");
+        //}
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteOrderDetail(int id)
-        {
-            var values = _OrderDetailService.TGetByID(id);
-            _OrderDetailService.TDelete(values);
-            return Ok("OrderDetail Silindi");
-        }
+        //[HttpDelete("{id}")]
+        //public IActionResult DeleteOrderDetail(int id)
+        //{
+        //    var values = _OrderDetailService.TGetByID(id);
+        //    _OrderDetailService.TDelete(values);
+        //    return Ok("OrderDetail Silindi");
+        //}
 
-        [HttpPut]
-        public IActionResult UpdateOrderDetail(UpdateOrderDetailVM OrderDetailVM)
-        {
-            var value = _mapper.Map<OrderDetail>(OrderDetailVM);
-            _OrderDetailService.TUpdate(value);
-            return Ok("OrderDetail Güncellendi");
-        }
+        //[HttpPut]
+        //public IActionResult UpdateOrderDetail(UpdateOrderDetailVM OrderDetailVM)
+        //{
+        //    var value = _mapper.Map<OrderDetail>(OrderDetailVM);
+        //    _OrderDetailService.TUpdate(value);
+        //    return Ok("OrderDetail Güncellendi");
+        //}
 
         [HttpGet("{id}")]
         public IActionResult GetOrderDetail(int id)

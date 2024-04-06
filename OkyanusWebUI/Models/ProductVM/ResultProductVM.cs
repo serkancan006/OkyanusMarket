@@ -14,7 +14,13 @@ namespace OkyanusWebUI.Models.ProductVM
         public double? DiscountedPrice { get; set; }
         public string? ImageUrl { get; set; }
         public string Description { get; set; }
-        public Birim ProductType { get; set; }  
-
+        public Birim ProductType { get; set; }
+        public bool HasProductInBasket
+        {
+            get 
+            {
+                return new BasketService(new HttpContextAccessor()).hasProductInBasket(this.ID);
+            }
+        }
     }
 }

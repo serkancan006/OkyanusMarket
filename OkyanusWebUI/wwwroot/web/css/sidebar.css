@@ -40,6 +40,10 @@ margin-top: 15px;
 text-align: left;
 }
 
+.categories-list a.categories-list-a-active {
+    color: black;
+    font-weight: bold;
+}
 
 .categories-list a {
 text-decoration: none;
@@ -54,6 +58,7 @@ transition: background-color 0.3s, color 0.3s;
 background-color: dodgerblue;
 color: white;
 }
+
 
 
 /* Checkboxes */

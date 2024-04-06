@@ -47,8 +47,8 @@ namespace OkyanusWebUI.Controllers
                         Quantity = 1,
                         Birim = ((Birim)values.ProductType).ToString(),
                     };
-                    _notyfService.Success("sepete eklendi!");
                     _basketService.AddItem(cartItem);
+                    _notyfService.Success("sepete eklendi!");
                 }
             }
             return Ok();

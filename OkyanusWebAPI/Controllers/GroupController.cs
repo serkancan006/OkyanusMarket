@@ -29,25 +29,25 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet("[Action]")]
-        public IActionResult Get5AnaGroupList()
+        public IActionResult AnaGroupList()
         {
             var values = _GroupService.TGetListAll().Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.ID, x.GRUPADI }).ToList();
-            return Ok();
+            return Ok(values);
         }
 
         [HttpGet("[Action]")]
-        public IActionResult AnaGroupList()
+        public IActionResult Get4AnaGroupRandomList()
         {
             var values = _GroupService.TGetListAll()
                 .Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true )
                 .OrderBy(x => new Random().Next())
                 .Select(x => new { x.ID, x.GRUPADI })
-                .Take(5)
+                .Take(4)
                 .ToList();
             return Ok(values);
         }
 
-        [HttpGet("[Action]/{groupName}")]
+        [HttpGet("[Action]/{groupID}")]
         public IActionResult MultiGroupList(int groupID)
         {
             var values = _GroupService.TGetListAll().Where(x => x.ID == groupID).FirstOrDefault();
@@ -55,13 +55,13 @@ namespace OkyanusWebAPI.Controllers
 
             var result = new
             {
-                ANAGROUP = allGroups.Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.GRUPADI == values?.GRUPADI }).ToList(),
+                ANAGROUP = allGroups.Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ANAGRUP == values?.ANAGRUP }).ToList(),
 
-                ALTGRUP1 = (allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 != "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.GRUPADI == values?.GRUPADI }).ToList()),
+                ALTGRUP1 = (allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 != "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP1 == values?.ALTGRUP1 }).ToList()),
 
-                ALTGRUP2 = values?.ALTGRUP1 != "0" ? (allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 != "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.GRUPADI == values?.GRUPADI }).ToList()) : null,
+                ALTGRUP2 = values?.ALTGRUP1 != "0" ? (allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 != "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP2 == values?.ALTGRUP2 }).ToList()) : null,
 
-                AlTGRUP3 = values?.ALTGRUP2 != "0" ? (allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 == values?.ALTGRUP2 && x.ALTGRUP3 != "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.GRUPADI == values?.GRUPADI }).ToList()) : null
+                AlTGRUP3 = values?.ALTGRUP2 != "0" ? (allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 == values?.ALTGRUP2 && x.ALTGRUP3 != "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP3 == values?.ALTGRUP3 }).ToList()) : null
             };
 
             return Ok(result);

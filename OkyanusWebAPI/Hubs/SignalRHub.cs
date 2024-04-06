@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Okyanus.BusinessLayer.Abstract;
-using Okyanus.EntityLayer.Entities;
-using OkyanusWebAPI.Models;
 using OkyanusWebAPI.Models.OrderVM;
-using OkyanusWebAPI.Models.ProductVM;
 
 namespace OkyanusWebAPI.Hubs
 {

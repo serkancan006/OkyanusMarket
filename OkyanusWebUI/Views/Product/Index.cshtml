@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -19,8 +18,8 @@
 
         <div class="row">
             <!-- Sidebar -->
-            <div class="col-md-3">
-                @await Component.InvokeAsync("_ProductSidebarPartial")
+            <div class="col-md-3" id="dynamicCategoryCompContainer">
+                @*@await Component.InvokeAsync("_ProductSidebarPartial", new { categoryID = 7 })*@
             </div>
             <!-- Product List -->
             <div class="col-md-9">
@@ -40,34 +39,35 @@
 <div id="productsModalContainer">
 </div>
 
-    <script type="text/javascript">
-        'use strict';
+<script type="text/javascript">
+    'use strict';
 
-        let filteredParameters = {
-            PageNumber: 1,
-            PageSize: 20,
-            SearchName: undefined,
-            CategoryNames: undefined,
-        };
-        let totalCount;
-        let totalPages;
+    let filteredParameters = {
+        PageNumber: 1,
+        PageSize: 20,
+        SearchName: undefined,
+        MarkaAdi: undefined,
+        CategoryName: undefined,
+    };
+    let totalCount;
+    let totalPages;
 
-        function getProducts() {
-            $.ajax({
-                url: '/Product/GetProducts',
-                type: 'GET',
-                data: filteredParameters,
-                success: function (data) {
-                    //console.log(data);
-                    // Verileri işleme
-                    let products = data.product;
-                    totalCount = data.totalCount;
-                    totalPages = data.totalPages;
+    function getProducts() {
+        $.ajax({
+            url: '/Product/GetProducts',
+            type: 'GET',
+            data: filteredParameters,
+            success: function (data) {
+                //console.log(data);
+                // Verileri işleme
+                let products = data.product;
+                totalCount = data.totalCount;
+                totalPages = data.totalPages;
 
-                    let htmlContent = '';
-                    let htmlContent2 = '';
-                    products.forEach(function (item) {
-                        htmlContent += `<div class="col-md-3 pro-1">
+                let htmlContent = '';
+                let htmlContent2 = '';
+                products.forEach(function (item) {
+                    htmlContent += `<div class="col-md-3 pro-1">
                                 <div class="col-m">
                                     <a href="" data-toggle="modal" data-target="#myModal_${item.id}" class="offer-img">
                                         <img src="${item.imageUrl ? item.imageUrl : "/web/images/resimhazirlaniyor.png"}" class="img-responsive" alt="">
@@ -82,12 +82,12 @@
                                             <div class="clearfix"></div>
                                         </div>
                                         <div class="add add-2">
-                                            <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket(${item.id})">Sepete Ekle</button>
+                                        <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket(${item.id})">Sepete Ekle</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>`;
-                        htmlContent2 += `<div class="modal fade" id="myModal_${item.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_${item.id}">
+                    htmlContent2 += `<div class="modal fade" id="myModal_${item.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_${item.id}">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content modal-info">
                                         <div class="modal-header">
@@ -103,13 +103,13 @@
                                                 <h3>${item.productName}</h3>
                                                 <p class="in-para">${item.description}</p>
                                                 <div class="price_single">
-                                                    ${item.description ? '<span class="reducedfrom"><del>&#8378;' + item.price + '</del> &#8378;' + item.discountedPrice + '</span>' : '<span class="reducedfrom">&#8378;' + item.price + '</span>'}
+                                                    ${item.discountedPrice ? '<span class="reducedfrom"><del>&#8378;' + item.price + '</del> &#8378;' + item.discountedPrice + '</span>' : '<span class="reducedfrom">&#8378;' + item.price + '</span>'}
                                                     <div class="clearfix"></div>
                                                 </div>
                                                 <h4 class="quick">Detaylar:</h4>
                                                 <p class="quick_desc">${item.title}</p>
                                                 <div class="add-to">
-                                                    <button class="btn btn-danger my-cart-btn my-cart-btn1" onclick="addBasket(${item.id})">Sepete Ekle</button>
+                                                <button class="btn btn-danger my-cart-btn my-cart-btn1" onclick="addBasket(${item.id})">Sepete Ekle</button>
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>
@@ -117,73 +117,87 @@
                                     </div>
                                 </div>
                             </div>`;
-                    });
-                    $('#productsContainer').html(htmlContent);
-                    $('#productsModalContainer').html(htmlContent2);
+                });
+                $('#productsContainer').html(htmlContent);
+                $('#productsModalContainer').html(htmlContent2);
 
-                    createPagination();
-                },
-                error: function (err) {
-                    //console.error("Ajax hata olustu!", err);
-                }
-            });
-        }
-
-        $(document).ready(function () {
-            getProducts();
-        });
-
-        function createPagination() {
-            let paginationhtmlContent = '';
-            paginationhtmlContent += '<ul class="pagination pagination-lg">';
-            paginationhtmlContent += '<li><a onclick="changePage(1)" aria-label="Previous"><span aria-hidden="true">«</span></a></li>';
-
-            let startPage = 1;
-            let endPage = totalPages > 5 ? 5 : totalPages;
-
-            if (totalPages > 5) {
-                if (filteredParameters.PageNumber <= 3) {
-                    endPage = 5;
-                } else if (filteredParameters.PageNumber + 2 >= totalPages) {
-                    startPage = totalPages - 4;
-                    endPage = totalPages;
-                } else {
-                    startPage = filteredParameters.PageNumber - 2;
-                    endPage = filteredParameters.PageNumber + 2;
-                }
+                createPagination();
+            },
+            error: function (err) {
+                //console.error("Ajax hata olustu!", err);
             }
+        });
+    }
 
-            for (let i = startPage; i <= endPage; i++) {
-                if (i === filteredParameters.PageNumber) {
-                    paginationhtmlContent += `<li class="active"><a onclick="changePage(${i})">${i}</a></li>`;
-                } else {
-                    paginationhtmlContent += `<li><a onclick="changePage(${i})">${i}</a></li>`;
-                }
+    $(document).ready(function () {
+        getProducts();
+        createProductSidebar();
+    });
+
+    function createPagination() {
+        let paginationhtmlContent = '';
+        paginationhtmlContent += '<ul class="pagination pagination-lg">';
+        paginationhtmlContent += '<li><a onclick="changePage(1)" aria-label="Previous"><span aria-hidden="true">«</span></a></li>';
+
+        let startPage = 1;
+        let endPage = totalPages > 5 ? 5 : totalPages;
+
+        if (totalPages > 5) {
+            if (filteredParameters.PageNumber <= 3) {
+                endPage = 5;
+            } else if (filteredParameters.PageNumber + 2 >= totalPages) {
+                startPage = totalPages - 4;
+                endPage = totalPages;
+            } else {
+                startPage = filteredParameters.PageNumber - 2;
+                endPage = filteredParameters.PageNumber + 2;
             }
-
-            paginationhtmlContent += '<li><a onclick="changePage(totalPages)" aria-label="Next"><span aria-hidden="true">»</span></a></li>';
-            paginationhtmlContent += '</ul>';
-            $('#paginationContainer').html(paginationhtmlContent);
         }
 
-
-        function changePage(number) {
-            filteredParameters.PageNumber = number;
-            getProducts();
+        for (let i = startPage; i <= endPage; i++) {
+            if (i === filteredParameters.PageNumber) {
+                paginationhtmlContent += `<li class="active"><a onclick="changePage(${i})">${i}</a></li>`;
+            } else {
+                paginationhtmlContent += `<li><a onclick="changePage(${i})">${i}</a></li>`;
+            }
         }
 
+        paginationhtmlContent += '<li><a onclick="changePage(totalPages)" aria-label="Next"><span aria-hidden="true">»</span></a></li>';
+        paginationhtmlContent += '</ul>';
+        $('#paginationContainer').html(paginationhtmlContent);
+    }
 
 
+    function changePage(number) {
+        filteredParameters.PageNumber = number;
+        getProducts();
+    }
 
-        // Interval'ı saklıyoruz kapatmak için
-        let intervalID = setInterval(getProducts, 10000);
-        // Modal açıldığında, interval'ı durdur
-        $(document).on('shown.bs.modal', '.modal', function () {
-            clearInterval(intervalID);
+    function createProductSidebar(id = null) {
+        //GetCategorySidebarComponent
+        $.ajax({
+            url: '/Group/GetCategorySidebarComponent?categoryID=' + id,
+            type: 'GET',
+            success: function (data) {
+                //console.log(data);
+                $('#dynamicCategoryCompContainer').html(data);
+            },
+            error: function (err) {
+                //console.error("Ajax hata olustu!", err);
+            }
         });
-        // Modal kapatıldığında, interval'ı başlat
-        $(document).on('hidden.bs.modal', '.modal', function () {
-            intervalID = setInterval(getProducts, 10000);
-        });
-    </script>
+    }
+
+
+    // Interval'ı saklıyoruz kapatmak için
+    let intervalID = setInterval(getProducts, 10000);
+    // Modal açıldığında, interval'ı durdur
+    $(document).on('shown.bs.modal', '.modal', function () {
+        clearInterval(intervalID);
+    });
+    // Modal kapatıldığında, interval'ı başlat
+    $(document).on('hidden.bs.modal', '.modal', function () {
+        intervalID = setInterval(getProducts, 10000);
+    });
+</script>
 

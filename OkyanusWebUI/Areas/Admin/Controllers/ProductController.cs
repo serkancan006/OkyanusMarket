@@ -102,7 +102,8 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             AssignCategoryRequest assignCategoryRequestApi = new AssignCategoryRequest()
             {
                 ProductID = request.ProductID,
-                CategoryIDs = request.ProductCategories.Where(x => x.IsSelected == true).Select(x => x.CategoryID).ToList()
+                //CategoryID = request.ProductCategories.Where(x => x.IsSelected == true).Select(x => x.CategoryID).FirstOrDefault(),
+                CategoryID = request.SecilenCategoryID
             };
             var responseMessage = await _customHttpClient.Post<AssignCategoryRequest>(new() { Controller = "Product", Action = "AssignCategoryForProduct" }, assignCategoryRequestApi);
             if (responseMessage.IsSuccessStatusCode)

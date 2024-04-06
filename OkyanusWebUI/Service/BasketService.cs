@@ -102,6 +102,11 @@ namespace OkyanusWebUI.Service
         {
             return Items.Count();
         }
+
+        public bool hasProductInBasket(int id)
+        {
+            return Items.Any(item => item.ProductId == id);
+        }
     }
 
     public class CartItem

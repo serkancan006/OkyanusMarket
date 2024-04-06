@@ -222,9 +222,9 @@ namespace Okyanus.DataAccessLayer.Concrete
         {
             new About()
             {
-                AboutDesc = "asfasfa",
-                Misyon = "asfafa",
-                Vizyon = "asfasfafa"
+                AboutDesc = "Biz, [Şirket Adı], [kuruluş yılı] yılında [lokasyon] merkezli olarak kurulan bir [iş alanı] şirketiyiz. Müşterilerimize kaliteli ve yenilikçi [ürünler/hizmetler] sunarak sektörde öncü olmayı amaçlıyoruz. Tecrübeli ve uzman ekibimizle birlikte, müşteri memnuniyetini en üst seviyede tutmak için çalışıyoruz. Şeffaflık, dürüstlük ve müşteri odaklı yaklaşımımızla, her zaman müşterilerimizin ihtiyaçlarını karşılamayı ve beklentilerini aşmayı hedefliyoruz. [Şirket Adı] olarak, değerlerimize bağlı kalırken sürekli olarak yenilik ve gelişim peşindeyiz. Bizimle çalışan herkesin başarısını ve memnuniyetini ön planda tutarak, iş ortaklarımızla uzun vadeli ve karşılı",
+                Misyon = "Bizim misyonumuz, müşterilerimize değer katmak ve onların ihtiyaçlarını en iyi şekilde karşılamaktır. Müşteri odaklı yaklaşımımızla, kaliteli ürünlerimiz ve hizmetlerimizle her zaman müşteri memnuniyetini sağlamak öncelikli hedefimizdir. İşimizi dürüstlük, şeffaflık ve etik değerlere bağlı kalarak yaparız. Sürdürülebilirlik ve toplumsal sorumluluk bilinciyle hareket eder, çevreye duyarlı çözümler üretmeyi önemseriz. Ekibimizle birlikte sürekli olarak yenilik ve gelişim peşindeyiz, sektörde öncü olmak için çalışıyoruz. Müşterilerimizin güvenini kazanmak ve onların başarısına katkıda bulunmak için varız.",
+                Vizyon = "Biz, müşteri memnuniyetini en üst düzeye çıkarmak için çalışıyoruz ve yenilikçi çözümler sunarak sektörde lider konumumuzu korumayı hedefliyoruz. Biz, müşteri memnuniyetini en üst düzeye çıkarmak için çalışıyoruz ve yenilikçi çözümler sunarak sektörde lider konumumuzu korumayı hedefliyoruz."
             }
         };
 
@@ -233,7 +233,19 @@ namespace Okyanus.DataAccessLayer.Concrete
             new BranchUs()
             {
                 BranchAdres = "Ankara, Kızılay, Ankara Caddesi 123, 06510"
-            }
+            },
+           new BranchUs()
+            {
+                BranchAdres = "Ankara, Kızılay, Başkent Sokak 456, 06510"
+            },
+            new BranchUs()
+            {
+                BranchAdres = "Ankara, Kızılay, Cumhuriyet Bulvarı 789, 06510"
+            },
+            new BranchUs()
+            {
+                BranchAdres = "İstanbul, Esener, Esenler Caddesi 123, 06510"
+            },
         };
         private static Contact[] Contacts(MailOptions mailOptions)
         {
@@ -254,13 +266,23 @@ namespace Okyanus.DataAccessLayer.Concrete
         {
             new MyPhone()
             {
-                PhoneName = "Fax",
+                PhoneName = "Faks",
                 PhoneNumber = "+90 312 123 45 67",
             },
             new MyPhone()
             {
-                PhoneName = "Telefon",
+                PhoneName = "Şirket-1",
                 PhoneNumber = "+90 312 987 65 43",
+            },
+            new MyPhone()
+            {
+                PhoneName = "Şirket-2",
+                PhoneNumber = "+90 312 987 65 44",
+            },
+            new MyPhone()
+            {
+                PhoneName = "Telefon",
+                PhoneNumber = "+90 550 400 30 20",
             },
         };
         //product Slider

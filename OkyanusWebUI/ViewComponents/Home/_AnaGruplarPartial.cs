@@ -4,7 +4,7 @@ using OkyanusWebUI.Service;
 
 namespace OkyanusWebUI.ViewComponents.Home
 {
-    public class _CarouselPartial : ViewComponent
+    public class _AnaGruplarPartial : ViewComponent
     {
         public IViewComponentResult Invoke()
         {

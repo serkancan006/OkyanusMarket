@@ -1,12 +1,8 @@
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
-using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using OkyanusWebUI.Models.OrderVM;
 using OkyanusWebUI.Service;
-using OkyanusWebUI.Validations;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);

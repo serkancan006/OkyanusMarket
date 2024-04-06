@@ -67,6 +67,7 @@ namespace OkyanusWebAPI.Controllers
             }));
             var orderItemList = _mapper.Map<List<OrderDetail>>(createOrderDetailVM);
             _orderDetailService.TAddRange(orderItemList);
+            //SignalR
             //var orders = _OrderService.TGetListAll();
             //var orderList = _mapper.Map<List<ResultOrderVM>>(orders);
             //await _hubContext.Clients.All.SendAsync("ReceiveOrder", orderList);
@@ -81,13 +82,13 @@ namespace OkyanusWebAPI.Controllers
             return Ok("Order Silindi");
         }
 
-        [HttpPut]
-        public IActionResult UpdateOrder(UpdateOrderVM OrderVM)
-        {
-            var value = _mapper.Map<Order>(OrderVM);
-            _OrderService.TUpdate(value);
-            return Ok("Order Güncellendi");
-        }
+        //[HttpPut]
+        //public IActionResult UpdateOrder(UpdateOrderVM OrderVM)
+        //{
+        //    var value = _mapper.Map<Order>(OrderVM);
+        //    _OrderService.TUpdate(value);
+        //    return Ok("Order Güncellendi");
+        //}
 
         [HttpGet("{id}")]
         public IActionResult GetOrder(int id)

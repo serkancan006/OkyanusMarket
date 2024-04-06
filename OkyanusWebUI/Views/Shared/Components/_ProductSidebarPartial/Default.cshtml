@@ -1,32 +1,71 @@
-﻿@model List<ResultCategoryVM>
+﻿@model ResultGrupVM
 
 @if (Model != null)
 {
     <div class="category-sidebar">
-        <h3>Kategoriler</h3>
+        <h4 style="text-align: left; text-transform: uppercase; color: #6c757d">Arama</h4>
+        <br />
         <div class="search-container">
             <input type="text" placeholder="Ürün Ara" class="form-control" name="SearchName" id="productSearchName">
             <button type="submit" class="search-container-button" onclick="filteredProductName()">
                 <i class="fa fa-search"></i>
             </button>
         </div>
-
-        <ul class="categories-list">
-            <li><a href="/Product/Index/">Tümü</a></li>
-            @foreach (var item in Model)
-            {
-                <li><a style="cursor:pointer" onclick="filteredProductCategory('@item.CategoryName')">@item.CategoryName</a></li>
+        <br />
+        <div class="search-container">
+            <input type="text" placeholder="Marka Ara" class="form-control" name="MarkaAdi" id="productMarkaName">
+            <button type="submit" class="search-container-button" onclick="filteredMarka()">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+        <br />
+        <div>
+            <h4 style="text-align: left; text-transform: uppercase; color: #6c757d">Kategoriler</h4>
+            <ul class="categories-list">
+                <li><a href="/Product/Index/">Tümü</a></li>
+                @foreach (var anaGrup in Model.anagroup)
+                {
+                    <li><a class="@(anaGrup.Selected == true ? "categories-list-a-active" : "")" style="cursor:pointer" onclick="filteredProductCategory('@anaGrup.GRUPADI','@anaGrup.ID')">@anaGrup.GRUPADI</a></li>
+                    @if (Model.altgruP1 != null && anaGrup.Selected == true)
+                    {
+                        <div style="padding-left:20px">
+                            @foreach (var altgrup1 in Model.altgruP1)
+                            {
+                            <li><a class="@(altgrup1.Selected == true ? "categories-list-a-active" : "")" style="cursor:pointer" onclick="filteredProductCategory('@altgrup1.GRUPADI','@altgrup1.ID')">@altgrup1.GRUPADI</a></li>
+                            @if (Model.altgruP2 != null && altgrup1.Selected == true)
+                            {
+                                <div style="padding-left:20px">
+                                    @foreach (var altgruP2 in Model.altgruP2)
+                                    {
+                                    <li><a class="@(altgruP2.Selected == true ? "categories-list-a-active" : "")" style="cursor:pointer" onclick="filteredProductCategory('@altgruP2.GRUPADI','@altgruP2.ID')">@altgruP2.GRUPADI</a></li>
+                                    @if (Model.alTGRUP3 != null && altgruP2.Selected == true)
+                                    {
+                                        <div style="padding-left:20px">
+                                            @foreach (var alTGRUP3 in Model.alTGRUP3)
+                                            {
+                                            <li><a class="@(alTGRUP3.Selected == true ? "categories-list-a-active" : "")" style="cursor:pointer" onclick="filteredProductCategory('@alTGRUP3.GRUPADI','@alTGRUP3.ID')">@alTGRUP3.GRUPADI</a></li>
+                                        }
+                                    </div>
+                                }
+                                }
+                                </div>
+                            }
+                        }
+                    </div>
+                }
             }
-        </ul>
+            </ul>
+        </div>
+
         <!--
-            <div class="checkbox-container">
-            <input type="checkbox" id="checkbox1" />
-            <label for="checkbox1">Checkbox 1</label>
-            <br />
-            <input type="checkbox" id="checkbox2" />
-            <label for="checkbox2">Checkbox 2</label>
-            </div>
-        -->
+        <div class="checkbox-container">
+        <input type="checkbox" id="checkbox1" />
+        <label for="checkbox1">Checkbox 1</label>
+        <br />
+        <input type="checkbox" id="checkbox2" />
+        <label for="checkbox2">Checkbox 2</label>
+        </div>
+    -->
     </div>
 
     <script>
@@ -34,9 +73,14 @@
             filteredParameters.SearchName = $('#productSearchName').val();
             getProducts();
         }
-        function filteredProductCategory(categoryName) {
-            filteredParameters.CategoryNames = categoryName;
+        function filteredMarka() {
+            filteredParameters.MarkaAdi = $('#productMarkaName').val();
             getProducts();
+        }
+        function filteredProductCategory(categoryName, id) {
+            filteredParameters.CategoryName = categoryName;
+            getProducts();
+            createProductSidebar(id)
         }
     </script>
 }

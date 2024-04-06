@@ -13,15 +13,36 @@ namespace OkyanusWebUI.ViewComponents.Product
             _customHttpClient = customHttpClient;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int? categoryID = null)
         {
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "Category" });
-            if (responseMessage.IsSuccessStatusCode)
+            if (categoryID == null)
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultCategoryVM>>(jsonData);
-                return View(values);
+                var responseMessage = await _customHttpClient.Get(new() { Controller = "Group", Action = "AnaGroupList" });
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                    var values = JsonConvert.DeserializeObject<List<ResultCategoryVM>>(jsonData);
+                    var result = new ResultGrupVM()
+                    {
+                        anagroup = values != null ? values.ToArray() : new ResultCategoryVM[] {},
+                        altgruP1 = null,
+                        altgruP2 = null,
+                        alTGRUP3 = null
+                    };
+                    return View(result);
+                }
             }
+            else
+            {
+                var responseMessage = await _customHttpClient.Get(new() { Controller = "Group", Action = "MultiGroupList" },categoryID);
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                    var values = JsonConvert.DeserializeObject<ResultGrupVM>(jsonData);
+                    return View(values);
+                }
+            }
+        
             return View();
         }
     }

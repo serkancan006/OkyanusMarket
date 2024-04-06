@@ -29,26 +29,75 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet]
         public IActionResult ProductList([FromQuery] FilteredParamaters filteredParamaters)
         {
-            var values = _ProductService.TGetListAll();
+            var values = _ProductService.TGetListAll().Where(x => x.Status == true);
 
             if (!string.IsNullOrEmpty(filteredParamaters.searchName))
             {
                 values = values.Where(x => x.ProductName.Contains(filteredParamaters.searchName)).ToList();
             }
 
-            if (!string.IsNullOrEmpty(filteredParamaters.categoryNames))
+            if (!string.IsNullOrEmpty(filteredParamaters.categoryName))
             {
-                var group = _categoryService.TWhere(x => x.GRUPADI == filteredParamaters.categoryNames).FirstOrDefault();
-                values = values.Where(x => x.ANAGRUP == group.ANAGRUP && x.ALTGRUP1 == group.ALTGRUP1 && x.ALTGRUP2 == group.ALTGRUP2 && x.ALTGRUP3 == group.ALTGRUP3).ToList();
+                var group = _categoryService.TWhere(x => x.GRUPADI == filteredParamaters.categoryName).FirstOrDefault();
+                if (group?.ALTGRUP1 == "0")
+                {
+                    values = values.Where(x => x.ANAGRUP == group?.ANAGRUP).ToList();
+                }
+                else if (group?.ALTGRUP2 == "0")
+                {
+                    values = values.Where(x => x.ANAGRUP == group?.ANAGRUP && x.ALTGRUP1 == group.ALTGRUP1).ToList();
+                }
+                else if (group?.ALTGRUP3 == "0")
+                {
+                    values = values.Where(x => x.ANAGRUP == group?.ANAGRUP && x.ALTGRUP1 == group.ALTGRUP1 && x.ALTGRUP2 == group.ALTGRUP2).ToList();
+                }
+                else
+                {
+                    values = values.Where(x => x.ANAGRUP == group?.ANAGRUP && x.ALTGRUP1 == group.ALTGRUP1 && x.ALTGRUP2 == group.ALTGRUP2 && x.ALTGRUP3 == group.ALTGRUP3).ToList();
+                }
             }
-            //if (filteredParamaters.categoryNames != null && filteredParamaters.categoryNames.Any() && filteredParamaters.categoryNames.Count > 0)
+            //if (filteredParamaters.categoryName != null && filteredParamaters.categoryName.Any() && filteredParamaters.categoryName.Count > 0)
             //{
 
-            //    values = values.Where(p => p.Categories != null && p.Categories.Any(x => filteredParamaters.categoryNames.Any(y => y == x.CategoryName))).ToList();
+            //    values = values.Where(p => p.Categories != null && p.Categories.Any(x => filteredParamaters.categoryName.Any(y => y == x.CategoryName))).ToList();
             //}
-            if (!string.IsNullOrEmpty(filteredParamaters.markAdı))
+            if (!string.IsNullOrEmpty(filteredParamaters.markaAdi))
             {
-                values = values.Where(x => x.Marka == filteredParamaters.markAdı).ToList();
+                values = values.Where(x => x.Marka == filteredParamaters.markaAdi).ToList();
+            }
+
+            var totalCount = values.Count();
+            var totalPages = (int)Math.Ceiling((double)totalCount / filteredParamaters.pageSize);
+
+            values = values.Skip((filteredParamaters.pageNumber - 1) * filteredParamaters.pageSize).Take(filteredParamaters.pageSize).ToList();
+
+            var product = _mapper.Map<List<ResultProductVM>>(values).ToList();
+            return Ok(new { TotalCount = totalCount, TotalPages = totalPages, Product = product });
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult ProductListAll([FromQuery] FilteredParamaters filteredParamaters)
+        {
+            var values = _ProductService.TGetListAll().Where(x => x.Status == true);
+
+            if (!string.IsNullOrEmpty(filteredParamaters.searchName))
+            {
+                values = values.Where(x => x.ProductName.Contains(filteredParamaters.searchName)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(filteredParamaters.categoryName))
+            {
+                var group = _categoryService.TWhere(x => x.GRUPADI == filteredParamaters.categoryName).FirstOrDefault();
+                values = values.Where(x => x.ANAGRUP == group?.ANAGRUP && x.ALTGRUP1 == group.ALTGRUP1 && x.ALTGRUP2 == group.ALTGRUP2 && x.ALTGRUP3 == group.ALTGRUP3).ToList();
+            }
+            //if (filteredParamaters.categoryName != null && filteredParamaters.categoryName.Any() && filteredParamaters.categoryName.Count > 0)
+            //{
+
+            //    values = values.Where(p => p.Categories != null && p.Categories.Any(x => filteredParamaters.categoryName.Any(y => y == x.CategoryName))).ToList();
+            //}
+            if (!string.IsNullOrEmpty(filteredParamaters.markaAdi))
+            {
+                values = values.Where(x => x.Marka == filteredParamaters.markaAdi).ToList();
             }
 
             var totalCount = values.Count();
@@ -133,7 +182,12 @@ namespace OkyanusWebAPI.Controllers
         [HttpPost]
         public IActionResult AddProduct(CreateProductVM ProductVM)
         {
+            var category = _categoryService.TGetByID(ProductVM.GroupID);
             var value = _mapper.Map<Product>(ProductVM);
+            value.ANAGRUP = category.ANAGRUP;
+            value.ALTGRUP1 = category.ALTGRUP1;
+            value.ALTGRUP2 = category.ALTGRUP2;
+            value.ALTGRUP3 = category.ALTGRUP3;
             _ProductService.TAdd(value);
             return Ok("Product Eklendi");
         }
