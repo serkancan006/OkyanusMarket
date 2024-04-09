@@ -1,13 +1,31 @@
 ﻿@model ResultGrupVM
 
+
 @if (Model != null)
 {
+
     <div class="category-sidebar">
-        <h4 style="text-align: left; text-transform: uppercase; color: #6c757d">Arama</h4>
+     <div>
+         <h4 style="text-align: left; text-transform: uppercase; color: #6c757d">Sırala</h4>
+         <br />
+         <select class="form-control" id="sortBy" onchange="filteredSort()">
+             <option value="" selected>Varsayılan</option>
+             <option value="productname">Ada göre azakan</option>
+             <option value="productnameasc">Ada göre artan</option>
+             <option value="price">Fiyata göre azalan</option>
+             <option value="priceasc">Fiyata göre artan</option>
+             @*<option value="indirimli">İndirimli</option>
+             <option value="indirimsiz">İndirimsiz</option>*@
+         </select>
+     </div>
+       
         <br />
+        <h4 style="text-align: left; text-transform: uppercase; color: #6c757d">Ara</h4>
+        <br />
+
         <div class="search-container">
-            <input type="text" placeholder="Ürün Ara" class="form-control" name="SearchName" id="productSearchName">
-            <button type="submit" class="search-container-button" onclick="filteredProductName()">
+            <input type="text" placeholder="Ürün Ara" class="form-control" name="SearchName" id="productSearchName2">
+            <button type="submit" class="search-container-button" onclick="filteredProductName2()">
                 <i class="fa fa-search"></i>
             </button>
         </div>
@@ -51,36 +69,22 @@
                                 </div>
                             }
                         }
-                    </div>
+                            </div>
+                        }
                 }
+                </ul>
+                </div>
+
+                <!--
+                <div class="checkbox-container">
+                <input type="checkbox" id="checkbox1" />
+                <label for="checkbox1">Checkbox 1</label>
+                <br />
+                <input type="checkbox" id="checkbox2" />
+                <label for="checkbox2">Checkbox 2</label>
+                </div>
+                -->
+                </div>
+
+
             }
-            </ul>
-        </div>
-
-        <!--
-        <div class="checkbox-container">
-        <input type="checkbox" id="checkbox1" />
-        <label for="checkbox1">Checkbox 1</label>
-        <br />
-        <input type="checkbox" id="checkbox2" />
-        <label for="checkbox2">Checkbox 2</label>
-        </div>
-    -->
-    </div>
-
-    <script>
-        function filteredProductName() {
-            filteredParameters.SearchName = $('#productSearchName').val();
-            getProducts();
-        }
-        function filteredMarka() {
-            filteredParameters.MarkaAdi = $('#productMarkaName').val();
-            getProducts();
-        }
-        function filteredProductCategory(categoryName, id) {
-            filteredParameters.CategoryName = categoryName;
-            getProducts();
-            createProductSidebar(id)
-        }
-    </script>
-}

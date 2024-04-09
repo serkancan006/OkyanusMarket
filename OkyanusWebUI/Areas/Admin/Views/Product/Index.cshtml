@@ -59,6 +59,7 @@
                         <th>Fiyat</th>
                         <th>İndirim.Fiy</th>
                         <th>Tipi</th>
+                        <th>AnaBarcode</th>
                         <th>Detaylar</th>
                         <th>Sil</th>
                         <th>Kategori</th>
@@ -82,6 +83,7 @@
                             <td>@item.Price</td>
                             <td>@item.DiscountedPrice</td>
                             <td>@item.ProductType</td>
+                            <td>@item.AnaBarcode</td>
                             <td><a href="/Admin/Product/UpdateProduct/@item.ID" class="btn btn-warning">Detaylar</a></td>
                             <td><a href="/Admin/Product/DeleteProduct/@item.ID" class="btn btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz!');">Sil</a></td>
                             <td><button data-toggle="modal" data-target="#assignCategoryModal" class="btn btn-success" onclick="openCategoryModal(@item.ID)">K.Ata</button></td>

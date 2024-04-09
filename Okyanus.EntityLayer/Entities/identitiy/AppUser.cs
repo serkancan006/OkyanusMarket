@@ -15,5 +15,7 @@ namespace Okyanus.EntityLayer.Entities.identitiy
         public DateTime CreatedDate { get; set; }
         virtual public DateTime UpdatedDate { get; set; }
         public bool Status { get; set; }
+        public List<Order> Orders { get; set; }
+        public List<UserAdres> UserAdreses { get; set; }
     }
 }

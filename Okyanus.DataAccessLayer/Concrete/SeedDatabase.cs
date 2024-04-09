@@ -62,24 +62,28 @@ namespace Okyanus.DataAccessLayer.Concrete
         };
         private static AppUser[] AppUsers(MailOptions mailOptions)
         {
+            var user = new AppUser
+            {
+                Id = 1,
+                Name = "Admin",
+                Surname = mailOptions.MailName,
+                UserName = "okyanusrootadmin", // Kullanıcı adı
+                NormalizedUserName = "OKYANUSROOTADMIN",
+                Email = mailOptions.MailAdress, // E-posta
+                NormalizedEmail = mailOptions.MailAdress.ToUpper(),
+                EmailConfirmed = true,
+                PasswordHash = new PasswordHasher<AppUser>().HashPassword(null, "123456Aa*"), // Hashlenmiş şifre
+                Status = true,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+                // Diğer kullanıcı özellikleri
+            };
+            var passwordHasher = new PasswordHasher<AppUser>();
+            user.PasswordHash = passwordHasher.HashPassword(user, "123456Aa*");
+
             return new[]
             {
-                new AppUser
-                {
-                    Id = 1,
-                    Name = "Admin",
-                    Surname = mailOptions.MailName,
-                    UserName = "okyanusrootadmin", // Kullanıcı adı
-                    NormalizedUserName = "OKYANUSROOTADMIN",
-                    Email = mailOptions.MailAdress, // E-posta
-                    NormalizedEmail = mailOptions.MailAdress.ToUpper(),
-                    EmailConfirmed = true,
-                    PasswordHash = new PasswordHasher<AppUser>().HashPassword(null, "123456Aa*"), // Hashlenmiş şifre
-                    Status = true,
-                    CreatedDate = DateTime.Now,
-                    UpdatedDate = DateTime.Now,
-                    // Diğer kullanıcı özellikleri
-                }
+               user
             };
         }
 

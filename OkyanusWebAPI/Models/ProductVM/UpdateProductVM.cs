@@ -17,5 +17,7 @@
         public string? ALTGRUP3 { get; set; } = "0";
         public string Marka { get; set; }
         public string AnaBarcode { get; set; }
+
+
     }
 }

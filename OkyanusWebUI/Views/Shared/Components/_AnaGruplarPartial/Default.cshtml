@@ -1,53 +1,59 @@
-﻿<!--content-->
-<div class="content-mid">
-    <div class="container">
-
-        <div class="col-md-4 m-w3ls">
-            <div class="col-md1 ">
-                <a href="#">
-                    <img src="~/web/images/co1.jpg" class="img-responsive img" alt="">
-                    <div class="big-sa">
-                        @*<h6>New Collections</h6>*@
-                        <h3>Bakliyatlar<span></span></h3>
-                        <p>Sağlık, Lezzet ve Çeşitlilik Sunan Besinler. Sofralarınızı Zenginleştirin!</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 m-w3ls1">
-            <div class="col-md ">
-                <a href="#">
-                    <img src="~/web/images/co.jpg" class="img-responsive img" alt="">
-                    <div class="big-sale">
-                        <div class="big-sale1">
-                            <h3>Ürünler<span></span></h3>
-                            <p>Doğadan Gelen, Besleyici ve Çeşitli Ürünler. Sağlıklı ve Lezzet Dolu Alternatifler </p>
+﻿@model List<ResultCategoryVM>
+@if (Model != null && Model.Count == 4)
+    {
+        var ilkiki = Model.Take(2);
+        var soniki = Model.TakeLast(2);
+    <!--content-->
+    <div class="content-mid">
+        <div class="container">
+            <div class="col-md-4 m-w3ls">
+                <div class="col-md1 ">
+                    <a href="/Product/Index/">
+                        <img src="~/web/images/co1.jpg" class="img-responsive img" alt="">
+                        <div class="big-sa">
+                            @*<h6>New Collections</h6>*@
+                            <h3>@Model[0].GRUPADI<span></span></h3>
+                            <p>@Model[0].Description</p>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
+            <div class="col-md-4 m-w3ls1">
+                <div class="col-md ">
+                    <a href="/Product/Index/">
+                        <img src="~/web/images/co.jpg" class="img-responsive img" alt="">
+                        <div class="big-sale">
+                            <div class="big-sale1">
+                                <h3>@Model[1].GRUPADI<span></span></h3>
+                                <p>@Model[1].GRUPADI</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 m-w3ls">
+                <div class="col-md2 ">
+                    <a href="/Product/Index/">
+                        <img src="~/web/images/co2.jpg" class="img-responsive img1" alt="">
+                        <div class="big-sale2">
+                            <h3>@Model[2].GRUPADI<span></span></h3>
+                            <p>@Model[2].Description</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md3 ">
+                    <a href="/Product/Index/">
+                        <img src="~/web/images/co3.jpg" class="img-responsive img1" alt="">
+                        <div class="big-sale3">
+                            <h3>@Model[3].GRUPADI<span></span></h3>
+                            <p>@Model[3].Description</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="col-md-4 m-w3ls">
-            <div class="col-md2 ">
-                <a href="#">
-                    <img src="~/web/images/co2.jpg" class="img-responsive img1" alt="">
-                    <div class="big-sale2">
-                        <h3>Gıdalar<span></span></h3>
-                        <p>Sağlık, Lezzet ve Enerji Kaynağıdır. Deneyin</p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md3 ">
-                <a href="#">
-                    <img src="~/web/images/co3.jpg" class="img-responsive img1" alt="">
-                    <div class="big-sale3">
-                        <h3>Manav<span></span></h3>
-                        <p> Taze, Renkli ve Sağlıklı Meyve ve Sebzeleri Keşfedin</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="clearfix"></div>
     </div>
-</div>
-<!--content-->
+    <!--content-->
+}
+

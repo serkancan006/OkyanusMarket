@@ -8,6 +8,7 @@ using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models;
 using OkyanusWebAPI.Models.ProductVM;
 using Org.BouncyCastle.Asn1.Ocsp;
+using System.Linq.Expressions;
 
 namespace OkyanusWebAPI.Controllers
 {
@@ -24,6 +25,13 @@ namespace OkyanusWebAPI.Controllers
             _ProductService = ProductService;
             _mapper = mapper;
             _categoryService = categoryService;
+        }
+
+        private IEnumerable<Product> Sort<T>(IEnumerable<Product> source, Func<Product, T> keySelector, bool ascending)
+        {
+            //null değerleri sıralamadığı için discounted price değeri geldiğinde indirimlileri başa getirmesi gerek
+            //ayrıca price a göre sıraladığında indirmli fiyat varsa bunlarıda göz önüne alınmalı.
+            return ascending ? source.OrderBy(keySelector) : source.OrderByDescending(keySelector);
         }
 
         [HttpGet]
@@ -64,6 +72,25 @@ namespace OkyanusWebAPI.Controllers
             if (!string.IsNullOrEmpty(filteredParamaters.markaAdi))
             {
                 values = values.Where(x => x.Marka == filteredParamaters.markaAdi).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(filteredParamaters.sortField) && !string.IsNullOrEmpty(filteredParamaters.sortOrder))
+            {
+                switch (filteredParamaters.sortField.ToLower())
+                {
+                    case "productname":
+                        values = Sort(values, x => x.ProductName, filteredParamaters.sortOrder.ToLower() == "asc");
+                        break;
+                    case "price":
+                        values = Sort(values, x => x.Price, filteredParamaters.sortOrder.ToLower() == "asc");
+                        break;
+                    case "indirim":
+                        values = Sort(values, x => x.DiscountedPrice, filteredParamaters.sortOrder.ToLower() == "asc");
+                        break;
+                    // Diğer sıralama alanlarını ekleyin
+                    default:
+                        break;
+                }
             }
 
             var totalCount = values.Count();

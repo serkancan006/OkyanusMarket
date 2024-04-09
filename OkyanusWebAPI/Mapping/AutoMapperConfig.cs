@@ -12,6 +12,7 @@ using OkyanusWebAPI.Models.OrderVM;
 using OkyanusWebAPI.Models.ProductVM;
 using OkyanusWebAPI.Models.SliderVM;
 using OkyanusWebAPI.Models.SocialMediaVM;
+using OkyanusWebAPI.Models.UserAdresVM;
 
 namespace OkyanusWebAPI.Mapping
 {
@@ -66,6 +67,10 @@ namespace OkyanusWebAPI.Mapping
             CreateMap<ResultContactMessageVM, ContactMessage>().ReverseMap();
             CreateMap<UpdateContactMessageVM, ContactMessage>().ReverseMap();
             CreateMap<CreateContactMessageVM, ContactMessage>().ReverseMap();
+
+            CreateMap<ResultUserAdresVM, UserAdres>().ReverseMap();
+            CreateMap<UpdateUserAdresVM, UserAdres>().ReverseMap();
+            CreateMap<CreateUserAdresVM, UserAdres>().ReverseMap();
 
         }
     }

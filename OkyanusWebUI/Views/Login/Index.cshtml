@@ -11,12 +11,12 @@
             <form method="post">
                 <div class="key">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <input type="text" value="Mailiniz" asp-for="UserNameOrEmail" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Mailiniz';}" >
+                    <input type="text" asp-for="UserNameOrEmail" placeholder="Mailiniz" >
                     <div class="clearfix"></div>
                 </div>
                 <div class="key">
                     <i class="fa fa-lock" aria-hidden="true"></i>
-                    <input type="password" value="Şifreniz" asp-for="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Şifreniz';}" >
+                    <input type="password" placeholder="Şifreniz" asp-for="Password"  >
                     <div class="clearfix"></div>
                 </div>
                 <input type="submit" value="Giriş">

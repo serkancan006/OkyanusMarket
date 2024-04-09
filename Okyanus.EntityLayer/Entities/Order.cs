@@ -1,4 +1,5 @@
 ﻿using Okyanus.EntityLayer.Entities.Common;
+using Okyanus.EntityLayer.Entities.identitiy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,5 +25,8 @@ namespace Okyanus.EntityLayer.Entities
         public string OrderKat { get; set; }
         public string OrderSehir { get; set; }
         public string OrderIlce { get; set; }
+
+        public int? AppUserID { get; set; }
+        public AppUser? AppUser { get; set; }
     }
 }

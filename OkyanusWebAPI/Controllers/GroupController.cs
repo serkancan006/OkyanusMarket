@@ -41,7 +41,7 @@ namespace OkyanusWebAPI.Controllers
             var values = _GroupService.TGetListAll()
                 .Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true )
                 .OrderBy(x => new Random().Next())
-                .Select(x => new { x.ID, x.GRUPADI })
+                .Select(x => new { x.ID, x.GRUPADI, x.Description })
                 .Take(4)
                 .ToList();
             return Ok(values);

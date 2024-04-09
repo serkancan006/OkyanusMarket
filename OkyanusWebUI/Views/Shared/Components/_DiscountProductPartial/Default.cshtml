@@ -63,13 +63,13 @@
                             </div>
                             <div class="col-md-7 span-1 ">
                                 <h3>@item.ProductName</h3> <!-- Ürün ismi ve ağırlığı -->
-                                <p class="in-para">@item.Description</p> <!-- Ürün açıklaması -->
+                                <p class="in-para">@item.Marka</p> 
                                 <div class="price_single">
                                     <span class="reducedfrom"><del>&#8378;@item.Price</del> &#8378;@item.DiscountedPrice</span> <!-- Normal ve indirimli fiyat -->
                                     <div class="clearfix"></div>
                                 </div>
                                 <h4 class="quick">Detaylar:</h4>
-                                <p class="quick_desc">@item.Title</p> <!-- Hızlı genel bakış -->
+                                <p class="quick_desc">@item.Description</p> 
                                 <div class="add-to">
                                     <button class="btn btn-danger my-cart-btn my-cart-btn1" onclick="addBasket('@item.ID')">Sepete Ekle</button> <!-- Ürün ID'si, ismi ve indirimli fiyatı -->
                                 </div>

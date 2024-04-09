@@ -139,7 +139,7 @@ img.img-head {
   content: '';
   display: block;
   position: absolute; 
-  background:#039445;
+  background:#1E90FF;
   width:4px;
   height: 100%;
   top: 0;
@@ -173,7 +173,7 @@ img.img-head {
 /*-- header --*/
 .header {
     text-align: center;
-	margin-top: 2em;
+    margin-top: 2em;
 }
 .logo h1{
    font-family: 'Montserrat', sans-serif;
@@ -320,6 +320,9 @@ img.img-head {
 .nav > li {
     float: none;
     display: inline-block;
+    margin-right: 5px;
+    background-color: dodgerblue;
+    border-radius: 5px;
 }
 ul.multi-column-dropdown {
     text-align: left;
@@ -357,10 +360,12 @@ nav.navbar.navbar-default {
     height: 44px;
 }
 .cart{
-	float: right; 
 	cursor: pointer;
-	margin-top: 11px;
-    width: 9%;
+    justify-content:center;
+    align-content:center;
+    align-items:center;
+    width:30px;
+    height:10px;
 }
 
 
@@ -448,7 +453,7 @@ ul.multi-column-dropdown h6 {
 span.fa.fa-shopping-cart.my-cart-icon {
     position: absolute !important;
     font-size: 1.5em;
-    color: #039445;
+    color: #029241;
 }
 .badge {
     display: inline-block;
@@ -508,27 +513,27 @@ span.fa.fa-shopping-cart.my-cart-icon {
     display: inline-block;
 }
 .search-form input[type='submit']:hover {
-    background: url(../images/can.png) no-repeat 6px 7px #039445;
+    background: url(../images/can.png) no-repeat 6px 7px #1E90FF;
         transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
 }
- ::-webkit-input-placeholder{
-	color:#fff;
+::-webkit-input-placeholder {
+    color: #999;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   color: #fff; 
+    color: #999;
 }
 
-::-moz-placeholder {  /* Firefox 19+ */
-   color: #fff;  
+::-moz-placeholder { /* Firefox 19+ */
+    color: #999;
 }
 
-:-ms-input-placeholder {  
-   color: #fff;  
+:-ms-input-placeholder {
+    color: #999;
 }
 /*-- //to-top --*/
 .spec {
@@ -550,7 +555,7 @@ span.fa.fa-shopping-cart.my-cart-icon {
 	width: 100%;
     height: 2px;
     display: block;
-    background: #039445;
+    background: #1E90FF;
     margin-bottom: 3px;
 }
 .ser-t b.line{
@@ -569,7 +574,7 @@ span.fa.fa-shopping-cart.my-cart-icon {
 .ser-t  span i{
 	width: 20px;height: 20px;
     display: block;
-    border: 2px solid #039445;
+    border: 2px solid #1E90FF;
     -webkit-transform: rotate(45deg) translate3d(0, 0, 0);
     -moz-transform: rotate(45deg) translate3d(0, 0, 0);
     -ms-transform: rotate(45deg) translate3d(0, 0, 0);
@@ -665,7 +670,7 @@ ul.nav.tabs {
 	width: 55%;
 }
 .offer{
-	    position: absolute;
+	position: absolute;
     top: 0;
     right: -15px;
     border: 2px solid #ED0612;
@@ -701,9 +706,9 @@ div#my-cart-empty-message {
 .my-cart-b {
     background: none;
     text-decoration: none;
-    color: #029241;
+    color: dodgerblue;
     font-size: 1em;
-    border: 2px solid #039445;
+    border: 2px solid;
     border-radius: 50px;
     padding: 0.5em 1em;
     outline: none;
@@ -738,7 +743,7 @@ a:focus {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #039445;
+  background-color: dodgerblue;
   -webkit-transform: scaleY(0);
   transform: scaleY(0);
   -webkit-transform-origin: 50% 0;
@@ -750,12 +755,12 @@ a:focus {
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
     border-radius: 50px;
-	border: 2px solid #039445;
+	border: 2px solid #1E90FF;
 }
 .my-cart-b:hover, .my-cart-b:focus, .my-cart-b:active {
 	color: white;
     background: none;
-    border: 2px solid #039445;
+    border: 2px solid #1E90FF;
     outline: none !important;
 }
 .my-cart-b:hover:before, .my-cart-b:focus:before, .my-cart-b:active:before {
@@ -829,7 +834,7 @@ p.quick_desc {
   bottom: 0;
   left: 0;
   right: 0;
-  background:#029241;
+  background-color:dodgerblue;
   -webkit-transform: scaleY(1);
   transform: scaleY(1);
   -webkit-transform-origin: 50%;
@@ -1015,7 +1020,7 @@ ul.product-qty {
     margin:0 6px;
     text-indent: -999px;
     cursor: pointer;
-    background-color: #029241;
+    background-color: #1E90FF;
     border: none;
     border-radius: 10px;
 }
@@ -1201,7 +1206,7 @@ ul.product-qty {
 	margin-bottom:2em;
 }
 .contact_left h4 {
-    color: #029241;
+    color: #1E90FF;
     font-size: 2em;
     margin-bottom: 0.7em;
 }
@@ -1402,7 +1407,7 @@ h2.resp-accordion:first-child {
     color: #fff;
     letter-spacing: 1px;
     outline: none;
-    background: #029241;
+    background: #1E90FF;
     transition: 0.5s all ease;
     -webkit-transition: 0.5s all ease;
     -moz-transition: 0.5s all ease;
@@ -1414,7 +1419,7 @@ h2.resp-accordion:first-child {
     background:#FAB005;	
 }
 .contact-left h5 {
-    color: #029241;
+    color: #1E90FF;
     font-size: 1.5em;
     margin-bottom: 0.7em;
 }
@@ -1799,7 +1804,7 @@ a#myTabDrop1 {
     margin-bottom: 2em;
 }
 .form-w3agile h3{
-    color: #029241;
+    color: #1E90FF;
     font-size: 2.5em;
     text-align: center;
     margin-bottom: 1.5em;
@@ -1817,7 +1822,7 @@ a#myTabDrop1 {
     margin-bottom:30px;
 }
 .form-w3agile  input[type="submit"]:hover{
-	background:#029241;
+	background:#1E90FF;
 	transition:0.5s all;
 	-webkit-transition:0.5s all;
 	-moz-transition:0.5s all;
@@ -1826,7 +1831,7 @@ a#myTabDrop1 {
 }
 .forg a {
     text-decoration: none;
-    color: #029241;
+    color: #1E90FF;
     font-size:1em;
 }
 .forg a:hover{
@@ -1914,7 +1919,7 @@ a.at-in{
     padding: 7px 10px;
     width: auto;
     font-size: 1em;
-    background: #029241;
+    background: #1E90FF;
 }
 .add-1:hover {
     text-decoration: none;
@@ -2102,7 +2107,7 @@ p.in-pa{
 .work-info  span {
       font-size: 1.2em;
     color: #fff;
-    background: #029241;
+    background: #1E90FF;
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
@@ -2160,7 +2165,7 @@ span.last {
 }
 .ad-left p {
 	color: #fff;
-	background: #029241;
+	background: #1E90FF;
 	border-radius: 100px;
 	-webkit-border-radius:100px;
 	-moz-border-radius: 100px;
@@ -2215,7 +2220,7 @@ span.last {
 	margin-right:2%;
 }
 .advn-two ul li a:hover{
-	color:#029241;
+	color:#1E90FF;
 }
 .advantages {
     padding: 6em 0;
@@ -2542,7 +2547,7 @@ ul.multi-column-dropdown {
     margin: 2em auto;
 }
 .nav-top {
-    margin-bottom: 1em;
+margin-bottom: 1em;
 }
 .tabs li {
     display: inline-block;

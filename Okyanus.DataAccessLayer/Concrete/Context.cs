@@ -38,6 +38,7 @@ namespace Okyanus.DataAccessLayer.Concrete
         public DbSet<SocialMedia> SocialMedias { get; set; }
         public DbSet<MyPhone> MyPhones { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
+        public DbSet<UserAdres> UserAdreses { get; set; }
 
       
 

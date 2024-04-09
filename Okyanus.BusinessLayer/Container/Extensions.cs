@@ -54,6 +54,8 @@ namespace Okyanus.BusinessLayer.Container
             services.AddScoped<IContactMessageDal, EfContactMessageDal>();
             services.AddScoped<IContactMessageService, ContactMessageManager>();
 
+            services.AddScoped<IUserAdresDal, EfUserAdresDal>();
+            services.AddScoped<IUserAdresService, UserAdresManager>();
 
 
 

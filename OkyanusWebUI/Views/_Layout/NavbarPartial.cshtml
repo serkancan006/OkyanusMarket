@@ -1,30 +1,33 @@
 ﻿@inject OkyanusWebUI.Service.TokenService tokenService
-@{ 
+@{
     bool isAuthenticate = tokenService.IsAuthonticate();
 }
 
 <div class="header">
     <div class="container">
 
-        <div class="logo">
-            <h1><a href="#">Okyanus Market<span>Kaliteli Ürünler, Sınırsız Seçenekler Alışverişin Adresi!</span></a></h1>
-        </div>
-        <div class="head-t">
-            <ul class="card">
-                @*<li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i>İstek Listesi</a></li>*@
-                @if (isAuthenticate)
-                {
-                    @*<li><a href="#"><i class="fa fa-first-order" aria-hidden="true"></i>Siparişlerim</a></li>*@
-                    <li><a href="/Login/LogOut/"><i class="fa fa-close" aria-hidden="true"></i>Çıkış Yap</a></li>
-                }
-                else
-                {
-                    <li><a href="/Login/Index/"><i class="fa fa-user" aria-hidden="true"></i>Giriş</a></li>
-                    <li><a href="/Register/Index/"><i class="fa fa-arrow-right" aria-hidden="true"></i>Kayıt Ol</a></li>
-                }
-                @*<li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>Siparişler</a></li>*@
-                @*<li><a href="#"><i class="fa fa-ship" aria-hidden="true"></i>Sorular</a></li>*@
-            </ul>
+        <div style="display:flex;flex:1;justify-content:space-between;margin-bottom:5px">
+            <div class="logo">
+                <img src="~/web/images/logo.jpg" width="200" height="80" />
+            </div>
+            <div class="head-t">
+                <ul class="card">
+                    @*<li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i>İstek Listesi</a></li>*@
+                    @if (isAuthenticate)
+                    {
+                        @*<li><a href="#"><i class="fa fa-first-order" aria-hidden="true"></i>Siparişlerim</a></li>*@
+                        <li><a href="#"><i class="fa fa-close" aria-hidden="true"></i>Hesabım</a></li>
+                        <li><a href="/Login/LogOut/"><i class="fa fa-close" aria-hidden="true"></i>Çıkış Yap</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Login/Index/"><i class="fa fa-user" aria-hidden="true"></i>Giriş Yap</a></li>
+                        <li><a href="/Register/Index/"><i class="fa fa-arrow-right" aria-hidden="true"></i>Kayıt Ol</a></li>
+                    }
+                    @*<li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>Siparişler</a></li>*@
+                    @*<li><a href="#"><i class="fa fa-ship" aria-hidden="true"></i>Sorular</a></li>*@
+                </ul>
+            </div>
         </div>
 
 
@@ -43,7 +46,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                     <ul class="nav navbar-nav ">
-                        <li class=""><a href="/Home/Index/" class="hyper "><span>Ana Sayfa</span></a></li>
+                        <li><a href="/Home/Index/" class="hyper "><span>Ana Sayfa</span></a></li>
                         <li><a href="/About/Index/" class="hyper "><span>Hakkımızda</span></a></li>
                         <li><a href="/Product/Index/" class="hyper"> <span>Ürünler</span></a></li>
                         <li><a href="/Contact/Index/" class="hyper"><span>İletişim</span></a></li>
@@ -51,17 +54,26 @@
                 </div>
             </nav>
 
-            <div class="cart" data-toggle="modal" data-target="#my-basket-modal">
-                <span class="fa fa-shopping-cart my-cart-icon"><span id="totalBasketItem" class="badge badge-notify my-cart-badge"></span></span>
-            </div>
+            <div style="flex:1;display:flex;justify-content:flex-end;align-items:flex-start" class="mr-1">
+                <div class="search-container mr-1">
+                    <input type="text" placeholder="Ürün Ara" class="form-control" name="SearchName" id="productSearchName" style="min-width:100px;">
+                    <button type="submit" class="search-container-button" onclick="filteredProductName()">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
 
-            <div class="modal fade" id="my-basket-modal" tabindex="-1" role="dialog" aria-labelledby="myBasketModalLabel">
-                <div class="modal-dialog" role="document" id="basketModalContentHtml">
+                <div class="cart" data-toggle="modal" data-target="#my-basket-modal">
+                    <span class="fa fa-shopping-cart my-cart-icon"><span id="totalBasketItem" class="badge badge-notify my-cart-badge"></span></span>
+                </div>
 
+                <div class="modal fade" id="my-basket-modal" tabindex="-1" role="dialog" aria-labelledby="myBasketModalLabel">
+                    <div class="modal-dialog" role="document" id="basketModalContentHtml">
+
+                    </div>
                 </div>
             </div>
 
-            <div class="clearfix"></div>
+            @*<div class="clearfix"></div>*@
         </div>
 
     </div>
@@ -169,24 +181,27 @@
 
     function createOrder(isAuth) {
         if (isAuth == "True") {
-            window.location.href = '/Order'; 
+            window.location.href = '/Order';
         }
         else {
-            Swal.fire({
-                title: 'Giriş yapmadan sipariş vermek istiyor musunuz?',
-                icon: 'question',
-                showDenyButton: true,
-                showCancelButton: false,
-                confirmButtonText: 'Giriş Yap',
-                denyButtonText: 'Devam Et'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '/Login';
-                } else if (result.isDenied) {
-                    window.location.href = '/Order'; 
-                }
-            });
+            window.location.href = '/Login';
         }
+        //else {
+        //    Swal.fire({
+        //        title: 'Giriş yapmadan sipariş vermek istiyor musunuz?',
+        //        icon: 'question',
+        //        showDenyButton: true,
+        //        showCancelButton: false,
+        //        confirmButtonText: 'Giriş Yap',
+        //        denyButtonText: 'Devam Et'
+        //    }).then((result) => {
+        //        if (result.isConfirmed) {
+        //            window.location.href = '/Login';
+        //        } else if (result.isDenied) {
+        //            window.location.href = '/Order';
+        //        }
+        //    });
+        //}
     }
 </script>
 

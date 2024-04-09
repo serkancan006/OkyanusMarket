@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OkyanusWebUI.Models.ProductVM;
 using OkyanusWebUI.Service;
 
@@ -17,7 +18,7 @@ namespace OkyanusWebUI.Controllers
             _notyfService = notyfService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? serach, string? category)
         {
             return View();
         }
@@ -43,6 +44,7 @@ namespace OkyanusWebUI.Controllers
             public string? CategoryName { get; set; }
             public int? PageNumber { get; set; } = 1;
             public int? PageSize { get; set; } = 20;
+            public string? sortField { get; set; } // Sıralama alanı
         }
 
         private string BuildQueryString(FilteredParameters filteredParameters)
@@ -66,6 +68,39 @@ namespace OkyanusWebUI.Controllers
             {
                 queryString += $"&categoryName={filteredParameters.CategoryName}";
             }
+
+            if (!string.IsNullOrEmpty(filteredParameters.sortField))
+            {
+                switch (filteredParameters.sortField.ToLower())
+                {
+                    case "productname":
+                        queryString += $"&sortField=productname";
+                        break;
+                    case "productnameasc":
+                        queryString += $"&sortField=productname";
+                        queryString += $"&sortOrder=asc";
+                        break;
+                    case "price":
+                        queryString += $"&sortField=price";
+                        break;
+                    case "priceasc":
+                        queryString += $"&sortField=price";
+                        queryString += $"&sortOrder=asc";
+                        break;
+                    //case "indirimli":
+                    //    queryString += $"&sortField=indirim";
+                    //    break;
+                    //case "indirimsiz":
+                    //    queryString += $"&sortField=indirim";
+                    //    queryString += $"&sortOrder=asc";
+                    //    break;
+                    default:
+                        break;
+                }
+            }
+
+            
+
             return queryString;
         }
 

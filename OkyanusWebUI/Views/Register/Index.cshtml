@@ -12,50 +12,50 @@
             <form method="post">
                 <div class="key">
                     <i class="fa fa-user-circle" aria-hidden="true"></i>
-                    <input type="text" value="Adınız" asp-for="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Adınız';}">
+                    <input type="text" placeholder="Adınız" asp-for="Name">
                     <div class="clearfix"></div>
                 </div>
                 <div class="key">
                     <i class="fa fa-user-circle" aria-hidden="true"></i>
-                    <input type="text" value="Soyadınız" asp-for="Surname" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Soyadınız';}">
+                    <input type="text" placeholder="Soyadınız" asp-for="Surname">
                     <div class="clearfix"></div>
                 </div>
                 <div class="key">
                     <i class="fa fa-user" aria-hidden="true"></i>
-                    <input type="text" value="Kullanıcı Adınız" asp-for="UserName" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Kullanıcı Adınız';}">
+                    <input type="text" placeholder="Kullanıcı Adınız" asp-for="UserName">
                     <div class="clearfix"></div>
                 </div>
                 <div class="key">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <input type="text" value="Mailiniz" asp-for="Mail" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Mailiniz';}">
+                    <input type="text" placeholder="Mailiniz" asp-for="Mail">
                     <div class="clearfix"></div>
                 </div>
                 <div class="key">
                     <i class="fa fa-phone" aria-hidden="true"></i>
-                    <input type="text" value="Telefonunuz" asp-for="PhoneNumber" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Telefonunuz';}">
+                    <input type="text" placeholder="Telefonunuz" asp-for="PhoneNumber">
                     <div class="clearfix"></div>
                 </div>
                 <div class="key">
                     <i class="fa fa-lock" aria-hidden="true"></i>
-                    <input type="password" value="Şifreniz" asp-for="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Şifreniz';}">
+                    <input type="password" placeholder="Şifreniz" asp-for="Password">
                     @*<span class="show-hide" onclick="togglePasswordVisibility(this.previousElementSibling)">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-                    </span>*@
+                <i class="fa fa-eye" aria-hidden="true"></i>
+            </span>*@
                     <div class="clearfix"></div>
                 </div>
                 <div class="key">
                     <i class="fa fa-lock" aria-hidden="true"></i>
-                    <input type="password" value="Şifre Tekrar" asp-for="ConfirmPassword" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Şifre Tekrar';}">
+                    <input type="password" placeholder="Şifre Tekrar" asp-for="ConfirmPassword">
                     @*<span class="show-hide" onclick="togglePasswordVisibility(this.previousElementSibling)">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-                    </span>*@
+            <i class="fa fa-eye" aria-hidden="true"></i>
+        </span>*@
                     <span asp-validation-for="ConfirmPassword" id="confirmPasswordHelp" class="form-text text-danger"></span>
                     <div class="clearfix"></div>
                 </div>
+                <br />
                 <div class="text-danger" asp-validation-summary="ModelOnly">
 
                 </div>
-                <br />
                 <input type="submit" value="Kayıt Ol">
             </form>
         </div>
