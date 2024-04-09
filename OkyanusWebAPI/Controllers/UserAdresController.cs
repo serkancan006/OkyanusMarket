@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
 using Okyanus.EntityLayer.Entities.identitiy;
@@ -25,13 +25,16 @@ namespace OkyanusWebAPI.Controllers
             _userManager = userManager;
         }
 
+        [Authorize]
         [HttpGet]
-        public IActionResult UserAdresList()
+        public async Task<IActionResult> UserAdresList()
         {
-            var values = _UserAdresService.TGetListAll();
+            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
+            var values = _UserAdresService.TGetListAll().Where(x => x.AppUserID == user.Id);
             var result = _mapper.Map<List<ResultUserAdresVM>>(values);
             return Ok(result);
         }
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddUserAdres(CreateUserAdresVM UserAdresVM)
@@ -43,30 +46,73 @@ namespace OkyanusWebAPI.Controllers
             _UserAdresService.TAdd(value);
             return Ok("UserAdres Eklendi");
         }
+
         [Authorize]
         [HttpDelete("{id}")]
-        public IActionResult DeleteUserAdres(int id)
+        public async Task<IActionResult> DeleteUserAdres(int id)
         {
+            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
             var values = _UserAdresService.TGetByID(id);
-            _UserAdresService.TDelete(values);
-            return Ok("UserAdres Silindi");
+            if (values.AppUserID == user.Id)
+            {
+                _UserAdresService.TDelete(values);
+                return Ok("UserAdres Silindi");
+            }
+            return NotFound();
         }
 
         [Authorize]
         [HttpPut]
-        public IActionResult UpdateUserAdres(UpdateUserAdresVM UserAdresVM)
+        public async Task<IActionResult> UpdateUserAdres(UpdateUserAdresVM UserAdresVM)
         {
-            var value = _mapper.Map<UserAdres>(UserAdresVM);
-            _UserAdresService.TUpdate(value);
-            return Ok("UserAdres Güncellendi");
+            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
+            var existingUserAdres = _UserAdresService.TGetByID(UserAdresVM.ID);
+           
+            //var value = _mapper.Map<UserAdres>(UserAdresVM);
+            if (existingUserAdres.AppUserID == user.Id)
+            {
+                existingUserAdres.UserAdress = UserAdresVM.UserAdress;
+                existingUserAdres.UserDaire = UserAdresVM.UserDaire;
+                existingUserAdres.UserApartman = UserAdresVM.UserApartman;
+                existingUserAdres.UserIlce = UserAdresVM.UserIlce;
+                existingUserAdres.UserKat = UserAdresVM.UserKat;
+                existingUserAdres.UserSehir = UserAdresVM.UserSehir;
+                existingUserAdres.AppUserID = user.Id;
+                _UserAdresService.TUpdate(existingUserAdres);
+                return Ok("UserAdres Güncellendi");
+            }
+            return NotFound();
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetUserAdres(int id)
+        [Authorize]
+        [HttpPut("[action]")]
+        public async Task<IActionResult> UpdateUserAdresSelected(int id)
         {
+            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
+            var selectedAdres = _UserAdresService.TGetByID(id);
+
+            if (selectedAdres.AppUserID != user.Id)
+                return NotFound("User Adresi bulunamadı.");
+
+            _UserAdresService.TWhere(x => x.AppUserID == user.Id).ToList().ForEach(x => x.Selected = false);
+            selectedAdres.Selected = true;
+            _UserAdresService.TUpdate(selectedAdres);
+
+            return Ok("User Adresi Seçimi Güncellendi");
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserAdres(int id)
+        {
+            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
             var values = _UserAdresService.TGetByID(id);
-            var result = _mapper.Map<ResultUserAdresVM>(values);
-            return Ok(result);
+            if (values.AppUserID == user.Id)
+            {
+                var result = _mapper.Map<ResultUserAdresVM>(values);
+                return Ok(result);
+            }
+            return NotFound();
         }
     }
 }
