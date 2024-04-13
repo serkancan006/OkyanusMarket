@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     //options.IdleTimeout = TimeSpan.FromSeconds(10);
@@ -43,7 +44,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 //Notfy Service
-builder.Services.AddNotyf(config => { config.DurationInSeconds = 5; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
+builder.Services.AddNotyf(config => { config.DurationInSeconds = 3; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
 
 
 var app = builder.Build();
@@ -62,11 +63,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();
-app.UseAuthorization();
 
+//Session aþaðýdaki middlewareden önce gelmek zorunda çünkü aþaðýdaki middlewaredeki TokenService Session ile ilgili iþlemler yapýyor
 app.UseSession();
-//Middleware
+//Middleware -> Authenticate iþlemlerinden önce gelmeleri çünkü authenticate ile ilgili iþlemi ekliyor sonra authenticatein çalýþmasý gerek.
 app.Use(async (context, next) =>
 {
     var tokenService = context.RequestServices.GetRequiredService<TokenService>();
@@ -77,6 +77,11 @@ app.Use(async (context, next) =>
 
     await next();
 });
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+
 
 app.UseEndpoints(endpoints =>
 {
@@ -89,6 +94,7 @@ app.UseEndpoints(endpoints =>
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.UseNotyf();
 app.Run();

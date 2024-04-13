@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using OkyanusWebUI.Areas.Admin.Models.AdminOrderVM;
 using OkyanusWebUI.Models.OrderDetailVM;
-using OkyanusWebUI.Models.OrderVM;
 using OkyanusWebUI.Service;
+
 
 namespace OkyanusWebUI.Areas.Admin.Controllers
 {
@@ -21,7 +22,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultOrderVM>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultAdminOrderVM>>(jsonData);
                 return View(values);
             }
             return View();
@@ -33,7 +34,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<ResultOrderVM>(jsonData);
+                var values = JsonConvert.DeserializeObject<ResultAdminOrderVM>(jsonData);
                 return View(values);
             }
             return View();

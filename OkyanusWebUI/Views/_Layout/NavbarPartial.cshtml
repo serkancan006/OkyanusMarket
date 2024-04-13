@@ -1,6 +1,7 @@
 ﻿@inject OkyanusWebUI.Service.TokenService tokenService
 @{
     bool isAuthenticate = tokenService.IsAuthonticate();
+    bool isAuthenticateAdmin = tokenService.IsAuthonticateAdmin();
 }
 
 <div class="header">
@@ -15,8 +16,16 @@
                     @*<li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i>İstek Listesi</a></li>*@
                     @if (isAuthenticate)
                     {
-                        @*<li><a href="#"><i class="fa fa-first-order" aria-hidden="true"></i>Siparişlerim</a></li>*@
-                        <li><a href="#"><i class="fa fa-close" aria-hidden="true"></i>Hesabım</a></li>
+                        @if (isAuthenticateAdmin)
+                        {
+                            <li><a href="/Admin/Product/Index/"><i class="fa fa-user" aria-hidden="true"></i>Admin Paneli</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="/User/UserOrder/Index/"><i class="fa fa-first-order" aria-hidden="true"></i>Siparişlerim</a></li>
+                            <li><a href="/User/UserAdres/Index/"><i class="fa fa-address-book" aria-hidden="true"></i>Adreslerim</a></li>
+                            <li><a href="/User/UserProfile/Index/"><i class="fa fa-user" aria-hidden="true"></i>Hesabım</a></li>
+                        }
                         <li><a href="/Login/LogOut/"><i class="fa fa-close" aria-hidden="true"></i>Çıkış Yap</a></li>
                     }
                     else
@@ -24,6 +33,7 @@
                         <li><a href="/Login/Index/"><i class="fa fa-user" aria-hidden="true"></i>Giriş Yap</a></li>
                         <li><a href="/Register/Index/"><i class="fa fa-arrow-right" aria-hidden="true"></i>Kayıt Ol</a></li>
                     }
+
                     @*<li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>Siparişler</a></li>*@
                     @*<li><a href="#"><i class="fa fa-ship" aria-hidden="true"></i>Sorular</a></li>*@
                 </ul>
@@ -123,7 +133,9 @@
                     basketModalContentHtml += '<div class="alert alert-danger alert-dismissable"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>Sepetinizde ürün bulunmamaktadır.</div>';
                 }
 
-                basketModalContentHtml += `<div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button><button type="button" class="btn btn-success" style="background-color:#029241;" onclick="createOrder('@isAuthenticate')">Sipariş Ver</button></div>`;
+                basketModalContentHtml += `<div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>`;
+                basketModalContentHtml += `<a href="/Order/Index/" class="btn btn-success" style="background-color:#029241;">Sipariş Ver</a>`;
+                //basketModalContentHtml += `<button type="button" class="btn btn-success" style="background-color:#029241;" onclick="createOrder('@*@isAuthenticate*@')">Sipariş Ver</button></div>`;
                 basketModalContentHtml += '</div>';
 
                 // Append the generated HTML content to the modal
@@ -179,13 +191,13 @@
         });
     }
 
-    function createOrder(isAuth) {
-        if (isAuth == "True") {
-            window.location.href = '/Order';
-        }
-        else {
-            window.location.href = '/Login';
-        }
+        //function createOrder(isAuth) {
+        //    if (isAuth == "True") {
+        //        //window.location.href = '/Order';
+        //    }
+        //    else {
+        //        //window.location.href = '/Login';
+        //    }
         //else {
         //    Swal.fire({
         //        title: 'Giriş yapmadan sipariş vermek istiyor musunuz?',
@@ -202,6 +214,6 @@
         //        }
         //    });
         //}
-    }
+        //}
 </script>
 

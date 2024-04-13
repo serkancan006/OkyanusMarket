@@ -11,78 +11,49 @@
         <div class="col-md-9">
             <form method="post">
                 <div>
-                    <h4 style="margin-bottom:20px;margin-top:20px">Adres Bilgileri</h4>
+                    <h4 style="margin-bottom:20px;margin-top:20px">Sipariş Bilgileri</h4>
                     <div class="form-group">
-                        <label for="OrderAdress">Tam Adres:</label>
-                        <input type="text" class="form-control" id="OrderAdress" asp-for="@Model.OrderAdress">
-                        <span class="text-danger" asp-validation-for="@Model.OrderAdress"></span>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="OrderApartmanNo">Apartman No:</label>
-                                <input type="number" class="form-control" id="OrderApartmanNo" asp-for="@Model.OrderApartmanNo">
-                                <span class="text-danger" asp-validation-for="@Model.OrderApartmanNo"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="OrderDaireNo">Daire No:</label>
-                                <input type="number" class="form-control" id="OrderDaireNo" asp-for="@Model.OrderDaireNo">
-                                <span class="text-danger" asp-validation-for="@Model.OrderDaireNo"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="OrderKat">Kat:</label>
-                                <input type="number" class="form-control" id="OrderKat" asp-for="@Model.OrderKat">
-                                <span class="text-danger" asp-validation-for="@Model.OrderKat"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="OrderSehir">Şehir:</label>
-                                <input type="text" class="form-control" id="OrderSehir" asp-for="@Model.OrderSehir">
-                                <span class="text-danger" asp-validation-for="@Model.OrderSehir"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="OrderIlce">İlçe:</label>
-                                <input type="text" class="form-control" id="OrderIlce" asp-for="@Model.OrderIlce">
-                                <span class="text-danger" asp-validation-for="@Model.OrderIlce"></span>
-                            </div>
-                        </div>
+                        <label>Adresinizi Seçin:</label>
+                        <select asp-for="@Model.UserAdresID" class="form-control" asp-items="@ViewBag.SelectListItems" onchange="selectedOrderAdres(this.value)"></select>
                     </div>
                     <div class="form-group">
-                        <label for="Description">Açıklama:</label>
-                        <textarea class="form-control" id="Description" asp-for="@Model.Description" rows="3"></textarea>
+                        <label for="Description">Sipariş Notu:</label>
+                        <textarea class="form-control" placeholder="İstek Notunuzu Yazınız. İsteğe Bağlı" id="Description" asp-for="@Model.Description" rows="3"></textarea>
                         <span class="text-danger" asp-validation-for="@Model.Description"></span>
                     </div>
-                </div>
-                <div>
-                    <h4 style="margin-bottom:20px;margin-top:20px">Müşteri Bilgileri</h4>
                     <div class="form-group">
-                        <label for="OrderFirstName">Ad:</label>
-                        <input type="text" class="form-control" id="OrderFirstName" asp-for="@Model.OrderFirstName">
-                        <span class="text-danger" asp-validation-for="@Model.OrderFirstName"></span>
+                        <label>Telefon Numaranız:</label>
+                        <input type="tel" asp-for="@Model.TelefonNo" class="form-control" placeholder="Sipariş Sorunları için telefon numaranızı giriniz"  />
+                        <span class="text-danger" asp-validation-for="@Model.TelefonNo"></span>
                     </div>
-                    <div class="form-group">
-                        <label for="OrderSurname">Soyad:</label>
-                        <input type="text" class="form-control" id="OrderSurname" asp-for="@Model.OrderSurname">
-                        <span class="text-danger" asp-validation-for="@Model.OrderSurname"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="OrderMail">Email Adresi:</label>
-                        <input type="email" class="form-control" id="OrderMail" asp-for="@Model.OrderMail">
-                        <span class="text-danger" asp-validation-for="@Model.OrderMail"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="OrderPhone">Telefon:</label>
-                        <input type="tel" class="form-control" id="OrderPhone" asp-for="@Model.OrderPhone">
-                        <span class="text-danger" asp-validation-for="@Model.OrderPhone"></span>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Teslimat Yöntemi:</label>
+                                <select asp-for="@Model.TeslimatYontemi" class="form-control">
+                                    <option value="Adresime Gelsin">Adresime Gelsin</option>
+                                    <option value="Magazadan Alacağım">Magazadan Alacağım</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Teslimat Saati:</label>
+                                <select asp-for="@Model.TeslimatSaati" class="form-control">
+                                    <option value="10:00-18:00">10:00-18:00</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Altarnatif Ürün Tercihi:</label>
+                                <select asp-for="@Model.AlternatifUrun" class="form-control">
+                                    <option value="Beni Arayın">Beni Arayın</option>
+                                    <option value="Siz Seçin">Siz Seçin</option>
+                                    <option value="İstemiyorum">İstemiyorum</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success" style="margin-bottom:30px">Siparişi Ver</button>
@@ -98,3 +69,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    function selectedOrderAdres(selectedValue) {
+        $.ajax({
+            url: '/User/UserAdres/UpdateSelectedUserAdres?id=' + selectedValue,
+            type: 'GET',
+            success: function (response) {
+                // İstek başarılı olduğunda yapılacak işlemler
+                toastNotifySuccess("Adresiniz Seçildi!", 3000);
+                //console.log(response);
+            },
+            error: function (xhr, status, error) {
+                // İstek başarısız olduğunda yapılacak işlemler
+                window.location.href = "/User/UserAdres/Index/"
+            }
+        });
+        //window.location.href = "/User/UserAdres/UpdateSelectedUserAdres?id=" + selectedValue;
+
+    }
+</script>

@@ -1,4 +1,7 @@
-﻿namespace OkyanusWebUI.Service
+﻿using System.Data;
+using System.Security.Claims;
+
+namespace OkyanusWebUI.Service
 {
     public class TokenService
     {
@@ -36,14 +39,21 @@
 
         public bool IsAuthonticate()
         {
-            if (_httpContextAccessor?.HttpContext?.Session.GetString(TokenKey) == null)
+            return _httpContextAccessor?.HttpContext?.Session.GetString(TokenKey) != null;
+        }
+
+        public bool IsAuthonticateAdmin()
+        {
+            var user = _httpContextAccessor?.HttpContext?.User;
+            foreach (var claim in user.Claims)
             {
-                return false;
+                if (claim.Type == ClaimTypes.Role)
+                {
+                    var role = claim.Value;
+                    Console.WriteLine(role);
+                }
             }
-            else
-            {
-                return true;
-            }
+            return _httpContextAccessor?.HttpContext?.User.IsInRole("Admin") ?? false;
         }
 
 

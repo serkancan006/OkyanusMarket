@@ -1,7 +1,8 @@
-﻿@model ResultOrderVM
+﻿@model ResultAdminOrderVM
 @{
     ViewData["Title"] = "DetailOrder";
     Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+    int count = 0;
 }
 
 <div class="container mt-5">
@@ -13,41 +14,78 @@
             <div class="row">
                 <div class="col-md-6">
                     <h6>Sipariş Tarihi:</h6>
-                    <p>@Model.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                    <p>@Model.createdDate.ToString("yyyy-MM-dd HH:mm:ss")</p>
                 </div>
                 <div class="col-md-6">
                     <h6>Toplam Fiyat:</h6>
-                    <p>@Model.TotalPrice</p>
+                    <p>@Model.totalPrice</p>
                 </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-md-6">
                     <h6>İletişim Bilgileri:</h6>
-                    <p>Adı-Soyadı: @Model.OrderFirstName @Model.OrderSurname</p>
-                    <p>Email: @Model.OrderMail</p>
-                    <p>Telefon: @Model.OrderPhone</p>
+                    <p>Adı-Soyadı: @Model.orderFirstName @Model.orderSurname</p>
+                    <p>Email: @Model.orderMail</p>
+                    <p>Kullanıcı Telefon: @Model.orderUserPhone</p>
                 </div>
                 <div class="col-md-6">
                     <h6>Adres Bilgileri:</h6>
-                    <p>Aparman No: @Model.OrderApartman</p>
-                    <p>Daire No: @Model.OrderDaire</p>
-                    <p>Kat: @Model.OrderKat</p>
-                    <p>Şehir: @Model.OrderSehir</p>
-                    <p>İlçe: @Model.OrderIlce</p>
-                    <p>Tam Adres: @Model.OrderAdress</p>
+                    <p>Aparman No: @Model.orderApartman</p>
+                    <p>Daire No: @Model.orderDaire</p>
+                    <p>Kat: @Model.orderKat</p>
+                    <p>Şehir: @Model.orderSehir</p>
+                    <p>İlçe: @Model.orderIlce</p>
+                    <p>Tam Adres: @Model.orderAdress</p>
                 </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-md-12">
                     <h6>Açıklama:</h6>
-                    <p>@Model.Description</p>
+                    <p>@Model.description</p>
+                </div>
+                <div class="col-md-12">
+                    <h6>Sipariş Bilgileri:</h6>
+                    <p>Altarnatif Ürün: @Model.alternatifUrun</p>
+                    <p>Teslimat Saati: @Model.teslimatSaati</p>
+                    <p>Teslimat Yöntemi: @Model.teslimatYontemi</p>
+                    <p>Aranacak Telefon: @Model.orderPhone</p>
                 </div>
             </div>
         </div>
         <div class="card-footer">
-            <a href="/Admin/Orders/OrderItems/@Model.ID" class="btn btn-primary">Siparişe Ait Ürünler</a>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Resim</th>
+                        <th>Ürün</th>
+                        <th>Marka</th>
+                        <th>Fiyatı</th>
+                        <th>Adet</th>
+                        <th>Toplam</th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.orderDetails)
+                {
+                    count++;
+                    <tbody>
+                        <tr>
+                            <th>@count</th>
+                            <td><img src="@item.product.imageUrl" width="75" height="75" /></td>
+                            <td>@item.product.productName</td>
+                            <td>@item.product.marka</td>
+                            <td>@item.unitPrice</td>
+                            <td>@item.count</td>
+                            <td>@item.totalPrice</td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+
+            @*<a href="/Admin/Orders/OrderItems/@Model.id" class="btn btn-primary">Siparişe Ait Ürünler</a>*@
+            <a href="/Admin/Pdf/GenerateOrderPdf/@Model.id" class="btn btn-primary">Pdf Çıkart</a>
         </div>
     </div>
 </div>

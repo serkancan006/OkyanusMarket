@@ -65,8 +65,8 @@ namespace OkyanusWebAPI.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateUserAdres(UpdateUserAdresVM UserAdresVM)
         {
-            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
             var existingUserAdres = _UserAdresService.TGetByID(UserAdresVM.ID);
+            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
            
             //var value = _mapper.Map<UserAdres>(UserAdresVM);
             if (existingUserAdres.AppUserID == user.Id)
@@ -85,8 +85,22 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserAdres(int id)
+        {
+            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
+            var values = _UserAdresService.TGetByID(id);
+            if (values.AppUserID == user.Id)
+            {
+                var result = _mapper.Map<ResultUserAdresVM>(values);
+                return Ok(result);
+            }
+            return NotFound();
+        }
+
+        [Authorize]
         [HttpPut("[action]")]
-        public async Task<IActionResult> UpdateUserAdresSelected(int id)
+        public async Task<IActionResult> UpdateSelectedUserAdres([FromBody] int id)
         {
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
             var selectedAdres = _UserAdresService.TGetByID(id);
@@ -101,18 +115,5 @@ namespace OkyanusWebAPI.Controllers
             return Ok("User Adresi Seçimi Güncellendi");
         }
 
-        [Authorize]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserAdres(int id)
-        {
-            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
-            var values = _UserAdresService.TGetByID(id);
-            if (values.AppUserID == user.Id)
-            {
-                var result = _mapper.Map<ResultUserAdresVM>(values);
-                return Ok(result);
-            }
-            return NotFound();
-        }
     }
 }

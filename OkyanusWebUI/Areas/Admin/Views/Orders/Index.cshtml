@@ -1,4 +1,4 @@
-﻿@model List<ResultOrderVM>
+﻿@model List<OkyanusWebUI.Areas.Admin.Models.AdminOrderVM.ResultAdminOrderVM>
 
 @{
     ViewData["Title"] = "Index";
@@ -37,12 +37,12 @@
                         count++;
                         <tr>
                             <td>@count</td>
-                            <td>@item.OrderFirstName @item.OrderSurname</td>
-                            <td>@item.OrderPhone</td>
-                            <td>@item.TotalPrice</td>
-                            <td>@item.CreatedDate.ToString("dd-MMM-yyyy HH:mm")</td>
-                            <td><a href="/Admin/Orders/DetailOrder/@item.ID" class="btn btn-warning">Detaylar</a></td>
-                            <td><a href="/Admin/Orders/DeleteOrder/@item.ID" class="btn btn-danger" onclick="return confirm('Dikkat Siparişi Silmek istediğinize emin misiniz? Sipariş silindiğinde siparişe ait detaylarda silinir!');">Sil</a></td>
+                            <td>@item.orderFirstName @item.orderSurname</td>
+                            <td>@item.orderPhone</td>
+                            <td>@item.totalPrice</td>
+                            <td>@item.createdDate.ToString("dd-MMM-yyyy HH:mm")</td>
+                            <td><a href="/Admin/Orders/DetailOrder/@item.id" class="btn btn-warning">Detaylar</a></td>
+                            <td><a href="/Admin/Orders/DeleteOrder/@item.id" class="btn btn-danger" onclick="return confirm('Dikkat Siparişi Silmek istediğinize emin misiniz? Sipariş silindiğinde siparişe ait detaylarda silinir!');">Sil</a></td>
                         </tr>
                     }
                 </tbody>

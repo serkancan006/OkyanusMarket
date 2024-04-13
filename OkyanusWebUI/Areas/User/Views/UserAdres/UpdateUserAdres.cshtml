@@ -1,0 +1,55 @@
+﻿@model OkyanusWebUI.Models.UserAdresVM.UpdateUserAdresVM
+@{
+    ViewData["Title"] = "UpdateUserAdres";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <form method="post">
+        <div>
+            <h4 style="margin-bottom:20px;margin-top:20px">Adres Güncelleme</h4>
+            <input type="text" class="form-control" asp-for="@Model.ID">
+
+            <div class="form-group">
+                <label for="UserAdress">Tam Adres:</label>
+                <input type="text" class="form-control" id="UserAdress" asp-for="@Model.UserAdress">
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="UserApartman">Apartman No:</label>
+                        <input type="number" class="form-control" id="UserApartman" asp-for="@Model.UserApartman">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="UserDaire">Daire No:</label>
+                        <input type="number" class="form-control" id="UserDaire" asp-for="@Model.UserDaire">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="UserKat">Kat:</label>
+                        <input type="number" class="form-control" id="UserKat" asp-for="@Model.UserKat">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="UserSehir">Şehir:</label>
+                        <input type="text" class="form-control" id="UserSehir" asp-for="@Model.UserSehir">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="UserIlce">İlçe:</label>
+                        <input type="text" class="form-control" id="UserIlce" asp-for="@Model.UserIlce">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success" style="margin-bottom:30px;background-color:dodgerblue">Güncelle</button>
+    </form>
+</div>
+

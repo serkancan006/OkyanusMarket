@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
+using Okyanus.EntityLayer.Entities.identitiy;
 using OkyanusWebAPI.Hubs;
 using OkyanusWebAPI.Models.OrderDetailVM;
 using OkyanusWebAPI.Models.OrderVM;
@@ -19,43 +23,59 @@ namespace OkyanusWebAPI.Controllers
         private readonly IOrderDetailService _orderDetailService;
         private readonly IHubContext<SignalRHub> _hubContext;
         private readonly IProductService _productService;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly IUserAdresService _userAdresService;
 
-        public OrderController(IOrderService OrderService, IMapper mapper, IOrderDetailService orderDetailService, IHubContext<SignalRHub> hubContext, IProductService productService)
+        public OrderController(IOrderService OrderService, IMapper mapper, IOrderDetailService orderDetailService, IHubContext<SignalRHub> hubContext, IProductService productService, UserManager<AppUser> userManager, IUserAdresService userAdresService)
         {
             _OrderService = OrderService;
             _mapper = mapper;
             _orderDetailService = orderDetailService;
             _hubContext = hubContext;
             _productService = productService;
+            _userManager = userManager;
+            _userAdresService = userAdresService;
         }
 
         [HttpGet]
         public IActionResult OrderList()
         {
-            var values = _OrderService.TGetListAll();
+            var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).ToList();
             var result = _mapper.Map<List<ResultOrderVM>>(values);
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddOrder(CreateOrderRequestVM createOrderRequestVM)
         {
+            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
+            var adres = _userAdresService.TGetByID(createOrderRequestVM.UserAdresID);
             CreateOrderVM createOrderVM = new CreateOrderVM() 
             {
                 Description = createOrderRequestVM.Description,
-                OrderAdress = createOrderRequestVM.OrderAdress,
-                OrderApartman = createOrderRequestVM.OrderApartmanNo,
-                OrderFirstName = createOrderRequestVM.OrderFirstName,
-                OrderDaire = createOrderRequestVM.OrderDaireNo,
-                OrderMail = createOrderRequestVM.OrderMail,
-                OrderSurname = createOrderRequestVM.OrderSurname,
-                OrderIlce = createOrderRequestVM.OrderIlce,
-                OrderSehir = createOrderRequestVM.OrderSehir,
-                OrderPhone = createOrderRequestVM.OrderPhone,
-                OrderKat = createOrderRequestVM.OrderKat,
+
+                AlternatifUrun = createOrderRequestVM.AlternatifUrun,
+                TeslimatYontemi = createOrderRequestVM.TeslimatYontemi,
+                TeslimatSaati = createOrderRequestVM.TeslimatSaati,
+
+                OrderPhone = createOrderRequestVM.TelefonNo,
+
+                OrderAdress = adres.UserAdress,
+                OrderApartman = adres.UserApartman,
+                OrderDaire = adres.UserDaire,
+                OrderKat = adres.UserKat,
+                OrderIlce = adres.UserIlce,
+                OrderSehir = adres.UserSehir,
                 TotalPrice = createOrderRequestVM.OrderItems.Sum(x => (_productService.TGetByID(x.ProductId).DiscountedPrice ?? _productService.TGetByID(x.ProductId).Price) * x.Quantity),
             };
             var value = _mapper.Map<Order>(createOrderVM);
+            value.OrderSurname = user.Surname;
+            value.OrderFirstName = user.Name;
+            //value.OrderPhone = user.PhoneNumber;
+            value.OrderUserPhone = user.PhoneNumber;
+            value.OrderMail = user.Email;
+            value.AppUserID = user.Id;
             _OrderService.TAdd(value);
             List<CreateOrderDetailVM> createOrderDetailVM = new List<CreateOrderDetailVM>();
             createOrderDetailVM.AddRange(createOrderRequestVM.OrderItems.Select(item => new CreateOrderDetailVM()
@@ -67,10 +87,6 @@ namespace OkyanusWebAPI.Controllers
             }));
             var orderItemList = _mapper.Map<List<OrderDetail>>(createOrderDetailVM);
             _orderDetailService.TAddRange(orderItemList);
-            //SignalR
-            //var orders = _OrderService.TGetListAll();
-            //var orderList = _mapper.Map<List<ResultOrderVM>>(orders);
-            //await _hubContext.Clients.All.SendAsync("ReceiveOrder", orderList);
             return Ok("Order Eklendi");
         }
 
@@ -93,7 +109,8 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetOrder(int id)
         {
-            var values = _OrderService.TGetByID(id);
+            var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product)
+            .Where(x => x.ID == id).SingleOrDefault();
             var result = _mapper.Map<ResultOrderVM>(values);
             return Ok(result);
         }
