@@ -9,5 +9,6 @@ namespace Okyanus.BusinessLayer.Abstract
 {
     public interface IOrderService : IGenericService<Order>
     {
+        void UpdateOrderStatus(int id, string orderStatus);
     }
 }

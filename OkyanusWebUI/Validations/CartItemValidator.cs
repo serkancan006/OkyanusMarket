@@ -8,10 +8,10 @@ namespace OkyanusWebUI.Validations
     {
         public CartItemValidator()
         {
-            RuleFor(item => item.Quantity).GreaterThan(0).WithMessage("Miktar 0'dan büyük olmalıdır.");
-            RuleFor(item => item.Quantity).Must((item, quantity) => IsQuantityValid(item.Birim, quantity))
-                                        .WithMessage("Miktar uygun değil");
-            RuleFor(item => item.Price).GreaterThan(0).WithMessage("Fiyat 0'dan büyük olmalıdır.");
+            //RuleFor(item => item.Quantity).GreaterThan(0).WithMessage("Miktar 0'dan büyük olmalıdır.");
+            //RuleFor(item => item.Quantity).Must((item, quantity) => IsQuantityValid(item.Birim, quantity))
+            //                            .WithMessage("Miktar uygun değil");
+            //RuleFor(item => item.Price).GreaterThan(0).WithMessage("Fiyat 0'dan büyük olmalıdır.");
         }
 
         private bool IsQuantityValid(string birim, double quantity)

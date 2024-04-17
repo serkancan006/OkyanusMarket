@@ -27,6 +27,7 @@ namespace OkyanusWebUI.Controllers
             _notyfService = notyfService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var responseMessage = await _customHttpClient.Get(new() { Controller = "UserAdres" });
@@ -52,44 +53,42 @@ namespace OkyanusWebUI.Controllers
         {
             createOrderVM.OrderItems = _basketService.Items.ToList();
             createOrderVM.TotalPrice = _basketService.GetTotalPrice();
-            CreateOrderValidator validator = new CreateOrderValidator();
-            ValidationResult results = validator.Validate(createOrderVM);
-            if (results.IsValid)
+            //CreateOrderValidator validator = new CreateOrderValidator();
+            //ValidationResult results = validator.Validate(createOrderVM);
+            if (!ModelState.IsValid)
             {
-                CreateOrderVmApi createOrderVmApi = new CreateOrderVmApi()
+                _notyfService.Warning("Veriler Geçersiz!");
+                return View(createOrderVM);
+            }
+
+            CreateOrderVmApi createOrderVmApi = new CreateOrderVmApi()
+            {
+                alternatifUrun = createOrderVM.AlternatifUrun,
+                description = createOrderVM.Description,
+                telefonNo = createOrderVM.TelefonNo,
+                teslimatSaati = createOrderVM.TeslimatSaati,
+                teslimatYontemi = createOrderVM.TeslimatYontemi,
+                userAdresID = createOrderVM.UserAdresID,
+                orderItems = createOrderVM.OrderItems.Select(item => new CreateOrderVmApi.Orderitem
                 {
-                    alternatifUrun = createOrderVM.AlternatifUrun,
-                    description = createOrderVM.Description,
-                    telefonNo = createOrderVM.TelefonNo,
-                    teslimatSaati = createOrderVM.TeslimatSaati,
-                    teslimatYontemi = createOrderVM.TeslimatYontemi,
-                    userAdresID = createOrderVM.UserAdresID,
-                    orderItems = createOrderVM.OrderItems.Select(item => new CreateOrderVmApi.Orderitem
-                    {
-                        productId = item.ProductId,
-                        quantity = item.Quantity 
-                    }).ToList()
-                };
+                    productId = item.ProductId,
+                    quantity = item.Quantity 
+                }).ToList()
+            };
             
-                var responseMessage = await _customHttpClient.Post<CreateOrderVmApi>(new() { Controller = "Order" }, createOrderVmApi);
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    _basketService.ClearCart();
-                    _notyfService.Success("Siparişiniz başarılı bir şekilde oluşturuldu.");
-                    return RedirectToAction("Index","Home");
-                }
+            var responseMessage = await _customHttpClient.Post<CreateOrderVmApi>(new() { Controller = "Order" }, createOrderVmApi);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                _basketService.ClearCart();
+                _notyfService.Success("Siparişiniz başarılı bir şekilde oluşturuldu.");
+                return RedirectToAction("Index","Home");
             }
             else
             {
-                foreach (var item in results.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-                _notyfService.Warning("Sipariş Oluşturulurken hata oluştu!");
-                return RedirectToAction("Index");
+                _notyfService.Error("Sipariş Oluşturulurken hata oluştu!");
+                return View(createOrderVM);
             }
-            _notyfService.Error("Sipariş Oluşturulurken hata oluştu!");
-            return View(createOrderVM);
+       
         }
 
     }

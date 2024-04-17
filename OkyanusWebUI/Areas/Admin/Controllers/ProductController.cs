@@ -22,7 +22,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         {
             var queryString = BuildQueryString(filteredParameters);
 
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "Product", QueryString = queryString });
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "Product", Action = "ProductListAll", QueryString = queryString });
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();

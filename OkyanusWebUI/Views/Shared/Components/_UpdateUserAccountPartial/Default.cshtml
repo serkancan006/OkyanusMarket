@@ -1,0 +1,26 @@
+﻿@model OkyanusWebUI.Models.UserAccountVM.ResultUserAccountVM
+
+<form method="post" asp-area="User" asp-controller="UserProfile" asp-action="UpdateUserAccount">
+
+    <h4 class="text-center">Hesap Bilgileri</h4>
+    <br />
+
+    <label>Email</label>
+    <h5>@Model.UserEmail</h5>
+    <br />
+
+    <label>Ad</label>
+    <input type="text" asp-for="UserFirstName" class="form-control" />
+    <br />
+
+    <label>Soyad</label>
+    <input type="text" asp-for="UserSurname" class="form-control" />
+    <br />
+
+    <label>Telefon</label>
+    <input type="tel" asp-for="UserPhoneNumber" class="form-control" />
+    <br />
+
+    <button class="btn btn-sm btn-primary" style="background-color:dodgerblue">Kaydet</button>
+</form>
+<br /><br />

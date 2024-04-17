@@ -1,8 +1,12 @@
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using OkyanusWebUI.Service;
+using OkyanusWebUI.Validations;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +26,16 @@ builder.Services.AddScoped<CustomHttpClient>();
 builder.Services.AddScoped<BasketService>();
 builder.Services.AddScoped<FileOperationService>();
 
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddRazorRuntimeCompilation();
+
+builder.Services.AddFluentValidation(configuration =>
+{
+    configuration.RegisterValidatorsFromAssemblyContaining<Program>();
+    //configuration.RegisterValidatorsFromAssemblyContaining<CartItemValidator>();
+    //configuration.RegisterValidatorsFromAssemblyContaining<CreateContactMessageVMValidator>();
+    //configuration.RegisterValidatorsFromAssemblyContaining<CreateOrderValidator>();
+});
+
 
 // Add Jwt Bearer Token
 builder.Services.AddAuthentication(options =>

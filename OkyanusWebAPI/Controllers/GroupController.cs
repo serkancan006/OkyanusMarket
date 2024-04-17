@@ -20,22 +20,15 @@ namespace OkyanusWebAPI.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public IActionResult GroupList()
-        {
-            var values = _GroupService.TGetListAll();
-            var result = _mapper.Map<List<ResultGroupVM>>(values);
-            return Ok(result);
-        }
 
-        [HttpGet("[Action]")]
+        [HttpGet("[Action]")] //product sidebar ilk oluşturmada
         public IActionResult AnaGroupList()
         {
             var values = _GroupService.TGetListAll().Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.ID, x.GRUPADI }).ToList();
             return Ok(values);
         }
 
-        [HttpGet("[Action]")]
+        [HttpGet("[Action]")] //anasayfa da random 4 kategori listeleme için kullanılıyor
         public IActionResult Get4AnaGroupRandomList()
         {
             var values = _GroupService.TGetListAll()
@@ -47,7 +40,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok(values);
         }
 
-        [HttpGet("[Action]/{groupID}")]
+        [HttpGet("[Action]/{groupID}")] //product sidebar
         public IActionResult MultiGroupList(int groupID)
         {
             var values = _GroupService.TGetListAll().Where(x => x.ID == groupID).FirstOrDefault();
@@ -67,6 +60,14 @@ namespace OkyanusWebAPI.Controllers
             return Ok(result);
         }
 
+
+        [HttpGet]
+        public IActionResult GroupList()
+        {
+            var values = _GroupService.TGetListAll();
+            var result = _mapper.Map<List<ResultGroupVM>>(values);
+            return Ok(result);
+        }
 
         [HttpPost]
         public IActionResult AddGroup(CreateGroupVM GroupVM)

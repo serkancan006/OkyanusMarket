@@ -4,6 +4,8 @@
     {
         public string? Description { get; set; }
         public double TotalPrice { get; set; }
+        public string OrderStatus { get; set; }
+
 
         public string TeslimatYontemi { get; set; }
         public string TeslimatSaati { get; set; }

@@ -34,7 +34,13 @@ namespace OkyanusWebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                _notyfService.Error("Lütfen tüm alanları doldurunuz.");
+                //_notyfService.Error("Lütfen tüm alanları doldurunuz.");
+                string errormesaj = "";
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    errormesaj += error.ErrorMessage + "</br>";
+                }
+                _notyfService.Error(errormesaj,10);
                 return RedirectToAction("Index");
             }
 

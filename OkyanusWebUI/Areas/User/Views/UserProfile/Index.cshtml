@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <br /><br />
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            @await Component.InvokeAsync("_UpdateUserAccountPartial")
+            @await Component.InvokeAsync("_ChangePasswordPartial")
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <br /><br />
+</div>
+

@@ -27,6 +27,8 @@
                         <th>Telefon</th>
                         <th>Fiyat</th>
                         <th>Tarih</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
                         <th>Detay</th>
                         <th>Sil</th>
                     </tr>
@@ -41,8 +43,18 @@
                             <td>@item.orderPhone</td>
                             <td>@item.totalPrice</td>
                             <td>@item.createdDate.ToString("dd-MMM-yyyy HH:mm")</td>
-                            <td><a href="/Admin/Orders/DetailOrder/@item.id" class="btn btn-warning">Detaylar</a></td>
-                            <td><a href="/Admin/Orders/DeleteOrder/@item.id" class="btn btn-danger" onclick="return confirm('Dikkat Siparişi Silmek istediğinize emin misiniz? Sipariş silindiğinde siparişe ait detaylarda silinir!');">Sil</a></td>
+                            <td>@item.orderStatus</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a href="/Admin/Orders/OrderStatusOnay/@item.id" class="btn-sm btn btn-primary">Onayla</a>
+                                    <a href="/Admin/Orders/OrderStatusHazirlama/@item.id" class="btn-sm btn btn-warning">Hazırla</a>
+                                    <a href="/Admin/Orders/OrderStatusYolda/@item.id" class="btn-sm btn btn-info">Yolda</a>
+                                    <a href="/Admin/Orders/OrderStatusTeslim/@item.id" class="btn-sm btn btn-secondary">Teslim</a>
+                                    <a href="/Admin/Orders/OrderStatusIptal/@item.id" class="btn-sm btn btn-danger">İptal</a>
+                                </div>
+                            </td>
+                            <td><a href="/Admin/Orders/DetailOrder/@item.id" class="btn-sm btn-warning">Detaylar</a></td>
+                            <td><a href="/Admin/Orders/DeleteOrder/@item.id" class="btn-sm btn-danger" onclick="return confirm('Dikkat Siparişi Silmek istediğinize emin misiniz? Sipariş silindiğinde siparişe ait detaylarda silinir!');">Sil</a></td>
                         </tr>
                     }
                 </tbody>

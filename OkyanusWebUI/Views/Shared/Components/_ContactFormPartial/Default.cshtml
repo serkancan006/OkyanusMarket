@@ -3,8 +3,12 @@
 <div>
     <form method="post" asp-action="SendContactMessage" asp-controller="Contact">
         <input type="text" asp-for="Name" placeholder="Adınız" class="form-control">
+        <span class="text-danger" asp-validation-for="Name"></span>
         <input type="email" placeholder="Mailiniz" asp-for="Email" class="form-control">
-        <textarea placeholder="Mesajınız..." class="form-control" asp-for="Message" ></textarea>
-        <input value="Gönder" type="submit"/>
+        <span class="text-danger" asp-validation-for="Email"></span>
+        <textarea placeholder="Mesajınız..." class="form-control" asp-for="Message"></textarea>
+        <span class="text-danger" asp-validation-for="Message"></span>
+
+        <input value="Gönder" type="submit" />
     </form>
 </div>

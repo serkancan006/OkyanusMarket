@@ -6,6 +6,8 @@
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool Status { get; set; }
+        public string OrderStatus { get; set; }
+
 
 
         public string Description { get; set; }

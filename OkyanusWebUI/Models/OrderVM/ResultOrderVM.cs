@@ -8,6 +8,8 @@
 
         public string Description { get; set; }
         public double TotalPrice { get; set; }
+        public string OrderStatus { get; set; }
+
 
         public string OrderFirstName { get; set; }
         public string OrderSurname { get; set; }

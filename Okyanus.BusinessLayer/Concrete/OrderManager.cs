@@ -97,5 +97,12 @@ namespace Okyanus.BusinessLayer.Concrete
         {
             return _OrderDal.Where(filter, tracking);
         }
+
+        public void UpdateOrderStatus(int id, string orderStatus)
+        {
+            var order = _OrderDal.GetByID(id);
+            order.OrderStatus = orderStatus;
+            _OrderDal.Update(order);    
+        }
     }
 }

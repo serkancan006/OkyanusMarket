@@ -8,6 +8,7 @@ namespace OkyanusWebUI.Areas.Admin.Models.AdminOrderVM
         public DateTime createdDate { get; set; }
         public DateTime updatedDate { get; set; }
         public bool status { get; set; }
+        public string orderStatus { get; set; }
         public string? description { get; set; }
         public double totalPrice { get; set; }
         public string orderFirstName { get; set; }

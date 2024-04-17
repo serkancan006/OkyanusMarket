@@ -37,7 +37,7 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet]
         public IActionResult ProductList([FromQuery] FilteredParamaters filteredParamaters)
         {
-            var values = _ProductService.TGetListAll().Where(x => x.Status == true);
+            var values = _ProductService.TGetListAll().Where(x => x.Status == true && x.Stock > 0);
 
             if (!string.IsNullOrEmpty(filteredParamaters.searchName))
             {
@@ -105,7 +105,7 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet("[action]")]
         public IActionResult ProductListAll([FromQuery] FilteredParamaters filteredParamaters)
         {
-            var values = _ProductService.TGetListAll().Where(x => x.Status == true);
+            var values = _ProductService.TGetListAll();
 
             if (!string.IsNullOrEmpty(filteredParamaters.searchName))
             {
@@ -139,8 +139,7 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet("[action]")]
         public IActionResult DiscountedProductList()
         {
-            var values = _ProductService.TGetListAll();
-            values = values.Where(x => x.DiscountedPrice != null).ToList();
+            var values = _ProductService.TWhere(x => x.Status == true && x.Stock > 0 && x.DiscountedPrice != null).ToList();
             var result = _mapper.Map<List<ResultProductVM>>(values);
             return Ok(result);
         }

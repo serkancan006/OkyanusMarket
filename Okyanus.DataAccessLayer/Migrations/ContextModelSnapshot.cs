@@ -511,6 +511,10 @@ namespace Okyanus.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
                     b.Property<string>("OrderSurname")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
@@ -638,6 +642,9 @@ namespace Okyanus.DataAccessLayer.Migrations
 
                     b.Property<bool>("Status")
                         .HasColumnType("NUMBER(1)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("Title")
                         .IsRequired()

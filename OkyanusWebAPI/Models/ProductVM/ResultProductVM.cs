@@ -15,6 +15,8 @@
         public string? ImageUrl { get; set; }
         public string Description { get; set; }
         public Birim ProductType { get; set; }
+        public int Stock { get; set; }
+
         public string ANAGRUP { get; set; }
         public string? ALTGRUP1 { get; set; } = "0";
         public string? ALTGRUP2 { get; set; } = "0";

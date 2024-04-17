@@ -8,9 +8,9 @@ namespace OkyanusWebUI.Validations
     {
         public CreateOrderValidator()
         {
-            RuleFor(item => item.UserAdresID).NotEmpty().WithMessage("Lütfen Adres Seçiniz!");
-            RuleFor(item => item.OrderItems).NotNull().WithMessage("Sipariş oluşturulmadı!");
-            RuleFor(item => item.OrderItems).NotEmpty().WithMessage("Boş sipariş verilemez!");
+            RuleFor(item => item.UserAdresID).NotNull().WithMessage("Lütfen Adres Seçiniz!");
+            RuleFor(item => item.OrderItems).NotNull().WithMessage("Boş sipariş verilemez!");
+            RuleFor(item => item.TelefonNo).NotNull().WithMessage("Lütfen Telefon NUmaranızı Giriniz!");
             RuleFor(item => item.TotalPrice).GreaterThan(0).WithMessage("Toplam Fİyatın 0 dan büyük olması gerek");
         }
     }

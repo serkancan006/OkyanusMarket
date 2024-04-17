@@ -1,4 +1,4 @@
-﻿@model CreateCategoryVM
+﻿@model OkyanusWebUI.Areas.Admin.Models.AdminGroupVM.CreateGroupVM
 @{
     ViewData["Title"] = "AddCategory";
     Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
@@ -8,11 +8,23 @@
     <form method="post">
 
         <label>Kategori Adı</label>
-        <input type="text" asp-for="CategoryName" class="form-control" />
+        <input type="text" asp-for="GRUPADI" class="form-control" />
         <br />
 
-        <label>Kategori Açıklaması</label>
-        <input type="text" asp-for="Description" class="form-control" />
+        <label>Ana Grup Kodu Giriniz</label>
+        <input type="text" asp-for="ANAGRUP" class="form-control" />
+        <br />
+
+        <label>Alt Grup-1 Kodu Giriniz</label>
+        <input type="text" asp-for="ALTGRUP1" class="form-control" />
+        <br />
+
+        <label>Alt Grup-2 Kodu Giriniz</label>
+        <input type="text" asp-for="ALTGRUP2" class="form-control" />
+        <br />
+
+        <label>Alt Grup-3 Kodu Giriniz</label>
+        <input type="text" asp-for="ALTGRUP3" class="form-control" />
         <br />
 
         <button class="btn btn-primary">Kategori Ekle</button>

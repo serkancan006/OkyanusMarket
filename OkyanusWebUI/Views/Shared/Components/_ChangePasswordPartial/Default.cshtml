@@ -1,0 +1,66 @@
+﻿@model OkyanusWebUI.Models.UserAccountVM.ChangePasswordVM
+
+<form method="post" asp-area="User" asp-controller="UserProfile" asp-action="ChangePassword">
+
+    <h4 class="text-center">Şifre Güncelle</h4>
+    <br />
+
+    <label>Mevcut Şifre</label>
+    <div style="display:flex; flex:1">
+        <input type="password" asp-for="CurrentPassword" class="form-control" id="inputCurrentPassword" />
+        <div style="height:32px;width:32px;cursor:pointer;align-content:center;margin-left:5px" id="toggleCurrentPasswordVisibility">
+            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+        </div>
+    </div>
+    <br />
+
+    <label>Yeni Şifre</label>
+    <div style="display:flex; flex:1">
+        <input type="password" asp-for="NewPassword" class="form-control" id="inputNewPassword" />
+        <div style="height:32px;width:32px;cursor:pointer;align-content:center;margin-left:5px" id="toggleNewPasswordVisibility">
+            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+        </div>
+    </div>
+    <br />
+
+    <label>Yeni Şifre Tekrar</label>
+    <div style="display:flex; flex:1">
+        <input type="password" asp-for="ConfirmNewPassword" class="form-control" id="inputConfirmNewPassword" />
+        <div style="height:32px;width:32px;cursor:pointer;align-content:center;margin-left:5px" id="toggleConfirmNewPasswordVisibility">
+            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+        </div>
+    </div>
+    <br />
+
+    <button class="btn btn-sm btn-primary" style="background-color:dodgerblue">Şifre Değiştir</button>
+</form>
+<br />
+<br />
+
+<script>
+    // Toggle password visibility
+    function togglePasswordVisibility(inputId, toggleId) {
+        const input = document.getElementById(inputId);
+        const toggle = document.getElementById(toggleId);
+
+        if (input.type === "password") {
+            input.type = "text";
+            toggle.innerHTML = '<i class="fa fa-eye" aria-hidden="true"></i>';
+        } else {
+            input.type = "password";
+            toggle.innerHTML = '<i class="fa fa-eye-slash" aria-hidden="true"></i>';
+        }
+    }
+
+    document.getElementById("toggleCurrentPasswordVisibility").addEventListener("click", function () {
+        togglePasswordVisibility("inputCurrentPassword", "toggleCurrentPasswordVisibility");
+    });
+
+    document.getElementById("toggleNewPasswordVisibility").addEventListener("click", function () {
+        togglePasswordVisibility("inputNewPassword", "toggleNewPasswordVisibility");
+    });
+
+    document.getElementById("toggleConfirmNewPasswordVisibility").addEventListener("click", function () {
+        togglePasswordVisibility("inputConfirmNewPassword", "toggleConfirmNewPasswordVisibility");
+    });
+</script>
