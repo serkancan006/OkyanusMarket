@@ -5,8 +5,6 @@ namespace OkyanusWebUI.Models.OrderVM
     public class CreateOrderVM
     {
         public string? Description { get; set; }
-        public double? TotalPrice { get; set; }
-
 
         public int UserAdresID { get; set; }
         public string TelefonNo { get; set; }
@@ -15,5 +13,6 @@ namespace OkyanusWebUI.Models.OrderVM
         public string AlternatifUrun { get; set; }
 
         public List<CartItem>? OrderItems { get; set; }
+        public double? TotalPrice { get; set; }
     }
 }

@@ -28,6 +28,17 @@ namespace OkyanusWebUI.Areas.User.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateUserAccount(ResultUserAccountVM model)
         {
+            if (!ModelState.IsValid)
+            {
+                //_notyfService.Error("Lütfen tüm alanları doldurunuz.");
+                string errormesaj = "";
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    errormesaj += error.ErrorMessage + "</br>";
+                }
+                _notyfService.Error(errormesaj, 10);
+                return RedirectToAction("Index");
+            }
             var apiModel = new UpdateUserAccountVM()
             {
                 UserFirstName = model.UserFirstName,
@@ -50,6 +61,17 @@ namespace OkyanusWebUI.Areas.User.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordVM model)
         {
+            if (!ModelState.IsValid)
+            {
+                //_notyfService.Error("Lütfen tüm alanları doldurunuz.");
+                string errormesaj = "";
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    errormesaj += error.ErrorMessage + "</br>";
+                }
+                _notyfService.Error(errormesaj, 10);
+                return RedirectToAction("Index");
+            }
             var modelApi = new ChangePasswordVMApi()
             {
                 CurrentPassword = model.CurrentPassword,

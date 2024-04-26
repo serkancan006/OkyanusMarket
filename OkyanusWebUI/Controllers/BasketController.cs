@@ -44,6 +44,7 @@ namespace OkyanusWebUI.Controllers
                         Name = values.ProductName,
                         Price = values.DiscountedPrice ?? values.Price,
                         ProductId = values.ID,
+                        Stock = values.Stock,
                         Quantity = 1,
                         Birim = ((Birim)values.ProductType).ToString(),
                     };
@@ -59,7 +60,7 @@ namespace OkyanusWebUI.Controllers
         [HttpPost]
         public IActionResult UpdateBasketItemQuantity(int id, string quantity, string birim)
         {
-            Console.WriteLine(birim);
+            //Console.WriteLine(birim);
             double convertQuantity = double.Parse(quantity.Replace(',', '.'), CultureInfo.InvariantCulture);
             if (convertQuantity <= 0)
             {

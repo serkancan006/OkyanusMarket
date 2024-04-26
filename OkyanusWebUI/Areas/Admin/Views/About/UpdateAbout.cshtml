@@ -9,15 +9,18 @@
         <input type="hidden" asp-for="ID" />
 
         <label>Hakkımızda Açıklama</label>
-        <textarea rows="4" type="text" asp-for="AboutDesc" class="form-control"></textarea>
+        <textarea rows="5" type="text" asp-for="AboutDesc" class="form-control"></textarea>
+        <span class="text-danger" asp-validation-for="AboutDesc"></span>
         <br />
 
         <label>Misyonumuz</label>
-        <textarea rows="4" type="text" asp-for="Misyon" class="form-control"></textarea>
+        <textarea rows="5" type="text" asp-for="Misyon" class="form-control"></textarea>
+        <span class="text-danger" asp-validation-for="Misyon"></span>
         <br />
 
         <label>Vizyonumuz</label>
-        <textarea rows="4" type="text" asp-for="Vizyon" class="form-control"></textarea>
+        <textarea rows="5" type="text" asp-for="Vizyon" class="form-control"></textarea>
+        <span class="text-danger" asp-validation-for="Vizyon"></span>
         <br />
 
         <button class="btn btn-primary">Hakkımızda Güncelle</button>

@@ -26,7 +26,7 @@
                         <th>Adet</th>
                         <th>Ürün Türü</th>
                         <th>Toplam Fiyat</th>
-                        <th>Ürüne git</th>
+                        @*<th>Ürüne git</th>*@
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +41,7 @@
                             <td>@item.Count</td>
                             <td>@item.Product.ProductType</td>
                             <td>@item.TotalPrice</td>
-                            <td><a class="btn btn-outline-secondary btn-sm" href="/Admin/Product/UpdateProduct/@item.ProductID">detay</a></td>
+                            @*<td><a class="btn btn-outline-secondary btn-sm" href="/Admin/Product/UpdateProduct/@item.ProductID">detay</a></td>*@
                         </tr>
                     }
                 </tbody>

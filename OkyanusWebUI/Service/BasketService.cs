@@ -112,6 +112,7 @@ namespace OkyanusWebUI.Service
     public class CartItem
     {
         public int ProductId { get; set; }
+        public int Stock { get; set; }
         public string Name { get; set; }
         public string? ImageUrl { get; set; }
         public double Price { get; set; }

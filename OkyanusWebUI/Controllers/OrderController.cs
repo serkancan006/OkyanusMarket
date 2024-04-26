@@ -34,7 +34,7 @@ namespace OkyanusWebUI.Controllers
             var jsonData = await responseMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<ResultUserAdresVM>>(jsonData);
             List<SelectListItem> selectListItems = new List<SelectListItem>();
-            selectListItems.Add(new SelectListItem() { Value = null, Text = "Adres Ekle" });
+            selectListItems.Add(new SelectListItem() { Value = "0", Text = "Adres Ekle" });
             foreach (var value in values)
             {
                 SelectListItem item = new SelectListItem
@@ -51,8 +51,23 @@ namespace OkyanusWebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CreateOrderVM createOrderVM)
         {
-            createOrderVM.OrderItems = _basketService.Items.ToList();
-            createOrderVM.TotalPrice = _basketService.GetTotalPrice();
+            //createOrderVM.OrderItems = _basketService.Items.ToList();
+            //createOrderVM.TotalPrice = _basketService.GetTotalPrice();
+            var responseMessage2 = await _customHttpClient.Get(new() { Controller = "UserAdres" });
+            var jsonData2 = await responseMessage2.Content.ReadAsStringAsync();
+            var values2 = JsonConvert.DeserializeObject<List<ResultUserAdresVM>>(jsonData2);
+            List<SelectListItem> selectListItems = new List<SelectListItem>();
+            selectListItems.Add(new SelectListItem() { Value = "0", Text = "Adres Ekle" });
+            foreach (var value in values2)
+            {
+                SelectListItem item = new SelectListItem
+                {
+                    Value = value.ID.ToString(),
+                    Text = value.UserAdress
+                };
+                selectListItems.Add(item);
+            }
+            ViewBag.SelectListItems = selectListItems;
             //CreateOrderValidator validator = new CreateOrderValidator();
             //ValidationResult results = validator.Validate(createOrderVM);
             if (!ModelState.IsValid)

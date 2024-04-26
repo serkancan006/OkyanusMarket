@@ -86,9 +86,9 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             var responseMessage = await _customHttpClient.Put<UpdateProductVM>(new() { Controller = "Product" }, model);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return View(model);
             }
-            return View();
+            return View(model);
         }
 
         public IActionResult AssignCategoryForProductList(int id)

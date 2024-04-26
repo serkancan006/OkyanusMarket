@@ -13,25 +13,31 @@
 
             <div class="form-group">
                 <label for="UserAdress">Tam Adres:</label>
-                <input type="text" class="form-control" id="UserAdress" name="UserAdress" >
+                <input type="text" class="form-control" id="UserAdress" asp-for="UserAdress" >
+                <span class="text-danger" asp-validation-for="UserAdress"></span>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserApartman">Apartman No:</label>
-                        <input type="number" class="form-control" id="UserApartman" name="UserApartman" >
+                        <input type="number" class="form-control" id="UserApartman" asp-for="UserApartman">
+                        <span class="text-danger" asp-validation-for="UserApartman"></span>
+
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserDaire">Daire No:</label>
-                        <input type="number" class="form-control" id="UserDaire" name="UserDaire" >
+                        <input type="number" class="form-control" id="UserDaire" asp-for="UserDaire">
+                        <span class="text-danger" asp-validation-for="UserDaire"></span>
+
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserKat">Kat:</label>
-                        <input type="number" class="form-control" id="UserKat" name="UserKat">
+                        <input type="number" class="form-control" id="UserKat" asp-for="UserKat">
+                        <span class="text-danger" asp-validation-for="UserKat"></span>
                     </div>
                 </div>
             </div>
@@ -39,13 +45,15 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="UserSehir">Şehir:</label>
-                        <input type="text" class="form-control" id="UserSehir" name="UserSehir">
+                        <input type="text" class="form-control" id="UserSehir" asp-for="UserSehir">
+                        <span class="text-danger" asp-validation-for="UserSehir"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="UserIlce">İlçe:</label>
-                        <input type="text" class="form-control" id="UserIlce" name="UserIlce">
+                        <input type="text" class="form-control" id="UserIlce" asp-for="UserIlce">
+                        <span class="text-danger" asp-validation-for="UserIlce"></span>
                     </div>
                 </div>
             </div>

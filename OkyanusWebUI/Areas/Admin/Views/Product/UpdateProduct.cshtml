@@ -15,20 +15,22 @@
 
         <label>Ürün Adı</label>
         <input type="text" asp-for="ProductName" class="form-control" />
+        <span class="text-danger" asp-validation-for="ProductName"></span>
         <br />
 
         <label>Ürün Başlık</label>
         <input type="text" asp-for="Title" class="form-control" />
+        <span class="text-danger" asp-validation-for="Title"></span>
         <br />
 
         <label>Ürün Fiyatı</label>
         <input type="number" step="0.01" asp-for="Price" class="form-control" />
-
+        <span class="text-danger" asp-validation-for="Price"></span>
         <br />
 
         <label>Ürün İndirimli Fiyat (indirim vermek istediğiniz ürün için girin)</label>
         <input type="number" step="0.01" asp-for="DiscountedPrice" class="form-control" />
-
+        <span class="text-danger" asp-validation-for="DiscountedPrice"></span>
         <br />
 
         @*<label>Ürün Resmi</label>
@@ -43,38 +45,47 @@
                 <option value="@item">@item</option>
             }
         </select>
+        <span class="text-danger" asp-validation-for="ProductType"></span>
         <br />
 
         <label>Ürün Açıklaması</label>
         <input type="text" asp-for="Description" class="form-control" />
+        <span class="text-danger" asp-validation-for="Description"></span>
         <br />
 
         <label>Ana Grup</label>
         <input type="text" asp-for="ANAGRUP" class="form-control" />
+        <span class="text-danger" asp-validation-for="ANAGRUP"></span>
         <br />
 
         <label>Alt Grup 1</label>
         <input type="text" asp-for="ALTGRUP1" class="form-control" />
+        <span class="text-danger" asp-validation-for="ALTGRUP1"></span>
         <br />
 
         <label>Alt Grup 2</label>
         <input type="text" asp-for="ALTGRUP2" class="form-control" />
+        <span class="text-danger" asp-validation-for="ALTGRUP2"></span>
         <br />
 
         <label>Alt Grup 3</label>
         <input type="text" asp-for="ALTGRUP3" class="form-control" />
+        <span class="text-danger" asp-validation-for="ALTGRUP3"></span>
         <br />
 
         <label>Ürün Markası</label>
         <input type="text" asp-for="Marka" class="form-control" />
+        <span class="text-danger" asp-validation-for="Marka"></span>
         <br />
 
         <label>Ürün Ana Barkodu</label>
         <input type="text" asp-for="AnaBarcode" class="form-control" />
+        <span class="text-danger" asp-validation-for="AnaBarcode"></span>
         <br />
 
         <label>Ürün Stock</label>
         <input type="number" min="0" step="1" asp-for="Stock" class="form-control" />
+        <span class="text-danger" asp-validation-for="Stock"></span>
         <br />
 
         <button class="btn btn-primary">Ürün Güncelle</button>

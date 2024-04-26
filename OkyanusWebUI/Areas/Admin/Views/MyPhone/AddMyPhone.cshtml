@@ -9,10 +9,12 @@
 
         <label>Telefon Türü</label>
         <input type="text" asp-for="PhoneName" class="form-control" />
+        <span class="text-danger" asp-validation-for="PhoneName"></span>
         <br />
 
         <label>Telefon Numarası</label>
         <input type="text" asp-for="PhoneNumber" class="form-control" />
+        <span class="text-danger" asp-validation-for="PhoneNumber"></span>
         <br />
 
         <button class="btn btn-primary">Telefon Ekle</button>

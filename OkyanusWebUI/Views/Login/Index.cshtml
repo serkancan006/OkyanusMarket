@@ -9,16 +9,20 @@
         <div class="form-w3agile">
             <h3>Giriş Yap</h3>
             <form method="post">
+                <span class="text-danger" asp-validation-for="UserNameOrEmail"></span>
                 <div class="key">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <input type="text" asp-for="UserNameOrEmail" placeholder="Mailiniz" >
+                    <input type="text" asp-for="UserNameOrEmail" placeholder="Mailiniz">
                     <div class="clearfix"></div>
                 </div>
+
+                <span class="text-danger" asp-validation-for="Password"></span>
                 <div class="key">
                     <i class="fa fa-lock" aria-hidden="true"></i>
-                    <input type="password" placeholder="Şifreniz" asp-for="Password"  >
+                    <input type="password" placeholder="Şifreniz" asp-for="Password">
                     <div class="clearfix"></div>
                 </div>
+
                 <input type="submit" value="Giriş">
             </form>
         </div>

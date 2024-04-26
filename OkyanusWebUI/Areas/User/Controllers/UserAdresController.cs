@@ -86,6 +86,10 @@ namespace OkyanusWebUI.Areas.User.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateSelectedUserAdres(int id)
         {
+            if (id == 0)
+            {
+                return NotFound("Geçersiz Veri");
+            }
             var responseMessage = await _customHttpClient.Put<int>(new() { Controller = "UserAdres", Action = "UpdateSelectedUserAdres" }, id);
             if (responseMessage.IsSuccessStatusCode)
             {

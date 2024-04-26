@@ -27,7 +27,7 @@ namespace OkyanusWebUI.Models.ProductVM
 
         public bool HasProductInBasket
         {
-            get 
+            get
             {
                 return new BasketService(new HttpContextAccessor()).hasProductInBasket(this.ID);
             }

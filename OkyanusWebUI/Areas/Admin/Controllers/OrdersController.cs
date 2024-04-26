@@ -57,6 +57,16 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             return View();
         }
 
+        public async Task<IActionResult> DeleteOrder(int id)
+        {
+            var responseMessage = await _customHttpClient.Delete(new() { Controller = "Order" }, id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
         public async Task<IActionResult> OrderStatusOnay(int id)
         {
             var responseMessage = await _customHttpClient.Get(new() { Controller = "Order", Action="OrderStatusOnay" }, id);
