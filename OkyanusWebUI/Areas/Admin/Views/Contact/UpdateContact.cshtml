@@ -10,22 +10,27 @@
 
         <label>İletişim Yazısı</label>
         <input type="text" asp-for="Title" class="form-control" />
+        <span class="text-danger" asp-validation-for="Title"></span>
         <br />
 
         <label>Adres</label>
         <input type="text" asp-for="Adres" class="form-control" />
+        <span class="text-danger" asp-validation-for="Adres"></span>
         <br />
 
         <label>Mail</label>
         <input type="text" asp-for="Mail" class="form-control" />
+        <span class="text-danger" asp-validation-for="Mail"></span>
         <br />
 
         <label>Telefon</label>
         <input type="text" asp-for="Phone" class="form-control" />
+        <span class="text-danger" asp-validation-for="Phone"></span>
         <br />
 
         <label>Google Map Bilgisi</label>
         <textarea rows="4" type="text" asp-for="MapLocation" class="form-control"></textarea>
+        <span class="text-danger" asp-validation-for="MapLocation"></span>
         <br />
 
         <button class="btn btn-primary">İletişim Güncelle</button>

@@ -10,11 +10,13 @@
         <input type="hidden" asp-for="ID" />
         <input type="hidden" asp-for="MediaName" class="form-control" />
 
-        <p>@Model.MediaName</p>
+        <label>Sosyal Medya Adı</label>
+        <h4>@Model.MediaName</h4>
         <br />
 
-        <label>Sosyal Medya</label>
+        <label>Sosyal Medya Url</label>
         <input type="text" asp-for="MediaUrl" class="form-control" />
+        <span class="text-danger" asp-validation-for="MediaUrl"></span>
         <br />
 
         <button class="btn btn-primary">Sosyal Medya Güncelle</button>

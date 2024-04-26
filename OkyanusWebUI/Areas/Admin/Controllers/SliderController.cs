@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using OkyanusWebUI.Areas.Admin.Models.SliderUIVM;
 using OkyanusWebUI.Models.SliderVM;
 using OkyanusWebUI.Service;
 
@@ -35,16 +36,15 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddSlider(IFormFile file, string description)
+        public async Task<IActionResult> AddSlider(CreateSliderUIVM modelui)
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(modelui);
             }
-            var (fileName,databasePath) = await _fileOperationService.SaveFileAsync(file, "images/Slider/");
+            var (fileName,databasePath) = await _fileOperationService.SaveFileAsync(modelui.file, "images/Slider/");
             CreateSliderVM model = new CreateSliderVM()
             {
-                Description = description,
                 ImageUrl = databasePath,
             };
             var responseMessage = await _customHttpClient.Post<CreateSliderVM>(new() { Controller = "Slider" }, model);
@@ -71,18 +71,6 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> SliderDetails(int id)
-        {
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "Slider" }, id);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<ResultSliderVM>(jsonData);
-                return View(values);
-            }
-            return View();
-        }
 
     }
 }

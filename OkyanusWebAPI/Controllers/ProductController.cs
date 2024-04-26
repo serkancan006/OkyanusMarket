@@ -1,14 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Okyanus.BusinessLayer.Abstract;
-using Okyanus.DataAccessLayer.Concrete;
 using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models;
 using OkyanusWebAPI.Models.ProductVM;
-using Org.BouncyCastle.Asn1.Ocsp;
-using System.Linq.Expressions;
 
 namespace OkyanusWebAPI.Controllers
 {
@@ -71,22 +66,23 @@ namespace OkyanusWebAPI.Controllers
             //}
             if (!string.IsNullOrEmpty(filteredParamaters.markaAdi))
             {
-                values = values.Where(x => x.Marka == filteredParamaters.markaAdi).ToList();
+                //values = values.Where(x => x.Marka == filteredParamaters.markaAdi).ToList();
+                values = values.Where(x => x.Marka.Contains(filteredParamaters.markaAdi)).ToList();
             }
 
-            if (!string.IsNullOrEmpty(filteredParamaters.sortField) && !string.IsNullOrEmpty(filteredParamaters.sortOrder))
+            if (!string.IsNullOrEmpty(filteredParamaters.sortField) )
             {
                 switch (filteredParamaters.sortField.ToLower())
                 {
                     case "productname":
-                        values = Sort(values, x => x.ProductName, filteredParamaters.sortOrder.ToLower() == "asc");
+                        values = Sort(values, x => x.ProductName, filteredParamaters?.sortOrder?.ToLower() == "asc");
                         break;
                     case "price":
-                        values = Sort(values, x => x.Price, filteredParamaters.sortOrder.ToLower() == "asc");
+                        values = Sort(values, x => (x.DiscountedPrice ?? x.Price), filteredParamaters?.sortOrder?.ToLower() == "asc");
                         break;
-                    case "indirim":
-                        values = Sort(values, x => x.DiscountedPrice, filteredParamaters.sortOrder.ToLower() == "asc");
-                        break;
+                    //case "indirim":
+                    //    values = Sort(values, x => x.DiscountedPrice, filteredParamaters?.sortOrder?.ToLower() == "asc");
+                    //    break;
                     // Diğer sıralama alanlarını ekleyin
                     default:
                         break;
