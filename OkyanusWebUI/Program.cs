@@ -25,6 +25,9 @@ builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<CustomHttpClient>();
 builder.Services.AddScoped<BasketService>();
 builder.Services.AddScoped<FileOperationService>();
+builder.Services.AddScoped<UserAdresService>();
+builder.Services.AddScoped<DeliveryTimeService>();
+builder.Services.AddScoped<CityService>();
 
 builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddRazorRuntimeCompilation();
 

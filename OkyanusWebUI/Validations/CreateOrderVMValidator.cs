@@ -19,7 +19,7 @@ namespace OkyanusWebUI.Validations
             RuleFor(item => item.TotalPrice).NotNull().WithMessage("Boş Fiyat verilemez!");
             RuleFor(item => item.TotalPrice).GreaterThan(250).WithMessage("Minumum Sepet Tutarı 250 Tl olmalıdır");
 
-            RuleForEach(x => x.OrderItems).SetValidator(new CartItemValidator()).WithMessage("hayırdır!");
+            //RuleForEach(x => x.OrderItems).SetValidator(new CartItemValidator()).WithMessage("hayırdır!");
 
         }
 

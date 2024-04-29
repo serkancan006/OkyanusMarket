@@ -11,8 +11,6 @@
     <div class="row">
         <div class="col-md-9">
             <form method="post">
-                <input type="hidden" asp-for="TotalPrice" value="@basketService.GetTotalPrice()" />
-                <input type="hidden" asp-for="OrderItems" value="@basketService.Items.ToList()" />
                 <div>
                     <h4 style="margin-bottom:20px;margin-top:20px">Sipariş Bilgileri</h4>
                     <div class="form-group">
@@ -44,9 +42,10 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Teslimat Saati:</label>
-                                <select asp-for="@Model.TeslimatSaati" class="form-control">
+                                <select asp-for="@Model.TeslimatSaati" class="form-control" asp-items="@ViewBag.DeliveryTimeItems"></select>
+                                @*<select asp-for="@Model.TeslimatSaati" class="form-control">
                                     <option value="10:00-18:00">10:00-18:00</option>
-                                </select>
+                                </select>*@
                                 <span class="text-danger" asp-validation-for="@Model.TeslimatSaati"></span>
                             </div>
                         </div>

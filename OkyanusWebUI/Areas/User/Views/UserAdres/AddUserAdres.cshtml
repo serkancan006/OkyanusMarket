@@ -13,7 +13,7 @@
 
             <div class="form-group">
                 <label for="UserAdress">Tam Adres:</label>
-                <input type="text" class="form-control" id="UserAdress" asp-for="UserAdress" >
+                <input type="text" class="form-control" id="UserAdress" asp-for="UserAdress">
                 <span class="text-danger" asp-validation-for="UserAdress"></span>
             </div>
             <div class="row">
@@ -45,14 +45,17 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="UserSehir">Şehir:</label>
-                        <input type="text" class="form-control" id="UserSehir" asp-for="UserSehir">
+                        @*<input type="text" class="form-control" id="UserSehir" asp-for="UserSehir">*@
+                        <select id="City" asp-for="UserSehir" class="form-control" asp-items="@ViewBag.UserSehirItems"></select>
                         <span class="text-danger" asp-validation-for="UserSehir"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="UserIlce">İlçe:</label>
-                        <input type="text" class="form-control" id="UserIlce" asp-for="UserIlce">
+                        @*<input type="text" class="form-control" id="UserIlce" asp-for="UserIlce">*@
+                        @*<select asp-for="UserIlce" class="form-control" asp-items="@ViewBag.UserIlceItems"></select>*@
+                        <select asp-for="UserIlce" id="District" class="form-control" asp-items="@ViewBag.UserIlceItems"></select>
                         <span class="text-danger" asp-validation-for="UserIlce"></span>
                     </div>
                 </div>
@@ -62,5 +65,17 @@
     </form>
 </div>
 
-        
-  
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#City").change(function () {
+                var cityId = $(this).val();
+                $.get("/User/UserAdres/GetDistricts", { cityId: cityId }, function (data) {
+                    $("#District").empty();
+                    $.each(data, function (index, row) {
+                        $("#District").append("<option value='" + row.value + "'>" + row.text + "</option>")
+                        console.log(row.value + " - " + row.text)
+                    });
+                });
+            });
+        });
+</script>

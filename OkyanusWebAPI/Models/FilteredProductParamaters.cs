@@ -1,6 +1,6 @@
 ﻿namespace OkyanusWebAPI.Models
 {
-    public class FilteredParamaters
+    public class FilteredProductParamaters
     {
         public string? searchName { get; set; }
         public string? markaAdi { get; set; }

@@ -57,6 +57,15 @@ namespace Okyanus.BusinessLayer.Container
             services.AddScoped<IUserAdresDal, EfUserAdresDal>();
             services.AddScoped<IUserAdresService, UserAdresManager>();
 
+            services.AddScoped<ICityDal, EfCityDal>();
+            services.AddScoped<ICityService, CityManager>();
+
+            services.AddScoped<IDistrictDal, EfDistrictDal>();
+            services.AddScoped<IDistrictService, DistrictManager>();
+
+            services.AddScoped<IDeliveryTimeDal, EfDeliveryTimeDal>();
+            services.AddScoped<IDeliveryTimeService, DeliveryTimeManager>();
+
 
 
             //External Service

@@ -3,8 +3,11 @@ using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models.AboutVM;
 using OkyanusWebAPI.Models.BasketVM;
 using OkyanusWebAPI.Models.BranchUsVM;
+using OkyanusWebAPI.Models.CityVM;
 using OkyanusWebAPI.Models.ContactMessageVM;
 using OkyanusWebAPI.Models.ContactVM;
+using OkyanusWebAPI.Models.DeliveryTimeVM;
+using OkyanusWebAPI.Models.DistrictVM;
 using OkyanusWebAPI.Models.GroupVM;
 using OkyanusWebAPI.Models.MyPhoneVM;
 using OkyanusWebAPI.Models.OrderDetailVM;
@@ -71,6 +74,18 @@ namespace OkyanusWebAPI.Mapping
             CreateMap<ResultUserAdresVM, UserAdres>().ReverseMap();
             CreateMap<UpdateUserAdresVM, UserAdres>().ReverseMap();
             CreateMap<CreateUserAdresVM, UserAdres>().ReverseMap();
+
+            CreateMap<ResultDistrictVM, District>().ReverseMap();
+            CreateMap<CreateDistrictVM, District>().ReverseMap();
+            CreateMap<UpdateDistrictVM, District>().ReverseMap();
+
+            CreateMap<ResultCityVM, City>().ReverseMap();
+            CreateMap<CreateCityVM, City>().ReverseMap();
+            CreateMap<UpdateCityVM, City>().ReverseMap();
+
+            CreateMap<ResultDeliveryTimeVM, DeliveryTime>().ReverseMap();
+            CreateMap<CreateDeliveryTimeVM, DeliveryTime>().ReverseMap();
+            CreateMap<UpdateDeliveryTimeVM, DeliveryTime>().ReverseMap();
 
         }
     }

@@ -39,6 +39,9 @@ namespace Okyanus.DataAccessLayer.Concrete
         public DbSet<MyPhone> MyPhones { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
         public DbSet<UserAdres> UserAdreses { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<DeliveryTime> DeliveryTimes { get; set; }
 
       
 

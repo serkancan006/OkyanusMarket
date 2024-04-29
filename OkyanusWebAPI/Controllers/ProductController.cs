@@ -30,7 +30,7 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProductList([FromQuery] FilteredParamaters filteredParamaters)
+        public IActionResult ProductList([FromQuery] FilteredProductParamaters filteredParamaters)
         {
             var values = _ProductService.TGetListAll().Where(x => x.Status == true && x.Stock > 0);
 
@@ -99,7 +99,7 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet("[action]")]
-        public IActionResult ProductListAll([FromQuery] FilteredParamaters filteredParamaters)
+        public IActionResult ProductListAll([FromQuery] FilteredProductParamaters filteredParamaters)
         {
             var values = _ProductService.TGetListAll();
 

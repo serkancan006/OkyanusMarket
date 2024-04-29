@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using OkyanusWebUI.Models.UserAdresVM;
 
-namespace OkyanusWebUI.Validations
+namespace OkyanusWebUI.Validations.User.UserAdres
 {
     public class UpdateUserAdresVMValidator : AbstractValidator<UpdateUserAdresVM>
     {

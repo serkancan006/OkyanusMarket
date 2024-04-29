@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using OkyanusWebUI.Models.UserAccountVM;
 
-namespace OkyanusWebUI.Validations
+namespace OkyanusWebUI.Validations.User.UserProfile
 {
     public class ChangePasswordVMValidator : AbstractValidator<ChangePasswordVM>
     {
