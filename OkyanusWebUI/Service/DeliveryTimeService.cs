@@ -40,7 +40,7 @@ namespace OkyanusWebUI.Service
                     selectListItems.Add(item);
                 }
             }
-          
+            
             return selectListItems;
         }
     }
