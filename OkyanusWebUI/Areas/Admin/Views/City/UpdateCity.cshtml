@@ -1,0 +1,20 @@
+﻿@model OkyanusWebUI.Models.CityVM.UpdateCityVM
+
+@{
+    ViewData["Title"] = "UpdateCity";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <form method="post">
+        <input type="hidden" asp-for="ID"  />
+
+        <label>Şehir Adı</label>
+        <input type="text" asp-for="CityName" class="form-control" />
+        <span class="text-danger" asp-validation-for="CityName"></span>
+        <br />
+
+        <button class="btn btn-primary">Şehir Güncelle</button>
+    </form>
+</div>
+

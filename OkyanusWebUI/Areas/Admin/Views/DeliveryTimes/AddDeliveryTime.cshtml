@@ -1,0 +1,29 @@
+﻿@model OkyanusWebUI.Models.DeliveryTimeVM.CreateDeliveryTimeVM
+
+@{
+    ViewData["Title"] = "AddDeliveryTime";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <form method="post">
+
+        <label>Teslimat Saati Adı (örneğin: Sabah)</label>
+        <input type="text" asp-for="DeliveryTimeName" class="form-control" />
+        <span class="text-danger" asp-validation-for="DeliveryTimeName"></span>
+        <br />
+
+        <label>Başlangıç Tarih ve Saati</label>
+        <input type="datetime-local" asp-for="StartedTime" class="form-control" />
+        <span class="text-danger" asp-validation-for="StartedTime"></span>
+        <br />
+
+        <label>Bitiş Tarih ve Saati</label>
+        <input type="datetime-local" asp-for="EndTime" class="form-control" />
+        <span class="text-danger" asp-validation-for="EndTime"></span>
+        <br />
+
+        <button class="btn btn-primary">Teslimat Zamanı Tanımla</button>
+    </form>
+</div>
+

@@ -52,12 +52,12 @@ namespace OkyanusWebAPI.Controllers
             return Ok("District Güncellendi");
         }
 
-        //[HttpGet("{id}")]
-        //public IActionResult GetDistrict(int id)
-        //{
-        //    var values = _DistrictService.TGetByID(id);
-        //    var result = _mapper.Map<ResultDistrictVM>(values);
-        //    return Ok(result);
-        //}
+        [HttpGet("[action]/{id}")]
+        public IActionResult GetDistrict(int id)
+        {
+            var values = _DistrictService.TGetByID(id);
+            var result = _mapper.Map<ResultDistrictVM>(values);
+            return Ok(result);
+        }
     }
 }

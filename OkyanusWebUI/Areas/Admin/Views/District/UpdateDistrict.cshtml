@@ -1,0 +1,21 @@
+﻿@model OkyanusWebUI.Models.DistrictVM.UpdateDistrictVM
+
+@{
+    ViewData["Title"] = "UpdateDistrict";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <form method="post">
+        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="CityID" />
+
+        <label>İlçe Adı</label>
+        <input type="text" asp-for="DistrictName" class="form-control" />
+        <span class="text-danger" asp-validation-for="DistrictName"></span>
+        <br />
+
+        <button class="btn btn-primary">İlçe Güncelle</button>
+    </form>
+</div>
+

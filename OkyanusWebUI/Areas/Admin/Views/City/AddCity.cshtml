@@ -1,0 +1,19 @@
+﻿@model OkyanusWebUI.Models.CityVM.CreateCityVM
+
+@{
+    ViewData["Title"] = "AddCity";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <form method="post">
+
+        <label>Şehir Adı</label>
+        <input type="text" asp-for="CityName" class="form-control" />
+        <span class="text-danger" asp-validation-for="CityName"></span>
+        <br />
+
+        <button class="btn btn-primary">Şehir Ekle</button>
+    </form>
+</div>
+

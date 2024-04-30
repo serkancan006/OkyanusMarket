@@ -20,6 +20,14 @@ namespace OkyanusWebAPI.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("[action]")]
+        public IActionResult LastDeliveryTimeList()
+        {
+            var values = _DeliveryTimeService.TWhere(x => x.StartedTime <= DateTime.UtcNow).ToList();
+            var result = _mapper.Map<List<ResultDeliveryTimeVM>>(values);
+            return Ok(result);
+        }
+
         [HttpGet]
         public IActionResult DeliveryTimeList()
         {

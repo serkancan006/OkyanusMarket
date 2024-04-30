@@ -1,0 +1,50 @@
+﻿@model List<OkyanusWebUI.Models.CityVM.ResultCityVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Şehir Sayfası</h1>
+<p class="mb-4">
+    Şehir ile ilgili işlemlerinizi Şehir tablosundan yönetebilirsiniz
+</p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Şehir Adı</th>
+                        <th>Detaylar</th>
+                        <th>Sil</th>
+                        <th>ilçeleri</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <th>@count</th>
+                            <td>@item.CityName</td>
+                            <td><a href="/Admin/City/UpdateCity/@item.ID" class="btn btn-warning">Detaylar</a></td>
+                            <td><a href="/Admin/City/DeleteCity/@item.ID"  class="btn btn-danger"  onclick="return confirm('Dikkat Silmek istediğinize emin misiniz? Şehir silindiğinde şehre ait ilçeler silinir!!!');">Sil</a></td>
+                            <td><a href="/Admin/District/Index/@item.ID" class="btn btn-secondary">İlçeleri gör</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a href="/Admin/City/AddCity/" class="btn btn-primary">Yeni Şehir Ekle</a>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,26 @@
+﻿@model OkyanusWebUI.Models.DistrictVM.CreateDistrictVM
+
+@{
+    ViewData["Title"] = "AddDistrict";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+
+<div class="container">
+    <form method="post">
+
+        <label>İlçe Adı</label>
+        <input type="text" asp-for="DistrictName" class="form-control" />
+        <span class="text-danger" asp-validation-for="DistrictName"></span>
+        <br />
+
+        <label>Ekleneceği Şehir</label>
+        @*<input type="text" asp-for="CityID" class="form-control" />*@
+        <select id="City" asp-for="CityID" class="form-control" asp-items="@ViewBag.UserSehirItems"></select>
+        <span class="text-danger" asp-validation-for="CityID"></span>
+        <br />
+
+        <button class="btn btn-primary">İlçe Ekle</button>
+    </form>
+</div>
+

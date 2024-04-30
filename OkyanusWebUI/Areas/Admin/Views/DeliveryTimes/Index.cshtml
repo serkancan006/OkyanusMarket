@@ -1,0 +1,51 @@
+﻿@model List<OkyanusWebUI.Models.DeliveryTimeVM.ResultDeliveryTimeVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Teslimat Tarihi Sayfası</h1>
+<p class="mb-4">
+    Teslimat Tarihi ile ilgili işlemlerinizi Teslimat Tarihi tablosundan yönetebilirsiniz
+</p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Teslimat Zamanı Adı</th>
+                        <th>Başlangıç Tarihi ve Zamanı</th>
+                        <th>Bitiş Tarihi ve Zamanı</th>
+                        <th>Detaylar</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <th>@count</th>
+                            <td>@item?.DeliveryTimeName</td>
+                            <td>@item.StartedTime.ToString("dd-MMM-yyyy HH:mm")</td>
+                            <td>@item.EndTime.ToString("dd-MMM-yyyy HH:mm")</td>
+                            <td><a href="/Admin/DeliveryTimes/UpdateDeliveryTime/@item.ID" class="btn btn-warning">Detaylar</a></td>
+                            <td><a href="/Admin/DeliveryTimes/DeleteDeliveryTime/@item.ID" class="btn btn-danger">Sil</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a href="/Admin/DeliveryTimes/AddDeliveryTime/" class="btn btn-primary">Yeni Teslimat Tarihi Ekle</a>
+        </div>
+    </div>
+</div>
+

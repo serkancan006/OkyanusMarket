@@ -25,8 +25,9 @@ namespace OkyanusWebAPI.Controllers
         private readonly IProductService _productService;
         private readonly UserManager<AppUser> _userManager;
         private readonly IUserAdresService _userAdresService;
+        private readonly IDeliveryTimeService _deliveryTimeService;
 
-        public OrderController(IOrderService OrderService, IMapper mapper, IOrderDetailService orderDetailService, IHubContext<SignalRHub> hubContext, IProductService productService, UserManager<AppUser> userManager, IUserAdresService userAdresService)
+        public OrderController(IOrderService OrderService, IMapper mapper, IOrderDetailService orderDetailService, IHubContext<SignalRHub> hubContext, IProductService productService, UserManager<AppUser> userManager, IUserAdresService userAdresService, IDeliveryTimeService deliveryTimeService)
         {
             _OrderService = OrderService;
             _mapper = mapper;
@@ -35,6 +36,7 @@ namespace OkyanusWebAPI.Controllers
             _productService = productService;
             _userManager = userManager;
             _userAdresService = userAdresService;
+            _deliveryTimeService = deliveryTimeService;
         }
 
         [Authorize(Roles = "Admin")]
@@ -59,7 +61,7 @@ namespace OkyanusWebAPI.Controllers
 
                 AlternatifUrun = createOrderRequestVM.AlternatifUrun,
                 TeslimatYontemi = createOrderRequestVM.TeslimatYontemi,
-                TeslimatSaati = createOrderRequestVM.TeslimatSaati,
+                TeslimatSaati = _deliveryTimeService.TGetByID(int.Parse(createOrderRequestVM.TeslimatSaati)).CreatedDate.ToString("dd-MMM-yyyy HH:mm") + " - " + _deliveryTimeService.TGetByID(int.Parse(createOrderRequestVM.TeslimatSaati)).EndTime.ToString("dd-MMM-yyyy HH:mm"),
 
                 OrderPhone = createOrderRequestVM.TelefonNo,
 

@@ -43,7 +43,7 @@ namespace OkyanusWebUI.Controllers
             PdfPTable infoTable = new PdfPTable(2);
             infoTable.WidthPercentage = 100;
             infoTable.SpacingAfter = 20;
-            infoTable.AddCell(new PdfPCell(new Phrase($"Sipariş Tarihi: {values?.createdDate.ToString("yyyy-MM-dd HH:mm:ss")}".TurkceyiIngilizceyeCevir(), fontNormal)));
+            infoTable.AddCell(new PdfPCell(new Phrase($"Sipariş Oluşturulma Tarihi: {values?.createdDate.ToString("dd-MMM-yyyy HH:mm")}".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable.AddCell(new PdfPCell(new Phrase($"Toplam Fiyat: {values?.totalPrice}".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable.AddCell(new PdfPCell(new Phrase($"Iletisim Bilgileri: ".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable.AddCell(new PdfPCell(new Phrase($"Adres Bilgileri: ".TurkceyiIngilizceyeCevir(), fontNormal)));
@@ -74,7 +74,7 @@ namespace OkyanusWebUI.Controllers
             infoTable2.AddCell(new PdfPCell(new Phrase($"{values?.description}".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable2.AddCell(new PdfPCell(new Phrase($"Siparis Bilgileri".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable2.AddCell(new PdfPCell(new Phrase($"Altarnatif Urun: {values?.alternatifUrun}".TurkceyiIngilizceyeCevir(), fontNormal)));
-            infoTable2.AddCell(new PdfPCell(new Phrase($"Teslimat Saati: {values?.teslimatSaati}".TurkceyiIngilizceyeCevir(), fontNormal)));
+            infoTable2.AddCell(new PdfPCell(new Phrase($"Teslimat Zamanı: {values?.teslimatSaati}".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable2.AddCell(new PdfPCell(new Phrase($"Teslimat Yontemi: {values?.teslimatYontemi}".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable2.AddCell(new PdfPCell(new Phrase($"Aranacak Telefon: {values?.orderPhone}".TurkceyiIngilizceyeCevir(), fontNormal)));
             document.Add(infoTable2);

@@ -1,0 +1,46 @@
+﻿@model List<OkyanusWebUI.Models.DistrictVM.ResultDistrictVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">İlçe Sayfası</h1>
+<p class="mb-4">
+    İlçe ile ilgili işlemlerinizi İlçe tablosundan yönetebilirsiniz
+</p>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>İlçe Adı</th>
+                        <th>Detaylar</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <th>@count</th>
+                            <td>@item.DistrictName</td>
+                            <td><a href="/Admin/District/UpdateDistrict/@item.ID" class="btn btn-warning">Detaylar</a></td>
+                            <td><a href="/Admin/District/DeleteDistrict/@item.ID" class="btn btn-danger">Sil</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a href="/Admin/District/AddDistrict/" class="btn btn-primary">Yeni İlçe Ekle</a>
+        </div>
+    </div>
+</div>
+

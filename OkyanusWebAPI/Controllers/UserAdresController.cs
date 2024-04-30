@@ -17,12 +17,16 @@ namespace OkyanusWebAPI.Controllers
         private readonly IUserAdresService _UserAdresService;
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
+        private readonly ICityService _cityService;
+        private readonly IDistrictService _districtService;
 
-        public UserAdresController(IUserAdresService UserAdresService, IMapper mapper, UserManager<AppUser> userManager)
+        public UserAdresController(IUserAdresService UserAdresService, IMapper mapper, UserManager<AppUser> userManager, ICityService cityService, IDistrictService districtService)
         {
             _UserAdresService = UserAdresService;
             _mapper = mapper;
             _userManager = userManager;
+            _cityService = cityService;
+            _districtService = districtService;
         }
 
         [Authorize]
@@ -39,12 +43,33 @@ namespace OkyanusWebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUserAdres(CreateUserAdresVM UserAdresVM)
         {
-            var value = _mapper.Map<UserAdres>(UserAdresVM);
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
-            value.AppUserID = user.Id;
-            value.Selected = false;
-            _UserAdresService.TAdd(value);
-            return Ok("UserAdres Eklendi");
+            //var value = _mapper.Map<UserAdres>(UserAdresVM);
+            //value.UserIlce = _districtService.TGetByID(int.Parse(UserAdresVM.UserIlce)).DistrictName;
+            //value.UserSehir = _cityService.TGetByID(int.Parse(UserAdresVM.UserSehir)).CityName;
+            //value.AppUserID = user.Id;
+            //value.Selected = false;
+            //_UserAdresService.TAdd(value);
+            if (user != null)
+            {
+                _UserAdresService.TAdd(new UserAdres()
+                {
+                    AppUserID = user.Id,
+                    Selected = false,
+                    UserApartman = UserAdresVM.UserApartman,
+                    UserDaire = UserAdresVM.UserDaire,
+                    UserKat = UserAdresVM.UserKat,
+                    UserAdress = UserAdresVM.UserAdress,
+                    UserIlce = _districtService.TGetByID(int.Parse(UserAdresVM.UserIlce)).DistrictName,
+                    UserSehir = _cityService.TGetByID(int.Parse(UserAdresVM.UserSehir)).CityName
+                });
+                return Ok("UserAdres Eklendi");
+            }
+            else
+            {
+                return NotFound("Kullanıcı Bulunamadı");
+            }
+     
         }
 
         [Authorize]
@@ -74,9 +99,9 @@ namespace OkyanusWebAPI.Controllers
                 existingUserAdres.UserAdress = UserAdresVM.UserAdress;
                 existingUserAdres.UserDaire = UserAdresVM.UserDaire;
                 existingUserAdres.UserApartman = UserAdresVM.UserApartman;
-                existingUserAdres.UserIlce = UserAdresVM.UserIlce;
                 existingUserAdres.UserKat = UserAdresVM.UserKat;
-                existingUserAdres.UserSehir = UserAdresVM.UserSehir;
+                existingUserAdres.UserIlce = _districtService.TGetByID(int.Parse(UserAdresVM.UserIlce)).DistrictName;
+                existingUserAdres.UserSehir = _cityService.TGetByID(int.Parse(UserAdresVM.UserSehir)).CityName;
                 existingUserAdres.AppUserID = user.Id;
                 _UserAdresService.TUpdate(existingUserAdres);
                 return Ok("UserAdres Güncellendi");
