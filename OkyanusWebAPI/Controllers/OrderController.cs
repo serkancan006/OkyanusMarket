@@ -9,6 +9,7 @@ using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
 using Okyanus.EntityLayer.Entities.identitiy;
 using OkyanusWebAPI.Hubs;
+using OkyanusWebAPI.Models;
 using OkyanusWebAPI.Models.OrderDetailVM;
 using OkyanusWebAPI.Models.OrderVM;
 
@@ -39,13 +40,26 @@ namespace OkyanusWebAPI.Controllers
             _deliveryTimeService = deliveryTimeService;
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
-        public IActionResult OrderList()
+        public IActionResult OrderList([FromQuery] FilteredOrderParamaters filteredParamaters)
         {
-            var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).ToList();
-            var result = _mapper.Map<List<ResultOrderVM>>(values);
-            return Ok(result);
+          
+            var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).OrderByDescending(x => x.CreatedDate).ToList();
+            //var result = _mapper.Map<List<ResultOrderVM>>(values);
+
+            if (!string.IsNullOrEmpty(filteredParamaters.OrderStatus))
+            {
+                values = values.Where(x => x.OrderStatus.Contains(filteredParamaters.OrderStatus)).ToList();
+            }
+
+            var totalCount = values.Count();
+            var totalPages = (int)Math.Ceiling((double)totalCount / filteredParamaters.pageSize);
+
+            values = values.Skip((filteredParamaters.pageNumber - 1) * filteredParamaters.pageSize).Take(filteredParamaters.pageSize).ToList();
+
+            var orders = _mapper.Map<List<ResultOrderVM>>(values).ToList();
+            return Ok(new { TotalCount = totalCount, TotalPages = totalPages, Orders = orders });
         }
 
         [Authorize]
@@ -91,6 +105,9 @@ namespace OkyanusWebAPI.Controllers
             }));
             var orderItemList = _mapper.Map<List<OrderDetail>>(createOrderDetailVM);
             _orderDetailService.TAddRange(orderItemList);
+            await _hubContext.Clients.All.SendAsync("ReceiveOrderNotification", "Yeni Siparişiniz Var");
+            var resultCreateOrder = _mapper.Map<ResultOrderVM>(_OrderService.TGetByID(value.ID));
+            await _hubContext.Clients.All.SendAsync("ReceiveOrder", resultCreateOrder);
             return Ok("Order Eklendi");
         }
 

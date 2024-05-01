@@ -10,7 +10,7 @@ using OkyanusWebUI.Service;
 namespace OkyanusWebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class OrdersController : Controller
     {
         private readonly CustomHttpClient _customHttpClient;
@@ -21,15 +21,27 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             _notyfService = notyfService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] FilteredOrderParamaters filteredParameters)
         {
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "Order" });
+            var queryString = BuildQueryString(filteredParameters);
+
+
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "Order", QueryString = queryString });
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultAdminOrderVM>>(jsonData);
+                var values = JsonConvert.DeserializeObject<OrderListResponse>(jsonData);
+                ViewBag.TotalPages = values?.TotalPages;
+                ViewBag.PageNumber = filteredParameters.pageNumber;
+                ViewBag.PageSize = filteredParameters.pageSize;
+                ViewBag.OrderStatus = filteredParameters.OrderStatus;
                 return View(values);
             }
+            return View();
+        }
+
+        public IActionResult InstantOrder()
+        {
             return View();
         }
 
@@ -119,6 +131,38 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        private string BuildQueryString(FilteredOrderParamaters filteredParameters)
+        {
+            var queryString = "";
+
+            if (filteredParameters?.pageNumber != null && filteredParameters?.pageSize != null)
+            {
+                queryString += $"pageNumber={filteredParameters.pageNumber}&pageSize={filteredParameters.pageSize}";
+            }
+            if (!string.IsNullOrEmpty(filteredParameters?.OrderStatus))
+            {
+                queryString += $"&orderStatus={filteredParameters.OrderStatus}";
+            }
+
+            return queryString;
+        }
+
 
     }
+
+
+    public class FilteredOrderParamaters
+    {
+        public int pageNumber { get; set; } = 1;
+        public int pageSize { get; set; } = 20;
+        public string? OrderStatus { get; set; }
+    }
+
+    public class OrderListResponse
+    {
+        public int TotalCount { get; set; }
+        public int TotalPages { get; set; }
+        public List<ResultAdminOrderVM> Orders { get; set; }
+    }
+
 }

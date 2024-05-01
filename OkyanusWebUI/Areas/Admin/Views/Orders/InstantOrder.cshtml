@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "InstantOrder";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Yeni Gelen Siparişler Sayfası</h1>
+<p class="mb-4">
+    Yeni Gelen Siparişler ile ilgili işlemlerinizi  Yeni Gelen Siparişler tablosundan yönetebilirsiniz
+</p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-values-center">
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Alıcı</th>
+                        <th>Telefon</th>
+                        <th>Fiyat</th>
+                        <th>Tarih</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                        <th>Detay</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody id="orderListContainer">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+

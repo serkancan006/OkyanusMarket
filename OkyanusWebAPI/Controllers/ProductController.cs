@@ -101,7 +101,7 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet("[action]")]
         public IActionResult ProductListAll([FromQuery] FilteredProductParamaters filteredParamaters)
         {
-            var values = _ProductService.TGetListAll();
+            var values = _ProductService.TOrderByDescending(x => x.CreatedDate).ToList();
 
             if (!string.IsNullOrEmpty(filteredParamaters.searchName))
             {

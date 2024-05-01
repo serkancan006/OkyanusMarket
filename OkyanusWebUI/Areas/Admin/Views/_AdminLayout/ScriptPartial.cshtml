@@ -1,5 +1,4 @@
 ﻿ <!-- Bootstrap core JavaScript-->
-<script src="~/admin_sidebar/vendor/jquery/jquery.min.js"></script>
 <script src="~/admin_sidebar/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
@@ -12,24 +11,117 @@
 <script src="~/lib/sweetalert2/dist/sweetalert2.min.js"></script>
 @await Component.InvokeAsync("Notyf")
 
+<!-- SignalR Order Notify-->
 <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
 <script type="text/javascript">
     'use strict';
 
     $(document).ready(() => {
         let connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7080/SignalRHub").build();
-        console.log(connection.state);
-        connection.start().then(() => {
-            console.log(connection.state);
-            //setInterval(() => {
-            //    connection.invoke("SendOrder");
-            //}, 1000)
-            connection.invoke("SendOrder");
-        }).catch((err) => { console.log(err) });
 
+        function start() {
+            connection.start().then(() => {
+                console.log(connection.state);
+                //setInterval(() => {
+                //    connection.invoke("SendOrderNotification");
+                //}, 10000)
+            }).catch((err) => {
+                console.log(err);
+                setTimeout(() => start(), 5000); // 5 saniye sonra yeniden bağlanmayı dene
+            });
+        }
+
+        connection.onclose(() => start());
+
+        start();
+
+
+        connection.on("ReceiveOrderNotification", (value) => {
+            //Audio Scriptden gelir
+            playSound();
+            toastNotifySuccess(value, 3000);
+        });
+
+        let index = 1;
         connection.on("ReceiveOrder", (value) => {
+
+            // Loop through the orders and append them to the table
+            var row = '<tr>' +
+                '<td>' + (index) + '</td>' +
+                '<td>' + value.orderFirstName + ' ' + value.orderSurname + '</td>' +
+                '<td>' + value.orderPhone + '</td>' +
+                '<td>' + value.totalPrice + '</td>' +
+                '<td>' + formatDate(value.createdDate) + '</td>' +
+                '<td>' + value.orderStatus + '</td>' +
+                '<td>' +
+                '<div class="btn-group" role="group" aria-label="Basic example">' +
+                '<a target="_blank" href="/Admin/Orders/OrderStatusOnay/' + value.id + '" class="btn-sm btn btn-primary">Onayla</a>' +
+                '<a target="_blank" href="/Admin/Orders/OrderStatusHazirlama/' + value.id + '" class="btn-sm btn btn-warning">Hazırla</a>' +
+                '<a target="_blank" href="/Admin/Orders/OrderStatusYolda/' + value.id + '" class="btn-sm btn btn-info">Yolda</a>' +
+                '<a target="_blank" href="/Admin/Orders/OrderStatusTeslim/' + value.id + '" class="btn-sm btn btn-secondary">Teslim</a>' +
+                '<a target="_blank" href="/Admin/Orders/OrderStatusIptal/' + value.id + '" class="btn-sm btn btn-danger">İptal</a>' +
+                '</div>' +
+                '</td>' +
+                '<td><a target="_blank" href="/Admin/Orders/DetailOrder/' + value.id + '" class="btn-sm btn-warning">Detaylar</a></td>' +
+                '<td><a target="_blank" href="/Admin/Orders/DeleteOrder/' + value.id + '" class="btn-sm btn-danger" onclick="return confirm(\'Dikkat Siparişi Silmek istediğinize emin misiniz? Sipariş silindiğinde siparişe ait detaylarda silinir!\');">Sil</a></td>' +
+                '</tr>';
+            $('#orderListContainer').append(row);
+            index += 1;
             console.log(value);
         });
 
+        function formatDate(dateString) {
+            let date = new Date(dateString);
+            let day = ('0' + date.getDate()).slice(-2); // Gün
+            let monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            let month = monthNames[date.getMonth()]; // Ay
+            let year = date.getFullYear(); // Yıl
+            let hours = ('0' + date.getHours()).slice(-2); // Saat
+            let minutes = ('0' + date.getMinutes()).slice(-2); // Dakika
+
+            return day + '-' + month + '-' + year + ' ' + hours + ':' + minutes;
+        }
+
     });
+</script>
+
+<!-- Audio -->
+<script>
+    let audio = new Audio('/mp3/Crystal.mp3');
+    let isMuted = true;
+
+    // Tarayıcı yerel depolama kullanarak isMuted değerini sakla
+    // Tarayıcı yerel depolama, sayfanın yeniden yüklenmesi durumunda veriyi korur
+    if (localStorage.getItem('isMuted') !== null) {
+        isMuted = JSON.parse(localStorage.getItem('isMuted'));
+        updateButtonText(); // Buton metnini güncelle
+    }
+
+    function toggleMute() {
+        isMuted = !isMuted;
+        localStorage.setItem('isMuted', JSON.stringify(isMuted)); // isMuted değerini güncelle
+        updateButtonText(); // Buton metnini güncelle
+    }
+
+    function playSound() {
+        if (!isMuted) {
+            audio.play();
+        }
+    }
+
+    function stopSound() {
+        audio.pause();
+        audio.currentTime = 0; // Sesin başa dönmesini sağlar
+    }
+
+    function updateButtonText() {
+        let muteButton = document.getElementById('muteButton');
+        if (isMuted) {
+            muteButton.textContent = 'Sesi Aç';
+        } else {
+            muteButton.textContent = 'Sesi Kapat';
+            stopSound();
+        }
+    }
 </script>

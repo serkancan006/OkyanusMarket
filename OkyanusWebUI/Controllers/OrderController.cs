@@ -1,14 +1,8 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Newtonsoft.Json;
 using OkyanusWebUI.Models.OrderVM;
-using OkyanusWebUI.Models.UserAdresVM;
 using OkyanusWebUI.Service;
-using OkyanusWebUI.Validations;
-using System.Reflection;
 
 namespace OkyanusWebUI.Controllers
 {
@@ -39,13 +33,6 @@ namespace OkyanusWebUI.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Index(CreateOrderVM createOrderVM)
-        //{
-        //  CreateOrderValidator validator = new CreateOrderValidator();
-        //  ValidationResult results = validator.Validate(createOrderVM);
-        //    return Ok();
-        //}
 
         [HttpPost]
         public async Task<IActionResult> Index(CreateOrderVM createOrderVM)
@@ -59,6 +46,13 @@ namespace OkyanusWebUI.Controllers
             TryValidateModel(createOrderVM);
             if (!ModelState.IsValid)
             {
+                //foreach (var modelState in ModelState.Values)
+                //{
+                //    foreach (var error in modelState.Errors)
+                //    {
+                //        Console.WriteLine(error.ErrorMessage);
+                //    }
+                //}
                 _notyfService.Warning("Veriler Geçersiz!");
                 return View();
             }

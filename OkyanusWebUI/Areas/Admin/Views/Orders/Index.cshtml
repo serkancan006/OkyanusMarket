@@ -1,4 +1,4 @@
-﻿@model List<OkyanusWebUI.Areas.Admin.Models.AdminOrderVM.ResultAdminOrderVM>
+﻿@model OkyanusWebUI.Areas.Admin.Controllers.OrderListResponse
 
 @{
     ViewData["Title"] = "Index";
@@ -8,7 +8,7 @@
 
 
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Kategori Sayfası</h1>
+<h1 class="h3 mb-2 text-gray-800">Siparişler Sayfası</h1>
 <p class="mb-4">
     Siparişler ile ilgili işlemlerinizi Siparişler tablosundan yönetebilirsiniz
 </p>
@@ -16,6 +16,19 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <div class="dropdown">
+            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @ViewBag.OrderStatus
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="@Url.Action("Index", "Orders", new { area = "Admin", PageNumber = ViewBag.PageNumber, OrderStatus= "Onay Bekliyor" })">Onay Bekliyor</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Orders", new { area = "Admin", PageNumber = ViewBag.PageNumber, OrderStatus= "Sipariş Onaylandı" })">Sipariş Onaylandı</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Orders", new { area = "Admin", PageNumber = ViewBag.PageNumber, OrderStatus= "Hazırlanıyor" })">Hazırlanıyor</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Orders", new { area = "Admin",  PageNumber = ViewBag.PageNumber, OrderStatus= "Yolda" })">Yolda</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Orders", new { area = "Admin",  PageNumber = ViewBag.PageNumber, OrderStatus= "Teslim Edildi" })">Teslim Edildi</a>
+                <a class="dropdown-item" href="@Url.Action("Index", "Orders", new { area = "Admin",  PageNumber = ViewBag.PageNumber, OrderStatus= "İptal Edildi" })">İptal Edildi</a>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -33,33 +46,70 @@
                         <th>Sil</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach (var item in Model)
+                <tbody id="orderListContainer">
+
+                    @if (Model.Orders != null || Model?.Orders?.Count > 0)
                     {
-                        count++;
-                        <tr>
-                            <td>@count</td>
-                            <td>@item.orderFirstName @item.orderSurname</td>
-                            <td>@item.orderPhone</td>
-                            <td>@item.totalPrice</td>
-                            <td>@item.createdDate.ToString("dd-MMM-yyyy HH:mm")</td>
-                            <td>@item.orderStatus</td>
-                            <td>
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="/Admin/Orders/OrderStatusOnay/@item.id" class="btn-sm btn btn-primary">Onayla</a>
-                                    <a href="/Admin/Orders/OrderStatusHazirlama/@item.id" class="btn-sm btn btn-warning">Hazırla</a>
-                                    <a href="/Admin/Orders/OrderStatusYolda/@item.id" class="btn-sm btn btn-info">Yolda</a>
-                                    <a href="/Admin/Orders/OrderStatusTeslim/@item.id" class="btn-sm btn btn-secondary">Teslim</a>
-                                    <a href="/Admin/Orders/OrderStatusIptal/@item.id" class="btn-sm btn btn-danger">İptal</a>
-                                </div>
-                            </td>
-                            <td><a href="/Admin/Orders/DetailOrder/@item.id" class="btn-sm btn-warning">Detaylar</a></td>
-                            <td><a href="/Admin/Orders/DeleteOrder/@item.id" class="btn-sm btn-danger" onclick="return confirm('Dikkat Siparişi Silmek istediğinize emin misiniz? Sipariş silindiğinde siparişe ait detaylarda silinir!');">Sil</a></td>
-                        </tr>
+                        @foreach (var item in Model.Orders)
+                        {
+                            count++;
+                            <tr>
+                                <td>@count</td>
+                                <td>@item.orderFirstName @item.orderSurname</td>
+                                <td>@item.orderPhone</td>
+                                <td>@item.totalPrice</td>
+                                <td>@item.createdDate.ToString("dd-MMM-yyyy HH:mm")</td>
+                                <td>@item.orderStatus</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a href="/Admin/Orders/OrderStatusOnay/@item.id" class="btn-sm btn btn-primary">Onayla</a>
+                                        <a href="/Admin/Orders/OrderStatusHazirlama/@item.id" class="btn-sm btn btn-warning">Hazırla</a>
+                                        <a href="/Admin/Orders/OrderStatusYolda/@item.id" class="btn-sm btn btn-info">Yolda</a>
+                                        <a href="/Admin/Orders/OrderStatusTeslim/@item.id" class="btn-sm btn btn-secondary">Teslim</a>
+                                        <a href="/Admin/Orders/OrderStatusIptal/@item.id" class="btn-sm btn btn-danger">İptal</a>
+                                    </div>
+                                </td>
+                                <td><a href="/Admin/Orders/DetailOrder/@item.id" class="btn-sm btn-warning">Detaylar</a></td>
+                                <td><a href="/Admin/Orders/DeleteOrder/@item.id" class="btn-sm btn-danger" onclick="return confirm('Dikkat Siparişi Silmek istediğinize emin misiniz? Sipariş silindiğinde siparişe ait detaylarda silinir!');">Sil</a></td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
         </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-sm mt-2">
+                <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Orders", new { area = "Admin", PageNumber = 1, OrderStatus= ViewBag.OrderStatus })">«</a></li>
+                @for (int i = 1; i < 6; i++)
+                {
+                    int page = 0;
+                    if (ViewBag.PageNumber - 4 < 0)
+                    {
+                        page = i;
+                    }
+                    else if (ViewBag.PageNumber + 5 > ViewBag.TotalPages && ViewBag.TotalPages - 5 > 0)
+                    {
+                        page = ViewBag.TotalPages - 5 + i;
+                    }
+                    else
+                    {
+                        page = ViewBag.PageNumber - 3 + i;
+                    }
+
+                    string pageStr = page.ToString();
+
+                    if (page == ViewBag.PageNumber)
+                    {
+                        <li class="page-item active"><a class="page-link" href="@Url.Action("Index", "Orders", new { area = "Admin",  PageNumber = pageStr, OrderStatus= ViewBag.OrderStatus })">@pageStr</a></li>
+                    }
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Orders", new { area = "Admin",   PageNumber = pageStr, OrderStatus= ViewBag.OrderStatus })">@pageStr</a></li>
+                    }
+                }
+                <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Orders", new { area = "Admin",  PageNumber = ViewBag.TotalPages, OrderStatus= ViewBag.OrderStatus })">»</a></li>
+            </ul>
+        </nav>
+
     </div>
 </div>
-
