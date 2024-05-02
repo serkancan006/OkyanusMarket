@@ -37,6 +37,12 @@ namespace OkyanusWebUI.Controllers
             return StatusCode(500, "Bir hata oluştu Product - GetProducts");
         }
 
+        public IActionResult _OrderDetailModal(int id)
+        {
+            return ViewComponent("_OrderDetailModalPartial", new { productID = id });
+        }
+
+
         public class FilteredParameters
         {
             public string? SearchName { get; set; }
