@@ -14,7 +14,14 @@
             <h3>@Model.ProductName</h3> <!-- Ürün ismi ve ağırlığı -->
             <p class="in-para">@Model.Marka</p>
             <div class="price_single">
-                <span class="reducedfrom"><del>&#8378;@Model.Price</del> &#8378;@Model.DiscountedPrice</span> <!-- Normal ve indirimli fiyat -->
+                @if (Model.DiscountedPrice == null)
+                {
+                    <span class="reducedfrom">&#8378;@Model.Price</span> <!-- Normal ve indirimli fiyat -->
+                }
+                else
+                {
+                    <span class="reducedfrom"><del>&#8378;@Model.Price</del> &#8378;@Model.DiscountedPrice</span> <!-- Normal ve indirimli fiyat -->
+                }
                 <div class="clearfix"></div>
             </div>
             <h4 class="quick">Detaylar:</h4>

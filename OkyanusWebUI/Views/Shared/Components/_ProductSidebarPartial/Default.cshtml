@@ -5,37 +5,54 @@
 {
 
     <div class="category-sidebar">
-     <div>
-         <h4 style="text-align: left; text-transform: uppercase; color: #6c757d">Sırala</h4>
-         <br />
-         <select class="form-control" id="sortBy" onchange="filteredSort()">
-             <option value="" selected>Varsayılan</option>
-             <option value="productname">Ada göre azalan</option>
-             <option value="productnameasc">Ada göre artan</option>
-             <option value="price">Fiyata göre azalan</option>
-             <option value="priceasc">Fiyata göre artan</option>
-             @*<option value="indirimli">İndirimli</option>
-             <option value="indirimsiz">İndirimsiz</option>*@
-         </select>
-     </div>
-       
+  
+
+        <div>
+            <h4 style="text-align: left; text-transform: uppercase; color: #6c757d">Sırala</h4>
+            <br />
+
+            <div class="dropdown" style="display: inline-block; position: relative; width:100%;">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">
+                    Sırala <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%; left: 0; right: 0;">
+                    <li><a href="/Product/Index/">Varsayılan</a></li>
+                    <li><a href="/Product/Index?sortField=productname">Ada göre azalan</a></li>
+                    <li><a href="/Product/Index?sortField=productnameasc">Ada göre artan</a></li>
+                    <li><a href="/Product/Index?sortField=price">Fiyata göre azalan</a></li>
+                    <li><a href="/Product/Index?sortField=priceasc">Fiyata göre artan</a></li>
+                </ul>
+            </div>
+
+
+            <!--<select class="form-control" id="sortBy" onchange="filteredSort()">
+        <option value="" selected>Varsayılan</option>
+        <option value="productname">Ada göre azalan</option>
+        <option value="productnameasc">Ada göre artan</option>
+        <option value="price">Fiyata göre azalan</option>
+        <option value="priceasc">Fiyata göre artan</option>-->
+            @*<option value="indirimli">İndirimli</option>
+        <option value="indirimsiz">İndirimsiz</option>*@
+            <!--</select>-->
+        </div>
+
         <br />
         <h4 style="text-align: left; text-transform: uppercase; color: #6c757d">Ara</h4>
         <br />
 
-        <div class="search-container">
+        <form class="search-container" asp-controller="Product" asp-action="Index" method="get">
             <input type="text" placeholder="Ürün Ara" class="form-control" name="SearchName" id="productSearchName2">
             <button type="submit" class="search-container-button" onclick="filteredProductName2()">
                 <i class="fa fa-search"></i>
             </button>
-        </div>
+        </form>
         <br />
-        <div class="search-container">
+        <form class="search-container" asp-controller="Product" asp-action="Index" method="get">
             <input type="text" placeholder="Marka Ara" class="form-control" name="MarkaAdi" id="productMarkaName">
             <button type="submit" class="search-container-button" onclick="filteredMarka()">
                 <i class="fa fa-search"></i>
             </button>
-        </div>
+        </form>
         <br />
         <div>
             <h4 style="text-align: left; text-transform: uppercase; color: #6c757d">Kategoriler</h4>
@@ -43,25 +60,25 @@
                 <li><a href="/Product/Index/">Tümü</a></li>
                 @foreach (var anaGrup in Model.anagroup)
                 {
-                    <li><a class="@(anaGrup.Selected == true ? "categories-list-a-active" : "")" style="cursor:pointer" onclick="filteredProductCategory('@anaGrup.GRUPADI','@anaGrup.ID')">@anaGrup.GRUPADI</a></li>
+                    <li><a href="/Product/Index?categoryName=@anaGrup.GRUPADI" class="@(anaGrup.Selected == true ? "categories-list-a-active" : "")" style="cursor:pointer">@anaGrup.GRUPADI</a></li>
                     @if (Model.altgruP1 != null && anaGrup.Selected == true)
                     {
                         <div style="padding-left:20px">
                             @foreach (var altgrup1 in Model.altgruP1)
                             {
-                            <li><a class="@(altgrup1.Selected == true ? "categories-list-a-active" : "")" style="cursor:pointer" onclick="filteredProductCategory('@altgrup1.GRUPADI','@altgrup1.ID')">@altgrup1.GRUPADI</a></li>
+                            <li><a class="@(altgrup1.Selected == true ? "categories-list-a-active" : "")" style="cursor:pointer" href="/Product/Index?categoryName=@altgrup1.GRUPADI">@altgrup1.GRUPADI</a></li>
                             @if (Model.altgruP2 != null && altgrup1.Selected == true)
                             {
                                 <div style="padding-left:20px">
                                     @foreach (var altgruP2 in Model.altgruP2)
                                     {
-                                    <li><a class="@(altgruP2.Selected == true ? "categories-list-a-active" : "")" style="cursor:pointer" onclick="filteredProductCategory('@altgruP2.GRUPADI','@altgruP2.ID')">@altgruP2.GRUPADI</a></li>
+                                    <li><a class="@(altgruP2.Selected == true ? "categories-list-a-active" : "")" style="cursor:pointer" href="/Product/Index?categoryName=@altgruP2.GRUPADI">@altgruP2.GRUPADI</a></li>
                                     @if (Model.alTGRUP3 != null && altgruP2.Selected == true)
                                     {
                                         <div style="padding-left:20px">
                                             @foreach (var alTGRUP3 in Model.alTGRUP3)
                                             {
-                                            <li><a class="@(alTGRUP3.Selected == true ? "categories-list-a-active" : "")" style="cursor:pointer" onclick="filteredProductCategory('@alTGRUP3.GRUPADI','@alTGRUP3.ID')">@alTGRUP3.GRUPADI</a></li>
+                                            <li><a class="@(alTGRUP3.Selected == true ? "categories-list-a-active" : "")" style="cursor:pointer" href="/Product/Index?categoryName=@alTGRUP3.GRUPADI">@alTGRUP3.GRUPADI</a></li>
                                         }
                                     </div>
                                 }

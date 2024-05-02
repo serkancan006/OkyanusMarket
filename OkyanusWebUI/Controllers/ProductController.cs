@@ -18,12 +18,7 @@ namespace OkyanusWebUI.Controllers
             _notyfService = notyfService;
         }
 
-        public IActionResult Index(string? serach, string? category)
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> GetProducts([FromQuery] FilteredParameters filteredParameters)
+        public async Task<IActionResult> Index([FromQuery] FilteredParameters filteredParameters)
         {
             var queryString = BuildQueryString(filteredParameters);
 
@@ -32,14 +27,38 @@ namespace OkyanusWebUI.Controllers
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<ProductListResponse>(jsonData);
-                return Json(values);
+                ViewBag.PageNumber = filteredParameters.PageNumber;
+                ViewBag.SearchName = filteredParameters.SearchName;
+                ViewBag.CategoryName = filteredParameters.CategoryName;
+                ViewBag.sortField = filteredParameters.sortField;
+                ViewBag.MarkaAdi = filteredParameters.MarkaAdi;
+                return View(values);
             }
-            return StatusCode(500, "Bir hata oluştu Product - GetProducts");
+            return View();
         }
+
+        //public IActionResult Index(string? serach, string? category)
+        //{
+        //    return View();
+        //}
+
+        //public async Task<IActionResult> GetProducts([FromQuery] FilteredParameters filteredParameters)
+        //{
+        //    var queryString = BuildQueryString(filteredParameters);
+
+        //    var responseMessage = await _customHttpClient.Get(new() { Controller = "Product", QueryString = queryString });
+        //    if (responseMessage.IsSuccessStatusCode)
+        //    {
+        //        var jsonData = await responseMessage.Content.ReadAsStringAsync();
+        //        var values = JsonConvert.DeserializeObject<ProductListResponse>(jsonData);
+        //        return Json(values);
+        //    }
+        //    return StatusCode(500, "Bir hata oluştu Product - GetProducts");
+        //}
 
         public IActionResult _OrderDetailModal(int id)
         {
-            return ViewComponent("_OrderDetailModalPartial", new { productID = id });
+            return ViewComponent("_ProductDetailModalPartial", new { productID = id });
         }
 
 
@@ -110,12 +129,12 @@ namespace OkyanusWebUI.Controllers
             return queryString;
         }
 
-        private class ProductListResponse
-        {
-            public int TotalCount { get; set; }
-            public int TotalPages { get; set; }
-            public List<ResultProductVM> Product { get; set; }
-        }
+    }
+    public class ProductListResponse
+    {
+        public int TotalCount { get; set; }
+        public int TotalPages { get; set; }
+        public List<ResultProductVM> Product { get; set; }
     }
 
 }

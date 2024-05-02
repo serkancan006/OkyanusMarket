@@ -20,13 +20,12 @@ namespace OkyanusWebAPI.Controllers
             _mapper = mapper;
         }
 
-
-        [HttpGet("[Action]")] //product sidebar ilk oluşturmada
-        public IActionResult AnaGroupList()
-        {
-            var values = _GroupService.TGetListAll().Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.ID, x.GRUPADI }).ToList();
-            return Ok(values);
-        }
+        //[HttpGet("[Action]")] //product sidebar ilk oluşturmada
+        //public IActionResult AnaGroupList()
+        //{
+        //    var values = _GroupService.TGetListAll().Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.ID, x.GRUPADI }).ToList();
+        //    return Ok(values);
+        //}
 
         [HttpGet("[Action]")] //anasayfa da random 4 kategori listeleme için kullanılıyor
         public IActionResult Get4AnaGroupRandomList()
@@ -40,25 +39,58 @@ namespace OkyanusWebAPI.Controllers
             return Ok(values);
         }
 
-        [HttpGet("[Action]/{groupID}")] //product sidebar
-        public IActionResult MultiGroupList(int groupID)
+        [HttpGet("[Action]")]
+        public IActionResult MultiGroupList(string? categoryName)
         {
-            var values = _GroupService.TGetListAll().Where(x => x.ID == groupID).FirstOrDefault();
+            var values = _GroupService.TGetListAll().Where(x => x.GRUPADI == categoryName).FirstOrDefault();
             var allGroups = _GroupService.TGetListAll();
+            var anagroup = allGroups.Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ANAGRUP == values?.ANAGRUP }).ToList();
+            var altgrup1 = allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 != "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP1 == values?.ALTGRUP1 }).ToList();
+            var altgrup2 = values?.ALTGRUP1 != "0" ? allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 != "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP2 == values?.ALTGRUP2 }).ToList() : null;
+            var altgrup3 = values?.ALTGRUP2 != "0" ? allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 == values?.ALTGRUP2 && x.ALTGRUP3 != "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP3 == values?.ALTGRUP3 }).ToList() : null;
 
             var result = new
             {
-                ANAGROUP = allGroups.Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ANAGRUP == values?.ANAGRUP }).ToList(),
-
-                ALTGRUP1 = (allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 != "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP1 == values?.ALTGRUP1 }).ToList()),
-
-                ALTGRUP2 = values?.ALTGRUP1 != "0" ? (allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 != "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP2 == values?.ALTGRUP2 }).ToList()) : null,
-
-                AlTGRUP3 = values?.ALTGRUP2 != "0" ? (allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 == values?.ALTGRUP2 && x.ALTGRUP3 != "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP3 == values?.ALTGRUP3 }).ToList()) : null
+                ANAGROUP = anagroup,
+                ALTGRUP1 = altgrup1,
+                ALTGRUP2 = altgrup2,
+                ALTGRUP3 = altgrup3
             };
 
             return Ok(result);
         }
+
+
+
+        //[HttpGet("[Action]")] //product sidebar
+        //public IActionResult MultiGroupList(string? categoryName)
+        //{
+        //    var values = _GroupService.TGetListAll().Where(x => x.GRUPADI == categoryName).FirstOrDefault();
+        //    var allGroups = _GroupService.TGetListAll();
+        //    if (categoryName == null)
+        //    {
+        //        var result = new
+        //        {
+        //            ANAGROUP = _GroupService.TGetListAll().Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.ID, x.GRUPADI }).ToList(),
+        //        };
+        //        return Ok(result);
+        //    }
+        //    else
+        //    {
+        //        var result = new
+        //        {
+        //            ANAGROUP = allGroups.Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ANAGRUP == values?.ANAGRUP }).ToList(),
+
+        //            ALTGRUP1 = (allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 != "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP1 == values?.ALTGRUP1 }).ToList()),
+
+        //            ALTGRUP2 = values?.ALTGRUP1 != "0" ? (allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 != "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP2 == values?.ALTGRUP2 }).ToList()) : null,
+
+        //            AlTGRUP3 = values?.ALTGRUP2 != "0" ? (allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 == values?.ALTGRUP2 && x.ALTGRUP3 != "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP3 == values?.ALTGRUP3 }).ToList()) : null
+        //        };
+        //        return Ok(result);
+
+        //    }
+        //}
 
 
         [HttpGet]

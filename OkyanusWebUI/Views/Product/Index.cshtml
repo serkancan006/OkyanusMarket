@@ -1,12 +1,14 @@
-﻿@{
+﻿@model OkyanusWebUI.Controllers.ProductListResponse
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@await Component.InvokeAsync("_SliderPartial")
+@*@await Component.InvokeAsync("_SliderPartial")*@
+
 
 <!--content-->
-<div class="product container">
+<div class="container">
     <!-- Product -->
     <div class="spec ">
         <h3>Ürünler</h3>
@@ -17,17 +19,53 @@
         </div>
         <br /><br />
 
-      
+
 
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-3" style=" border: 1px solid #B2B2B2;" id="dynamicCategoryCompContainer">
-                @*@await Component.InvokeAsync("_ProductSidebarPartial", new { categoryID = 7 })*@
+
+                @await Component.InvokeAsync("_ProductSidebarPartial", new { categoryName = ViewBag.CategoryName })
+
             </div>
             <!-- Product List -->
-            <div class="col-md-9">
+            <div id="productList" class="col-md-9">
                 <div class=" con-w3l agileinf" id="productsContainer" style="margin-top:0px;padding-top:0px">
-
+                    @foreach (var item in Model.Product)
+                    {
+                        <div class="col-md-3 pro-1">
+                            <div class="col-m">
+                                <a style="cursor:pointer" onclick="openProductDetailModal(@item.ID)" data-toggle="modal" data-target="#productDetailModal" class="offer-img">
+                                    <img src="@(!string.IsNullOrEmpty(item.ImageUrl) ? item.ImageUrl : "/web/images/resimhazirlaniyor.png")" class="img-responsive" alt="">
+                                    @if (item.DiscountedPrice != null)
+                                    {
+                                        <div class="offer">
+                                            <p><span>İndirimde</span></p>
+                                        </div>
+                                    }
+                                </a>
+                                <div class="mid-1">
+                                    <div class="women">
+                                        <h6>@(item.ProductName.Length > 20 ? item.ProductName.Substring(0, 13) : item.ProductName)</h6>
+                                    </div>
+                                    <div class="mid-2">
+                                        @if (item.DiscountedPrice != null)
+                                        {
+                                            <p><label>₺@item.Price</label><em class="item_price">₺@item.DiscountedPrice</em></p>
+                                        }
+                                        else
+                                        {
+                                            <p><em class="item_price">₺@item.Price</em></p>
+                                        }
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="add add-2">
+                                        <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket(@item.ID)">Sepete Ekle</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                     <div class="clearfix"></div>
                 </div>
             </div>
@@ -37,5 +75,21 @@
 
 <!-- Pagination -->
 <nav class="text-center" id="paginationContainer">
+    <ul class="pagination pagination-lg">
+        <li><a href="@Url.Action("Index", "Product", new { PageNumber = 1, SearchName= ViewBag.SearchName, CategoryName = ViewBag.CategoryName, sortField = ViewBag.sortField, MarkaAdi = ViewBag.MarkaAdi })" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            if (i == ViewBag.PageNumber)
+            {
+                <li class="active"><a href="@Url.Action("Index", "Product", new { PageNumber = i, SearchName= ViewBag.SearchName, CategoryName = ViewBag.CategoryName, sortField = ViewBag.sortField, MarkaAdi = ViewBag.MarkaAdi })"><span>@i</span></a></li>
+            }
+            else
+            {
+                <li><a href="@Url.Action("Index", "Product", new { PageNumber = i, SearchName= ViewBag.SearchName, CategoryName = ViewBag.CategoryName, sortField = ViewBag.sortField, MarkaAdi = ViewBag.MarkaAdi })"><span>@i</span></a></li>
+            }
+        }
+        <li><a href="@Url.Action("Index", "Product", new { PageNumber = Model.TotalPages, SearchName= ViewBag.SearchName, CategoryName = ViewBag.CategoryName, sortField = ViewBag.sortField, MarkaAdi = ViewBag.MarkaAdi })" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+    </ul>
 </nav>
 
+@await Component.InvokeAsync("_DiscountProductPartial")

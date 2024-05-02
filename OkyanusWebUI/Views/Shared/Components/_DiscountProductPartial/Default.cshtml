@@ -6,7 +6,7 @@
     <div class="product">
         <div class="container">
             <div class="spec ">
-                <h3>İndirimli Ürünler</h3>
+                <h3>Kampanyalı Ürünler</h3>
                 <div class="ser-t">
                     <b></b>
                     <span><i></i></span>
@@ -19,7 +19,7 @@
                 {
                     <div class="col-md-3 pro-1">
                         <div class="col-m">
-                            <a onclick="openProductDetailModal(@item.ID)" data-toggle="modal" data-target="#productDetailModal" class="offer-img">
+                            <a style="cursor:pointer" onclick="openProductDetailModal(@item.ID)" data-toggle="modal" data-target="#productDetailModal" class="offer-img">
                                 <img src="@(item.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" class="img-responsive" alt="">
                                 <div class="offer"><p><span>İndirimde</span></p></div>
                             </a>

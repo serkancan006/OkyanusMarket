@@ -5,10 +5,10 @@ using OkyanusWebUI.Service;
 
 namespace OkyanusWebUI.ViewComponents
 {
-    public class _OrderDetailModalPartial : ViewComponent
+    public class _ProductDetailModalPartial : ViewComponent
     {
         private readonly CustomHttpClient _customHttpClient;
-        public _OrderDetailModalPartial(CustomHttpClient customHttpClient)
+        public _ProductDetailModalPartial(CustomHttpClient customHttpClient)
         {
             _customHttpClient = customHttpClient;
         }

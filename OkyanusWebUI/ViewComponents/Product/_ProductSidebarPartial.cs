@@ -13,36 +13,15 @@ namespace OkyanusWebUI.ViewComponents.Product
             _customHttpClient = customHttpClient;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int? categoryID = null)
+        public async Task<IViewComponentResult> InvokeAsync(string? categoryName = null)
         {
-            if (categoryID == null)
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "Group", Action = "MultiGroupList", QueryString= $"categoryName={categoryName}" });
+            if (responseMessage.IsSuccessStatusCode)
             {
-                var responseMessage = await _customHttpClient.Get(new() { Controller = "Group", Action = "AnaGroupList" });
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                    var values = JsonConvert.DeserializeObject<List<ResultCategoryVM>>(jsonData);
-                    var result = new ResultGrupVM()
-                    {
-                        anagroup = values != null ? values.ToArray() : new ResultCategoryVM[] {},
-                        altgruP1 = null,
-                        altgruP2 = null,
-                        alTGRUP3 = null
-                    };
-                    return View(result);
-                }
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<ResultGrupVM>(jsonData);
+                return View(values);
             }
-            else
-            {
-                var responseMessage = await _customHttpClient.Get(new() { Controller = "Group", Action = "MultiGroupList" },categoryID);
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                    var values = JsonConvert.DeserializeObject<ResultGrupVM>(jsonData);
-                    return View(values);
-                }
-            }
-        
             return View();
         }
     }

@@ -8,7 +8,7 @@
         <div class="container">
             <div class="col-md-4 m-w3ls">
                 <div class="col-md1 ">
-                    <a href="/Product/Index/">
+                    <a href="/Product/Index?categoryName=@(Model[0].GRUPADI)">
                         <img src="~/web/images/co1.jpg" class="img-responsive img" alt="">
                         <div class="big-sa">
                             @*<h6>New Collections</h6>*@
@@ -20,7 +20,7 @@
             </div>
             <div class="col-md-4 m-w3ls1">
                 <div class="col-md ">
-                    <a href="/Product/Index/">
+                    <a href="/Product/Index?categoryName=@(Model[1].GRUPADI)">
                         <img src="~/web/images/co.jpg" class="img-responsive img" alt="">
                         <div class="big-sale">
                             <div class="big-sale1">
@@ -33,7 +33,7 @@
             </div>
             <div class="col-md-4 m-w3ls">
                 <div class="col-md2 ">
-                    <a href="/Product/Index/">
+                    <a href="/Product/Index?categoryName=@(Model[2].GRUPADI)">
                         <img src="~/web/images/co2.jpg" class="img-responsive img1" alt="">
                         <div class="big-sale2">
                             <h3>@Model[2].GRUPADI<span></span></h3>
@@ -42,7 +42,7 @@
                     </a>
                 </div>
                 <div class="col-md3 ">
-                    <a href="/Product/Index/">
+                    <a href="/Product/Index?categoryName=@(Model[3].GRUPADI)">
                         <img src="~/web/images/co3.jpg" class="img-responsive img1" alt="">
                         <div class="big-sale3">
                             <h3>@Model[3].GRUPADI<span></span></h3>
