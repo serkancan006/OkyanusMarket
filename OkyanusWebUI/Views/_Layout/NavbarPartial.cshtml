@@ -81,6 +81,13 @@
 
                     </div>
                 </div>
+
+                <div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog" aria-labelledby="productDetailModalLabel">
+                    <div class="modal-dialog" role="document" id="productDetailModalContainer">
+
+                    </div>
+                </div>
+
             </div>
 
             @*<div class="clearfix"></div>*@
@@ -191,29 +198,44 @@
         });
     }
 
-        //function createOrder(isAuth) {
-        //    if (isAuth == "True") {
-        //        //window.location.href = '/Order';
-        //    }
-        //    else {
-        //        //window.location.href = '/Login';
-        //    }
-        //else {
-        //    Swal.fire({
-        //        title: 'Giriş yapmadan sipariş vermek istiyor musunuz?',
-        //        icon: 'question',
-        //        showDenyButton: true,
-        //        showCancelButton: false,
-        //        confirmButtonText: 'Giriş Yap',
-        //        denyButtonText: 'Devam Et'
-        //    }).then((result) => {
-        //        if (result.isConfirmed) {
-        //            window.location.href = '/Login';
-        //        } else if (result.isDenied) {
-        //            window.location.href = '/Order';
-        //        }
-        //    });
-        //}
-        //}
-</script>
+    //function createOrder(isAuth) {
+    //    if (isAuth == "True") {
+    //        //window.location.href = '/Order';
+    //    }
+    //    else {
+    //        //window.location.href = '/Login';
+    //    }
+    //else {
+    //    Swal.fire({
+    //        title: 'Giriş yapmadan sipariş vermek istiyor musunuz?',
+    //        icon: 'question',
+    //        showDenyButton: true,
+    //        showCancelButton: false,
+    //        confirmButtonText: 'Giriş Yap',
+    //        denyButtonText: 'Devam Et'
+    //    }).then((result) => {
+    //        if (result.isConfirmed) {
+    //            window.location.href = '/Login';
+    //        } else if (result.isDenied) {
+    //            window.location.href = '/Order';
+    //        }
+    //    });
+    //}
+    //}
 
+</script>
+<script>
+    function openProductDetailModal(id) {
+        $.ajax({
+            url: '/Product/_OrderDetailModal/' + id,
+            type: 'GET',
+            success: function (data) {
+                //console.log(data);
+                $('#productDetailModalContainer').html(data);
+            },
+            error: function (err) {
+                //console.error("Ajax hata olustu!", err);
+            }
+        });
+    }
+</script>

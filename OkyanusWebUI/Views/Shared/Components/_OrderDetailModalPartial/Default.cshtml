@@ -1,0 +1,28 @@
+﻿@model ResultProductVM
+
+<div class="modal-content modal-info">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body modal-spa">
+        <div class="col-md-5 span-2">
+            <div class="item">
+                <img src="@(Model.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" class="img-responsive" alt="">
+            </div>
+        </div>
+        <div class="col-md-7 span-1 ">
+            <h3>@Model.ProductName</h3> <!-- Ürün ismi ve ağırlığı -->
+            <p class="in-para">@Model.Marka</p>
+            <div class="price_single">
+                <span class="reducedfrom"><del>&#8378;@Model.Price</del> &#8378;@Model.DiscountedPrice</span> <!-- Normal ve indirimli fiyat -->
+                <div class="clearfix"></div>
+            </div>
+            <h4 class="quick">Detaylar:</h4>
+            <p class="quick_desc">@Model.Description</p>
+            <div class="add-to">
+                <button class="btn btn-danger my-cart-btn my-cart-btn1" onclick="addBasket('@Model.ID')">Sepete Ekle</button> <!-- Ürün ID'si, ismi ve indirimli fiyatı -->
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
