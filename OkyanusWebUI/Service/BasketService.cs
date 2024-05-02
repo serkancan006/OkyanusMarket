@@ -89,7 +89,7 @@ namespace OkyanusWebUI.Service
         // Sepetteki ürünlerin toplam fiyatını getir
         public double GetTotalPrice()
         {
-            return Items.Sum(item => item.Price * item.Quantity);
+            return Math.Round(Items.Sum(item => item.Price * item.Quantity), 2);
         }
 
         // Sepetteki ürünlerin listesini döndür
@@ -116,9 +116,10 @@ namespace OkyanusWebUI.Service
         public string Name { get; set; }
         public string? ImageUrl { get; set; }
         public double Price { get; set; }
+        public double? RealPrice { get; set; }
         public double Quantity { get; set; }
         public string Birim { get; set; }
-        public double TotalPrice => Price * Quantity;
+        public double TotalPrice => Math.Round(Price * Quantity, 2);
         //public double TotalPrice
         //{
         //    get

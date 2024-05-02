@@ -43,6 +43,7 @@ namespace OkyanusWebUI.Controllers
                         ImageUrl = values.ImageUrl,
                         Name = values.ProductName,
                         Price = values.DiscountedPrice ?? values.Price,
+                        RealPrice = values.DiscountedPrice != null ? values.Price : null,
                         ProductId = values.ID,
                         Stock = values.Stock,
                         Quantity = 1,

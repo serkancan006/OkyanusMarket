@@ -118,7 +118,7 @@
                 <tr>
                     <td class="text-center" style="width: 50px;"><img width="50px" height="50px" src="${item.imageUrl ? item.imageUrl : "/web/images/resimhazirlaniyor.png"}" /></td>
                     <td>${item.name}</td>
-                    <td>₺${item.price}</td>
+                    <td><label>₺${item.price}</label> ${item.realPrice != null ? '<p style="text-decoration: line-through;">₺'+item.realPrice+'</p>' : ""}</td>
                     <td><input type="number" max="${item.stock}" min="${item.birim === 'Kg' ? 0.1 : 1}" step="${item.birim === 'Kg' ? 0.1 : 1}" style="width: 70px;" class="my-product-quantity" value="${item.quantity}" onchange="updateBasketItemQuantity(${item.productId}, '${item.birim}', this.value)" /></td>
                     <td>${item.birim}</td>
                     <td class="my-product-total">₺${item.totalPrice}</td>
