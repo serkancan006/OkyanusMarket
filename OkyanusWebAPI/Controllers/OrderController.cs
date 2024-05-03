@@ -153,7 +153,7 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetOrder(int id)
         {
-            var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product)
+            var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).ThenInclude(x => x.Marka)
             .Where(x => x.ID == id).SingleOrDefault();
             var result = _mapper.Map<ResultOrderVM>(values);
             return Ok(result);

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models;
@@ -32,7 +33,7 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet]
         public IActionResult ProductList([FromQuery] FilteredProductParamaters filteredParamaters)
         {
-            var values = _ProductService.TInclude(x => x.Marka).Where(x => x.Status == true && x.Stock > 0).ToList();
+            var values = _ProductService.TAsQueryable().Include(x => x.Marka).Include(x => x.ProductType).Where(x => x.Status == true && x.Stock > 0).ToList();
 
             if (!string.IsNullOrEmpty(filteredParamaters.searchName))
             {
@@ -92,7 +93,7 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet("[action]")]
         public IActionResult ProductListAll([FromQuery] FilteredProductParamaters filteredParamaters)
         {
-            var values = _ProductService.TOrderByDescending(x => x.CreatedDate).ToList();
+            var values = _ProductService.TAsQueryable().Include(x => x.Marka).Include(x => x.ProductType).OrderByDescending(x => x.CreatedDate).ToList();
 
             if (!string.IsNullOrEmpty(filteredParamaters.searchName))
             {
@@ -220,7 +221,7 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetProduct(int id)
         {
-            var values = _ProductService.TGetByID(id);
+            var values = _ProductService.TAsQueryable().Include(x => x.Marka).Include(x => x.ProductType).Where(x => x.ID == id).SingleOrDefault();
             var result = _mapper.Map<ResultProductVM>(values);
             return Ok(result);
         }

@@ -47,7 +47,8 @@ namespace OkyanusWebUI.Controllers
                         ProductId = values.ID,
                         Stock = values.Stock,
                         Quantity = 1,
-                        Birim = ((Birim)values.ProductType).ToString(),
+                        Birim = values.ProductType.Birim,
+                        IncreaseAmount = values.ProductType.IncreaseAmount,
                     };
                     _basketService.AddItem(cartItem);
                     _notyfService.Success("sepete eklendi!");

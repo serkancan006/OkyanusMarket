@@ -14,21 +14,20 @@ namespace Okyanus.EntityLayer.Entities
         public double? DiscountedPrice { get; set; }
         public string? ImageUrl { get; set; }
         public string? Description { get; set; }
-        public Birim ProductType { get; set; }  // 0 => kg -- 1 => Adet
         public int Stock { get; set; }
+        public string AnaBarcode { get; set; }
+
+
         public string ANAGRUP { get; set; }
         public string? ALTGRUP1 { get; set; } = "0";
         public string? ALTGRUP2 { get; set; } = "0";
         public string? ALTGRUP3 { get; set; } = "0";
-        public int? MarkaID { get; set; }
-        public Marka? Marka { get; set; }
-        public string AnaBarcode { get; set; }
-        public List<OrderDetail> OrderDetails { get; set; }
-    }
 
-    public enum Birim
-    {
-        Kg,
-        Adet
+
+        public int MarkaID { get; set; }
+        public Marka Marka { get; set; }
+        public int ProductTypeID { get; set; }
+        public ProductType ProductType { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; }
     }
 }

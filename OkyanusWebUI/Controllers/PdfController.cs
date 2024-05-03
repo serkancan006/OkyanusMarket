@@ -106,7 +106,7 @@ namespace OkyanusWebUI.Controllers
                 // Ürün adı
                 orderDetailsTable.AddCell(new PdfPCell(new Phrase(item.product.productName.TurkceyiIngilizceyeCevir(), fontNormal)));
                 // Marka
-                orderDetailsTable.AddCell(new PdfPCell(new Phrase(item.product.marka.TurkceyiIngilizceyeCevir(), fontNormal)));
+                orderDetailsTable.AddCell(new PdfPCell(new Phrase(item.product.Marka.MarkaAdı.TurkceyiIngilizceyeCevir(), fontNormal)));
                 // Fiyat
                 orderDetailsTable.AddCell(new PdfPCell(new Phrase(item.unitPrice.ToString().TurkceyiIngilizceyeCevir(), fontNormal)));
                 // Adet

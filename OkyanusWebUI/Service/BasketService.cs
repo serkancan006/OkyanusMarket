@@ -119,6 +119,7 @@ namespace OkyanusWebUI.Service
         public double? RealPrice { get; set; }
         public double Quantity { get; set; }
         public string Birim { get; set; }
+        public double IncreaseAmount { get; set; }
         public double TotalPrice => Math.Round(Price * Quantity, 2);
         //public double TotalPrice
         //{

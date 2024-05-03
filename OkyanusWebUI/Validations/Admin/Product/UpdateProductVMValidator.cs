@@ -12,7 +12,7 @@ namespace OkyanusWebUI.Validations.Admin.Product
             //RuleFor(x => x.DiscountedPrice).NotNull().WithMessage("Ürün Fiyatı Boş geçilemez"); 
             //RuleFor(x => x.ImageUrl).NotNull().WithMessage("Ürün Fiyatı Boş geçilemez"); 
             RuleFor(x => x.Description).NotNull().WithMessage("Ürün Açıklaması Boş geçilemez");
-            RuleFor(x => x.ProductType).NotNull().WithMessage("Ürün Tipi Boş geçilemez");
+            RuleFor(x => x.ProductTypeID).NotNull().WithMessage("Ürün Tipi Boş geçilemez");
             RuleFor(x => x.Stock).NotNull().WithMessage("Ürün Stok Boş geçilemez");
             //RuleFor(x => x.ANAGRUP).NotNull().WithMessage("Ürün Stok Boş geçilemez"); 
             //RuleFor(x => x.ALTGRUP1).NotNull().WithMessage("Ürün Stok Boş geçilemez"); 

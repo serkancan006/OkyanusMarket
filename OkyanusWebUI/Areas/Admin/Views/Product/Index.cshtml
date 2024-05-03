@@ -83,7 +83,7 @@
                             <td>@(item.ProductName.Length > 20 ? item.ProductName.Substring(0, 20) : item.ProductName)</td>
                             <td>@item.Price</td>
                             <td>@item.DiscountedPrice</td>
-                            <td>@item.ProductType</td>
+                            <td>@item.ProductType.Birim</td>
                             <td>@item.AnaBarcode</td>
                             <td>@item.Stock</td>
                             <td><a href="/Admin/Product/UpdateProduct/@item.ID" class="btn btn-warning">Detaylar</a></td>

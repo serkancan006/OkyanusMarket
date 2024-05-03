@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Okyanus.DataAccessLayer.Concrete;
 using Oracle.EntityFrameworkCore.Metadata;
@@ -11,9 +12,10 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace Okyanus.DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240503092948_mig_10")]
+    partial class mig_10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -739,7 +741,7 @@ namespace Okyanus.DataAccessLayer.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<int>("MarkaID")
+                    b.Property<int?>("MarkaID")
                         .HasColumnType("NUMBER(10)");
 
                     b.Property<double>("Price")
@@ -749,7 +751,7 @@ namespace Okyanus.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<int>("ProductTypeID")
+                    b.Property<int?>("ProductTypeID")
                         .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("Status")
@@ -778,15 +780,15 @@ namespace Okyanus.DataAccessLayer.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<string>("Birim")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<double>("IncreaseAmount")
                         .HasColumnType("BINARY_DOUBLE");
+
+                    b.Property<string>("ProductTypeName")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("NUMBER(1)");
@@ -1003,15 +1005,11 @@ namespace Okyanus.DataAccessLayer.Migrations
                 {
                     b.HasOne("Okyanus.EntityLayer.Entities.Marka", "Marka")
                         .WithMany("Products")
-                        .HasForeignKey("MarkaID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MarkaID");
 
                     b.HasOne("Okyanus.EntityLayer.Entities.ProductType", "ProductType")
                         .WithMany("Products")
-                        .HasForeignKey("ProductTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductTypeID");
 
                     b.Navigation("Marka");
 

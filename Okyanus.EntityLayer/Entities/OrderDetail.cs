@@ -12,6 +12,8 @@ namespace Okyanus.EntityLayer.Entities
         public double Count { get; set; }
         public double UnitPrice { get; set; }
         public double TotalPrice { get; set; }
+
+
         public int ProductID { get; set; }
         public Product Product { get; set; }
         public int OrderID { get; set; }

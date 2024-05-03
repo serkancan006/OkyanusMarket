@@ -1,4 +1,5 @@
-﻿using OkyanusWebUI.Models.ProductVM;
+﻿using OkyanusWebUI.Models.MarkaVM;
+using OkyanusWebUI.Models.ProductVM;
 
 namespace OkyanusWebUI.Areas.Admin.Models.AdminOrderVM
 {
@@ -53,12 +54,15 @@ namespace OkyanusWebUI.Areas.Admin.Models.AdminOrderVM
             public double? discountedPrice { get; set; }
             public string? imageUrl { get; set; }
             public string? description { get; set; }
-            public Birim productType { get; set; }
+            //public Birim productType { get; set; }
+            public int productTypeID { get; set; }
+            public ResultProductVM productType { get; set; }
             public string anagrup { get; set; }
             public string altgruP1 { get; set; }
             public string altgruP2 { get; set; }
             public string altgruP3 { get; set; }
-            public string marka { get; set; }
+            public int markaID { get; set; }
+            public ResultMarkaVM Marka { get; set; }
             public string anaBarcode { get; set; }
         }
 

@@ -13,6 +13,7 @@ using OkyanusWebAPI.Models.MarkaVM;
 using OkyanusWebAPI.Models.MyPhoneVM;
 using OkyanusWebAPI.Models.OrderDetailVM;
 using OkyanusWebAPI.Models.OrderVM;
+using OkyanusWebAPI.Models.ProductTypeVM;
 using OkyanusWebAPI.Models.ProductVM;
 using OkyanusWebAPI.Models.SliderVM;
 using OkyanusWebAPI.Models.SocialMediaVM;
@@ -91,6 +92,11 @@ namespace OkyanusWebAPI.Mapping
             CreateMap<ResultMarkaVM, Marka>().ReverseMap();
             CreateMap<CreateMarkaVM, Marka>().ReverseMap();
             CreateMap<UpdateMarkaVM, Marka>().ReverseMap();
+
+            CreateMap<ResultProductTypeVM, ProductType>().ReverseMap();
+            CreateMap<CreateProductTypeVM, ProductType>().ReverseMap();
+            CreateMap<UpdateProductTypeVM, ProductType>().ReverseMap();
+   
 
         }
     }

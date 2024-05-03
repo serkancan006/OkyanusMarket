@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Okyanus.EntityLayer.Entities
 {
-    public class Marka : BaseEntity
+    public class ProductType : BaseEntity
     {
-        public string MarkaAdı { get; set; }
+        public string Birim { get; set; }
+        public double IncreaseAmount { get; set; }
+
         public List<Product> Products { get; set; }
     }
 }

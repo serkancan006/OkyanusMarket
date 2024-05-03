@@ -43,8 +43,9 @@ namespace Okyanus.DataAccessLayer.Concrete
         public DbSet<District> Districts { get; set; }
         public DbSet<DeliveryTime> DeliveryTimes { get; set; }
         public DbSet<Marka> Markas { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
 
-      
+        
 
         //Interceptor
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
