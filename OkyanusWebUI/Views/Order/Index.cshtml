@@ -76,6 +76,10 @@
             @await Component.InvokeAsync("_OrderSummaryPartial")
             <span class="text-danger" asp-validation-for="@Model.OrderItems"></span> <br />
             <span class="text-danger" asp-validation-for="@Model.TotalPrice"></span>
+            <ul class="list-group">
+                <li class="text-danger list-group-item">Sepet fiyatı altarnatif ürün ve poşet miktarlarına göre değişiklik gösterebilir!</li>
+                <li class="text-danger list-group-item">Şuan sadece kapıda ödeme olarak işlem yapmaktayız. Kapıda kredi kartı veya nakit!</li>
+            </ul>
         </div>
 
         @*<div class="text-danger" asp-validation-summary="ModelOnly">
@@ -83,23 +87,3 @@
         </div>*@
     </div>
 </div>
-
-<script>
-    function selectedOrderAdres(selectedValue) {
-        $.ajax({
-            url: '/User/UserAdres/UpdateSelectedUserAdres?id=' + selectedValue,
-            type: 'GET',
-            success: function (response) {
-                // İstek başarılı olduğunda yapılacak işlemler
-                toastNotifySuccess("Adresiniz Seçildi!", 3000);
-                //console.log(response);
-            },
-            error: function (xhr, status, error) {
-                // İstek başarısız olduğunda yapılacak işlemler
-                window.location.href = "/User/UserAdres/Index/"
-            }
-        });
-        //window.location.href = "/User/UserAdres/UpdateSelectedUserAdres?id=" + selectedValue;
-
-    }
-</script>

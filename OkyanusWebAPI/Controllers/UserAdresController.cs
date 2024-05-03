@@ -55,7 +55,6 @@ namespace OkyanusWebAPI.Controllers
                 _UserAdresService.TAdd(new UserAdres()
                 {
                     AppUserID = user.Id,
-                    Selected = false,
                     UserApartman = UserAdresVM.UserApartman,
                     UserDaire = UserAdresVM.UserDaire,
                     UserKat = UserAdresVM.UserKat,
@@ -123,22 +122,7 @@ namespace OkyanusWebAPI.Controllers
             return NotFound();
         }
 
-        [Authorize]
-        [HttpPut("[action]")]
-        public async Task<IActionResult> UpdateSelectedUserAdres([FromBody] int id)
-        {
-            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
-            var selectedAdres = _UserAdresService.TGetByID(id);
-
-            if (selectedAdres.AppUserID != user.Id)
-                return NotFound("User Adresi bulunamadı.");
-
-            _UserAdresService.TWhere(x => x.AppUserID == user.Id).ToList().ForEach(x => x.Selected = false);
-            selectedAdres.Selected = true;
-            _UserAdresService.TUpdate(selectedAdres);
-
-            return Ok("User Adresi Seçimi Güncellendi");
-        }
+       
 
     }
 }

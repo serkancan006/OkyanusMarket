@@ -107,28 +107,6 @@ namespace OkyanusWebUI.Areas.User.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> UpdateSelectedUserAdres(int id)
-        {
-            if (id == 0)
-            {
-                return NotFound("Geçersiz Veri");
-            }
-            var responseMessage = await _customHttpClient.Put<int>(new() { Controller = "UserAdres", Action = "UpdateSelectedUserAdres" }, id);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                //_notyfService.Success("Adresiniz Seçildi!");
-                //return RedirectToAction("Index", "Order", new {area= "" });
-                return Ok("Adres Güncellendi");
-            }
-            else
-            {
-                //_notyfService.Error("Adresiniz yoksa lütfen adres ekleyiniz!");
-                //return RedirectToAction("Index");
-                return NotFound("Adres Güncellenirken hata oluştu");
-            }
-        }
-
 
     }
 }

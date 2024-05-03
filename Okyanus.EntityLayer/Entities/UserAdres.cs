@@ -16,7 +16,6 @@ namespace Okyanus.EntityLayer.Entities
         public string UserKat { get; set; }
         public string UserSehir { get; set; }
         public string UserIlce { get; set; }
-        public bool Selected { get; set; } 
         public int AppUserID { get; set; }
         public AppUser AppUser { get; set; }
     }
