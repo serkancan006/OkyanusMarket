@@ -66,7 +66,8 @@ namespace Okyanus.BusinessLayer.Container
             services.AddScoped<IDeliveryTimeDal, EfDeliveryTimeDal>();
             services.AddScoped<IDeliveryTimeService, DeliveryTimeManager>();
 
-
+            services.AddScoped<IMarkaDal, EfMarkaDal>();
+            services.AddScoped<IMarkaService, MarkaManager>();
 
             //External Service
             services.AddScoped<IMailService, MailManager>();

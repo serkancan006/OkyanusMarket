@@ -15,6 +15,7 @@ namespace OkyanusWebUI.Validations
             RuleFor(item => item.TeslimatYontemi).NotNull().WithMessage("Lütfen Teslimat Yöntemi Seçiniz!");
             RuleFor(item => item.TeslimatSaati).NotNull().WithMessage("Lütfen Teslimat Saati Seçiniz!");
             RuleFor(item => item.AlternatifUrun).NotNull().WithMessage("Lütfen Alternatif Ürün Seçiniz!");
+            RuleFor(item => item.HasReadAndUnderstood).Must(x => x == true).WithMessage("Lütfen devam etmeden önce kullanım koşullarını ve gizlilik politikasını okuduğunuzu ve anladığınızı onaylayın!");
             RuleFor(item => item.TotalPrice).NotNull().WithMessage("Boş Fiyat verilemez!")
                 .GreaterThan(250).WithMessage("Minumum Sepet Tutarı 250 Tl olmalıdır");
 

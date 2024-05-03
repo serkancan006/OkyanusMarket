@@ -1,4 +1,5 @@
-﻿using OkyanusWebUI.Service;
+﻿using OkyanusWebUI.Models.MarkaVM;
+using OkyanusWebUI.Service;
 
 namespace OkyanusWebUI.Models.ProductVM
 {
@@ -10,7 +11,6 @@ namespace OkyanusWebUI.Models.ProductVM
 
 
         public string ProductName { get; set; }
-        public string Title { get; set; }
         public double Price { get; set; }
         public double? DiscountedPrice { get; set; }
         public string? ImageUrl { get; set; }
@@ -22,7 +22,8 @@ namespace OkyanusWebUI.Models.ProductVM
         public string? ALTGRUP1 { get; set; } = "0";
         public string? ALTGRUP2 { get; set; } = "0";
         public string? ALTGRUP3 { get; set; } = "0";
-        public string Marka { get; set; }
+        public int? MarkaID { get; set; }
+        public ResultMarkaVM? Marka { get; set; }
         public string AnaBarcode { get; set; }
 
         public bool HasProductInBasket

@@ -14,29 +14,29 @@ namespace OkyanusWebAPI.Controllers
         private readonly IProductService _ProductService;
         private readonly IGroupService _categoryService;
         private readonly IMapper _mapper;
+        private readonly IMarkaService _markaService;
 
-        public ProductController(IProductService ProductService, IMapper mapper, IGroupService categoryService)
+        public ProductController(IProductService ProductService, IMapper mapper, IGroupService categoryService, IMarkaService markaService)
         {
             _ProductService = ProductService;
             _mapper = mapper;
             _categoryService = categoryService;
+            _markaService = markaService;
         }
 
-        private IEnumerable<Product> Sort<T>(IEnumerable<Product> source, Func<Product, T> keySelector, bool ascending)
+        private List<Product> Sort<T>(List<Product> source, Func<Product, T> keySelector, bool ascending)
         {
-            //null değerleri sıralamadığı için discounted price değeri geldiğinde indirimlileri başa getirmesi gerek
-            //ayrıca price a göre sıraladığında indirmli fiyat varsa bunlarıda göz önüne alınmalı.
-            return ascending ? source.OrderBy(keySelector) : source.OrderByDescending(keySelector);
+            return ascending ? source.OrderBy(keySelector).ToList() : source.OrderByDescending(keySelector).ToList();
         }
 
         [HttpGet]
         public IActionResult ProductList([FromQuery] FilteredProductParamaters filteredParamaters)
         {
-            var values = _ProductService.TGetListAll().Where(x => x.Status == true && x.Stock > 0);
+            var values = _ProductService.TInclude(x => x.Marka).Where(x => x.Status == true && x.Stock > 0).ToList();
 
             if (!string.IsNullOrEmpty(filteredParamaters.searchName))
             {
-                values = values.Where(x => x.ProductName.Contains(filteredParamaters.searchName)).ToList();
+                values = values.Where(x => x.ProductName.ToLower().Contains(filteredParamaters.searchName.ToLower())).ToList();
             }
 
             if (!string.IsNullOrEmpty(filteredParamaters.categoryName))
@@ -59,15 +59,10 @@ namespace OkyanusWebAPI.Controllers
                     values = values.Where(x => x.ANAGRUP == group?.ANAGRUP && x.ALTGRUP1 == group.ALTGRUP1 && x.ALTGRUP2 == group.ALTGRUP2 && x.ALTGRUP3 == group.ALTGRUP3).ToList();
                 }
             }
-            //if (filteredParamaters.categoryName != null && filteredParamaters.categoryName.Any() && filteredParamaters.categoryName.Count > 0)
-            //{
-
-            //    values = values.Where(p => p.Categories != null && p.Categories.Any(x => filteredParamaters.categoryName.Any(y => y == x.CategoryName))).ToList();
-            //}
+       
             if (!string.IsNullOrEmpty(filteredParamaters.markaAdi))
             {
-                //values = values.Where(x => x.Marka == filteredParamaters.markaAdi).ToList();
-                values = values.Where(x => x.Marka.Contains(filteredParamaters.markaAdi)).ToList();
+                values = values.Where(x => (x.Marka?.MarkaAdı?.ToLower().Contains(filteredParamaters.markaAdi.ToLower()) ?? false)).ToList();
             }
 
             if (!string.IsNullOrEmpty(filteredParamaters.sortField) )
@@ -80,10 +75,6 @@ namespace OkyanusWebAPI.Controllers
                     case "price":
                         values = Sort(values, x => (x.DiscountedPrice ?? x.Price), filteredParamaters?.sortOrder?.ToLower() == "asc");
                         break;
-                    //case "indirim":
-                    //    values = Sort(values, x => x.DiscountedPrice, filteredParamaters?.sortOrder?.ToLower() == "asc");
-                    //    break;
-                    // Diğer sıralama alanlarını ekleyin
                     default:
                         break;
                 }
@@ -105,7 +96,7 @@ namespace OkyanusWebAPI.Controllers
 
             if (!string.IsNullOrEmpty(filteredParamaters.searchName))
             {
-                values = values.Where(x => x.ProductName.Contains(filteredParamaters.searchName)).ToList();
+                values = values.Where(x => x.ProductName.ToLower().Contains(filteredParamaters.searchName.ToLower())).ToList();
             }
 
             if (!string.IsNullOrEmpty(filteredParamaters.categoryName))
@@ -113,14 +104,10 @@ namespace OkyanusWebAPI.Controllers
                 var group = _categoryService.TWhere(x => x.GRUPADI == filteredParamaters.categoryName).FirstOrDefault();
                 values = values.Where(x => x.ANAGRUP == group?.ANAGRUP && x.ALTGRUP1 == group.ALTGRUP1 && x.ALTGRUP2 == group.ALTGRUP2 && x.ALTGRUP3 == group.ALTGRUP3).ToList();
             }
-            //if (filteredParamaters.categoryName != null && filteredParamaters.categoryName.Any() && filteredParamaters.categoryName.Count > 0)
-            //{
-
-            //    values = values.Where(p => p.Categories != null && p.Categories.Any(x => filteredParamaters.categoryName.Any(y => y == x.CategoryName))).ToList();
-            //}
+        
             if (!string.IsNullOrEmpty(filteredParamaters.markaAdi))
             {
-                values = values.Where(x => x.Marka == filteredParamaters.markaAdi).ToList();
+                values = values.Where(x => (x.Marka?.MarkaAdı?.ToLower().Contains(filteredParamaters.markaAdi.ToLower()) ?? false)).ToList();
             }
 
             var totalCount = values.Count();

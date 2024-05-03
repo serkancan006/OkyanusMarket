@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OkyanusWebUI.Models.ProductVM;
 using OkyanusWebUI.Service;
@@ -12,10 +13,12 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
     {
         private readonly CustomHttpClient _customHttpClient;
         private readonly FileOperationService _fileOperationService;
-        public ProductController(CustomHttpClient customHttpClient, FileOperationService fileOperationService)
+        private readonly INotyfService _notyfService;
+        public ProductController(CustomHttpClient customHttpClient, FileOperationService fileOperationService, INotyfService notyfService)
         {
             _customHttpClient = customHttpClient;
             _fileOperationService = fileOperationService;
+            _notyfService = notyfService;
         }
 
         public async Task<IActionResult> Index([FromQuery] FilteredParameters filteredParameters)
@@ -83,10 +86,14 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateProduct(UpdateProductVM model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             var responseMessage = await _customHttpClient.Put<UpdateProductVM>(new() { Controller = "Product" }, model);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return View(model);
+                return RedirectToAction("Index");
             }
             return View(model);
         }

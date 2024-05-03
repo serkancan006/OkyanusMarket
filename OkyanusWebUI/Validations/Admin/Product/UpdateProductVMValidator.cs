@@ -8,7 +8,6 @@ namespace OkyanusWebUI.Validations.Admin.Product
         public UpdateProductVMValidator()
         {
             RuleFor(x => x.ProductName).NotNull().WithMessage("Ürün Adı Boş geçilemez");
-            RuleFor(x => x.Title).NotNull().WithMessage("Ürün Başlığı Boş geçilemez");
             RuleFor(x => x.Price).NotNull().WithMessage("Ürün Fiyatı Boş geçilemez");
             //RuleFor(x => x.DiscountedPrice).NotNull().WithMessage("Ürün Fiyatı Boş geçilemez"); 
             //RuleFor(x => x.ImageUrl).NotNull().WithMessage("Ürün Fiyatı Boş geçilemez"); 
@@ -19,7 +18,7 @@ namespace OkyanusWebUI.Validations.Admin.Product
             //RuleFor(x => x.ALTGRUP1).NotNull().WithMessage("Ürün Stok Boş geçilemez"); 
             //RuleFor(x => x.ALTGRUP2).NotNull().WithMessage("Ürün Stok Boş geçilemez"); 
             //RuleFor(x => x.ALTGRUP3).NotNull().WithMessage("Ürün Stok Boş geçilemez"); 
-            RuleFor(x => x.Marka).NotNull().WithMessage("Ürün Markası Boş geçilemez");
+            //RuleFor(x => x.MarkaID).NotNull().WithMessage("Ürün Markası Boş geçilemez");
             RuleFor(x => x.AnaBarcode).NotNull().WithMessage("Ürün Ana Barkodu Boş geçilemez");
         }
     }

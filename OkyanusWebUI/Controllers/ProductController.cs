@@ -37,24 +37,6 @@ namespace OkyanusWebUI.Controllers
             return View();
         }
 
-        //public IActionResult Index(string? serach, string? category)
-        //{
-        //    return View();
-        //}
-
-        //public async Task<IActionResult> GetProducts([FromQuery] FilteredParameters filteredParameters)
-        //{
-        //    var queryString = BuildQueryString(filteredParameters);
-
-        //    var responseMessage = await _customHttpClient.Get(new() { Controller = "Product", QueryString = queryString });
-        //    if (responseMessage.IsSuccessStatusCode)
-        //    {
-        //        var jsonData = await responseMessage.Content.ReadAsStringAsync();
-        //        var values = JsonConvert.DeserializeObject<ProductListResponse>(jsonData);
-        //        return Json(values);
-        //    }
-        //    return StatusCode(500, "Bir hata oluştu Product - GetProducts");
-        //}
 
         public IActionResult _OrderDetailModal(int id)
         {

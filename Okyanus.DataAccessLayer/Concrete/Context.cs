@@ -42,6 +42,7 @@ namespace Okyanus.DataAccessLayer.Concrete
         public DbSet<City> Cities { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<DeliveryTime> DeliveryTimes { get; set; }
+        public DbSet<Marka> Markas { get; set; }
 
       
 

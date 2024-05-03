@@ -44,8 +44,8 @@
                                 <label>Teslimat Saati:</label>
                                 <select asp-for="@Model.TeslimatSaati" class="form-control" asp-items="@ViewBag.DeliveryTimeItems"></select>
                                 @*<select asp-for="@Model.TeslimatSaati" class="form-control">
-                                    <option value="10:00-18:00">10:00-18:00</option>
-                                </select>*@
+                        <option value="10:00-18:00">10:00-18:00</option>
+                    </select>*@
                                 <span class="text-danger" asp-validation-for="@Model.TeslimatSaati"></span>
                             </div>
                         </div>
@@ -61,6 +61,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <input type="checkbox" asp-for="@Model.HasReadAndUnderstood" class="form-check-input" style="margin-right:6px" />
+                        <label><a href="" target="_blank">Kullanım Şartlarını</a>  ve <a href="" target="_blank">Gizlilik Politikasını</a> Okudum, Anladım.</label>
+                        <span class="text-danger" asp-validation-for="@Model.HasReadAndUnderstood"></span>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-success" style="margin-bottom:30px">Siparişi Ver</button>
             </form>
@@ -71,12 +76,11 @@
             @await Component.InvokeAsync("_OrderSummaryPartial")
             <span class="text-danger" asp-validation-for="@Model.OrderItems"></span> <br />
             <span class="text-danger" asp-validation-for="@Model.TotalPrice"></span>
-
         </div>
 
-        <div class="text-danger" asp-validation-summary="ModelOnly">
+        @*<div class="text-danger" asp-validation-summary="ModelOnly">
 
-        </div>
+        </div>*@
     </div>
 </div>
 

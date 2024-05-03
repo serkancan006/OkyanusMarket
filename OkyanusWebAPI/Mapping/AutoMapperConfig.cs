@@ -9,6 +9,7 @@ using OkyanusWebAPI.Models.ContactVM;
 using OkyanusWebAPI.Models.DeliveryTimeVM;
 using OkyanusWebAPI.Models.DistrictVM;
 using OkyanusWebAPI.Models.GroupVM;
+using OkyanusWebAPI.Models.MarkaVM;
 using OkyanusWebAPI.Models.MyPhoneVM;
 using OkyanusWebAPI.Models.OrderDetailVM;
 using OkyanusWebAPI.Models.OrderVM;
@@ -86,6 +87,10 @@ namespace OkyanusWebAPI.Mapping
             CreateMap<ResultDeliveryTimeVM, DeliveryTime>().ReverseMap();
             CreateMap<CreateDeliveryTimeVM, DeliveryTime>().ReverseMap();
             CreateMap<UpdateDeliveryTimeVM, DeliveryTime>().ReverseMap();
+
+            CreateMap<ResultMarkaVM, Marka>().ReverseMap();
+            CreateMap<CreateMarkaVM, Marka>().ReverseMap();
+            CreateMap<UpdateMarkaVM, Marka>().ReverseMap();
 
         }
     }
