@@ -18,9 +18,10 @@
     <div class="card-header py-3 d-flex justify-content-between align-items-center">
         <div class="dropdown">
             <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                @ViewBag.OrderStatus
+                @(ViewBag.OrderStatus??"Tümü")
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/Admin/Orders/Index/">Tümü</a>
                 <a class="dropdown-item" href="@Url.Action("Index", "Orders", new { area = "Admin", PageNumber = ViewBag.PageNumber, OrderStatus= "Onay Bekliyor" })">Onay Bekliyor</a>
                 <a class="dropdown-item" href="@Url.Action("Index", "Orders", new { area = "Admin", PageNumber = ViewBag.PageNumber, OrderStatus= "Sipariş Onaylandı" })">Sipariş Onaylandı</a>
                 <a class="dropdown-item" href="@Url.Action("Index", "Orders", new { area = "Admin", PageNumber = ViewBag.PageNumber, OrderStatus= "Hazırlanıyor" })">Hazırlanıyor</a>
@@ -62,11 +63,11 @@
                                 <td>@item.orderStatus</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="/Admin/Orders/OrderStatusOnay/@item.id" class="btn-sm btn btn-primary">Onayla</a>
-                                        <a href="/Admin/Orders/OrderStatusHazirlama/@item.id" class="btn-sm btn btn-warning">Hazırla</a>
-                                        <a href="/Admin/Orders/OrderStatusYolda/@item.id" class="btn-sm btn btn-info">Yolda</a>
-                                        <a href="/Admin/Orders/OrderStatusTeslim/@item.id" class="btn-sm btn btn-secondary">Teslim</a>
-                                        <a href="/Admin/Orders/OrderStatusIptal/@item.id" class="btn-sm btn btn-danger">İptal</a>
+                                        <a href="/Admin/Orders/OrderStatusOnay/@item.id" class="btn-sm btn btn-primary @(item.orderStatus != "Onay Bekliyor" ? "disabled" : "")">Onayla</a>
+                                        <a href="/Admin/Orders/OrderStatusHazirlama/@item.id" class="btn-sm btn btn-warning  @(item.orderStatus != "Sipariş Onaylandı" ? "disabled" : "")">Hazırla</a>
+                                        <a href="/Admin/Orders/OrderStatusYolda/@item.id" class="btn-sm btn btn-info @(item.orderStatus != "Hazırlanıyor" ? "disabled" : "")">Yolda</a>
+                                        <a href="/Admin/Orders/OrderStatusTeslim/@item.id" class="btn-sm btn btn-secondary @(item.orderStatus != "Yolda" ? "disabled" : "")">Teslim</a>
+                                        <a onclick="return confirm('Siparişi iptal etmek istediğinize emin misiniz1');" href="/Admin/Orders/OrderStatusIptal/@item.id" class="btn-sm btn btn-danger">İptal</a>
                                     </div>
                                 </td>
                                 <td><a href="/Admin/Orders/DetailOrder/@item.id" class="btn-sm btn-warning">Detaylar</a></td>

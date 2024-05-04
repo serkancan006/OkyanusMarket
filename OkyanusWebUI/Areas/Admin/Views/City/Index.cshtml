@@ -36,13 +36,14 @@
                             <th>@count</th>
                             <td>@item.CityName</td>
                             <td><a href="/Admin/City/UpdateCity/@item.ID" class="btn btn-warning">Detaylar</a></td>
-                            <td><a href="/Admin/City/DeleteCity/@item.ID"  class="btn btn-danger"  onclick="return confirm('Dikkat Silmek istediğinize emin misiniz? Şehir silindiğinde şehre ait ilçeler silinir!!!');">Sil</a></td>
+                            <td><a href="/Admin/City/DeleteCity/@item.ID" class="btn btn-danger" onclick="return confirm('Dikkat Silmek istediğinize emin misiniz? Şehir silindiğinde şehre ait ilçeler silinir!!!');">Sil</a></td>
                             <td><a href="/Admin/District/Index/@item.ID" class="btn btn-secondary">İlçeleri gör</a></td>
                         </tr>
                     }
                 </tbody>
             </table>
             <a href="/Admin/City/AddCity/" class="btn btn-primary">Yeni Şehir Ekle</a>
+            <a href="/Admin/District/AddDistrict/" class="btn btn-primary">Yeni İlçe Ekle</a>
         </div>
     </div>
 </div>

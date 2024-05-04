@@ -87,7 +87,7 @@
                             <td>@item.AnaBarcode</td>
                             <td>@item.Stock</td>
                             <td><a href="/Admin/Product/UpdateProduct/@item.ID" class="btn btn-warning">Detaylar</a></td>
-                            <td><a href="/Admin/Product/DeleteProduct/@item.ID" class="btn btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz!');">Sil</a></td>
+                            <td><a href="/Admin/Product/DeleteProduct/@item.ID" class="btn btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz! Sipariş detay ve ilişkili olduğu tablolardaki verilerde silinir!');">Sil</a></td>
                             <td><button data-toggle="modal" data-target="#assignCategoryModal" class="btn btn-success" onclick="openCategoryModal(@item.ID)">K.Ata</button></td>
                             <td><button data-toggle="modal" data-target="#productImageModal" class="btn btn-info" onclick="openImageModal(@item.ID)" >R.Değiştir</button></td>
                         </tr>

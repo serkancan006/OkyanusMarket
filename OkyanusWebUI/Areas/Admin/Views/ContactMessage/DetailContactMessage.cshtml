@@ -12,12 +12,13 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="d-flex w-100 justify-content-between">
-                        <p class="mb-1">Adı: @Model.Name</p>
+                        <p class="mb-1">Gönderen Adı: @Model.Name</p>
                         <small>
                             Gönderim Tarihi: @Model.CreatedDate.ToString("dd-MMM-yyyy HH:mm")
                         </small>
                     </div>
-                    <small>E-posta: @Model.Email</small>
+                    @*<p>Gönderen Konu: </p>*@
+                    <p>Gönderen E-posta: @Model.Email</p>
                     <p class="mt-4">@Model.Message</p>
                 </li>
                 <!-- Diğer mesajları buraya ekleyebilirsiniz -->
