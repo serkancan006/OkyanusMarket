@@ -105,6 +105,7 @@
 
     $(document).ready(function () {
         getBasketItems();
+        orderSummaryComponenetRender();
     });
 
     function getBasketItems() {
@@ -180,6 +181,7 @@
             success: function (data) {
                 //console.log(data);
                 getBasketItems();
+                orderSummaryComponenetRender();
             },
             error: function (err) {
                 //console.error("hata oluştu!", err);
@@ -194,6 +196,7 @@
             success: function (data) {
                 //console.log("Ürün başarıyla silindi.");
                 getBasketItems();
+                orderSummaryComponenetRender();
             },
             error: function (err) {
                 //console.error("Ürün silinirken bir hata oluştu:", err);
@@ -242,4 +245,21 @@
             }
         });
     }
+</script>
+
+<script>
+    function orderSummaryComponenetRender() {
+        $.ajax({
+            url: '/Order/OrderSummaryComponent/',
+            type: 'GET',
+            success: function (data) {
+                //console.log(data);
+                $('#orderSummaryComponentContainer').html(data);
+            },
+            error: function (err) {
+                //console.error("Ajax hata olustu!", err);
+            }
+        });
+    }
+
 </script>

@@ -72,10 +72,11 @@
         </div>
 
         <div class="col-md-3">
-            <h4 style="margin-bottom:20px; margin-top:10px">Sipariş Özeti</h4>
-            @await Component.InvokeAsync("_OrderSummaryPartial")
+            <div id="orderSummaryComponentContainer">
+                @*@await Component.InvokeAsync("_OrderSummaryPartial")*@
+            </div>
             <span class="text-danger" asp-validation-for="@Model.OrderItems"></span> <br />
-            <span class="text-danger" asp-validation-for="@Model.TotalPrice"></span>
+            <span class="text-danger" style="margin-bottom:5px;" asp-validation-for="@Model.TotalPrice"></span>
             <ul class="list-group">
                 <li class="text-danger list-group-item">Sepet fiyatı altarnatif ürün ve poşet miktarlarına göre değişiklik gösterebilir!</li>
                 <li class="text-danger list-group-item">Şuan sadece kapıda ödeme olarak işlem yapmaktayız. Kapıda kredi kartı veya nakit!</li>

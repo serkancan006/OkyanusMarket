@@ -87,5 +87,10 @@ namespace OkyanusWebUI.Controllers
 
         }
 
+        public IActionResult OrderSummaryComponent()
+        {
+            return ViewComponent("_OrderSummaryPartial");
+        }
+
     }
 }
