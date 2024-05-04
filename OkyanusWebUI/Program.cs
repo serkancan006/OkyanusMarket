@@ -30,6 +30,8 @@ builder.Services.AddScoped<DeliveryTimeService>();
 builder.Services.AddScoped<CityService>();
 
 builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddRazorRuntimeCompilation();
+//Razor page mimarisini entegre ediyoruz.
+builder.Services.AddRazorPages();
 
 builder.Services.AddFluentValidation(configuration =>
 {
@@ -105,6 +107,9 @@ app.UseEndpoints(endpoints =>
       name: "areas",
       pattern: "{area:exists}/{controller=Orders}/{action=InstantOrder}/{id?}"
     );
+
+    //Razor page için middle ware i da ekliyoruz.
+    endpoints.MapRazorPages();
 });
 
 app.MapControllerRoute(

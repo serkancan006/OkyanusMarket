@@ -8,12 +8,13 @@
     <div class="container">
 
         <div style="display:flex;flex:1;justify-content:space-between;margin-bottom:5px">
-            <div class="logo">
+            <a href="/" class="logo">
                 <img src="~/web/images/logo.jpg" width="200" height="80" />
-            </div>
+            </a>
             <div class="head-t">
                 <ul class="card">
                     @*<li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i>İstek Listesi</a></li>*@
+                    @*<li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>Siparişler</a></li>*@
                     @if (isAuthenticate)
                     {
                         @if (isAuthenticateAdmin)
@@ -30,12 +31,11 @@
                     }
                     else
                     {
+                        <li><a href="/sss"><i class="fa fa-question" aria-hidden="true"></i>SSS</a></li>
                         <li><a href="/Login/Index/"><i class="fa fa-user" aria-hidden="true"></i>Giriş Yap</a></li>
                         <li><a href="/Register/Index/"><i class="fa fa-arrow-right" aria-hidden="true"></i>Kayıt Ol</a></li>
                     }
 
-                    @*<li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>Siparişler</a></li>*@
-                    @*<li><a href="#"><i class="fa fa-ship" aria-hidden="true"></i>Sorular</a></li>*@
                 </ul>
             </div>
         </div>
@@ -64,7 +64,7 @@
                 </div>
             </nav>
 
-            <div style="flex:1;display:flex;justify-content:flex-end;align-items:flex-start" class="mr-1">
+            <div style="flex:1;display:flex;justify-content:flex-end;align-items:flex-start">
                 <form class="search-container mr-1" asp-controller="Product" asp-action="Index" method="get">
                     <input type="text" placeholder="Ürün Ara" class="form-control" name="SearchName" id="productSearchName" style="min-width:100px;">
                     <button type="submit" class="search-container-button">
@@ -73,7 +73,10 @@
                 </form>
 
                 <div class="cart" data-toggle="modal" data-target="#my-basket-modal">
-                    <span class="fa fa-shopping-cart my-cart-icon"><span id="totalBasketItem" class="badge badge-notify my-cart-badge"></span></span>
+                    <div style="display: flex; align-items: center;">
+                        <span class="fa fa-shopping-cart my-cart-icon"></span>
+                        <span id="totalBasketItem" class="badge badge-notify my-cart-badge"></span>
+                    </div>
                 </div>
 
                 <div class="modal fade" id="my-basket-modal" tabindex="-1" role="dialog" aria-labelledby="myBasketModalLabel">

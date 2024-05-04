@@ -4327,7 +4327,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .badge {
   display: inline-block;
-  min-width: 10px;
+  min-width: 20px;
   padding: 3px 7px;
   font-size: 12px;
   font-weight: bold;
