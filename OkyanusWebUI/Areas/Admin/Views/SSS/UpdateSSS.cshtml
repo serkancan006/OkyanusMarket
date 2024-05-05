@@ -1,0 +1,27 @@
+﻿@model OkyanusWebUI.Models.SssVM.UpdateSssVM
+@{
+    ViewData["Title"] = "UpdateSSS";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+
+<div class="container">
+    <form method="post">
+        <input type="hidden" asp-for="ID" class="form-control" />
+
+        <label>Sss Başlık</label>
+        <input type="text" asp-for="SssTitle" class="form-control" />
+        <span class="text-danger" asp-validation-for="SssTitle"></span>
+        <br />
+
+        <label>Sss Cevabı</label>
+        <input type="text" asp-for="SssContent" class="form-control" />
+        <span class="text-danger" asp-validation-for="SssContent"></span>
+        <br />
+
+        <button class="btn btn-primary">SSS Güncelle</button>
+    </form>
+</div>
+
+
+

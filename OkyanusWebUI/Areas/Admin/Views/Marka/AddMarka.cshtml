@@ -1,0 +1,22 @@
+﻿@model OkyanusWebUI.Models.MarkaVM.CreateMarkaVM
+
+@{
+    ViewData["Title"] = "AddMarka";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+
+<div class="container">
+    <form method="post">
+
+        <label>Marka Adı</label>
+        <input type="text" asp-for="MarkaAdı" class="form-control" />
+        <span class="text-danger" asp-validation-for="MarkaAdı"></span>
+        <br />
+
+        <button class="btn btn-primary">Marka Ekle</button>
+    </form>
+</div>
+
+
+

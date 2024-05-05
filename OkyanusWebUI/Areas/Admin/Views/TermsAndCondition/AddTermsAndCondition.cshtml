@@ -1,0 +1,25 @@
+﻿@model OkyanusWebUI.Models.TermsAndConditionVM.CreateTermsAndConditionVM
+@{
+    ViewData["Title"] = "AddTermsAndCondition";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <form method="post">
+
+        <label>Şart ve Koşul Başlık</label>
+        <input type="text" asp-for="Title" class="form-control" />
+        <span class="text-danger" asp-validation-for="Title"></span>
+        <br />
+
+        <label>Şart ve Koşul İçeriği</label>
+        @*<input type="text" asp-for="Content" class="form-control" />*@
+        <textarea asp-for="Content" id="ckeditor" rows="10" cols="80"></textarea>
+        <span class="text-danger" asp-validation-for="Content"></span>
+        <br />
+
+        <button class="btn btn-primary">Şartlar ve Koşul Ekle</button>
+    </form>
+</div>
+
+

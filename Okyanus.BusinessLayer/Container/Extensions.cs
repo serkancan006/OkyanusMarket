@@ -69,6 +69,15 @@ namespace Okyanus.BusinessLayer.Container
             services.AddScoped<IMarkaDal, EfMarkaDal>();
             services.AddScoped<IMarkaService, MarkaManager>();
 
+            services.AddScoped<IProductTypeDal, EfProductTypeDal>();
+            services.AddScoped<IProductTypeService, ProductTypeManager>();
+
+            services.AddScoped<ISssDal, EfSssDal>();
+            services.AddScoped<ISssService, SssManager>();
+
+            services.AddScoped<ITermsAndConditionDal, EfTermsAndConditionDal>();
+            services.AddScoped<ITermsAndConditionService, TermsAndConditionManager>();
+
             //External Service
             services.AddScoped<IMailService, MailManager>();
             services.AddScoped<ICreateTokenService, CreateTokenManager>();

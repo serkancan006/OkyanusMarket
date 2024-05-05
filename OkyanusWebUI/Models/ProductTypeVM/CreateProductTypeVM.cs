@@ -1,4 +1,4 @@
-﻿namespace OkyanusWOkyanusWebUIebAPI.Models.ProductTypeVM
+﻿namespace OkyanusWebUI.Models.ProductTypeVM
 {
     public class CreateProductTypeVM
     {

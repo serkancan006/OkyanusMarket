@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Okyanus.DataAccessLayer.Concrete;
 using Oracle.EntityFrameworkCore.Metadata;
@@ -11,9 +12,10 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace Okyanus.DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240505081207_mig_14")]
+    partial class mig_14
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -883,36 +885,6 @@ namespace Okyanus.DataAccessLayer.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Ssses");
-                });
-
-            modelBuilder.Entity("Okyanus.EntityLayer.Entities.TermsAndCondition", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TIMESTAMP(7)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("NUMBER(1)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("TIMESTAMP(7)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("TermsAndConditions");
                 });
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.UserAdres", b =>

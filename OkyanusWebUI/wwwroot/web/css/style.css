@@ -453,7 +453,6 @@ ul.multi-column-dropdown h6 {
     color: #999;
 }
 span.fa.fa-shopping-cart.my-cart-icon {
-    /*  position: absolute !important; */
     font-size: 1.5em;
     color: #029241;
 }
@@ -1713,7 +1712,7 @@ a#myTabDrop1 {
      cursor: pointer;
 }
 .panel-title span {
-	color:#ED0612;
+    color: dodgerblue;
 }
 .panel-body {
 	padding-top:0;
@@ -1742,7 +1741,7 @@ a#myTabDrop1 {
     color: #5D5D5D;
 }
 .terms h6 span{
-         color: #ED0612;
+         color: dodgerblue;
 }
 .terms p {
     color: #999;

@@ -1,0 +1,34 @@
+﻿@page "/termsandconditions"
+@model OkyanusWebUI.Pages.TermsAndConditionsModel
+@{
+    ViewData["Title"] = "SSS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int count = 0;
+}
+
+<div class="terms">
+    <div class="container">
+
+        <div class="spec ">
+            <h3>Şartlar ve Koşullar</h3>
+            <div class="ser-t">
+                <b></b>
+                <span><i></i></span>
+                <b class="line"></b>
+            </div>
+        </div>
+
+        <div>
+            @foreach (var item in Model.TermsAndConditions)
+            {
+                count++;
+                <div class="ter-wthree">
+                    <h6><span>@count.</span>@item.Title</h6>
+                    @Html.Raw(item.Content)
+                </div>
+
+            }
+        </div>
+       
+    </div>
+</div>

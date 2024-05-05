@@ -1,0 +1,23 @@
+﻿@model OkyanusWebUI.Models.SssVM.CreateSssVM
+@{
+    ViewData["Title"] = "AddSSS";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <form method="post">
+
+        <label>Sss Başlık</label>
+        <input type="text" asp-for="SssTitle" class="form-control" />
+        <span class="text-danger" asp-validation-for="SssTitle"></span>
+        <br />
+
+        <label>Sss Cevabı</label>
+        <input type="text" asp-for="SssContent" class="form-control" />
+        <span class="text-danger" asp-validation-for="SssContent"></span>
+        <br />
+
+        <button class="btn btn-primary">SSS Ekle</button>
+    </form>
+</div>
+

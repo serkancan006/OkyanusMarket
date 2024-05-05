@@ -1,0 +1,25 @@
+﻿@model OkyanusWebUI.Models.MarkaVM.UpdateMarkaVM
+
+@{
+    ViewData["Title"] = "UpdateMarka";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+
+<div class="container">
+    <form method="post">
+        <input type="hidden" asp-for="ID" class="form-control" />
+
+        <label>Marka Adı</label>
+        <input type="text" asp-for="MarkaAdı" class="form-control" />
+        <span class="text-danger" asp-validation-for="MarkaAdı"></span>
+        <br />
+
+        <button class="btn btn-primary">Marka Güncelle</button>
+    </form>
+</div>
+
+
+
+
+

@@ -17,6 +17,8 @@ using OkyanusWebAPI.Models.ProductTypeVM;
 using OkyanusWebAPI.Models.ProductVM;
 using OkyanusWebAPI.Models.SliderVM;
 using OkyanusWebAPI.Models.SocialMediaVM;
+using OkyanusWebAPI.Models.SssVM;
+using OkyanusWebAPI.Models.TermsAndConditionVM;
 using OkyanusWebAPI.Models.UserAdresVM;
 
 namespace OkyanusWebAPI.Mapping
@@ -96,7 +98,14 @@ namespace OkyanusWebAPI.Mapping
             CreateMap<ResultProductTypeVM, ProductType>().ReverseMap();
             CreateMap<CreateProductTypeVM, ProductType>().ReverseMap();
             CreateMap<UpdateProductTypeVM, ProductType>().ReverseMap();
-   
+
+            CreateMap<ResultSssVM, Sss>().ReverseMap();
+            CreateMap<CreateSssVM, Sss>().ReverseMap();
+            CreateMap<UpdateSssVM, Sss>().ReverseMap();
+
+            CreateMap<ResultTermsAndConditionVM, TermsAndCondition>().ReverseMap();
+            CreateMap<CreateTermsAndConditionVM, TermsAndCondition>().ReverseMap();
+            CreateMap<UpdateTermsAndConditionVM, TermsAndCondition>().ReverseMap();
 
         }
     }

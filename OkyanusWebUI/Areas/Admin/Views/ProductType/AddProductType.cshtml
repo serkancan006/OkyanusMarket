@@ -1,0 +1,23 @@
+﻿@model OkyanusWebUI.Models.ProductTypeVM.CreateProductTypeVM
+@{
+    ViewData["Title"] = "AddProductType";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <form method="post">
+
+        <label>Ürün Birimi</label>
+        <input type="text" asp-for="Birim" class="form-control" />
+        <span class="text-danger" asp-validation-for="Birim"></span>
+        <br />
+
+        <label>Minimum miktar ve artış miktarı</label>
+        <input type="number" asp-for="IncreaseAmount" class="form-control" />
+        <span class="text-danger" asp-validation-for="IncreaseAmount"></span>
+        <br />
+
+        <button class="btn btn-primary">Ürün Tipi Ekle</button>
+    </form>
+</div>
+

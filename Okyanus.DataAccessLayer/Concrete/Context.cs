@@ -44,6 +44,8 @@ namespace Okyanus.DataAccessLayer.Concrete
         public DbSet<DeliveryTime> DeliveryTimes { get; set; }
         public DbSet<Marka> Markas { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<Sss> Ssses { get; set; }
+        public DbSet<TermsAndCondition> TermsAndConditions { get; set; }
 
         
 
