@@ -8,7 +8,6 @@ using OkyanusWebAPI.Models.ContactMessageVM;
 
 namespace OkyanusWebAPI.Controllers
 {
-    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ContactMessageController : ControllerBase
@@ -22,6 +21,7 @@ namespace OkyanusWebAPI.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult ContactMessageList()
         {
@@ -38,6 +38,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok("ContactMessage Eklendi");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult DeleteContactMessage(int id)
         {
@@ -46,6 +47,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok("ContactMessage Silindi");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public IActionResult UpdateContactMessage(UpdateContactMessageVM ContactMessageVM)
         {
@@ -54,6 +56,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok("ContactMessage Güncellendi");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public IActionResult GetContactMessage(int id)
         {
