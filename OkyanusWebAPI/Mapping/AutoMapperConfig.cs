@@ -31,9 +31,9 @@ namespace OkyanusWebAPI.Mapping
             CreateMap<UpdateAboutVM, About>().ReverseMap();
             CreateMap<CreateAboutVM, About>().ReverseMap();
 
-            CreateMap<ResultBasketVM, Basket>().ReverseMap();
-            CreateMap<UpdateBasketVM, Basket>().ReverseMap();
-            CreateMap<CreateBasketVM, Basket>().ReverseMap();
+            //CreateMap<ResultBasketVM, Basket>().ReverseMap();
+            //CreateMap<UpdateBasketVM, Basket>().ReverseMap();
+            //CreateMap<CreateBasketVM, Basket>().ReverseMap();
 
             CreateMap<ResultBranchUsVM, BranchUs>().ReverseMap();
             CreateMap<UpdateBranchUsVM, BranchUs>().ReverseMap();

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Okyanus.BusinessLayer.Abstract;
@@ -25,9 +26,12 @@ namespace OkyanusWebAPI.Controllers
             _markaService = markaService;
         }
 
-        private List<Product> Sort<T>(List<Product> source, Func<Product, T> keySelector, bool ascending)
+        [HttpGet("{id}")]
+        public IActionResult GetProduct(int id)
         {
-            return ascending ? source.OrderBy(keySelector).ToList() : source.OrderByDescending(keySelector).ToList();
+            var values = _ProductService.TAsQueryable().Include(x => x.Marka).Include(x => x.ProductType).Where(x => x.ID == id).SingleOrDefault();
+            var result = _mapper.Map<ResultProductVM>(values);
+            return Ok(result);
         }
 
         [HttpGet]
@@ -91,6 +95,15 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet("[action]")]
+        public IActionResult DiscountedProductList()
+        {
+            var values = _ProductService.TWhere(x => x.Status == true && x.Stock > 0 && x.DiscountedPrice != null).ToList();
+            var result = _mapper.Map<List<ResultProductVM>>(values);
+            return Ok(result);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("[action]")]
         public IActionResult ProductListAll([FromQuery] FilteredProductParamaters filteredParamaters)
         {
             var values = _ProductService.TAsQueryable().Include(x => x.Marka).Include(x => x.ProductType).OrderByDescending(x => x.CreatedDate).ToList();
@@ -120,14 +133,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok(new { TotalCount = totalCount, TotalPages = totalPages, Product = product });
         }
 
-        [HttpGet("[action]")]
-        public IActionResult DiscountedProductList()
-        {
-            var values = _ProductService.TWhere(x => x.Status == true && x.Stock > 0 && x.DiscountedPrice != null).ToList();
-            var result = _mapper.Map<List<ResultProductVM>>(values);
-            return Ok(result);
-        }
-
+        [Authorize(Roles = "Admin")]
         [HttpGet("[action]/{id}")]
         public IActionResult AssignCategoryForProductList(int id)
         {
@@ -148,6 +154,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
         public IActionResult AssignCategoryForProduct(AssignCategoryRequest request)
         {
@@ -175,6 +182,7 @@ namespace OkyanusWebAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
         public IActionResult ChangeProductImage(ChangeProductImageRequest request)
         {
@@ -189,6 +197,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok(oldProductImage.Substring(1));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddProduct(CreateProductVM ProductVM)
         {
@@ -202,6 +211,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok("Product Eklendi");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult DeleteProduct(int id)
         {
@@ -210,6 +220,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok("Product Silindi");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public IActionResult UpdateProduct(UpdateProductVM ProductVM)
         {
@@ -218,12 +229,12 @@ namespace OkyanusWebAPI.Controllers
             return Ok("Product Güncellendi");
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetProduct(int id)
+   
+
+        private List<Product> Sort<T>(List<Product> source, Func<Product, T> keySelector, bool ascending)
         {
-            var values = _ProductService.TAsQueryable().Include(x => x.Marka).Include(x => x.ProductType).Where(x => x.ID == id).SingleOrDefault();
-            var result = _mapper.Map<ResultProductVM>(values);
-            return Ok(result);
+            return ascending ? source.OrderBy(keySelector).ToList() : source.OrderByDescending(keySelector).ToList();
         }
+
     }
 }

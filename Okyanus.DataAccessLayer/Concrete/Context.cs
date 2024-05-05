@@ -28,6 +28,7 @@ namespace Okyanus.DataAccessLayer.Concrete
         }
 
         public DbSet<About> Abouts { get; set; }
+        //public DbSet<Basket> Baskets { get; set; }
         public DbSet<BranchUs> BranchUses { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Group> Groups { get; set; }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Okyanus.BusinessLayer.Abstract;
@@ -56,7 +57,7 @@ namespace OkyanusWebAPI.Controllers
 
 
         //Admin
-
+        [Authorize(Roles = "Admin")]
         [HttpGet("[action]")]
         public IActionResult GroupListCategorize()
         {
@@ -71,7 +72,7 @@ namespace OkyanusWebAPI.Controllers
             });
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult GroupList()
         {
@@ -80,6 +81,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddGroup(CreateGroupVM GroupVM)
         {
@@ -88,6 +90,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok("Group Eklendi");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult DeleteGroup(int id)
         {
@@ -96,6 +99,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok("Group Silindi");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public IActionResult UpdateGroup(UpdateGroupVM GroupVM)
         {

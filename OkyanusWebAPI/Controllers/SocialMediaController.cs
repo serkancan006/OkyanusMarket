@@ -28,21 +28,21 @@ namespace OkyanusWebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        public IActionResult AddSocialMedia(CreateSocialMediaVM SocialMediaVM)
-        {
-            var value = _mapper.Map<SocialMedia>(SocialMediaVM);
-            _SocialMediaService.TAdd(value);
-            return Ok("SocialMedia Eklendi");
-        }
+        //[HttpPost]
+        //public IActionResult AddSocialMedia(CreateSocialMediaVM SocialMediaVM)
+        //{
+        //    var value = _mapper.Map<SocialMedia>(SocialMediaVM);
+        //    _SocialMediaService.TAdd(value);
+        //    return Ok("SocialMedia Eklendi");
+        //}
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteSocialMedia(int id)
-        {
-            var values = _SocialMediaService.TGetByID(id);
-            _SocialMediaService.TDelete(values);
-            return Ok("SocialMedia Silindi");
-        }
+        //[HttpDelete("{id}")]
+        //public IActionResult DeleteSocialMedia(int id)
+        //{
+        //    var values = _SocialMediaService.TGetByID(id);
+        //    _SocialMediaService.TDelete(values);
+        //    return Ok("SocialMedia Silindi");
+        //}
 
         [HttpPut]
         public IActionResult UpdateSocialMedia(UpdateSocialMediaVM SocialMediaVM)

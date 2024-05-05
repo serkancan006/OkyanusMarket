@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Okyanus.BusinessLayer.Abstract;
@@ -7,6 +8,7 @@ using OkyanusWebAPI.Models.ContactMessageVM;
 
 namespace OkyanusWebAPI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ContactMessageController : ControllerBase

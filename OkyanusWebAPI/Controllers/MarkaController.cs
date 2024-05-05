@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Okyanus.BusinessLayer.Abstract;
@@ -28,6 +29,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddMarka(CreateMarkaVM MarkaVM)
         {
@@ -36,6 +38,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok("Marka Eklendi");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult DeleteMarka(int id)
         {
@@ -44,6 +47,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok("Marka Silindi");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public IActionResult UpdateMarka(UpdateMarkaVM MarkaVM)
         {

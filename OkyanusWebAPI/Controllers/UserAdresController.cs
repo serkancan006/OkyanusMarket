@@ -10,6 +10,7 @@ using OkyanusWebAPI.Models.UserAdresVM;
 
 namespace OkyanusWebAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserAdresController : ControllerBase

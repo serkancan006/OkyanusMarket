@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OkyanusWebUI.Models.SocialMediaVM;
 using OkyanusWebUI.Service;
@@ -6,6 +7,7 @@ using OkyanusWebUI.Service;
 namespace OkyanusWebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class SocialMediaController : Controller
     {
         private readonly CustomHttpClient _customHttpClient;

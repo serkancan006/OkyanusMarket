@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Okyanus.BusinessLayer.Abstract;
@@ -36,6 +37,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddDeliveryTime(CreateDeliveryTimeVM DeliveryTimeVM)
         {
@@ -44,6 +46,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok("DeliveryTime Eklendi");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult DeleteDeliveryTime(int id)
         {
@@ -52,6 +55,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok("DeliveryTime Silindi");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public IActionResult UpdateDeliveryTime(UpdateDeliveryTimeVM DeliveryTimeVM)
         {

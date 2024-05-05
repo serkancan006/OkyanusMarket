@@ -21,8 +21,8 @@ namespace Okyanus.BusinessLayer.Container
             services.AddScoped<IAboutDal, EfAboutDal>();
             services.AddScoped<IAboutService, AboutManager>();
 
-            services.AddScoped<IBasketDal, EfBasketDal>();
-            services.AddScoped<IBasketService, BasketManager>();
+            //services.AddScoped<IBasketDal, EfBasketDal>();
+            //services.AddScoped<IBasketService, BasketManager>();
 
             services.AddScoped<IBranchUsDal, EfBranchUsDal>();
             services.AddScoped<IBranchUsService, BranchUsManager>();

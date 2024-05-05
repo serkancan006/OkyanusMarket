@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Okyanus.BusinessLayer.Abstract;
@@ -29,22 +30,23 @@ namespace OkyanusWebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        public IActionResult AddAbout(CreateAboutVM AboutVM)
-        {
-            var value = _mapper.Map<About>(AboutVM);
-            _AboutService.TAdd(value);
-            return Ok("About Eklendi");
-        }
+        //[HttpPost]
+        //public IActionResult AddAbout(CreateAboutVM AboutVM)
+        //{
+        //    var value = _mapper.Map<About>(AboutVM);
+        //    _AboutService.TAdd(value);
+        //    return Ok("About Eklendi");
+        //}
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteAbout(int id)
-        {
-            var values = _AboutService.TGetByID(id);
-            _AboutService.TDelete(values);
-            return Ok("About Silindi");
-        }
+        //[HttpDelete("{id}")]
+        //public IActionResult DeleteAbout(int id)
+        //{
+        //    var values = _AboutService.TGetByID(id);
+        //    _AboutService.TDelete(values);
+        //    return Ok("About Silindi");
+        //}
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public IActionResult UpdateAbout(UpdateAboutVM AboutVM)
         {

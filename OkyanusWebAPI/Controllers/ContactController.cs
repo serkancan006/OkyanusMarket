@@ -28,21 +28,21 @@ namespace OkyanusWebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        public IActionResult AddContact(CreateContactVM ContactVM)
-        {
-            var value = _mapper.Map<Contact>(ContactVM);
-            _ContactService.TAdd(value);
-            return Ok("Contact Eklendi");
-        }
+        //[HttpPost]
+        //public IActionResult AddContact(CreateContactVM ContactVM)
+        //{
+        //    var value = _mapper.Map<Contact>(ContactVM);
+        //    _ContactService.TAdd(value);
+        //    return Ok("Contact Eklendi");
+        //}
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteContact(int id)
-        {
-            var values = _ContactService.TGetByID(id);
-            _ContactService.TDelete(values);
-            return Ok("Contact Silindi");
-        }
+        //[HttpDelete("{id}")]
+        //public IActionResult DeleteContact(int id)
+        //{
+        //    var values = _ContactService.TGetByID(id);
+        //    _ContactService.TDelete(values);
+        //    return Ok("Contact Silindi");
+        //}
 
         [HttpPut]
         public IActionResult UpdateContact(UpdateContactVM ContactVM)

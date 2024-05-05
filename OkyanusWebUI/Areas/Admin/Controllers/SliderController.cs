@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OkyanusWebUI.Areas.Admin.Models.SliderUIVM;
 using OkyanusWebUI.Models.SliderVM;
@@ -7,6 +8,7 @@ using OkyanusWebUI.Service;
 namespace OkyanusWebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class SliderController : Controller
     {
         private readonly CustomHttpClient _customHttpClient;

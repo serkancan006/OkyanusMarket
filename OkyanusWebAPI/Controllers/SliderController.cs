@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Okyanus.BusinessLayer.Abstract;
@@ -28,6 +29,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddSlider(CreateSliderVM SliderVM)
         {
@@ -36,6 +38,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok("Slider Eklendi");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult DeleteSlider(int id)
         {
@@ -45,20 +48,20 @@ namespace OkyanusWebAPI.Controllers
             return Ok(oldImageSlider?.Substring(1));
         }
 
-        [HttpPut]
-        public IActionResult UpdateSlider(UpdateSliderVM SliderVM)
-        {
-            var value = _mapper.Map<Slider>(SliderVM);
-            _SliderService.TUpdate(value);
-            return Ok("Slider Güncellendi");
-        }
+        //[HttpPut]
+        //public IActionResult UpdateSlider(UpdateSliderVM SliderVM)
+        //{
+        //    var value = _mapper.Map<Slider>(SliderVM);
+        //    _SliderService.TUpdate(value);
+        //    return Ok("Slider Güncellendi");
+        //}
 
-        [HttpGet("{id}")]
-        public IActionResult GetSlider(int id)
-        {
-            var values = _SliderService.TGetByID(id);
-            var result = _mapper.Map<ResultSliderVM>(values);
-            return Ok(result);
-        }
+        //[HttpGet("{id}")]
+        //public IActionResult GetSlider(int id)
+        //{
+        //    var values = _SliderService.TGetByID(id);
+        //    var result = _mapper.Map<ResultSliderVM>(values);
+        //    return Ok(result);
+        //}
     }
 }

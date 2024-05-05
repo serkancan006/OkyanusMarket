@@ -40,7 +40,7 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = configuration["JwtTokenOptions:ValidAudience"],  
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtTokenOptions:IssuerSigningKey"])),
         ValidateIssuerSigningKey = true,
-        ValidateLifetime = true,  //geçerlilik süresini dogrulamasý için false olursa süre dogrulama yapmaz.
+        ValidateLifetime = false,  //geçerlilik süresini dogrulamasý için false olursa süre dogrulama yapmaz.
         ClockSkew = TimeSpan.Zero   //zaman farký hesaplama 
     };
 });

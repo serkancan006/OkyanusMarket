@@ -10,7 +10,7 @@ using OkyanusWebUI.Service;
 namespace OkyanusWebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class OrdersController : Controller
     {
         private readonly CustomHttpClient _customHttpClient;

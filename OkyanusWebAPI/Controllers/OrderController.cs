@@ -41,7 +41,7 @@ namespace OkyanusWebAPI.Controllers
             _deliveryTimeService = deliveryTimeService;
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult OrderList([FromQuery] FilteredOrderParamaters filteredParamaters)
         {
@@ -61,6 +61,121 @@ namespace OkyanusWebAPI.Controllers
 
             var orders = _mapper.Map<List<ResultOrderVM>>(values).ToList();
             return Ok(new { TotalCount = totalCount, TotalPages = totalPages, Orders = orders });
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
+        public IActionResult DeleteOrder(int id)
+        {
+            var values = _OrderService.TGetByID(id);
+            _OrderService.TDelete(values);
+            return Ok("Order Silindi");
+        }
+
+        //[HttpPut]
+        //public IActionResult UpdateOrder(UpdateOrderVM OrderVM)
+        //{
+        //    var value = _mapper.Map<Order>(OrderVM);
+        //    _OrderService.TUpdate(value);
+        //    return Ok("Order Güncellendi");
+        //}
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("{id}")]
+        public IActionResult GetOrder(int id)
+        {
+            var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).ThenInclude(x => x.Marka)
+            .Where(x => x.ID == id).SingleOrDefault();
+            var result = _mapper.Map<ResultOrderVM>(values);
+            return Ok(result);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("[action]/{id}")]
+        public IActionResult OrderStatusOnay(int id)
+        {
+            _OrderService.UpdateOrderStatus(id, "Sipariş Onaylandı");
+            return Ok("Sipariş Onaylandı olarak değiştirildi");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("[action]/{id}")]
+        public IActionResult OrderStatusIptal(int id)
+        {
+            //stock
+            //var order = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).Where(x => x.ID == id).SingleOrDefault();
+            //if (order == null)
+            //{
+            //    return NotFound("sipariş bulunamadı");
+            //}
+            //var orderproducts = order?.OrderDetails;
+            //if (orderproducts != null)
+            //{
+            //    foreach (var item in orderproducts)
+            //    {
+            //        item.Product.Stock = item.Product.Stock + (int)Math.Floor(item.Count);
+            //    }
+            //}
+            //else
+            //{
+            //    return NotFound("siparişin detayları bulunamadı");
+            //}
+            //stock
+            _OrderService.UpdateOrderStatus(id, "İptal Edildi");
+            return Ok("Sipariş İptal Edildi olarak değiştirildi");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("[action]/{id}")]
+        public IActionResult OrderStatusHazirlama(int id)
+        {
+            _OrderService.UpdateOrderStatus(id, "Hazırlanıyor");
+            return Ok("Sipariş Hazirlanıyor olarak değiştirildi");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("[action]/{id}")]
+        public IActionResult OrderStatusYolda(int id)
+        {
+            _OrderService.UpdateOrderStatus(id, "Yolda");
+            return Ok("Sipariş Yolda olarak değiştirildi");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("[action]/{id}")]
+        public IActionResult OrderStatusTeslim(int id)
+        {
+            _OrderService.UpdateOrderStatus(id, "Teslim Edildi");
+            return Ok("Sipariş Teslim Edildi olarak değiştirildi");
+        }
+
+        [Authorize]
+        [HttpGet("[action]")]
+        public async Task<IActionResult> ListUserOrder()
+        {
+            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
+            if (user != null)
+            {
+                var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).Where(x => x.AppUserID == user.Id).ToList();
+                var result = _mapper.Map<List<ResultOrderVM>>(values);
+                return Ok(result);
+            }
+            return NotFound("Kullanici Bulunamadi");
+        }
+
+        [Authorize]
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> GetUserOrder(int id)
+        {
+            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
+            if (user != null)
+            {
+                var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product)
+                    .Where(x => x.ID == id && x.AppUserID == user.Id).SingleOrDefault();
+                var result = _mapper.Map<ResultOrderVM>(values);
+                return Ok(result);
+            }
+            return NotFound("Kullanici Bulunamadi");
         }
 
         [Authorize]
@@ -131,121 +246,6 @@ namespace OkyanusWebAPI.Controllers
 
             return Ok("Order Eklendi");
         }
-
-        [Authorize(Roles = "Admin")]
-        [HttpDelete("{id}")]
-        public IActionResult DeleteOrder(int id)
-        {
-            var values = _OrderService.TGetByID(id);
-            _OrderService.TDelete(values);
-            return Ok("Order Silindi");
-        }
-
-        //[HttpPut]
-        //public IActionResult UpdateOrder(UpdateOrderVM OrderVM)
-        //{
-        //    var value = _mapper.Map<Order>(OrderVM);
-        //    _OrderService.TUpdate(value);
-        //    return Ok("Order Güncellendi");
-        //}
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet("{id}")]
-        public IActionResult GetOrder(int id)
-        {
-            var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).ThenInclude(x => x.Marka)
-            .Where(x => x.ID == id).SingleOrDefault();
-            var result = _mapper.Map<ResultOrderVM>(values);
-            return Ok(result);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet("[action]/{id}")]
-        public IActionResult OrderStatusOnay(int id)
-        {
-            _OrderService.UpdateOrderStatus(id, "Sipariş Onaylandı");
-            return Ok("Sipariş Onaylandı olarak değiştirildi");
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet("[action]/{id}")]
-        public IActionResult OrderStatusIptal(int id)
-        {
-            //stock
-            //var order = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).Where(x => x.ID == id).SingleOrDefault();
-            //if (order == null)
-            //{
-            //    return NotFound("sipariş bulunamadı");
-            //}
-            //var orderproducts = order?.OrderDetails;
-            //if (orderproducts != null)
-            //{
-            //    foreach (var item in orderproducts)
-            //    {
-            //        item.Product.Stock = item.Product.Stock + (int)Math.Floor(item.Count);
-            //    }
-            //}
-            //else
-            //{
-            //    return NotFound("siparişin detayları bulunamadı");
-            //}
-            _OrderService.UpdateOrderStatus(id, "İptal Edildi");
-            return Ok("Sipariş İptal Edildi olarak değiştirildi");
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet("[action]/{id}")]
-        public IActionResult OrderStatusHazirlama(int id)
-        {
-            _OrderService.UpdateOrderStatus(id, "Hazırlanıyor");
-            return Ok("Sipariş Hazirlanıyor olarak değiştirildi");
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet("[action]/{id}")]
-        public IActionResult OrderStatusYolda(int id)
-        {
-            _OrderService.UpdateOrderStatus(id, "Yolda");
-            return Ok("Sipariş Yolda olarak değiştirildi");
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet("[action]/{id}")]
-        public IActionResult OrderStatusTeslim(int id)
-        {
-            _OrderService.UpdateOrderStatus(id, "Teslim Edildi");
-            return Ok("Sipariş Teslim Edildi olarak değiştirildi");
-        }
-
-        [Authorize]
-        [HttpGet("[action]")]
-        public async Task<IActionResult> ListUserOrder()
-        {
-            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
-            if (user != null)
-            {
-                var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).Where(x => x.AppUserID == user.Id).ToList();
-                var result = _mapper.Map<List<ResultOrderVM>>(values);
-                return Ok(result);
-            }
-            return NotFound("Kullanici Bulunamadi");
-        }
-
-        [Authorize]
-        [HttpGet("[action]/{id}")]
-        public async Task<IActionResult> GetUserOrder(int id)
-        {
-            var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
-            if (user != null)
-            {
-                var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product)
-                    .Where(x => x.ID == id && x.AppUserID == user.Id).SingleOrDefault();
-                var result = _mapper.Map<ResultOrderVM>(values);
-                return Ok(result);
-            }
-            return NotFound("Kullanici Bulunamadi");
-        }
-
 
     }
 }
