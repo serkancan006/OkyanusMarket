@@ -4,9 +4,11 @@ using OkyanusWebUI.Service;
 using Newtonsoft.Json;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
+using Microsoft.AspNetCore.Authorization;
 
-namespace OkyanusWebUI.Controllers
+namespace OkyanusWebUI.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class PdfController : Controller
     {
@@ -123,7 +125,7 @@ namespace OkyanusWebUI.Controllers
         }
 
 
-      
+
 
 
     }
