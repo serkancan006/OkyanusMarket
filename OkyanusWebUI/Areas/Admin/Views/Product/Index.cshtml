@@ -159,11 +159,9 @@
             url: '/Admin/Product/AssignCategoryForProductList/' + id,
             type: 'GET',
             success: function (data) {
-                //console.log(data);
                 $('#assignCategoryModalContainer').html(data);
             },
             error: function (err) {
-                //console.error("Ajax hata olustu!", err);
             }
         });
     }
@@ -173,7 +171,6 @@
             url: '/Admin/Product/changeImageProduct/' + id,
             type: 'GET',
             success: function (data) {
-                //console.log(data);
                 $('#productImageModalContainer').html(data);
             },
             error: function (err) {

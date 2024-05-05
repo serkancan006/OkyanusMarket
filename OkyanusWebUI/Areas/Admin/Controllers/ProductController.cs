@@ -14,11 +14,15 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         private readonly CustomHttpClient _customHttpClient;
         private readonly FileOperationService _fileOperationService;
         private readonly INotyfService _notyfService;
-        public ProductController(CustomHttpClient customHttpClient, FileOperationService fileOperationService, INotyfService notyfService)
+        private readonly ProductTypeService _productTypeService;
+        private readonly MarkaService _markaService;
+        public ProductController(CustomHttpClient customHttpClient, FileOperationService fileOperationService, INotyfService notyfService, ProductTypeService productTypeService, MarkaService markaService)
         {
             _customHttpClient = customHttpClient;
             _fileOperationService = fileOperationService;
             _notyfService = notyfService;
+            _productTypeService = productTypeService;
+            _markaService = markaService;
         }
 
         public async Task<IActionResult> Index([FromQuery] FilteredParameters filteredParameters)
@@ -40,14 +44,18 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddProduct()
+        public async Task<IActionResult> AddProduct()
         {
+            ViewBag.ProductTypeSelectListItems = await _productTypeService.GetProductTypeSelectListItems();
+            ViewBag.MarkaSelectListItems = await _markaService.GetMarkaSelectListItems();
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> AddProduct(CreateProductVM model)
         {
+            ViewBag.ProductTypeSelectListItems = await _productTypeService.GetProductTypeSelectListItems();
+            ViewBag.MarkaSelectListItems = await _markaService.GetMarkaSelectListItems();
             if (!ModelState.IsValid)
             {
                 return View();
@@ -73,6 +81,8 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateProduct(int id)
         {
+            ViewBag.ProductTypeSelectListItems = await _productTypeService.GetProductTypeSelectListItems();
+            ViewBag.MarkaSelectListItems = await _markaService.GetMarkaSelectListItems();
             var responseMessage = await _customHttpClient.Get(new() { Controller = "Product" }, id);
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -86,6 +96,8 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateProduct(UpdateProductVM model)
         {
+            ViewBag.ProductTypeSelectListItems = await _productTypeService.GetProductTypeSelectListItems();
+            ViewBag.MarkaSelectListItems = await _markaService.GetMarkaSelectListItems();
             if (!ModelState.IsValid)
             {
                 return View(model);

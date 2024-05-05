@@ -33,7 +33,8 @@
         <br />*@
 
         <label>Ürün Tipi</label>
-        <input type="number" asp-for="ProductTypeID" class="form-control" />
+        @*<input type="number" asp-for="ProductTypeID" class="form-control" />*@
+        <select asp-for="ProductTypeID" class="form-control" asp-items="@ViewBag.ProductTypeSelectListItems"></select>
         <span class="text-danger" asp-validation-for="ProductTypeID"></span>
         <br />
 
@@ -42,28 +43,29 @@
         <span class="text-danger" asp-validation-for="Description"></span>
         <br />
 
-        <label>Ana Grup</label>
-        <input type="text" asp-for="ANAGRUP" class="form-control" />
+        @*<label>Ana Grup</label>*@
+        <input type="hidden" asp-for="ANAGRUP" class="form-control" />
         <span class="text-danger" asp-validation-for="ANAGRUP"></span>
-        <br />
+        @*<br />*@
 
-        <label>Alt Grup 1</label>
-        <input type="text" asp-for="ALTGRUP1" class="form-control" />
+        @*<label>Alt Grup 1</label>*@
+        <input type="hidden" asp-for="ALTGRUP1" class="form-control" />
         <span class="text-danger" asp-validation-for="ALTGRUP1"></span>
-        <br />
+        @*<br />*@
 
-        <label>Alt Grup 2</label>
-        <input type="text" asp-for="ALTGRUP2" class="form-control" />
+        @*<label>Alt Grup 2</label>*@
+        <input type="hidden" asp-for="ALTGRUP2" class="form-control" />
         <span class="text-danger" asp-validation-for="ALTGRUP2"></span>
-        <br />
+        @*<br />*@
 
-        <label>Alt Grup 3</label>
-        <input type="text" asp-for="ALTGRUP3" class="form-control" />
+        @*<label>Alt Grup 3</label>*@
+        <input type="hidden" asp-for="ALTGRUP3" class="form-control" />
         <span class="text-danger" asp-validation-for="ALTGRUP3"></span>
-        <br />
+        @*<br />*@
 
         <label>Ürün Marka ID</label>
-        <input type="text" asp-for="MarkaID" class="form-control" />
+        @*<input type="text" asp-for="MarkaID" class="form-control" />*@
+        <select asp-for="MarkaID" class="form-control" asp-items="@ViewBag.MarkaSelectListItems"></select>
         <span class="text-danger" asp-validation-for="MarkaID"></span>
         <br />
 

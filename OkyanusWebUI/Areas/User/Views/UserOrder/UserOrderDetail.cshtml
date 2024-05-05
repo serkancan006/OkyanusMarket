@@ -82,7 +82,6 @@
 
         function start() {
             connection.start().then(() => {
-                console.log(connection.state);
                 setInterval(() => {
                     let url = window.location.pathname;
                     let parts = url.split('/');
@@ -90,7 +89,6 @@
                     connection.invoke("GetUserOrder", id);
                 }, 3000)
             }).catch((err) => {
-                console.log(err);
                 setTimeout(() => start(), 5000); // 5 saniye sonra yeniden bağlanmayı dene
             });
         }
@@ -129,7 +127,6 @@
                 siparisYoldaContainer.removeClass("active")
                 siparisTeslimEdildiContainer.removeClass("active")
             }
-            console.log(value);
         });
 
     });

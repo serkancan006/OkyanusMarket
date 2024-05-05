@@ -44,6 +44,8 @@ builder.Services.AddScoped<FileOperationService>();
 builder.Services.AddScoped<UserAdresService>();
 builder.Services.AddScoped<DeliveryTimeService>();
 builder.Services.AddScoped<CityService>();
+builder.Services.AddScoped<ProductTypeService>();
+builder.Services.AddScoped<MarkaService>();
 
 
 

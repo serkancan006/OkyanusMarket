@@ -32,12 +32,11 @@
 
         function start() {
             connection.start().then(() => {
-                console.log(connection.state);
+                //console.log(connection.state);
                 //setInterval(() => {
                 //    connection.invoke("SendOrderNotification");
                 //}, 10000)
             }).catch((err) => {
-                console.log(err);
                 setTimeout(() => start(), 5000); // 5 saniye sonra yeniden bağlanmayı dene
             });
         }
@@ -78,7 +77,6 @@
                 '</tr>';
             $('#orderListContainer').append(row);
             index += 1;
-            console.log(value);
         });
 
         function formatDate(dateString) {

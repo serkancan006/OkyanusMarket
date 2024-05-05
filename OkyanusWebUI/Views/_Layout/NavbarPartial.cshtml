@@ -113,7 +113,6 @@
             url: '/Basket/GetBasketItems/',
             type: 'GET',
             success: function (data) {
-                //console.log(data);
                 let basketItems = data.items;
                 let totalPrice = data.totalPrice;
                 let totalItems = data.totalItems;
@@ -153,7 +152,6 @@
                 $('#basketModalContentHtml').html(basketModalContentHtml);
             },
             error: function (err) {
-                console.error("Hata oluştu!", err);
             }
         });
     }
@@ -163,12 +161,10 @@
             url: '/Basket/AddBasketItem/' + id,
             type: 'POST',
             success: function (data) {
-                //console.log(data);
                 getBasketItems();
                 toastNotifySuccess("sepete ürün eklendi!", 3000);
             },
             error: function (err) {
-                //console.error("hata oluştu!", err);
             }
         });
     }
@@ -179,12 +175,10 @@
             type: 'POST',
             data: { id: id, quantity: quantity, birim: birim },
             success: function (data) {
-                //console.log(data);
                 getBasketItems();
                 orderSummaryComponenetRender();
             },
             error: function (err) {
-                //console.error("hata oluştu!", err);
             }
         });
     }
@@ -194,12 +188,10 @@
             url: '/Basket/deleteBasketItem/' + id,
             type: 'DELETE',
             success: function (data) {
-                //console.log("Ürün başarıyla silindi.");
                 getBasketItems();
                 orderSummaryComponenetRender();
             },
             error: function (err) {
-                //console.error("Ürün silinirken bir hata oluştu:", err);
             }
         });
     }
@@ -237,11 +229,9 @@
             url: '/Product/_OrderDetailModal/' + id,
             type: 'GET',
             success: function (data) {
-                //console.log(data);
                 $('#productDetailModalContainer').html(data);
             },
             error: function (err) {
-                //console.error("Ajax hata olustu!", err);
             }
         });
     }
@@ -253,11 +243,9 @@
             url: '/Order/OrderSummaryComponent/',
             type: 'GET',
             success: function (data) {
-                //console.log(data);
                 $('#orderSummaryComponentContainer').html(data);
             },
             error: function (err) {
-                //console.error("Ajax hata olustu!", err);
             }
         });
     }

@@ -9,6 +9,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
     public class ProductTypeController : Controller
     {
         private readonly CustomHttpClient _customHttpClient;
+   
         public ProductTypeController(CustomHttpClient customHttpClient)
         {
             _customHttpClient = customHttpClient;
@@ -27,8 +28,9 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddProductType()
+        public async Task<IActionResult> AddProductType()
         {
+           
             return View();
         }
 

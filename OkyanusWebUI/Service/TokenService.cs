@@ -50,7 +50,7 @@ namespace OkyanusWebUI.Service
                 if (claim.Type == ClaimTypes.Role)
                 {
                     var role = claim.Value;
-                    Console.WriteLine(role);
+                    //Console.WriteLine(role);
                 }
             }
             return _httpContextAccessor?.HttpContext?.User.IsInRole("Admin") ?? false;

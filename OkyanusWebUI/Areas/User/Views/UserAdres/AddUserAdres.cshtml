@@ -73,7 +73,6 @@
                     $("#District").empty();
                     $.each(data, function (index, row) {
                         $("#District").append("<option value='" + row.value + "'>" + row.text + "</option>")
-                        console.log(row.value + " - " + row.text)
                     });
                 });
             });

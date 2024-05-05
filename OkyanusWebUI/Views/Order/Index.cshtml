@@ -15,7 +15,7 @@
                     <h4 style="margin-bottom:20px;margin-top:20px">Sipariş Bilgileri</h4>
                     <div class="form-group">
                         <label>Adresinizi Seçin:</label>
-                        <select asp-for="@Model.UserAdresID" class="form-control" asp-items="@ViewBag.SelectListItems" onchange="selectedOrderAdres(this.value)"></select>
+                        <select asp-for="@Model.UserAdresID" class="form-control" asp-items="@ViewBag.SelectListItems"></select>
                         <span class="text-danger" asp-validation-for="@Model.UserAdresID"></span>
                     </div>
                     <div class="form-group">

@@ -30,7 +30,8 @@
         <br />*@
 
         <label>Ürün Tipi</label>
-        <input type="number" asp-for="ProductTypeID" class="form-control" />
+        @*<input type="number" asp-for="ProductTypeID" class="form-control" />*@
+        <select asp-for="ProductTypeID" class="form-control" asp-items="@ViewBag.ProductTypeSelectListItems"></select>
         <span class="text-danger" asp-validation-for="ProductTypeID"></span>
         <br />
 
@@ -45,7 +46,8 @@
         <br />
 
         <label>Ürün Markası</label>
-        <input type="text" asp-for="MarkaID" class="form-control" />
+        @*<input type="text" asp-for="MarkaID" class="form-control" />*@
+        <select asp-for="MarkaID" class="form-control" asp-items="@ViewBag.MarkaSelectListItems"></select>
         <span class="text-danger" asp-validation-for="MarkaID"></span>
         <br />
 

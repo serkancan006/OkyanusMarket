@@ -14,12 +14,12 @@ namespace OkyanusWebUI.Service
 
         public async Task<List<SelectListItem>> GetUserAdres()
         {
-            var responseMessage2 = await _customHttpClient.Get(new() { Controller = "UserAdres" });
-            var jsonData2 = await responseMessage2.Content.ReadAsStringAsync();
-            var values2 = JsonConvert.DeserializeObject<List<ResultUserAdresVM>>(jsonData2);
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "UserAdres" });
+            var jsonData = await responseMessage.Content.ReadAsStringAsync();
+            var values = JsonConvert.DeserializeObject<List<ResultUserAdresVM>>(jsonData);
             List<SelectListItem> selectListItems = new List<SelectListItem>();
             selectListItems.Add(new SelectListItem() { Value = "0", Text = "Adres Ekle" });
-            foreach (var value in values2)
+            foreach (var value in values)
             {
                 SelectListItem item = new SelectListItem
                 {

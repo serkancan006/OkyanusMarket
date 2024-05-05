@@ -38,8 +38,8 @@ namespace OkyanusWebUI.Controllers
             {
                 // Hata durumunda konsola hataları yazdırma
                 var errorContent = await responseMessage.Content.ReadAsStringAsync();
-                Console.WriteLine($"HTTP Hata Kodu: {responseMessage.StatusCode}");
-                Console.WriteLine($"Hata Detayları: {errorContent}");
+                //Console.WriteLine($"HTTP Hata Kodu: {responseMessage.StatusCode}");
+                //Console.WriteLine($"Hata Detayları: {errorContent}");
                 var errors = JsonConvert.DeserializeObject<List<IdentityError>>(errorContent);
                 foreach (var error in errors ?? Enumerable.Empty<IdentityError>())
                 {

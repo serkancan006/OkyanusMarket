@@ -12,27 +12,27 @@
         <label>Kategori Adı</label>
         <input type="text" asp-for="GRUPADI" class="form-control" />
         <span class="text-danger" asp-validation-for="GRUPADI"></span>
-        <br />
+        @*<br />*@
 
-        <label>Ana Grup Kodu Giriniz</label>
-        <input type="text" asp-for="ANAGRUP" class="form-control" />
+        @*<label>Ana Grup Kodu Giriniz</label>*@
+        <input type="hidden" asp-for="ANAGRUP" class="form-control" />
         <span class="text-danger" asp-validation-for="ANAGRUP"></span>
-        <br />
+        @*<br />*@
 
-        <label>Alt Grup-1 Kodu Giriniz</label>
-        <input type="text" asp-for="ALTGRUP1" class="form-control" />
+        @*<label>Alt Grup-1 Kodu Giriniz</label>*@
+        <input type="hidden" asp-for="ALTGRUP1" class="form-control" />
         <span class="text-danger" asp-validation-for="ALTGRUP1"></span>
-        <br />
+        @*<br />*@
 
-        <label>Alt Grup-2 Kodu Giriniz</label>
-        <input type="text" asp-for="ALTGRUP2" class="form-control" />
+        @*<label>Alt Grup-2 Kodu Giriniz</label>*@
+        <input type="hidden" asp-for="ALTGRUP2" class="form-control" />
         <span class="text-danger" asp-validation-for="ALTGRUP2"></span>
         <br />
 
-        <label>Alt Grup-3 Kodu Giriniz</label>
-        <input type="text" asp-for="ALTGRUP3" class="form-control" />
+        @*<label>Alt Grup-3 Kodu Giriniz</label>*@
+        <input type="hidden" asp-for="ALTGRUP3" class="form-control" />
         <span class="text-danger" asp-validation-for="ALTGRUP3"></span>
-        <br />
+        @*<br />*@
 
         <button class="btn btn-primary">Kategori Güncelle</button>
     </form>
