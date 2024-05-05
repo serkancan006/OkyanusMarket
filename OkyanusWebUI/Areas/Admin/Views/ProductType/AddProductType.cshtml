@@ -13,7 +13,7 @@
         <br />
 
         <label>Minimum miktar ve artış miktarı</label>
-        <input type="number" asp-for="IncreaseAmount" class="form-control" />
+        <input type="number" step="0.1" asp-for="IncreaseAmount" class="form-control" />
         <span class="text-danger" asp-validation-for="IncreaseAmount"></span>
         <br />
 

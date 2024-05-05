@@ -3,14 +3,30 @@ using AspNetCoreHero.ToastNotification.Extensions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using OkyanusWebUI.Service;
 using OkyanusWebUI.Validations;
+using System.Globalization;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
+
+//Localization Culture ayarlarý
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var suppoertedcultures = new[]
+    {
+        new CultureInfo("en-Us"),
+        //new CultureInfo("tr-TR"),
+    };
+    options.DefaultRequestCulture = new RequestCulture("tr-TR");
+    options.SupportedCultures = suppoertedcultures;
+    options.SupportedUICultures = suppoertedcultures;
+});
+
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
@@ -29,6 +45,8 @@ builder.Services.AddScoped<UserAdresService>();
 builder.Services.AddScoped<DeliveryTimeService>();
 builder.Services.AddScoped<CityService>();
 
+
+
 builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddRazorRuntimeCompilation();
 //Razor page mimarisini entegre ediyoruz.
 builder.Services.AddRazorPages();
@@ -37,8 +55,6 @@ builder.Services.AddFluentValidation(configuration =>
 {
     configuration.RegisterValidatorsFromAssemblyContaining<Program>();
     //configuration.RegisterValidatorsFromAssemblyContaining<CartItemValidator>();
-    //configuration.RegisterValidatorsFromAssemblyContaining<CreateContactMessageVMValidator>();
-    //configuration.RegisterValidatorsFromAssemblyContaining<CreateOrderValidator>();
 });
 
 
@@ -65,6 +81,8 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 3; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
 
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -79,6 +97,9 @@ app.UseStatusCodePagesWithReExecute("/ErrorPage/Index", "?code={0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+//Localization and Culture
+app.UseRequestLocalization();
 
 app.UseRouting();
 
