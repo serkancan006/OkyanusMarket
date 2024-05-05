@@ -24,13 +24,6 @@ namespace OkyanusWebAPI.Hubs
             _userManager = userManager;
         }
 
-        //public async Task SendOrder()
-        //{
-        //    var values = _orderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).OrderByDescending(x => x.CreatedDate).Take(new FilteredOrderParamaters().pageSize).ToList();
-        //    var orderList = _mapper.Map<List<ResultOrderVM>>(values);
-        //    await Clients.All.SendAsync("ReceiveOrder", orderList);
-        //}
-
         public async Task GetUserOrder(int id)
         {
             //var username = Context.User?.Identity?.Name;
@@ -45,7 +38,6 @@ namespace OkyanusWebAPI.Hubs
                 await Clients.All.SendAsync("ReceiveUserOrderStatus", result.OrderStatus);
             //}
         }
-
 
     }
 }

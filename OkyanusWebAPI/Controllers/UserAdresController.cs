@@ -30,7 +30,6 @@ namespace OkyanusWebAPI.Controllers
             _districtService = districtService;
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> UserAdresList()
         {
@@ -40,17 +39,10 @@ namespace OkyanusWebAPI.Controllers
             return Ok(result);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddUserAdres(CreateUserAdresVM UserAdresVM)
         {
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
-            //var value = _mapper.Map<UserAdres>(UserAdresVM);
-            //value.UserIlce = _districtService.TGetByID(int.Parse(UserAdresVM.UserIlce)).DistrictName;
-            //value.UserSehir = _cityService.TGetByID(int.Parse(UserAdresVM.UserSehir)).CityName;
-            //value.AppUserID = user.Id;
-            //value.Selected = false;
-            //_UserAdresService.TAdd(value);
             if (user != null)
             {
                 _UserAdresService.TAdd(new UserAdres()
@@ -72,7 +64,6 @@ namespace OkyanusWebAPI.Controllers
      
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserAdres(int id)
         {
@@ -86,7 +77,6 @@ namespace OkyanusWebAPI.Controllers
             return NotFound();
         }
 
-        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateUserAdres(UpdateUserAdresVM UserAdresVM)
         {
@@ -109,7 +99,6 @@ namespace OkyanusWebAPI.Controllers
             return NotFound();
         }
 
-        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserAdres(int id)
         {
@@ -122,8 +111,6 @@ namespace OkyanusWebAPI.Controllers
             }
             return NotFound();
         }
-
-       
 
     }
 }
