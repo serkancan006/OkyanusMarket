@@ -79,20 +79,20 @@ namespace OkyanusWebAPI.Controllers
 
 
         //Admin
-        [Authorize(Roles = "Admin")]
-        [HttpGet("[action]")]
-        public IActionResult GroupListCategorize()
-        {
-            var values = _GroupService.TGetListAll();
-            var result = _mapper.Map<List<ResultGroupVM>>(values);
-            return Ok(new
-            {
-                AnaGrup = result.Where(x => x.ANAGRUP != "0" && x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0"),
-                AltGrup1 = result.Where(x => x.ALTGRUP1 != "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0"),
-                AltGrup2 = result.Where(x => x.ALTGRUP2 != "0" && x.ALTGRUP3 == "0"),
-                AltGrup3 = result.Where(x => x.ALTGRUP3 != "0"),
-            });
-        }
+        //[Authorize(Roles = "Admin")]
+        //[HttpGet("[action]")]
+        //public IActionResult GroupListCategorize()
+        //{
+        //    var values = _GroupService.TGetListAll();
+        //    var result = _mapper.Map<List<ResultGroupVM>>(values);
+        //    return Ok(new
+        //    {
+        //        AnaGrup = result.Where(x => x.ANAGRUP != "0" && x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0"),
+        //        AltGrup1 = result.Where(x => x.ALTGRUP1 != "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0"),
+        //        AltGrup2 = result.Where(x => x.ALTGRUP2 != "0" && x.ALTGRUP3 == "0"),
+        //        AltGrup3 = result.Where(x => x.ALTGRUP3 != "0"),
+        //    });
+        //}
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
