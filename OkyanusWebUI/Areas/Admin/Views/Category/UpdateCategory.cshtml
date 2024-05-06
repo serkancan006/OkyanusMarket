@@ -10,7 +10,12 @@
         <label>Kategori Adı</label>
         <input type="text" asp-for="GRUPADI" class="form-control" />
         <span class="text-danger" asp-validation-for="GRUPADI"></span>
-        @*<br />*@
+        <br />
+
+        <label>Grup Açıklaması isteğe bağlı</label>
+        <input type="text" asp-for="Description" class="form-control" />
+        <span class="text-danger" asp-validation-for="Description"></span>
+        <br />
 
         @*<label>Ana Grup Kodu Giriniz</label>*@
         <input type="hidden" asp-for="ANAGRUP" class="form-control" />

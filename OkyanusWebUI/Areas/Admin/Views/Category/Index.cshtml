@@ -35,6 +35,7 @@
                         <tr>
                             <td>@count</td>
                             <td>@item.GRUPADI</td>
+                            <td>@item?.Description</td>
                             <td><a href="/Admin/Category/UpdateCategory/@item.GRUPADI" class="btn btn-warning">Detaylar</a></td>
                             <td><a href="/Admin/Category/DeleteCategory/@item.GRUPADI" class="btn btn-danger"  onclick="return confirm('Dikkat Silmek istediğinize emin misiniz? Kategori silindiğinde ürünlere ait kategorileride silinir!!!');">Sil</a></td>
                         </tr>
