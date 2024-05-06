@@ -25,9 +25,13 @@ namespace OkyanusWebAPI.Controllers
         public IActionResult Get4AnaGroupRandomList()
         {
             var values = _GroupService.TGetListAll()
-                .Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true )
+                .Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" 
+                //&& x.Status == true
+                )
                 .OrderBy(x => new Random().Next())
-                .Select(x => new { x.ID, x.GRUPADI, x.Description })
+                .Select(x => new { 
+                    //x.ID,
+                    x.GRUPADI, x.Description })
                 .Take(4)
                 .ToList();
             return Ok(values);
@@ -36,12 +40,30 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet("[Action]")] //product sidebar
         public IActionResult MultiGroupList(string? categoryName)
         {
-            var values = _GroupService.TGetListAll().Where(x => x.GRUPADI == categoryName && x.Status == true).FirstOrDefault();
+            var values = _GroupService.TGetListAll().Where(x => x.GRUPADI == categoryName 
+            //&& x.Status == true
+            ).FirstOrDefault();
             var allGroups = _GroupService.TGetListAll();
-            var anagroup = allGroups.Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ANAGRUP == values?.ANAGRUP }).ToList();
-            var altgrup1 = allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 != "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP1 == values?.ALTGRUP1 }).ToList();
-            var altgrup2 = values?.ALTGRUP1 != "0" ? allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 != "0" && x.ALTGRUP3 == "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP2 == values?.ALTGRUP2 }).ToList() : null;
-            var altgrup3 = values?.ALTGRUP2 != "0" ? allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 == values?.ALTGRUP2 && x.ALTGRUP3 != "0" && x.Status == true).Select(x => new { x.GRUPADI, x.ID, selected = x.ALTGRUP3 == values?.ALTGRUP3 }).ToList() : null;
+            var anagroup = allGroups.Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" 
+            //&& x.Status == true
+            ).Select(x => new { x.GRUPADI,
+                //x.ID, 
+                selected = x.ANAGRUP == values?.ANAGRUP }).ToList();
+            var altgrup1 = allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 != "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" 
+            //&& x.Status == true
+            ).Select(x => new { x.GRUPADI,
+                //x.ID, 
+                selected = x.ALTGRUP1 == values?.ALTGRUP1 }).ToList();
+            var altgrup2 = values?.ALTGRUP1 != "0" ? allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 != "0" && x.ALTGRUP3 == "0" 
+            //&& x.Status == true
+            ).Select(x => new { x.GRUPADI,
+                //x.ID, 
+                selected = x.ALTGRUP2 == values?.ALTGRUP2 }).ToList() : null;
+            var altgrup3 = values?.ALTGRUP2 != "0" ? allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 == values?.ALTGRUP2 && x.ALTGRUP3 != "0" 
+            //&& x.Status == true
+            ).Select(x => new { x.GRUPADI,
+                //x.ID,
+                selected = x.ALTGRUP3 == values?.ALTGRUP3 }).ToList() : null;
 
             var result = new
             {
@@ -91,10 +113,10 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete("{id}")]
-        public IActionResult DeleteGroup(int id)
+        [HttpDelete("{grupAdı}")]
+        public IActionResult DeleteGroup(string grupAdı)
         {
-            var values = _GroupService.TGetByID(id);
+            var values = _GroupService.TAsQueryable().Where(x => x.GRUPADI == grupAdı).SingleOrDefault();
             _GroupService.TDelete(values);
             return Ok("Group Silindi");
         }
@@ -108,10 +130,10 @@ namespace OkyanusWebAPI.Controllers
             return Ok("Group Güncellendi");
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetGroup(int id)
+        [HttpGet("{grupAdı}")]
+        public IActionResult GetGroup(string grupAdı)
         {
-            var values = _GroupService.TGetByID(id);
+            var values = _GroupService.TAsQueryable().Where(x => x.GRUPADI == grupAdı).SingleOrDefault();
             var result = _mapper.Map<ResultGroupVM>(values);
             return Ok(result);
         }

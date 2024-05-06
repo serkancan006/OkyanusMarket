@@ -51,6 +51,33 @@ namespace OkyanusWebUI.Service
             }
         }
 
+        public async Task<HttpResponseMessage> Get(RequestParameters requestParameters, string id)
+        {
+            string url;
+            if (requestParameters.FullEndPoint != null)
+            {
+                url = requestParameters.FullEndPoint;
+            }
+            else
+            {
+                url = $"{Url(requestParameters)}{(id != null ? $"/{id}" : "")}{(requestParameters.QueryString != null ? $"?{requestParameters.QueryString}" : "")}";
+            }
+
+            var token = _tokenService.GetToken();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            try
+            {
+                var responseMessage = await _httpClient.GetAsync(url);
+                return responseMessage;
+            }
+            catch (Exception ex)
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                {
+                    Content = new StringContent($"Get işlemi sırasında bir hata oluştu: {ex.Message}")
+                };
+            }
+        }
         //queryString: `imageId=${imageId}`
         public async Task<HttpResponseMessage> Post<T>(RequestParameters requestParameters, T content, int? id = null)
         {
@@ -249,6 +276,16 @@ namespace OkyanusWebUI.Service
         }
 
         public async Task<HttpResponseMessage> Delete(RequestParameters requestParameters, int id)
+        {
+            var url = requestParameters.FullEndPoint ?? $"{Url(requestParameters)}/{id}";
+            var token = _tokenService.GetToken();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var responseMessage = await _httpClient.DeleteAsync(url);
+            return responseMessage;
+            //response.EnsureSuccessStatusCode();
+        }
+
+        public async Task<HttpResponseMessage> Delete(RequestParameters requestParameters, string id)
         {
             var url = requestParameters.FullEndPoint ?? $"{Url(requestParameters)}/{id}";
             var token = _tokenService.GetToken();

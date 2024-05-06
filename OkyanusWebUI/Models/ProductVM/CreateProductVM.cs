@@ -11,7 +11,7 @@
         public string AnaBarcode { get; set; }
 
 
-        public int GroupID { get; set; }
+        public string GrupAdı { get; set; }
         //public string ANAGRUP { get; set; }
         //public string? ALTGRUP1 { get; set; } = "0";
         //public string? ALTGRUP2 { get; set; } = "0";

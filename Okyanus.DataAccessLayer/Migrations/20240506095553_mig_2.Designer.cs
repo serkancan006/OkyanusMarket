@@ -12,8 +12,8 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace Okyanus.DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240503093807_mig_11")]
-    partial class mig_11
+    [Migration("20240506095553_mig_2")]
+    partial class mig_2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -353,30 +353,17 @@ namespace Okyanus.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.Group", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+                    b.Property<string>("ANAGRUP")
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("ALTGRUP1")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("ALTGRUP2")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("ALTGRUP3")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
-
-                    b.Property<string>("ANAGRUP")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(450)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("Description")
                         .HasColumnType("NVARCHAR2(2000)");
@@ -385,15 +372,12 @@ namespace Okyanus.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("NUMBER(1)");
+                    b.HasKey("ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3");
 
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("TIMESTAMP(7)");
+                    b.HasIndex("GRUPADI")
+                        .IsUnique();
 
-                    b.HasKey("ID");
-
-                    b.HasIndex("ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3", "GRUPADI")
+                    b.HasIndex("ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3")
                         .IsUnique();
 
                     b.ToTable("Groups");
@@ -780,15 +764,15 @@ namespace Okyanus.DataAccessLayer.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
+                    b.Property<string>("Birim")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<double>("IncreaseAmount")
                         .HasColumnType("BINARY_DOUBLE");
-
-                    b.Property<string>("ProductTypeName")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("NUMBER(1)");
@@ -857,6 +841,66 @@ namespace Okyanus.DataAccessLayer.Migrations
                     b.ToTable("SocialMedias");
                 });
 
+            modelBuilder.Entity("Okyanus.EntityLayer.Entities.Sss", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<string>("SssContent")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("SssTitle")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Ssses");
+                });
+
+            modelBuilder.Entity("Okyanus.EntityLayer.Entities.TermsAndCondition", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("TermsAndConditions");
+                });
+
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.UserAdres", b =>
                 {
                     b.Property<int>("ID")
@@ -870,9 +914,6 @@ namespace Okyanus.DataAccessLayer.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TIMESTAMP(7)");
-
-                    b.Property<bool>("Selected")
-                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("NUMBER(1)");

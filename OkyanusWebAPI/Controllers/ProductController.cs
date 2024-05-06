@@ -141,7 +141,7 @@ namespace OkyanusWebAPI.Controllers
 
             var productCategoriesList = _categoryService.TGetListAll().Select(c => new AssignCategoryForProduct
             {
-                CategoryID = c.ID,
+                //CategoryID = c.ID,
                 CategoryName = c.GRUPADI,
                 IsSelected = (c.ANAGRUP == product.ANAGRUP && c.ALTGRUP1 == product.ALTGRUP1 && c.ALTGRUP2 == product.ALTGRUP2 && c.ALTGRUP3 == product.ALTGRUP3)
             }).ToList();
@@ -166,7 +166,7 @@ namespace OkyanusWebAPI.Controllers
                     return NotFound("Ürün bulunamadı.");
                 }
 
-                var group = _categoryService.TGetByID(request.CategoryID);
+                var group = _categoryService.TAsQueryable().Where(x => x.GRUPADI == request.GRUPADI).SingleOrDefault();
 
                 product.ANAGRUP = group.ANAGRUP;
                 product.ALTGRUP1 = group.ALTGRUP1;
@@ -201,14 +201,18 @@ namespace OkyanusWebAPI.Controllers
         [HttpPost]
         public IActionResult AddProduct(CreateProductVM ProductVM)
         {
-            var category = _categoryService.TGetByID(ProductVM.GroupID);
-            var value = _mapper.Map<Product>(ProductVM);
-            value.ANAGRUP = category.ANAGRUP;
-            value.ALTGRUP1 = category.ALTGRUP1;
-            value.ALTGRUP2 = category.ALTGRUP2;
-            value.ALTGRUP3 = category.ALTGRUP3;
-            _ProductService.TAdd(value);
-            return Ok("Product Eklendi");
+            var category = _categoryService.TAsQueryable().Where(x => x.GRUPADI == ProductVM.GrupAdı).SingleOrDefault();
+            if (category != null)
+            {
+                var value = _mapper.Map<Product>(ProductVM);
+                value.ANAGRUP = category.ANAGRUP;
+                value.ALTGRUP1 = category.ALTGRUP1;
+                value.ALTGRUP2 = category.ALTGRUP2;
+                value.ALTGRUP3 = category.ALTGRUP3;
+                _ProductService.TAdd(value);
+                return Ok("Product Eklendi");
+            }
+            return NotFound("Grup Bulunamadığı için Product Eklenemedi");
         }
 
         [Authorize(Roles = "Admin")]

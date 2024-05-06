@@ -26,11 +26,11 @@ namespace Okyanus.DataAccessLayer.Concrete
                     if (!context.Roles.Any())
                         context.Roles.AddRange(AppRoles);
 
-                    if (!context.Users.Any())
-                        context.Users.AddRange(AppUsers(mailOptions));
+                    //if (!context.Users.Any())
+                    //    context.Users.AddRange(AppUsers(mailOptions));
 
-                    if (!context.UserRoles.Any())
-                        context.UserRoles.AddRange(UserRoles);
+                    //if (!context.UserRoles.Any())
+                    //    context.UserRoles.AddRange(UserRoles);
 
                     if (!context.Groups.Any())
                         context.Groups.AddRange(Groups);
@@ -100,125 +100,125 @@ namespace Okyanus.DataAccessLayer.Concrete
         {
             new Group()
             {
-                ID = 1,
+                //ID = 1,
                 ANAGRUP = "1",
                 ALTGRUP1 = "0",
                 ALTGRUP2 = "0",
                 ALTGRUP3 = "0",
                 GRUPADI = "Yiyecekler",
                 Description = "en lezzetli yiyecekler burada",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
-                Status = true
+                //CreatedDate = DateTime.Now,
+                //UpdatedDate = DateTime.Now,
+                //Status = true
             },
             new Group()
             {
-                ID = 2,
+                //ID = 2,
                 ANAGRUP = "2",
                 ALTGRUP1 = "0",
                 ALTGRUP2 = "0",
                 ALTGRUP3 = "0",
                 GRUPADI = "Kozmetik",
                 Description = "kaliteli kozmetik ürünleri bulabilirsiniz",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
-                Status = true
+                //CreatedDate = DateTime.Now,
+                //UpdatedDate = DateTime.Now,
+                //Status = true
             },
             new Group()
             {
-                ID = 3,
+                //ID = 3,
                 ANAGRUP = "1",
                 ALTGRUP1 = "1",
                 ALTGRUP2 = "0",
                 ALTGRUP3 = "0",
                 GRUPADI = "Manav",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
-                Status = true
+                //CreatedDate = DateTime.Now,
+                //UpdatedDate = DateTime.Now,
+                //Status = true
             },
             new Group()
             {
-                ID = 4,
+                //ID = 4,
                 ANAGRUP = "1",
                 ALTGRUP1 = "2",
                 ALTGRUP2 = "0",
                 ALTGRUP3 = "0",
                 GRUPADI = "İçecekler",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
-                Status = true
+                //CreatedDate = DateTime.Now,
+                //UpdatedDate = DateTime.Now,
+                //Status = true
             },
             new Group()
             {
-                ID = 5,
+                //ID = 5,
                 ANAGRUP = "1",
                 ALTGRUP1 = "1",
                 ALTGRUP2 = "1",
                 ALTGRUP3 = "0",
                 GRUPADI = "Meyveler",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
-                Status = true
+                //CreatedDate = DateTime.Now,
+                //UpdatedDate = DateTime.Now,
+                //Status = true
             },
             new Group()
             {
-                ID = 6,
+                //ID = 6,
                 ANAGRUP = "1",
                 ALTGRUP1 = "1",
                 ALTGRUP2 = "2",
                 ALTGRUP3 = "0",
                 GRUPADI = "Sebzeler",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
-                Status = true
+                //CreatedDate = DateTime.Now,
+                //UpdatedDate = DateTime.Now,
+                //Status = true
             },
             new Group()
             {
-                ID = 7,
+                //ID = 7,
                 ANAGRUP = "1",
                 ALTGRUP1 = "1",
                 ALTGRUP2 = "1",
                 ALTGRUP3 = "1",
                 GRUPADI = "Meyve Kg",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
-                Status = true
+                //CreatedDate = DateTime.Now,
+                //UpdatedDate = DateTime.Now,
+                //Status = true
             },
             new Group()
             {
-                ID = 8,
+                //ID = 8,
                 ANAGRUP = "1",
                 ALTGRUP1 = "1",
                 ALTGRUP2 = "1",
                 ALTGRUP3 = "2",
                 GRUPADI = "Meyve Adet",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
-                Status = true
+                //CreatedDate = DateTime.Now,
+                //UpdatedDate = DateTime.Now,
+                //Status = true
             },
             new Group()
             {
-                ID = 9,
+                //ID = 9,
                 ANAGRUP = "1",
                 ALTGRUP1 = "1",
                 ALTGRUP2 = "2",
                 ALTGRUP3 = "1",
                 GRUPADI = "Sebze Kg",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
-                Status = true
+                //CreatedDate = DateTime.Now,
+                //UpdatedDate = DateTime.Now,
+                //Status = true
             },
             new Group()
             {
-                ID = 10,
+                //ID = 10,
                 ANAGRUP = "1",
                 ALTGRUP1 = "1",
                 ALTGRUP2 = "2",
                 ALTGRUP3 = "2",
                 GRUPADI = "Sebze Adet",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
-                Status = true
+                //CreatedDate = DateTime.Now,
+                //UpdatedDate = DateTime.Now,
+                //Status = true
             }
         };
 

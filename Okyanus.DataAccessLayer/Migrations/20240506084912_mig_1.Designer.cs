@@ -12,8 +12,8 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace Okyanus.DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240503141700_mig_13")]
-    partial class mig_13
+    [Migration("20240506084912_mig_1")]
+    partial class mig_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -393,7 +393,10 @@ namespace Okyanus.DataAccessLayer.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3", "GRUPADI")
+                    b.HasIndex("GRUPADI")
+                        .IsUnique();
+
+                    b.HasIndex("ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3")
                         .IsUnique();
 
                     b.ToTable("Groups");
@@ -855,6 +858,66 @@ namespace Okyanus.DataAccessLayer.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("SocialMedias");
+                });
+
+            modelBuilder.Entity("Okyanus.EntityLayer.Entities.Sss", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<string>("SssContent")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("SssTitle")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Ssses");
+                });
+
+            modelBuilder.Entity("Okyanus.EntityLayer.Entities.TermsAndCondition", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("TermsAndConditions");
                 });
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.UserAdres", b =>

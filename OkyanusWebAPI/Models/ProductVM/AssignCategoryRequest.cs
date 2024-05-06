@@ -4,6 +4,6 @@
     {
         public int ProductID { get; set; }
         //public List<int> CategoryIDs { get; set; }
-        public int CategoryID { get; set; }
+        public string GRUPADI { get; set; }
     }
 }

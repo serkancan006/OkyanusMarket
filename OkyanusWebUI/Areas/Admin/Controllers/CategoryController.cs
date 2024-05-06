@@ -50,7 +50,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DeleteCategory(int id)
+        public async Task<IActionResult> DeleteCategory(string id)
         {
             var responseMessage = await _customHttpClient.Delete(new() { Controller = "Group" }, id);
             if (responseMessage.IsSuccessStatusCode)
@@ -61,7 +61,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateCategory(int id)
+        public async Task<IActionResult> UpdateCategory(string id)
         {
             var responseMessage = await _customHttpClient.Get(new() { Controller = "Group" }, id);
             if (responseMessage.IsSuccessStatusCode)

@@ -18,7 +18,7 @@
                 {
                     <div class="col-sm-3 mt-1 col-6">
                         @*<input type="checkbox" asp-for="@Model.ProductCategories[i].IsSelected" />*@
-                        <input type="radio" asp-for="@Model.SecilenCategoryID" value="@Model.ProductCategories[i].CategoryID" checked="@(Model.ProductCategories[i].IsSelected == true)" />
+                        <input type="radio" asp-for="@Model.SecilenCategoryAdı" value="@Model.ProductCategories[i].CategoryName" checked="@(Model.ProductCategories[i].IsSelected == true)" />
                         @*<input type="hidden" asp-for="@Model.ProductCategories[i].CategoryID" />*@
                         <input type="hidden" asp-for="@Model.ProductCategories[i].CategoryName" />
                         <label>@Model.ProductCategories[i].CategoryName</label>

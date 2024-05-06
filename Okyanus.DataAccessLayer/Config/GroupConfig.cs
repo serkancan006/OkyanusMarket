@@ -14,7 +14,9 @@ namespace Okyanus.DataAccessLayer.Config
     {
         public void Configure(EntityTypeBuilder<Group> builder)
         {
-            builder.HasIndex(e => new { e.ANAGRUP, e.ALTGRUP1, e.ALTGRUP2, e.ALTGRUP3, e.GRUPADI }).IsUnique();
+            builder.HasKey(e => new { e.ANAGRUP, e.ALTGRUP1, e.ALTGRUP2, e.ALTGRUP3 });
+            builder.HasIndex(e => new { e.ANAGRUP, e.ALTGRUP1, e.ALTGRUP2, e.ALTGRUP3 }).IsUnique();
+            builder.HasIndex(e => e.GRUPADI).IsUnique();
         }
     }
 }

@@ -351,30 +351,17 @@ namespace Okyanus.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.Group", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+                    b.Property<string>("ANAGRUP")
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("ALTGRUP1")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("ALTGRUP2")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("ALTGRUP3")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
-
-                    b.Property<string>("ANAGRUP")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(450)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("Description")
                         .HasColumnType("NVARCHAR2(2000)");
@@ -383,15 +370,12 @@ namespace Okyanus.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("NUMBER(1)");
+                    b.HasKey("ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3");
 
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("TIMESTAMP(7)");
+                    b.HasIndex("GRUPADI")
+                        .IsUnique();
 
-                    b.HasKey("ID");
-
-                    b.HasIndex("ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3", "GRUPADI")
+                    b.HasIndex("ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3")
                         .IsUnique();
 
                     b.ToTable("Groups");
@@ -711,21 +695,24 @@ namespace Okyanus.DataAccessLayer.Migrations
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("ALTGRUP1")
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("ALTGRUP2")
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("ALTGRUP3")
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("ANAGRUP")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("AnaBarcode")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TIMESTAMP(7)");
@@ -763,9 +750,14 @@ namespace Okyanus.DataAccessLayer.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("AnaBarcode")
+                        .IsUnique();
+
                     b.HasIndex("MarkaID");
 
                     b.HasIndex("ProductTypeID");
+
+                    b.HasIndex("ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3");
 
                     b.ToTable("Products");
                 });
@@ -1070,6 +1062,14 @@ namespace Okyanus.DataAccessLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Okyanus.EntityLayer.Entities.Group", "Group")
+                        .WithMany("Products")
+                        .HasForeignKey("ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
                     b.Navigation("Marka");
 
                     b.Navigation("ProductType");
@@ -1089,6 +1089,11 @@ namespace Okyanus.DataAccessLayer.Migrations
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.City", b =>
                 {
                     b.Navigation("Districts");
+                });
+
+            modelBuilder.Entity("Okyanus.EntityLayer.Entities.Group", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.identitiy.AppUser", b =>

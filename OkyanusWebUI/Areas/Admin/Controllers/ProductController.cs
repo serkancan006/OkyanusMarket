@@ -124,7 +124,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             {
                 ProductID = request.ProductID,
                 //CategoryID = request.ProductCategories.Where(x => x.IsSelected == true).Select(x => x.CategoryID).FirstOrDefault(),
-                CategoryID = request.SecilenCategoryID
+                GRUPADI = request.SecilenCategoryAdı
             };
             var responseMessage = await _customHttpClient.Post<AssignCategoryRequest>(new() { Controller = "Product", Action = "AssignCategoryForProduct" }, assignCategoryRequestApi);
             if (responseMessage.IsSuccessStatusCode)
