@@ -21,15 +21,19 @@ namespace OkyanusWebUI.Service
             var values = JsonConvert.DeserializeObject<List<ResultCityVM>>(jsonData);
 
             List<SelectListItem> selectListItems = new List<SelectListItem>();
-            foreach (var value in values)
+            if (values != null || values?.Count > 0)
             {
-                SelectListItem item = new SelectListItem
+                foreach (var value in values)
                 {
-                    Value = value.ID.ToString(),
-                    Text = value.CityName,
-                };
-                selectListItems.Add(item);
+                    SelectListItem item = new SelectListItem
+                    {
+                        Value = value.ID.ToString(),
+                        Text = value.CityName,
+                    };
+                    selectListItems.Add(item);
+                }
             }
+            
             return selectListItems;
         }
 
@@ -41,14 +45,17 @@ namespace OkyanusWebUI.Service
             var values = JsonConvert.DeserializeObject<List<ResultDistrictVM>>(jsonData);
 
             List<SelectListItem> selectListItems = new List<SelectListItem>();
-            foreach (var value in values)
+            if (values != null || values?.Count > 0)
             {
-                SelectListItem item = new SelectListItem
+                foreach (var value in values)
                 {
-                    Value = value.ID.ToString(),
-                    Text = value.DistrictName,
-                };
-                selectListItems.Add(item);
+                    SelectListItem item = new SelectListItem
+                    {
+                        Value = value.ID.ToString(),
+                        Text = value.DistrictName,
+                    };
+                    selectListItems.Add(item);
+                }
             }
             return selectListItems;
         }

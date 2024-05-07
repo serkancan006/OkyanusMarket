@@ -1,0 +1,79 @@
+﻿@model List<OkyanusWebAPI.Models.CategorizeProductVM.CategorizeProductVM>
+
+@if (Model != null || Model.Count > 0)
+{
+    @foreach (var item in Model)
+    {
+        <div class="content-top ">
+            <div class="container ">
+                <div class="spec ">
+                    <h3><a href="/Product/Index?categoryName=@item.KategoriAdı">@item.KategoriAdı</a> </h3>
+                    <div class="ser-t">
+                        <b></b>
+                        <span><i></i></span>
+                        <b class="line"></b>
+                    </div>
+                </div>
+                <div class="tab-head ">
+                    <nav class="nav-sidebar">
+                         <ul class="nav tabs ">
+                        @foreach (var altkategoriler in item.AltKategoriler)
+                        {
+                            <li class="@(altkategoriler == item.AltKategoriler[0] ? "active" : "")" style="background-color: white"><a href="#@altkategoriler.AltKategoriAdı.Replace(" ","_")" data-toggle="tab">@altkategoriler.AltKategoriAdı</a></li>
+                        }
+                        </ul>
+                    </nav>
+
+                    <div class=" tab-content tab-content-t ">
+
+                        @foreach (var altkategoriler in item.AltKategoriler)
+                        {
+                            <div class="tab-pane text-style @(altkategoriler == item.AltKategoriler[0] ? "active" : "")" id="@altkategoriler.AltKategoriAdı.Replace(" ","_")">
+                                <div class=" con-w3l">
+                                    @foreach (var urun in altkategoriler.Ürünler)
+                                    {
+                                        <div class="col-md-3 m-wthree">
+                                            <div class="col-m">
+                                                <a style="cursor:pointer" onclick="openProductDetailModal(@urun.ID)" data-toggle="modal" data-target="#productDetailModal" class="offer-img">
+                                                    <img src="@(!string.IsNullOrEmpty(urun.ImageUrl) ? urun.ImageUrl : "/web/images/resimhazirlaniyor.png")" class="img-responsive" style="height: 123.75px; object-fit: contain;">
+                                                    @if (urun.DiscountedPrice != null)
+                                                    {
+                                                        <div class="offer">
+                                                            <p><span>İndirimde</span></p>
+                                                        </div>
+                                                    }
+                                                </a>
+                                                <div class="mid-1">
+                                                    <div class="women">
+                                                        <h6>@(urun.ProductName.Length > 20 ? urun.ProductName.Substring(0, 13) : urun.ProductName)</h6>
+                                                    </div>
+                                                    <div class="mid-2">
+                                                        @if (urun.DiscountedPrice != null)
+                                                        {
+                                                            <p><label>₺@urun.Price</label><em class="item_price">₺@urun.DiscountedPrice</em></p>
+                                                        }
+                                                        else
+                                                        {
+                                                            <p><em class="item_price">₺@urun.Price</em></p>
+                                                        }
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="add add-2">
+                                                        <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket(@urun.ID)">Sepete Ekle</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    }
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

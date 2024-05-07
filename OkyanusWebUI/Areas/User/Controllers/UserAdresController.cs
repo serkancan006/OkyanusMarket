@@ -40,8 +40,11 @@ namespace OkyanusWebUI.Areas.User.Controllers
         public async Task<IActionResult> AddUserAdres()
         {
             var city = await _cityService.GetCityList();
-            ViewBag.UserSehirItems = city;
-            ViewBag.UserIlceItems = await _cityService.GetDistrictListByCity(int.Parse(city[0].Value));
+            if (city.Count > 0)
+            {
+                ViewBag.UserSehirItems = city;
+                ViewBag.UserIlceItems = await _cityService.GetDistrictListByCity(int.Parse(city[0].Value));
+            }
             return View();
         }
 
@@ -55,8 +58,11 @@ namespace OkyanusWebUI.Areas.User.Controllers
         public async Task<IActionResult> AddUserAdres(CreateUserAdresVM model)
         {
             var city = await _cityService.GetCityList();
-            ViewBag.UserSehirItems = city;
-            ViewBag.UserIlceItems = await _cityService.GetDistrictListByCity(int.Parse(city[0].Value));
+            if (city.Count > 0)
+            {
+                ViewBag.UserSehirItems = city;
+                ViewBag.UserIlceItems = await _cityService.GetDistrictListByCity(int.Parse(city[0].Value));
+            }
             var responseMessage = await _customHttpClient.Post<CreateUserAdresVM>(new() { Controller = "UserAdres" }, model);
             if (responseMessage.IsSuccessStatusCode)
             {

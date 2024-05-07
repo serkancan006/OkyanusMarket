@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models;
+using OkyanusWebAPI.Models.CategorizeProductVM;
 using OkyanusWebAPI.Models.ProductVM;
+using System.Collections.Generic;
 
 namespace OkyanusWebAPI.Controllers
 {
@@ -100,6 +103,43 @@ namespace OkyanusWebAPI.Controllers
             var values = _ProductService.TWhere(x => x.Status == true && x.Stock > 0 && x.DiscountedPrice != null).ToList();
             var result = _mapper.Map<List<ResultProductVM>>(values);
             return Ok(result);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> HomeCategorizeProductList()
+        {
+            var list = new List<CategorizeProductVM>();
+            var anaGrupList = _categoryService.TWhere(x => x.ANAGRUP != "0" && x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0").ToList();
+            foreach (var anagrup in anaGrupList)
+            {
+                var altKategoriler = _categoryService.TWhere(x => x.ANAGRUP == anagrup.ANAGRUP && x.ALTGRUP1 != "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0").Take(4).ToList();
+                var a = new List<CategorizeProductVM.Altkategoriler>();
+                foreach (var altkategori in altKategoriler)
+                {
+                    var urunler = _categoryService.TAsQueryable().Include(x => x.Products).Where(x => x.ANAGRUP == anagrup.ANAGRUP && x.ALTGRUP1 == altkategori.ALTGRUP1 && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0").Select(x => x.Products).FirstOrDefault();
+                    var n = new List<ResultProductVM>();
+                    a.Add(new()
+                    {
+                        AltKategoriAdı = altkategori.GRUPADI,
+                        Ürünler = n,
+                    });
+                    if (urunler != null)
+                    {
+                        foreach (var urun in urunler)
+                        {
+                            var value = _mapper.Map<ResultProductVM>(urun);
+                            n.Add(value);
+                        }
+                    }
+                   
+                }
+                list.Add(new CategorizeProductVM()
+                {
+                    KategoriAdı = anagrup.GRUPADI,
+                    AltKategoriler = a
+                });
+            }
+            return Ok(list);
         }
 
         [Authorize(Roles = "Admin")]

@@ -4,12 +4,13 @@
             <h3>
                 Okyanus Süpermarket, Her Damak Zevkine Uygun Binlerce Ürün ve Özel İndirimlerle Sizleri Karşılamaya Hazır!
             </h3>
-            @*<div class="search-form">
-                    <form action="#" method="post">
-                        <input type="text" placeholder="Search..." name="Search...">
-                        <input type="submit" value=" ">
-                    </form>
-                </div>*@
+            <div class="search-form">
+                <form asp-controller="Product" asp-action="Index" method="get">
+                    <input type="text" placeholder="Ürün ara..." name="SearchName" id="productSearchName">
+                    <input type="submit" value=" ">
+                </form>
+             
+            </div>
         </div>
     </div>
 </div>

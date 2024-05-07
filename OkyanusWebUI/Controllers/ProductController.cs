@@ -50,7 +50,7 @@ namespace OkyanusWebUI.Controllers
             public string? MarkaAdi { get; set; }
             public string? CategoryName { get; set; }
             public int? PageNumber { get; set; } = 1;
-            public int? PageSize { get; set; } = 20;
+            public int? PageSize { get; set; } = 40;
             public string? sortField { get; set; } // Sıralama alanı
         }
 
