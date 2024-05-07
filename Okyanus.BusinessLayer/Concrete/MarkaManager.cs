@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _MarkaDal = MarkaDal;
         }
 
-        public void TAdd(Marka entity)
+        public async Task TAddAsync(Marka entity)
         {
-            _MarkaDal.Add(entity);
+            await _MarkaDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<Marka> entities)
+        public async Task TAddRangeAsync(IEnumerable<Marka> entities)
         {
-            _MarkaDal.AddRange(entities);
+            await _MarkaDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<Marka, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<Marka, bool>> filter = null)
         {
-            return _MarkaDal.Any(filter, tracking);
+            return await _MarkaDal.AnyAsync(filter);
         }
 
-        public IQueryable<Marka> TAsQueryable(bool tracking = true)
+        public IQueryable<Marka> TAsQueryable()
         {
-            return _MarkaDal.AsQueryable(tracking);
+            return _MarkaDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<Marka, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<Marka, bool>> filter = null)
         {
-            return _MarkaDal.Count();
+            return await _MarkaDal.CountAsync();
         }
 
-        public void TDelete(Marka entity)
+        public async Task TDeleteAsync(Marka entity)
         {
-            _MarkaDal.Delete(entity);
+            await _MarkaDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<Marka> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<Marka> entities)
         {
-            _MarkaDal.DeleteRange(entities);
+            await _MarkaDal.DeleteRangeAsync(entities);
         }
 
-        public Marka TGetByID(int id)
+        public async Task<Marka> TGetByIDAsync(int id)
         {
-            return _MarkaDal.GetByID(id);
+            return await _MarkaDal.GetByIDAsync(id);
         }
 
-        public Marka TGetFirstOrDefault(Expression<Func<Marka, bool>> filter, bool tracking = true)
+        public async Task<Marka> TGetFirstOrDefaultAsync(Expression<Func<Marka, bool>> filter)
         {
-            return _MarkaDal.GetFirstOrDefault(filter, tracking);
+            return await _MarkaDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<Marka> TGetListAll(bool tracking = true)
+        public async Task<List<Marka>> TGetListAllAsync()
         {
-            return _MarkaDal.GetListAll();
+            return await _MarkaDal.GetListAllAsync();
         }
 
-        public IQueryable<Marka> TInclude(Expression<Func<Marka, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<Marka> TInclude(Expression<Func<Marka, object>> navigationPropertyPath)
         {
-            return _MarkaDal.Include(navigationPropertyPath, tracking);
+            return _MarkaDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<Marka> TOrderBy(Expression<Func<Marka, object>> keySelector, bool tracking = true)
+        public IQueryable<Marka> TOrderBy(Expression<Func<Marka, object>> keySelector)
         {
-            return _MarkaDal.OrderBy(keySelector, tracking);
+            return _MarkaDal.OrderBy(keySelector);
         }
 
-        public IQueryable<Marka> TOrderByDescending(Expression<Func<Marka, object>> keySelector, bool tracking = true)
+        public IQueryable<Marka> TOrderByDescending(Expression<Func<Marka, object>> keySelector)
         {
-            return _MarkaDal.OrderByDescending(keySelector, tracking);
+            return _MarkaDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(Marka entity)
+        public async Task TUpdateAsync(Marka entity)
         {
-            _MarkaDal.Update(entity);
+            await _MarkaDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<Marka> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<Marka> entities)
         {
-            _MarkaDal.UpdateRange(entities);
+            await _MarkaDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<Marka> TWhere(Expression<Func<Marka, bool>> filter, bool tracking = true)
+        public IQueryable<Marka> TWhere(Expression<Func<Marka, bool>> filter)
         {
-            return _MarkaDal.Where(filter, tracking);
+            return _MarkaDal.Where(filter);
         }
     }
 }

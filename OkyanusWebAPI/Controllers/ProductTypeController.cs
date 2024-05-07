@@ -23,41 +23,41 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProductTypeList()
+        public async Task<IActionResult> ProductTypeList()
         {
-            var values = _ProductTypeService.TGetListAll();
+            var values = await _ProductTypeService.TGetListAllAsync();
             var result = _mapper.Map<List<ResultProductTypeVM>>(values);
             return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult AddProductType(CreateProductTypeVM ProductTypeVM)
+        public async Task<IActionResult> AddProductType(CreateProductTypeVM ProductTypeVM)
         {
             var value = _mapper.Map<ProductType>(ProductTypeVM);
-            _ProductTypeService.TAdd(value);
+            await _ProductTypeService.TAddAsync(value);
             return Ok("ProductType Eklendi");
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteProductType(int id)
+        public async Task<IActionResult> DeleteProductType(int id)
         {
-            var values = _ProductTypeService.TGetByID(id);
-            _ProductTypeService.TDelete(values);
+            var values = await _ProductTypeService.TGetByIDAsync(id);
+            await _ProductTypeService.TDeleteAsync(values);
             return Ok("ProductType Silindi");
         }
 
         [HttpPut]
-        public IActionResult UpdateProductType(UpdateProductTypeVM ProductTypeVM)
+        public async Task<IActionResult> UpdateProductType(UpdateProductTypeVM ProductTypeVM)
         {
             var value = _mapper.Map<ProductType>(ProductTypeVM);
-            _ProductTypeService.TUpdate(value);
+            await _ProductTypeService.TUpdateAsync(value);
             return Ok("ProductType Güncellendi");
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetProductType(int id)
+        public async Task<IActionResult> GetProductType(int id)
         {
-            var values = _ProductTypeService.TGetByID(id);
+            var values = await _ProductTypeService.TGetByIDAsync(id);
             var result = _mapper.Map<ResultProductTypeVM>(values);
             return Ok(result);
         }

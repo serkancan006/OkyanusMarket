@@ -19,56 +19,56 @@ namespace Okyanus.DataAccessLayer.Repository
             _context = context;
         }
 
-        public void Add(T entity)
+        public async Task AddAsync(T entity)
         {
-            _context.Set<T>().Add(entity);
-            _context.SaveChanges();
+            await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public async Task AddRangeAsync(IEnumerable<T> entities)
         {
-            _context.Set<T>().AddRange(entities);
-            _context.SaveChanges();
+            await _context.Set<T>().AddRangeAsync(entities);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(T entity)
+        public async Task DeleteAsync(T entity)
         {
             _context.Set<T>().Remove(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteRange(IEnumerable<T> entities)
+        public async Task DeleteRangeAsync(IEnumerable<T> entities)
         {
             _context.Set<T>().RemoveRange(entities);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public async Task UpdateAsync(T entity)
         {
             _context.Update(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdateRange(IEnumerable<T> entities)
+        public async Task UpdateRangeAsync(IEnumerable<T> entities)
         {
             foreach (var entity in entities)
             {
                 _context.Update(entity);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
 
-        public T GetByID(int id)
+        public async Task<T> GetByIDAsync(int id)
         {
-            return _context.Set<T>().Find(id);
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        public List<T> GetListAll(bool tracking = true)
+        public async Task<List<T>> GetListAllAsync(bool tracking = false)
         {
             if (!tracking)
-                return _context.Set<T>().AsNoTracking().ToList();
+                return await _context.Set<T>().AsNoTracking().ToListAsync();
             else
-                return _context.Set<T>().ToList();
+                return await _context.Set<T>().ToListAsync();
         }
 
         public IQueryable<T> AsQueryable(bool tracking = true)
@@ -79,7 +79,7 @@ namespace Okyanus.DataAccessLayer.Repository
                 return _context.Set<T>().AsQueryable();
         }
 
-        public IQueryable<T> Include(Expression<Func<T, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<T> Include(Expression<Func<T, object>> navigationPropertyPath, bool tracking = false)
         {
             if (!tracking)
                 return _context.Set<T>().AsNoTracking().Include(navigationPropertyPath);
@@ -87,31 +87,31 @@ namespace Okyanus.DataAccessLayer.Repository
                 return _context.Set<T>().Include(navigationPropertyPath);
         }
 
-        public T GetFirstOrDefault(Expression<Func<T, bool>> filter, bool tracking = true)
+        public async Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter, bool tracking = false)
         {
             if (!tracking)
-                return _context.Set<T>().AsNoTracking().FirstOrDefault(filter);
+                return await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(filter);
             else
-                return _context.Set<T>().FirstOrDefault(filter);
+                return await _context.Set<T>().FirstOrDefaultAsync(filter);
         }
 
-        public int Count(Expression<Func<T, bool>> filter = null, bool tracking = true)
+        public async Task<int> CountAsync(Expression<Func<T, bool>> filter = null, bool tracking = false)
         {
             if (!tracking)
-                return filter != null ? _context.Set<T>().AsNoTracking().Count(filter) : _context.Set<T>().AsNoTracking().Count();
+                return filter != null ? await _context.Set<T>().AsNoTracking().CountAsync(filter) : await _context.Set<T>().AsNoTracking().CountAsync();
             else
-                return filter != null ? _context.Set<T>().Count(filter) : _context.Set<T>().Count();
+                return filter != null ? await _context.Set<T>().CountAsync(filter) : await _context.Set<T>().CountAsync();
         }
 
-        public bool Any(Expression<Func<T, bool>> filter = null, bool tracking = true)
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> filter = null, bool tracking = false)
         {
             if (!tracking)
-                return filter != null ? _context.Set<T>().AsNoTracking().Any(filter) : _context.Set<T>().AsNoTracking().Any();
+                return filter != null ? await _context.Set<T>().AsNoTracking().AnyAsync(filter) : await _context.Set<T>().AsNoTracking().AnyAsync();
             else
-                return filter != null ? _context.Set<T>().Any(filter) : _context.Set<T>().Any();
+                return filter != null ? await _context.Set<T>().AnyAsync(filter) : await _context.Set<T>().AnyAsync();
         }
 
-        public IQueryable<T> OrderBy(Expression<Func<T, object>> keySelector, bool tracking = true)
+        public IQueryable<T> OrderBy(Expression<Func<T, object>> keySelector, bool tracking = false)
         {
             if (!tracking)
                 return _context.Set<T>().AsNoTracking().OrderBy(keySelector);
@@ -119,7 +119,7 @@ namespace Okyanus.DataAccessLayer.Repository
                 return _context.Set<T>().OrderBy(keySelector);
         }
 
-        public IQueryable<T> OrderByDescending(Expression<Func<T, object>> keySelector, bool tracking = true)
+        public IQueryable<T> OrderByDescending(Expression<Func<T, object>> keySelector, bool tracking = false)
         {
             if (!tracking)
                 return _context.Set<T>().AsNoTracking().OrderByDescending(keySelector);
@@ -127,7 +127,7 @@ namespace Okyanus.DataAccessLayer.Repository
                 return _context.Set<T>().OrderByDescending(keySelector);
         }
 
-        public IQueryable<T> Where(Expression<Func<T, bool>> filter, bool tracking = true)
+        public IQueryable<T> Where(Expression<Func<T, bool>> filter, bool tracking = false)
         {
             if (!tracking)
                 return _context.Set<T>().AsNoTracking().Where(filter);

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models.CityVM;
@@ -22,44 +23,44 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult CityList()
+        public async Task<IActionResult> CityList()
         {
-            var values = _CityService.TInclude(x => x.Districts).ToList();
+            var values = await _CityService.TInclude(x => x.Districts).ToListAsync();
             var result = _mapper.Map<List<ResultCityVM>>(values);
             return Ok(result);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddCity(CreateCityVM CityVM)
+        public async Task<IActionResult> AddCity(CreateCityVM CityVM)
         {
             var value = _mapper.Map<City>(CityVM);
-            _CityService.TAdd(value);
+            await _CityService.TAddAsync(value);
             return Ok("City Eklendi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public IActionResult DeleteCity(int id)
+        public async Task<IActionResult> DeleteCity(int id)
         {
-            var values = _CityService.TGetByID(id);
-            _CityService.TDelete(values);
+            var values = await _CityService.TGetByIDAsync(id);
+            await _CityService.TDeleteAsync(values);
             return Ok("City Silindi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
-        public IActionResult UpdateCity(UpdateCityVM CityVM)
+        public async Task<IActionResult> UpdateCity(UpdateCityVM CityVM)
         {
             var value = _mapper.Map<City>(CityVM);
-            _CityService.TUpdate(value);
+            await _CityService.TUpdateAsync(value);
             return Ok("City Güncellendi");
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetCity(int id)
+        public async Task<IActionResult> GetCity(int id)
         {
-            var values = _CityService.TGetByID(id);
+            var values = await _CityService.TGetByIDAsync(id);
             var result = _mapper.Map<ResultCityVM>(values);
             return Ok(result);
         }

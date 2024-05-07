@@ -21,9 +21,9 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult ContactList()
+        public async Task<IActionResult> ContactList()
         {
-            var values = _ContactService.TGetListAll();
+            var values = await _ContactService.TGetListAllAsync();
             var result = _mapper.Map<List<ResultContactVM>>(values);
             return Ok(result);
         }
@@ -45,17 +45,17 @@ namespace OkyanusWebAPI.Controllers
         //}
 
         [HttpPut]
-        public IActionResult UpdateContact(UpdateContactVM ContactVM)
+        public async Task<IActionResult> UpdateContact(UpdateContactVM ContactVM)
         {
             var value = _mapper.Map<Contact>(ContactVM);
-            _ContactService.TUpdate(value);
+            await _ContactService.TUpdateAsync(value);
             return Ok("Contact Güncellendi");
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetContact(int id)
+        public async Task<IActionResult> GetContact(int id)
         {
-            var values = _ContactService.TGetByID(id);
+            var values = await _ContactService.TGetByIDAsync(id);
             var result = _mapper.Map<ResultContactVM>(values);
             return Ok(result);
         }

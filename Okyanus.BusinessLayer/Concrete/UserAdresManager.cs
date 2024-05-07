@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _UserAdresDal = UserAdresDal;
         }
 
-        public void TAdd(UserAdres entity)
+        public async Task TAddAsync(UserAdres entity)
         {
-            _UserAdresDal.Add(entity);
+            await _UserAdresDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<UserAdres> entities)
+        public async Task TAddRangeAsync(IEnumerable<UserAdres> entities)
         {
-            _UserAdresDal.AddRange(entities);
+            await _UserAdresDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<UserAdres, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<UserAdres, bool>> filter = null)
         {
-            return _UserAdresDal.Any(filter, tracking);
+            return await _UserAdresDal.AnyAsync(filter);
         }
 
-        public IQueryable<UserAdres> TAsQueryable(bool tracking = true)
+        public IQueryable<UserAdres> TAsQueryable()
         {
-            return _UserAdresDal.AsQueryable(tracking);
+            return _UserAdresDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<UserAdres, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<UserAdres, bool>> filter = null)
         {
-            return _UserAdresDal.Count();
+            return await _UserAdresDal.CountAsync();
         }
 
-        public void TDelete(UserAdres entity)
+        public async Task TDeleteAsync(UserAdres entity)
         {
-            _UserAdresDal.Delete(entity);
+            await _UserAdresDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<UserAdres> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<UserAdres> entities)
         {
-            _UserAdresDal.DeleteRange(entities);
+            await _UserAdresDal.DeleteRangeAsync(entities);
         }
 
-        public UserAdres TGetByID(int id)
+        public async Task<UserAdres> TGetByIDAsync(int id)
         {
-            return _UserAdresDal.GetByID(id);
+            return await _UserAdresDal.GetByIDAsync(id);
         }
 
-        public UserAdres TGetFirstOrDefault(Expression<Func<UserAdres, bool>> filter, bool tracking = true)
+        public async Task<UserAdres> TGetFirstOrDefaultAsync(Expression<Func<UserAdres, bool>> filter)
         {
-            return _UserAdresDal.GetFirstOrDefault(filter, tracking);
+            return await _UserAdresDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<UserAdres> TGetListAll(bool tracking = true)
+        public async Task<List<UserAdres>> TGetListAllAsync()
         {
-            return _UserAdresDal.GetListAll();
+            return await _UserAdresDal.GetListAllAsync();
         }
 
-        public IQueryable<UserAdres> TInclude(Expression<Func<UserAdres, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<UserAdres> TInclude(Expression<Func<UserAdres, object>> navigationPropertyPath)
         {
-            return _UserAdresDal.Include(navigationPropertyPath, tracking);
+            return _UserAdresDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<UserAdres> TOrderBy(Expression<Func<UserAdres, object>> keySelector, bool tracking = true)
+        public IQueryable<UserAdres> TOrderBy(Expression<Func<UserAdres, object>> keySelector)
         {
-            return _UserAdresDal.OrderBy(keySelector, tracking);
+            return _UserAdresDal.OrderBy(keySelector);
         }
 
-        public IQueryable<UserAdres> TOrderByDescending(Expression<Func<UserAdres, object>> keySelector, bool tracking = true)
+        public IQueryable<UserAdres> TOrderByDescending(Expression<Func<UserAdres, object>> keySelector)
         {
-            return _UserAdresDal.OrderByDescending(keySelector, tracking);
+            return _UserAdresDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(UserAdres entity)
+        public async Task TUpdateAsync(UserAdres entity)
         {
-            _UserAdresDal.Update(entity);
+            await _UserAdresDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<UserAdres> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<UserAdres> entities)
         {
-            _UserAdresDal.UpdateRange(entities);
+            await _UserAdresDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<UserAdres> TWhere(Expression<Func<UserAdres, bool>> filter, bool tracking = true)
+        public IQueryable<UserAdres> TWhere(Expression<Func<UserAdres, bool>> filter)
         {
-            return _UserAdresDal.Where(filter, tracking);
+            return _UserAdresDal.Where(filter);
         }
     }
 }

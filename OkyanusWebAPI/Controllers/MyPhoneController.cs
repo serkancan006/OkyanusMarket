@@ -22,44 +22,44 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult MyPhoneList()
+        public async Task<IActionResult> MyPhoneList()
         {
-            var values = _MyPhoneService.TGetListAll();
+            var values = await _MyPhoneService.TGetListAllAsync();
             var result = _mapper.Map<List<ResultMyPhoneVM>>(values);
             return Ok(result);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddMyPhone(CreateMyPhoneVM MyPhoneVM)
+        public async Task<IActionResult> AddMyPhone(CreateMyPhoneVM MyPhoneVM)
         {
             var value = _mapper.Map<MyPhone>(MyPhoneVM);
-            _MyPhoneService.TAdd(value);
+            await _MyPhoneService.TAddAsync(value);
             return Ok("MyPhone Eklendi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public IActionResult DeleteMyPhone(int id)
+        public async Task<IActionResult> DeleteMyPhone(int id)
         {
-            var values = _MyPhoneService.TGetByID(id);
-            _MyPhoneService.TDelete(values);
+            var values = await _MyPhoneService.TGetByIDAsync(id);
+            await _MyPhoneService.TDeleteAsync(values);
             return Ok("MyPhone Silindi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
-        public IActionResult UpdateMyPhone(UpdateMyPhoneVM MyPhoneVM)
+        public async Task<IActionResult> UpdateMyPhone(UpdateMyPhoneVM MyPhoneVM)
         {
             var value = _mapper.Map<MyPhone>(MyPhoneVM);
-            _MyPhoneService.TUpdate(value);
+            await _MyPhoneService.TUpdateAsync(value);
             return Ok("MyPhone Güncellendi");
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetMyPhone(int id)
+        public async Task<IActionResult> GetMyPhone(int id)
         {
-            var values = _MyPhoneService.TGetByID(id);
+            var values = await _MyPhoneService.TGetByIDAsync(id);
             var result = _mapper.Map<ResultMyPhoneVM>(values);
             return Ok(result);
         }

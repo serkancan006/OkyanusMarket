@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _ProductDal = ProductDal;
         }
 
-        public void TAdd(Product entity)
+        public async Task TAddAsync(Product entity)
         {
-            _ProductDal.Add(entity);
+            await _ProductDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<Product> entities)
+        public async Task TAddRangeAsync(IEnumerable<Product> entities)
         {
-            _ProductDal.AddRange(entities);
+            await _ProductDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<Product, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<Product, bool>> filter = null)
         {
-            return _ProductDal.Any(filter, tracking);
+            return await _ProductDal.AnyAsync(filter);
         }
 
-        public IQueryable<Product> TAsQueryable(bool tracking = true)
+        public IQueryable<Product> TAsQueryable()
         {
-            return _ProductDal.AsQueryable(tracking);
+            return _ProductDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<Product, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<Product, bool>> filter = null)
         {
-            return _ProductDal.Count();
+            return await _ProductDal.CountAsync();
         }
 
-        public void TDelete(Product entity)
+        public async Task TDeleteAsync(Product entity)
         {
-            _ProductDal.Delete(entity);
+            await _ProductDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<Product> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<Product> entities)
         {
-            _ProductDal.DeleteRange(entities);
+            await _ProductDal.DeleteRangeAsync(entities);
         }
 
-        public Product TGetByID(int id)
+        public async Task<Product> TGetByIDAsync(int id)
         {
-            return _ProductDal.GetByID(id);
+            return await _ProductDal.GetByIDAsync(id);
         }
 
-        public Product TGetFirstOrDefault(Expression<Func<Product, bool>> filter, bool tracking = true)
+        public async Task<Product> TGetFirstOrDefaultAsync(Expression<Func<Product, bool>> filter)
         {
-            return _ProductDal.GetFirstOrDefault(filter, tracking);
+            return await _ProductDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<Product> TGetListAll(bool tracking = true)
+        public async Task<List<Product>> TGetListAllAsync()
         {
-            return _ProductDal.GetListAll();
+            return await _ProductDal.GetListAllAsync();
         }
 
-        public IQueryable<Product> TInclude(Expression<Func<Product, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<Product> TInclude(Expression<Func<Product, object>> navigationPropertyPath)
         {
-            return _ProductDal.Include(navigationPropertyPath, tracking);
+            return _ProductDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<Product> TOrderBy(Expression<Func<Product, object>> keySelector, bool tracking = true)
+        public IQueryable<Product> TOrderBy(Expression<Func<Product, object>> keySelector)
         {
-            return _ProductDal.OrderBy(keySelector, tracking);
+            return _ProductDal.OrderBy(keySelector);
         }
 
-        public IQueryable<Product> TOrderByDescending(Expression<Func<Product, object>> keySelector, bool tracking = true)
+        public IQueryable<Product> TOrderByDescending(Expression<Func<Product, object>> keySelector)
         {
-            return _ProductDal.OrderByDescending(keySelector, tracking);
+            return _ProductDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(Product entity)
+        public async Task TUpdateAsync(Product entity)
         {
-            _ProductDal.Update(entity);
+            await _ProductDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<Product> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<Product> entities)
         {
-            _ProductDal.UpdateRange(entities);
+            await _ProductDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<Product> TWhere(Expression<Func<Product, bool>> filter, bool tracking = true)
+        public IQueryable<Product> TWhere(Expression<Func<Product, bool>> filter)
         {
-            return _ProductDal.Where(filter, tracking);
+            return _ProductDal.Where(filter);
         }
     }
 }

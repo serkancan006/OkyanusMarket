@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _ContactDal = ContactDal;
         }
 
-        public void TAdd(Contact entity)
+        public async Task TAddAsync(Contact entity)
         {
-            _ContactDal.Add(entity);
+            await _ContactDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<Contact> entities)
+        public async Task TAddRangeAsync(IEnumerable<Contact> entities)
         {
-            _ContactDal.AddRange(entities);
+            await _ContactDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<Contact, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<Contact, bool>> filter = null)
         {
-            return _ContactDal.Any(filter, tracking);
+            return await _ContactDal.AnyAsync(filter);
         }
 
-        public IQueryable<Contact> TAsQueryable(bool tracking = true)
+        public IQueryable<Contact> TAsQueryable()
         {
-            return _ContactDal.AsQueryable(tracking);
+            return _ContactDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<Contact, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<Contact, bool>> filter = null)
         {
-            return _ContactDal.Count();
+            return await _ContactDal.CountAsync();
         }
 
-        public void TDelete(Contact entity)
+        public async Task TDeleteAsync(Contact entity)
         {
-            _ContactDal.Delete(entity);
+            await _ContactDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<Contact> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<Contact> entities)
         {
-            _ContactDal.DeleteRange(entities);
+            await _ContactDal.DeleteRangeAsync(entities);
         }
 
-        public Contact TGetByID(int id)
+        public async Task<Contact> TGetByIDAsync(int id)
         {
-            return _ContactDal.GetByID(id);
+            return await _ContactDal.GetByIDAsync(id);
         }
 
-        public Contact TGetFirstOrDefault(Expression<Func<Contact, bool>> filter, bool tracking = true)
+        public async Task<Contact> TGetFirstOrDefaultAsync(Expression<Func<Contact, bool>> filter)
         {
-            return _ContactDal.GetFirstOrDefault(filter, tracking);
+            return await _ContactDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<Contact> TGetListAll(bool tracking = true)
+        public async Task<List<Contact>> TGetListAllAsync()
         {
-            return _ContactDal.GetListAll();
+            return await _ContactDal.GetListAllAsync();
         }
 
-        public IQueryable<Contact> TInclude(Expression<Func<Contact, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<Contact> TInclude(Expression<Func<Contact, object>> navigationPropertyPath)
         {
-            return _ContactDal.Include(navigationPropertyPath, tracking);
+            return _ContactDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<Contact> TOrderBy(Expression<Func<Contact, object>> keySelector, bool tracking = true)
+        public IQueryable<Contact> TOrderBy(Expression<Func<Contact, object>> keySelector)
         {
-            return _ContactDal.OrderBy(keySelector, tracking);
+            return _ContactDal.OrderBy(keySelector);
         }
 
-        public IQueryable<Contact> TOrderByDescending(Expression<Func<Contact, object>> keySelector, bool tracking = true)
+        public IQueryable<Contact> TOrderByDescending(Expression<Func<Contact, object>> keySelector)
         {
-            return _ContactDal.OrderByDescending(keySelector, tracking);
+            return _ContactDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(Contact entity)
+        public async Task TUpdateAsync(Contact entity)
         {
-            _ContactDal.Update(entity);
+            await _ContactDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<Contact> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<Contact> entities)
         {
-            _ContactDal.UpdateRange(entities);
+            await _ContactDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<Contact> TWhere(Expression<Func<Contact, bool>> filter, bool tracking = true)
+        public IQueryable<Contact> TWhere(Expression<Func<Contact, bool>> filter)
         {
-            return _ContactDal.Where(filter, tracking);
+            return _ContactDal.Where(filter);
         }
     }
 }

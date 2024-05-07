@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models.GroupVM;
@@ -22,48 +23,46 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet("[Action]")] //anasayfa da random 4 kategori listeleme için kullanılıyor
-        public IActionResult Get4AnaGroupRandomList()
+        public async Task<IActionResult> Get4AnaGroupRandomList()
         {
-            var values = _GroupService.TGetListAll()
+            var values = await _GroupService.TAsQueryable()
                 .Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" 
                 //&& x.Status == true
                 )
-                .OrderBy(x => new Random().Next())
+                //.OrderBy(x => new Random().Next())
                 .Select(x => new { 
                     //x.ID,
                     x.GRUPADI, x.Description })
                 .Take(4)
-                .ToList();
+                .ToListAsync();
             return Ok(values);
         }
 
         [HttpGet("[Action]")] //product sidebar
-        public IActionResult MultiGroupList(string? categoryName)
+        public async Task<IActionResult> MultiGroupList(string? categoryName)
         {
-            var values = _GroupService.TGetListAll().Where(x => x.GRUPADI == categoryName 
-            //&& x.Status == true
-            ).FirstOrDefault();
-            var allGroups = _GroupService.TGetListAll();
-            var anagroup = allGroups.Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" 
-            //&& x.Status == true
-            ).Select(x => new { x.GRUPADI,
-                //x.ID, 
-                selected = x.ANAGRUP == values?.ANAGRUP }).ToList();
-            var altgrup1 = allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 != "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" 
-            //&& x.Status == true
-            ).Select(x => new { x.GRUPADI,
-                //x.ID, 
-                selected = x.ALTGRUP1 == values?.ALTGRUP1 }).ToList();
-            var altgrup2 = values?.ALTGRUP1 != "0" ? allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 != "0" && x.ALTGRUP3 == "0" 
-            //&& x.Status == true
-            ).Select(x => new { x.GRUPADI,
-                //x.ID, 
-                selected = x.ALTGRUP2 == values?.ALTGRUP2 }).ToList() : null;
-            var altgrup3 = values?.ALTGRUP2 != "0" ? allGroups.Where(x => x.ANAGRUP == values?.ANAGRUP && x.ALTGRUP1 == values?.ALTGRUP1 && x.ALTGRUP2 == values?.ALTGRUP2 && x.ALTGRUP3 != "0" 
-            //&& x.Status == true
-            ).Select(x => new { x.GRUPADI,
-                //x.ID,
-                selected = x.ALTGRUP3 == values?.ALTGRUP3 }).ToList() : null;
+            var values = await _GroupService.TAsQueryable().Where(x => x.GRUPADI == categoryName).FirstOrDefaultAsync();
+            var allGroups = _GroupService.TAsQueryable();
+
+            var anagroup = await allGroups
+                .Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0")
+                .Select(x => new { x.GRUPADI, selected = values != null && x.ANAGRUP == values.ANAGRUP })
+                .ToListAsync();
+
+            var altgrup1 = await allGroups
+                .Where(x => values != null && x.ANAGRUP == values.ANAGRUP && x.ALTGRUP1 != "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0")
+                .Select(x => new { x.GRUPADI, selected = values != null && x.ALTGRUP1 == values.ALTGRUP1 })
+                .ToListAsync();
+
+            var altgrup2 = values?.ALTGRUP1 != "0" ? await allGroups
+                .Where(x => values != null && x.ANAGRUP == values.ANAGRUP && x.ALTGRUP1 == values.ALTGRUP1 && x.ALTGRUP2 != "0" && x.ALTGRUP3 == "0")
+                .Select(x => new { x.GRUPADI, selected = values != null && x.ALTGRUP2 == values.ALTGRUP2 })
+                .ToListAsync() : null;
+
+            var altgrup3 = values?.ALTGRUP2 != "0" ? await allGroups
+                .Where(x => values != null && x.ANAGRUP == values.ANAGRUP && x.ALTGRUP1 == values.ALTGRUP1 && x.ALTGRUP2 == values.ALTGRUP2 && x.ALTGRUP3 != "0")
+                .Select(x => new { x.GRUPADI, selected = values != null && x.ALTGRUP3 == values.ALTGRUP3 })
+                .ToListAsync() : null;
 
             var result = new
             {
@@ -75,8 +74,6 @@ namespace OkyanusWebAPI.Controllers
 
             return Ok(result);
         }
-
-
 
         //Admin
         //[Authorize(Roles = "Admin")]
@@ -96,44 +93,44 @@ namespace OkyanusWebAPI.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public IActionResult GroupList()
+        public async Task<IActionResult> GroupList()
         {
-            var values = _GroupService.TGetListAll();
+            var values = await _GroupService.TGetListAllAsync();
             var result = _mapper.Map<List<ResultGroupVM>>(values);
             return Ok(result);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddGroup(CreateGroupVM GroupVM)
+        public async Task<IActionResult> AddGroup(CreateGroupVM GroupVM)
         {
             var value = _mapper.Map<Group>(GroupVM);
-            _GroupService.TAdd(value);
+            await _GroupService.TAddAsync(value);
             return Ok("Group Eklendi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{grupAdı}")]
-        public IActionResult DeleteGroup(string grupAdı)
+        public async Task<IActionResult> DeleteGroup(string grupAdı)
         {
-            var values = _GroupService.TAsQueryable().Where(x => x.GRUPADI == grupAdı).SingleOrDefault();
-            _GroupService.TDelete(values);
+            var values = await _GroupService.TAsQueryable().Where(x => x.GRUPADI == grupAdı).SingleOrDefaultAsync();
+            await _GroupService.TDeleteAsync(values);
             return Ok("Group Silindi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
-        public IActionResult UpdateGroup(UpdateGroupVM GroupVM)
+        public async Task<IActionResult> UpdateGroup(UpdateGroupVM GroupVM)
         {
             var value = _mapper.Map<Group>(GroupVM);
-            _GroupService.TUpdate(value);
+            await _GroupService.TUpdateAsync(value);
             return Ok("Group Güncellendi");
         }
 
         [HttpGet("{grupAdı}")]
-        public IActionResult GetGroup(string grupAdı)
+        public async Task<IActionResult> GetGroup(string grupAdı)
         {
-            var values = _GroupService.TAsQueryable().Where(x => x.GRUPADI == grupAdı).SingleOrDefault();
+            var values = await _GroupService.TAsQueryable().Where(x => x.GRUPADI == grupAdı).SingleOrDefaultAsync();
             var result = _mapper.Map<ResultGroupVM>(values);
             return Ok(result);
         }

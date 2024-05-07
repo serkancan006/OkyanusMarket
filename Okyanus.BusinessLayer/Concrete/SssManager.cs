@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _SssDal = SssDal;
         }
 
-        public void TAdd(Sss entity)
+        public async Task TAddAsync(Sss entity)
         {
-            _SssDal.Add(entity);
+            await _SssDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<Sss> entities)
+        public async Task TAddRangeAsync(IEnumerable<Sss> entities)
         {
-            _SssDal.AddRange(entities);
+            await _SssDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<Sss, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<Sss, bool>> filter = null)
         {
-            return _SssDal.Any(filter, tracking);
+            return await _SssDal.AnyAsync(filter);
         }
 
-        public IQueryable<Sss> TAsQueryable(bool tracking = true)
+        public IQueryable<Sss> TAsQueryable()
         {
-            return _SssDal.AsQueryable(tracking);
+            return _SssDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<Sss, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<Sss, bool>> filter = null)
         {
-            return _SssDal.Count();
+            return await _SssDal.CountAsync();
         }
 
-        public void TDelete(Sss entity)
+        public async Task TDeleteAsync(Sss entity)
         {
-            _SssDal.Delete(entity);
+            await _SssDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<Sss> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<Sss> entities)
         {
-            _SssDal.DeleteRange(entities);
+            await _SssDal.DeleteRangeAsync(entities);
         }
 
-        public Sss TGetByID(int id)
+        public async Task<Sss> TGetByIDAsync(int id)
         {
-            return _SssDal.GetByID(id);
+            return await _SssDal.GetByIDAsync(id);
         }
 
-        public Sss TGetFirstOrDefault(Expression<Func<Sss, bool>> filter, bool tracking = true)
+        public async Task<Sss> TGetFirstOrDefaultAsync(Expression<Func<Sss, bool>> filter)
         {
-            return _SssDal.GetFirstOrDefault(filter, tracking);
+            return await _SssDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<Sss> TGetListAll(bool tracking = true)
+        public async Task<List<Sss>> TGetListAllAsync()
         {
-            return _SssDal.GetListAll();
+            return await _SssDal.GetListAllAsync();
         }
 
-        public IQueryable<Sss> TInclude(Expression<Func<Sss, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<Sss> TInclude(Expression<Func<Sss, object>> navigationPropertyPath)
         {
-            return _SssDal.Include(navigationPropertyPath, tracking);
+            return _SssDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<Sss> TOrderBy(Expression<Func<Sss, object>> keySelector, bool tracking = true)
+        public IQueryable<Sss> TOrderBy(Expression<Func<Sss, object>> keySelector)
         {
-            return _SssDal.OrderBy(keySelector, tracking);
+            return _SssDal.OrderBy(keySelector);
         }
 
-        public IQueryable<Sss> TOrderByDescending(Expression<Func<Sss, object>> keySelector, bool tracking = true)
+        public IQueryable<Sss> TOrderByDescending(Expression<Func<Sss, object>> keySelector)
         {
-            return _SssDal.OrderByDescending(keySelector, tracking);
+            return _SssDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(Sss entity)
+        public async Task TUpdateAsync(Sss entity)
         {
-            _SssDal.Update(entity);
+            await _SssDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<Sss> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<Sss> entities)
         {
-            _SssDal.UpdateRange(entities);
+            await _SssDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<Sss> TWhere(Expression<Func<Sss, bool>> filter, bool tracking = true)
+        public IQueryable<Sss> TWhere(Expression<Func<Sss, bool>> filter)
         {
-            return _SssDal.Where(filter, tracking);
+            return _SssDal.Where(filter);
         }
     }
 }

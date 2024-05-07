@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _ProductTypeDal = ProductTypeDal;
         }
 
-        public void TAdd(ProductType entity)
+        public async Task TAddAsync(ProductType entity)
         {
-            _ProductTypeDal.Add(entity);
+            await _ProductTypeDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<ProductType> entities)
+        public async Task TAddRangeAsync(IEnumerable<ProductType> entities)
         {
-            _ProductTypeDal.AddRange(entities);
+            await _ProductTypeDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<ProductType, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<ProductType, bool>> filter = null)
         {
-            return _ProductTypeDal.Any(filter, tracking);
+            return await _ProductTypeDal.AnyAsync(filter);
         }
 
-        public IQueryable<ProductType> TAsQueryable(bool tracking = true)
+        public IQueryable<ProductType> TAsQueryable()
         {
-            return _ProductTypeDal.AsQueryable(tracking);
+            return _ProductTypeDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<ProductType, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<ProductType, bool>> filter = null)
         {
-            return _ProductTypeDal.Count();
+            return await _ProductTypeDal.CountAsync();
         }
 
-        public void TDelete(ProductType entity)
+        public async Task TDeleteAsync(ProductType entity)
         {
-            _ProductTypeDal.Delete(entity);
+            await _ProductTypeDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<ProductType> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<ProductType> entities)
         {
-            _ProductTypeDal.DeleteRange(entities);
+            await _ProductTypeDal.DeleteRangeAsync(entities);
         }
 
-        public ProductType TGetByID(int id)
+        public async Task<ProductType> TGetByIDAsync(int id)
         {
-            return _ProductTypeDal.GetByID(id);
+            return await _ProductTypeDal.GetByIDAsync(id);
         }
 
-        public ProductType TGetFirstOrDefault(Expression<Func<ProductType, bool>> filter, bool tracking = true)
+        public async Task<ProductType> TGetFirstOrDefaultAsync(Expression<Func<ProductType, bool>> filter)
         {
-            return _ProductTypeDal.GetFirstOrDefault(filter, tracking);
+            return await _ProductTypeDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<ProductType> TGetListAll(bool tracking = true)
+        public async Task<List<ProductType>> TGetListAllAsync()
         {
-            return _ProductTypeDal.GetListAll();
+            return await _ProductTypeDal.GetListAllAsync();
         }
 
-        public IQueryable<ProductType> TInclude(Expression<Func<ProductType, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<ProductType> TInclude(Expression<Func<ProductType, object>> navigationPropertyPath)
         {
-            return _ProductTypeDal.Include(navigationPropertyPath, tracking);
+            return _ProductTypeDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<ProductType> TOrderBy(Expression<Func<ProductType, object>> keySelector, bool tracking = true)
+        public IQueryable<ProductType> TOrderBy(Expression<Func<ProductType, object>> keySelector)
         {
-            return _ProductTypeDal.OrderBy(keySelector, tracking);
+            return _ProductTypeDal.OrderBy(keySelector);
         }
 
-        public IQueryable<ProductType> TOrderByDescending(Expression<Func<ProductType, object>> keySelector, bool tracking = true)
+        public IQueryable<ProductType> TOrderByDescending(Expression<Func<ProductType, object>> keySelector)
         {
-            return _ProductTypeDal.OrderByDescending(keySelector, tracking);
+            return _ProductTypeDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(ProductType entity)
+        public async Task TUpdateAsync(ProductType entity)
         {
-            _ProductTypeDal.Update(entity);
+            await _ProductTypeDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<ProductType> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<ProductType> entities)
         {
-            _ProductTypeDal.UpdateRange(entities);
+            await _ProductTypeDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<ProductType> TWhere(Expression<Func<ProductType, bool>> filter, bool tracking = true)
+        public IQueryable<ProductType> TWhere(Expression<Func<ProductType, bool>> filter)
         {
-            return _ProductTypeDal.Where(filter, tracking);
+            return _ProductTypeDal.Where(filter);
         }
     }
 }

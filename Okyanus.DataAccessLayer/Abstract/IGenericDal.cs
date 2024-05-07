@@ -9,32 +9,32 @@ namespace Okyanus.DataAccessLayer.Abstract
 {
     public interface IGenericDal<T> where T : class
     {
-        void AddRange(IEnumerable<T> entities);
-        void DeleteRange(IEnumerable<T> entities);
-        void UpdateRange(IEnumerable<T> entities);
+        Task AddRangeAsync(IEnumerable<T> entities);
+        Task DeleteRangeAsync(IEnumerable<T> entities);
+        Task UpdateRangeAsync(IEnumerable<T> entities);
 
-        void Add(T entity);
-        void Delete(T entity);
-        void Update(T entity);
+        Task AddAsync(T entity);
+        Task DeleteAsync(T entity);
+        Task UpdateAsync(T entity);
 
-        T GetByID(int id);
-        List<T> GetListAll(bool tracking = true);
+        Task<T> GetByIDAsync(int id);
+        Task<List<T>> GetListAllAsync(bool tracking = false);
 
         // Linq sorguları oluşturmak için kullanılan IQueryable örneği döndüren metot.
-        IQueryable<T> AsQueryable(bool tracking = true);
+        IQueryable<T> AsQueryable(bool tracking = false);
         // İlişkili verileri yüklemek için kullanılan metot.
-        IQueryable<T> Include(Expression<Func<T, object>> navigationPropertyPath, bool tracking = true);
+        IQueryable<T> Include(Expression<Func<T, object>> navigationPropertyPath, bool tracking = false);
         // Belirli bir koşula göre ilk öğeyi almak için kullanılan metot.
-        T GetFirstOrDefault(Expression<Func<T, bool>> filter, bool tracking = true);
+        Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter, bool tracking = false);
         // Belirli bir koşula göre sayma işlemi yapmak için kullanılan metot.
-        int Count(Expression<Func<T, bool>> filter = null, bool tracking = true);
+        Task<int> CountAsync(Expression<Func<T, bool>> filter = null, bool tracking = false);
         // Belirli bir koşulu karşılayan varlık olup olmadığını kontrol etmek için kullanılan metot.
-        bool Any(Expression<Func<T, bool>> filter = null, bool tracking = true);
+        Task<bool> AnyAsync(Expression<Func<T, bool>> filter = null, bool tracking = false);
         // Sıralama yapmak için kullanılan metot.
-        IQueryable<T> OrderBy(Expression<Func<T, object>> keySelector, bool tracking = true);
+        IQueryable<T> OrderBy(Expression<Func<T, object>> keySelector, bool tracking = false);
         // Azalan sırada sıralama yapmak için kullanılan metot.
-        IQueryable<T> OrderByDescending(Expression<Func<T, object>> keySelector, bool tracking = true);
+        IQueryable<T> OrderByDescending(Expression<Func<T, object>> keySelector, bool tracking = false);
         // Belirli bir koşula göre filtreleme yapmak için kullanılan metot.
-        IQueryable<T> Where(Expression<Func<T, bool>> filter, bool tracking = true);
+        IQueryable<T> Where(Expression<Func<T, bool>> filter, bool tracking = false);
     }
 }

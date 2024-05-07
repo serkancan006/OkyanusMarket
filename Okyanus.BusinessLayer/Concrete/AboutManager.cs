@@ -12,90 +12,91 @@ namespace Okyanus.BusinessLayer.Concrete
 {
     public class AboutManager : IAboutService
     {
-        IAboutDal _aboutDal;
-        public AboutManager(IAboutDal aboutDal)
+        IAboutDal _AboutDal;
+        public AboutManager(IAboutDal AboutDal)
         {
-            _aboutDal = aboutDal;
+            _AboutDal = AboutDal;
         }
 
-        public void TAdd(About entity)
+        public async Task TAddAsync(About entity)
         {
-            _aboutDal.Add(entity);
+            await _AboutDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<About> entities)
+        public async Task TAddRangeAsync(IEnumerable<About> entities)
         {
-            _aboutDal.AddRange(entities);
+            await _AboutDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<About, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<About, bool>> filter = null)
         {
-            return _aboutDal.Any(filter, tracking);
+            return await _AboutDal.AnyAsync(filter);
         }
 
-        public IQueryable<About> TAsQueryable(bool tracking = true)
+        public IQueryable<About> TAsQueryable()
         {
-            return _aboutDal.AsQueryable(tracking);
+            return _AboutDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<About, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<About, bool>> filter = null)
         {
-            return _aboutDal.Count();
+            return await _AboutDal.CountAsync();
         }
 
-        public void TDelete(About entity)
+        public async Task TDeleteAsync(About entity)
         {
-            _aboutDal.Delete(entity);
+            await _AboutDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<About> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<About> entities)
         {
-            _aboutDal.DeleteRange(entities);
+            await _AboutDal.DeleteRangeAsync(entities);
         }
 
-        public About TGetByID(int id)
+        public async Task<About> TGetByIDAsync(int id)
         {
-            return _aboutDal.GetByID(id);
+            return await _AboutDal.GetByIDAsync(id);
         }
 
-        public About TGetFirstOrDefault(Expression<Func<About, bool>> filter, bool tracking = true)
+        public async Task<About> TGetFirstOrDefaultAsync(Expression<Func<About, bool>> filter)
         {
-            return _aboutDal.GetFirstOrDefault(filter, tracking);
+            return await _AboutDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<About> TGetListAll(bool tracking = true)
+        public async Task<List<About>> TGetListAllAsync()
         {
-            return _aboutDal.GetListAll();
+            return await _AboutDal.GetListAllAsync();
         }
 
-        public IQueryable<About> TInclude(Expression<Func<About, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<About> TInclude(Expression<Func<About, object>> navigationPropertyPath)
         {
-            return _aboutDal.Include(navigationPropertyPath, tracking);
+            return _AboutDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<About> TOrderBy(Expression<Func<About, object>> keySelector, bool tracking = true)
+        public IQueryable<About> TOrderBy(Expression<Func<About, object>> keySelector)
         {
-            return _aboutDal.OrderBy(keySelector, tracking);
+            return _AboutDal.OrderBy(keySelector);
         }
 
-        public IQueryable<About> TOrderByDescending(Expression<Func<About, object>> keySelector, bool tracking = true)
+        public IQueryable<About> TOrderByDescending(Expression<Func<About, object>> keySelector)
         {
-            return _aboutDal.OrderByDescending(keySelector, tracking);
+            return _AboutDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(About entity)
+        public async Task TUpdateAsync(About entity)
         {
-            _aboutDal.Update(entity);
+            await _AboutDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<About> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<About> entities)
         {
-            _aboutDal.UpdateRange(entities);
+            await _AboutDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<About> TWhere(Expression<Func<About, bool>> filter, bool tracking = true)
+        public IQueryable<About> TWhere(Expression<Func<About, bool>> filter)
         {
-            return _aboutDal.Where(filter, tracking);
+            return _AboutDal.Where(filter);
         }
+      
     }
 }

@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _BasketDal = BasketDal;
         }
 
-        public void TAdd(Basket entity)
+        public async Task TAddAsync(Basket entity)
         {
-            _BasketDal.Add(entity);
+            await _BasketDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<Basket> entities)
+        public async Task TAddRangeAsync(IEnumerable<Basket> entities)
         {
-            _BasketDal.AddRange(entities);
+            await _BasketDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<Basket, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<Basket, bool>> filter = null)
         {
-            return _BasketDal.Any(filter, tracking);
+            return await _BasketDal.AnyAsync(filter);
         }
 
-        public IQueryable<Basket> TAsQueryable(bool tracking = true)
+        public IQueryable<Basket> TAsQueryable()
         {
-            return _BasketDal.AsQueryable(tracking);
+            return _BasketDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<Basket, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<Basket, bool>> filter = null)
         {
-            return _BasketDal.Count();
+            return await _BasketDal.CountAsync();
         }
 
-        public void TDelete(Basket entity)
+        public async Task TDeleteAsync(Basket entity)
         {
-            _BasketDal.Delete(entity);
+            await _BasketDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<Basket> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<Basket> entities)
         {
-            _BasketDal.DeleteRange(entities);
+            await _BasketDal.DeleteRangeAsync(entities);
         }
 
-        public Basket TGetByID(int id)
+        public async Task<Basket> TGetByIDAsync(int id)
         {
-            return _BasketDal.GetByID(id);
+            return await _BasketDal.GetByIDAsync(id);
         }
 
-        public Basket TGetFirstOrDefault(Expression<Func<Basket, bool>> filter, bool tracking = true)
+        public async Task<Basket> TGetFirstOrDefaultAsync(Expression<Func<Basket, bool>> filter)
         {
-            return _BasketDal.GetFirstOrDefault(filter, tracking);
+            return await _BasketDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<Basket> TGetListAll(bool tracking = true)
+        public async Task<List<Basket>> TGetListAllAsync()
         {
-            return _BasketDal.GetListAll();
+            return await _BasketDal.GetListAllAsync();
         }
 
-        public IQueryable<Basket> TInclude(Expression<Func<Basket, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<Basket> TInclude(Expression<Func<Basket, object>> navigationPropertyPath)
         {
-            return _BasketDal.Include(navigationPropertyPath, tracking);
+            return _BasketDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<Basket> TOrderBy(Expression<Func<Basket, object>> keySelector, bool tracking = true)
+        public IQueryable<Basket> TOrderBy(Expression<Func<Basket, object>> keySelector)
         {
-            return _BasketDal.OrderBy(keySelector, tracking);
+            return _BasketDal.OrderBy(keySelector);
         }
 
-        public IQueryable<Basket> TOrderByDescending(Expression<Func<Basket, object>> keySelector, bool tracking = true)
+        public IQueryable<Basket> TOrderByDescending(Expression<Func<Basket, object>> keySelector)
         {
-            return _BasketDal.OrderByDescending(keySelector, tracking);
+            return _BasketDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(Basket entity)
+        public async Task TUpdateAsync(Basket entity)
         {
-            _BasketDal.Update(entity);
+            await _BasketDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<Basket> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<Basket> entities)
         {
-            _BasketDal.UpdateRange(entities);
+            await _BasketDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<Basket> TWhere(Expression<Func<Basket, bool>> filter, bool tracking = true)
+        public IQueryable<Basket> TWhere(Expression<Func<Basket, bool>> filter)
         {
-            return _BasketDal.Where(filter, tracking);
+            return _BasketDal.Where(filter);
         }
     }
 }

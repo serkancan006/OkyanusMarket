@@ -22,44 +22,44 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult MarkaList()
+        public async Task<IActionResult> MarkaList()
         {
-            var values = _MarkaService.TGetListAll();
+            var values = await _MarkaService.TGetListAllAsync();
             var result = _mapper.Map<List<ResultMarkaVM>>(values);
             return Ok(result);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddMarka(CreateMarkaVM MarkaVM)
+        public async Task<IActionResult> AddMarka(CreateMarkaVM MarkaVM)
         {
             var value = _mapper.Map<Marka>(MarkaVM);
-            _MarkaService.TAdd(value);
+            await _MarkaService.TAddAsync(value);
             return Ok("Marka Eklendi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public IActionResult DeleteMarka(int id)
+        public async Task<IActionResult> DeleteMarka(int id)
         {
-            var values = _MarkaService.TGetByID(id);
-            _MarkaService.TDelete(values);
+            var values = await _MarkaService.TGetByIDAsync(id);
+            await _MarkaService.TDeleteAsync(values);
             return Ok("Marka Silindi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
-        public IActionResult UpdateMarka(UpdateMarkaVM MarkaVM)
+        public async Task<IActionResult> UpdateMarka(UpdateMarkaVM MarkaVM)
         {
             var value = _mapper.Map<Marka>(MarkaVM);
-            _MarkaService.TUpdate(value);
+            await _MarkaService.TUpdateAsync(value);
             return Ok("Marka Güncellendi");
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetMarka(int id)
+        public async Task<IActionResult> GetMarka(int id)
         {
-            var values = _MarkaService.TGetByID(id);
+            var values = await _MarkaService.TGetByIDAsync(id);
             var result = _mapper.Map<ResultMarkaVM>(values);
             return Ok(result);
         }

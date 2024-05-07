@@ -23,9 +23,9 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult AboutList()
+        public async Task<IActionResult> AboutList()
         {
-            var values = _AboutService.TGetListAll();
+            var values = await _AboutService.TGetListAllAsync();
             var result = _mapper.Map<List<ResultAboutVM>>(values);
             return Ok(result);
         }
@@ -48,17 +48,17 @@ namespace OkyanusWebAPI.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
-        public IActionResult UpdateAbout(UpdateAboutVM AboutVM)
+        public async Task<IActionResult> UpdateAbout(UpdateAboutVM AboutVM)
         {
             var value = _mapper.Map<About>(AboutVM);
-            _AboutService.TUpdate(value);
+            await _AboutService.TUpdateAsync(value);
             return Ok("About Güncellendi");
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetAbout(int id)
+        public async Task<IActionResult> GetAbout(int id)
         {
-            var values = _AboutService.TGetByID(id);
+            var values = await _AboutService.TGetByIDAsync(id);
             var result = _mapper.Map<ResultAboutVM>(values);
             return Ok(result);
         }

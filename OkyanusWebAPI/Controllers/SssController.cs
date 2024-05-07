@@ -22,44 +22,44 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult SssList()
+        public async Task<IActionResult> SssList()
         {
-            var values = _SssService.TGetListAll();
+            var values = await _SssService.TGetListAllAsync();
             var result = _mapper.Map<List<ResultSssVM>>(values);
             return Ok(result);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddSss(CreateSssVM SssVM)
+        public async Task<IActionResult> AddSss(CreateSssVM SssVM)
         {
             var value = _mapper.Map<Sss>(SssVM);
-            _SssService.TAdd(value);
+            await _SssService.TAddAsync(value);
             return Ok("Sss Eklendi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public IActionResult DeleteSss(int id)
+        public async Task<IActionResult> DeleteSss(int id)
         {
-            var values = _SssService.TGetByID(id);
-            _SssService.TDelete(values);
+            var values = await _SssService.TGetByIDAsync(id);
+            await _SssService.TDeleteAsync(values);
             return Ok("Sss Silindi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
-        public IActionResult UpdateSss(UpdateSssVM SssVM)
+        public async Task<IActionResult> UpdateSss(UpdateSssVM SssVM)
         {
             var value = _mapper.Map<Sss>(SssVM);
-            _SssService.TUpdate(value);
+            await _SssService.TUpdateAsync(value);
             return Ok("Sss Güncellendi");
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetSss(int id)
+        public async Task<IActionResult> GetSss(int id)
         {
-            var values = _SssService.TGetByID(id);
+            var values = await _SssService.TGetByIDAsync(id);
             var result = _mapper.Map<ResultSssVM>(values);
             return Ok(result);
         }

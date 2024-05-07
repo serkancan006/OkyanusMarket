@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
@@ -34,7 +35,7 @@ namespace OkyanusWebAPI.Controllers
         public async Task<IActionResult> UserAdresList()
         {
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
-            var values = _UserAdresService.TGetListAll().Where(x => x.AppUserID == user.Id);
+            var values = await _UserAdresService.TAsQueryable().Where(x => x.AppUserID == user.Id).ToListAsync();
             var result = _mapper.Map<List<ResultUserAdresVM>>(values);
             return Ok(result);
         }
@@ -45,33 +46,44 @@ namespace OkyanusWebAPI.Controllers
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
             if (user != null)
             {
-                _UserAdresService.TAdd(new UserAdres()
+                var district = await _districtService.TGetByIDAsync(int.Parse(UserAdresVM.UserIlce));
+                var city = await _cityService.TGetByIDAsync(int.Parse(UserAdresVM.UserSehir));
+
+                if (district != null && city != null)
                 {
-                    AppUserID = user.Id,
-                    UserApartman = UserAdresVM.UserApartman,
-                    UserDaire = UserAdresVM.UserDaire,
-                    UserKat = UserAdresVM.UserKat,
-                    UserAdress = UserAdresVM.UserAdress,
-                    UserIlce = _districtService.TGetByID(int.Parse(UserAdresVM.UserIlce)).DistrictName,
-                    UserSehir = _cityService.TGetByID(int.Parse(UserAdresVM.UserSehir)).CityName
-                });
-                return Ok("UserAdres Eklendi");
+                    await _UserAdresService.TAddAsync(new UserAdres()
+                    {
+                        AppUserID = user.Id,
+                        UserApartman = UserAdresVM.UserApartman,
+                        UserDaire = UserAdresVM.UserDaire,
+                        UserKat = UserAdresVM.UserKat,
+                        UserAdress = UserAdresVM.UserAdress,
+                        UserIlce = district.DistrictName,
+                        UserSehir = city.CityName
+                    });
+
+                    return Ok("UserAdres Eklendi");
+                }
+                else
+                {
+                    return NotFound("İlçe veya şehir bulunamadı");
+                }
             }
             else
             {
                 return NotFound("Kullanıcı Bulunamadı");
             }
-     
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserAdres(int id)
         {
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
-            var values = _UserAdresService.TGetByID(id);
+            var values = await _UserAdresService.TGetByIDAsync(id);
             if (values.AppUserID == user.Id)
             {
-                _UserAdresService.TDelete(values);
+                await _UserAdresService.TDeleteAsync(values);
                 return Ok("UserAdres Silindi");
             }
             return NotFound();
@@ -80,30 +92,41 @@ namespace OkyanusWebAPI.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateUserAdres(UpdateUserAdresVM UserAdresVM)
         {
-            var existingUserAdres = _UserAdresService.TGetByID(UserAdresVM.ID);
+            var existingUserAdres = await _UserAdresService.TGetByIDAsync(UserAdresVM.ID);
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
-           
-            //var value = _mapper.Map<UserAdres>(UserAdresVM);
+
             if (existingUserAdres.AppUserID == user.Id)
             {
-                existingUserAdres.UserAdress = UserAdresVM.UserAdress;
-                existingUserAdres.UserDaire = UserAdresVM.UserDaire;
-                existingUserAdres.UserApartman = UserAdresVM.UserApartman;
-                existingUserAdres.UserKat = UserAdresVM.UserKat;
-                existingUserAdres.UserIlce = _districtService.TGetByID(int.Parse(UserAdresVM.UserIlce)).DistrictName;
-                existingUserAdres.UserSehir = _cityService.TGetByID(int.Parse(UserAdresVM.UserSehir)).CityName;
-                existingUserAdres.AppUserID = user.Id;
-                _UserAdresService.TUpdate(existingUserAdres);
-                return Ok("UserAdres Güncellendi");
+                var district = await _districtService.TGetByIDAsync(int.Parse(UserAdresVM.UserIlce));
+                var city = await _cityService.TGetByIDAsync(int.Parse(UserAdresVM.UserSehir));
+
+                if (district != null && city != null)
+                {
+                    existingUserAdres.UserAdress = UserAdresVM.UserAdress;
+                    existingUserAdres.UserDaire = UserAdresVM.UserDaire;
+                    existingUserAdres.UserApartman = UserAdresVM.UserApartman;
+                    existingUserAdres.UserKat = UserAdresVM.UserKat;
+                    existingUserAdres.UserIlce = district.DistrictName;
+                    existingUserAdres.UserSehir = city.CityName;
+                    existingUserAdres.AppUserID = user.Id;
+
+                    await _UserAdresService.TUpdateAsync(existingUserAdres);
+                    return Ok("UserAdres Güncellendi");
+                }
+                else
+                {
+                    return NotFound("İlçe veya şehir bulunamadı");
+                }
             }
             return NotFound();
         }
+        
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserAdres(int id)
         {
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
-            var values = _UserAdresService.TGetByID(id);
+            var values = await _UserAdresService.TGetByIDAsync(id);
             if (values.AppUserID == user.Id)
             {
                 var result = _mapper.Map<ResultUserAdresVM>(values);

@@ -75,7 +75,7 @@ namespace OkyanusWebAPI.Controllers
         public async Task<IActionResult> ForgotPassword([FromBody] string Email)
         {
             var user = await _userManager.FindByEmailAsync(Email);
-            //BU Kullanıcı yoksa veya mail adresini onaylamamış ise
+            //B Kullanıcı yoksa veya mail adresini onaylamamış ise
             if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
             {
                 return Ok();
@@ -85,7 +85,7 @@ namespace OkyanusWebAPI.Controllers
             token = HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(token)));
             //"https://localhost:7080/EmailConfirmView?userEmail=satakig519@hidelux.com&token=token"
             string callbackurl = _configuration["WebSiteHosts:Https"] + $"/Login/ResetPassword?userEmail={user.Email}&token={token}";
-            _mailService.SendMailForgotPassword(user.UserName, Email,"Şifre Sıfırlama", callbackurl);
+            await _mailService.SendMailForgotPasswordAsync(user.UserName, Email,"Şifre Sıfırlama", callbackurl);
             return Ok();
         }
 

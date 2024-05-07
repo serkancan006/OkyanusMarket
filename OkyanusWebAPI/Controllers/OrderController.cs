@@ -43,32 +43,32 @@ namespace OkyanusWebAPI.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public IActionResult OrderList([FromQuery] FilteredOrderParamaters filteredParamaters)
+        public async Task<IActionResult> OrderList([FromQuery] FilteredOrderParamaters filteredParamaters)
         {
-          
-            var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).OrderByDescending(x => x.CreatedDate).ToList();
-            //var result = _mapper.Map<List<ResultOrderVM>>(values);
+            var values = _OrderService.TAsQueryable();
+            //.Include(x => x.OrderDetails).ThenInclude(x => x.Product);
+            //.OrderByDescending(x => x.CreatedDate);
 
             if (!string.IsNullOrEmpty(filteredParamaters.OrderStatus))
             {
-                values = values.Where(x => x.OrderStatus.Contains(filteredParamaters.OrderStatus)).ToList();
+                values = values.Where(x => x.OrderStatus.Contains(filteredParamaters.OrderStatus));
             }
 
-            var totalCount = values.Count();
+            var totalCount = await values.CountAsync();
             var totalPages = (int)Math.Ceiling((double)totalCount / filteredParamaters.pageSize);
+            values = values.Include(x => x.OrderDetails).ThenInclude(x => x.Product).OrderByDescending(x => x.CreatedDate);
+            values = values.Skip((filteredParamaters.pageNumber - 1) * filteredParamaters.pageSize).Take(filteredParamaters.pageSize); //sıkıntı olursa .ToListAsync ekle. veya              var product = await _mapper.ProjectTo<ResultProductVM>(values).ToListAsync(); gibi  kullanabilirsin.
 
-            values = values.Skip((filteredParamaters.pageNumber - 1) * filteredParamaters.pageSize).Take(filteredParamaters.pageSize).ToList();
-
-            var orders = _mapper.Map<List<ResultOrderVM>>(values).ToList();
+            var orders = _mapper.Map<List<ResultOrderVM>>(values);
             return Ok(new { TotalCount = totalCount, TotalPages = totalPages, Orders = orders });
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public IActionResult DeleteOrder(int id)
+        public async Task<IActionResult> DeleteOrder(int id)
         {
-            var values = _OrderService.TGetByID(id);
-            _OrderService.TDelete(values);
+            var values = await _OrderService.TGetByIDAsync(id);
+            await _OrderService.TDeleteAsync(values);
             return Ok("Order Silindi");
         }
 
@@ -82,25 +82,25 @@ namespace OkyanusWebAPI.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
-        public IActionResult GetOrder(int id)
+        public async Task<IActionResult> GetOrder(int id)
         {
-            var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).ThenInclude(x => x.Marka)
-            .Where(x => x.ID == id).SingleOrDefault();
+            var values = await _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).ThenInclude(x => x.Marka)
+            .Where(x => x.ID == id).SingleOrDefaultAsync();
             var result = _mapper.Map<ResultOrderVM>(values);
             return Ok(result);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet("[action]/{id}")]
-        public IActionResult OrderStatusOnay(int id)
+        public async Task<IActionResult> OrderStatusOnay(int id)
         {
-            _OrderService.UpdateOrderStatus(id, "Sipariş Onaylandı");
+            await _OrderService.UpdateOrderStatusAsync(id, "Sipariş Onaylandı");
             return Ok("Sipariş Onaylandı olarak değiştirildi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet("[action]/{id}")]
-        public IActionResult OrderStatusIptal(int id)
+        public async Task<IActionResult> OrderStatusIptal(int id)
         {
             //stock
             //var order = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).Where(x => x.ID == id).SingleOrDefault();
@@ -121,31 +121,31 @@ namespace OkyanusWebAPI.Controllers
             //    return NotFound("siparişin detayları bulunamadı");
             //}
             //stock
-            _OrderService.UpdateOrderStatus(id, "İptal Edildi");
+            await _OrderService.UpdateOrderStatusAsync(id, "İptal Edildi");
             return Ok("Sipariş İptal Edildi olarak değiştirildi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet("[action]/{id}")]
-        public IActionResult OrderStatusHazirlama(int id)
+        public async Task<IActionResult> OrderStatusHazirlama(int id)
         {
-            _OrderService.UpdateOrderStatus(id, "Hazırlanıyor");
+            await _OrderService.UpdateOrderStatusAsync(id, "Hazırlanıyor");
             return Ok("Sipariş Hazirlanıyor olarak değiştirildi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet("[action]/{id}")]
-        public IActionResult OrderStatusYolda(int id)
+        public async Task<IActionResult> OrderStatusYolda(int id)
         {
-            _OrderService.UpdateOrderStatus(id, "Yolda");
+            await _OrderService.UpdateOrderStatusAsync(id, "Yolda");
             return Ok("Sipariş Yolda olarak değiştirildi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet("[action]/{id}")]
-        public IActionResult OrderStatusTeslim(int id)
+        public async Task<IActionResult> OrderStatusTeslim(int id)
         {
-            _OrderService.UpdateOrderStatus(id, "Teslim Edildi");
+            await _OrderService.UpdateOrderStatusAsync(id, "Teslim Edildi");
             return Ok("Sipariş Teslim Edildi olarak değiştirildi");
         }
 
@@ -156,7 +156,7 @@ namespace OkyanusWebAPI.Controllers
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
             if (user != null)
             {
-                var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).Where(x => x.AppUserID == user.Id).ToList();
+                var values = await _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).Where(x => x.AppUserID == user.Id).ToListAsync();
                 var result = _mapper.Map<List<ResultOrderVM>>(values);
                 return Ok(result);
             }
@@ -170,8 +170,8 @@ namespace OkyanusWebAPI.Controllers
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
             if (user != null)
             {
-                var values = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product)
-                    .Where(x => x.ID == id && x.AppUserID == user.Id).SingleOrDefault();
+                var values = await _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product)
+                    .Where(x => x.ID == id && x.AppUserID == user.Id).SingleOrDefaultAsync();
                 var result = _mapper.Map<ResultOrderVM>(values);
                 return Ok(result);
             }
@@ -183,17 +183,19 @@ namespace OkyanusWebAPI.Controllers
         public async Task<IActionResult> AddOrder(CreateOrderRequestVM createOrderRequestVM)
         {
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
-            var adres = _userAdresService.TGetByID(createOrderRequestVM.UserAdresID);
-            CreateOrderVM createOrderVM = new CreateOrderVM()
+            var adres = await _userAdresService.TGetByIDAsync(createOrderRequestVM.UserAdresID);
+            var deliveryTime = await _deliveryTimeService.TGetByIDAsync(int.Parse(createOrderRequestVM.TeslimatSaati));
+
+            var createOrderVM = new CreateOrderVM()
             {
                 Description = createOrderRequestVM.Description,
                 OrderStatus = "Onay Bekliyor",
 
                 AlternatifUrun = createOrderRequestVM.AlternatifUrun,
                 TeslimatYontemi = createOrderRequestVM.TeslimatYontemi,
-                TeslimatSaati = _deliveryTimeService.TGetByID(int.Parse(createOrderRequestVM.TeslimatSaati)).CreatedDate.ToString("dd-MMM-yyyy HH:mm") + " - " + _deliveryTimeService.TGetByID(int.Parse(createOrderRequestVM.TeslimatSaati)).EndTime.ToString("dd-MMM-yyyy HH:mm"),
+                TeslimatSaati = deliveryTime.CreatedDate.ToString("dd-MMM-yyyy HH:mm") + " - " + deliveryTime.EndTime.ToString("dd-MMM-yyyy HH:mm"),
 
-                OrderPhone = createOrderRequestVM.TelefonNo,
+                OrderPhone = createOrderRequestVM.TelefonNo, // Değiştirildi
 
                 OrderAdress = adres.UserAdress,
                 OrderApartman = adres.UserApartman,
@@ -201,51 +203,122 @@ namespace OkyanusWebAPI.Controllers
                 OrderKat = adres.UserKat,
                 OrderIlce = adres.UserIlce,
                 OrderSehir = adres.UserSehir,
-                TotalPrice = createOrderRequestVM.OrderItems.Sum(x => (_productService.TGetByID(x.ProductId).DiscountedPrice ?? _productService.TGetByID(x.ProductId).Price) * x.Quantity),
             };
+
+            var totalPrice = createOrderRequestVM.OrderItems.Sum(x =>
+            {
+                var product = _productService.TGetByIDAsync(x.ProductId).Result;
+                return (product.DiscountedPrice ?? product.Price) * x.Quantity;
+            });
+
+            createOrderVM.TotalPrice = totalPrice;
+
             var value = _mapper.Map<Order>(createOrderVM);
             value.OrderSurname = user.Surname;
             value.OrderFirstName = user.Name;
-            //value.OrderPhone = user.PhoneNumber;
             value.OrderUserPhone = user.PhoneNumber;
             value.OrderMail = user.Email;
             value.AppUserID = user.Id;
-            _OrderService.TAdd(value);
-            List<CreateOrderDetailVM> createOrderDetailVM = new List<CreateOrderDetailVM>();
-            createOrderDetailVM.AddRange(createOrderRequestVM.OrderItems.Select(item => new CreateOrderDetailVM()
+            await _OrderService.TAddAsync(value);
+
+            var createOrderDetailVM = createOrderRequestVM.OrderItems.Select(item => new CreateOrderDetailVM()
             {
                 ProductID = item.ProductId,
                 Count = item.Quantity,
-                UnitPrice = _productService.TGetByID(item.ProductId).DiscountedPrice ?? _productService.TGetByID(item.ProductId).Price,
+                UnitPrice = _productService.TGetByIDAsync(item.ProductId).Result.DiscountedPrice ?? _productService.TGetByIDAsync(item.ProductId).Result.Price,
                 OrderID = value.ID,
-            }));
+            }).ToList();
+
             var orderItemList = _mapper.Map<List<OrderDetail>>(createOrderDetailVM);
-            _orderDetailService.TAddRange(orderItemList);
+            await _orderDetailService.TAddRangeAsync(orderItemList);
+
             await _hubContext.Clients.All.SendAsync("ReceiveOrderNotification", "Yeni Siparişiniz Var");
-            var resultCreateOrder = _mapper.Map<ResultOrderVM>(_OrderService.TGetByID(value.ID));
+            var resultCreateOrder = _mapper.Map<ResultOrderVM>(await _OrderService.TGetByIDAsync(value.ID));
             await _hubContext.Clients.All.SendAsync("ReceiveOrder", resultCreateOrder);
-            //Stock işlemi
-            //var order = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).Where(x => x.ID == value.ID).SingleOrDefault();
-            //if (order == null)
+
+            // Stok işlemi
+            //foreach (var item in orderItemList)
             //{
-            //    return NotFound("sipariş bulunamadı");
+            //    var product = await _productService.TGetByIDAsync(item.ProductID);
+            //    product.Stock -= (int)Math.Floor(item.Count);
+            //    await _productService.TUpdateAsync(product);
             //}
-            //var orderproducts = order?.OrderDetails;
-            //if (orderproducts != null)
-            //{
-            //    foreach (var item in orderproducts)
-            //    {
-            //        item.Product.Stock = item.Product.Stock - (int)Math.Floor(item.Count);
-            //    }
-            //}
-            //else
-            //{
-            //    return NotFound("siparişin detayları bulunamadı");
-            //}
-            //Stock işlemi
+            // Stok işlemi
 
             return Ok("Order Eklendi");
         }
+
+
+
+        //[Authorize]
+        //[HttpPost]
+        //public async Task<IActionResult> AddOrder(CreateOrderRequestVM createOrderRequestVM)
+        //{
+        //    var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
+        //    var adres = await _userAdresService.TGetByIDAsync(createOrderRequestVM.UserAdresID);
+        //    CreateOrderVM createOrderVM = new CreateOrderVM()
+        //    {
+        //        Description = createOrderRequestVM.Description,
+        //        OrderStatus = "Onay Bekliyor",
+
+        //        AlternatifUrun = createOrderRequestVM.AlternatifUrun,
+        //        TeslimatYontemi = createOrderRequestVM.TeslimatYontemi,
+        //        TeslimatSaati = _deliveryTimeService.TGetByIDAsync(int.Parse(createOrderRequestVM.TeslimatSaati)).CreatedDate.ToString("dd-MMM-yyyy HH:mm") + " - " + _deliveryTimeService.TGetByIDAsync(int.Parse(createOrderRequestVM.TeslimatSaati)).EndTime.ToString("dd-MMM-yyyy HH:mm"),
+
+        //        OrderPhone = createOrderRequestVM.TelefonNo,
+
+        //        OrderAdress = adres.UserAdress,
+        //        OrderApartman = adres.UserApartman,
+        //        OrderDaire = adres.UserDaire,
+        //        OrderKat = adres.UserKat,
+        //        OrderIlce = adres.UserIlce,
+        //        OrderSehir = adres.UserSehir,
+        //        TotalPrice = createOrderRequestVM.OrderItems.Sum(x => (_productService.TGetByIDAsync(x.ProductId).DiscountedPrice ?? _productService.TGetByIDAsync(x.ProductId).Price) * x.Quantity),
+        //    };
+        //    var value = _mapper.Map<Order>(createOrderVM);
+        //    value.OrderSurname = user.Surname;
+        //    value.OrderFirstName = user.Name;
+        //    //value.OrderPhone = user.PhoneNumber;
+        //    value.OrderUserPhone = user.PhoneNumber;
+        //    value.OrderMail = user.Email;
+        //    value.AppUserID = user.Id;
+        //    _OrderService.TAdd(value);
+        //    List<CreateOrderDetailVM> createOrderDetailVM = new List<CreateOrderDetailVM>();
+        //    createOrderDetailVM.AddRange(createOrderRequestVM.OrderItems.Select(item => new CreateOrderDetailVM()
+        //    {
+        //        ProductID = item.ProductId,
+        //        Count = item.Quantity,
+        //        UnitPrice = _productService.TGetByIDAsync(item.ProductId).DiscountedPrice ?? _productService.TGetByIDAsync(item.ProductId).Price,
+        //        OrderID = value.ID,
+        //    }));
+        //    var orderItemList = _mapper.Map<List<OrderDetail>>(createOrderDetailVM);
+        //    await _orderDetailService.TAddRangeAsync(orderItemList);
+        //    await _hubContext.Clients.All.SendAsync("ReceiveOrderNotification", "Yeni Siparişiniz Var");
+        //    var resultCreateOrder = _mapper.Map<ResultOrderVM>(await _OrderService.TGetByIDAsync(value.ID));
+        //    await _hubContext.Clients.All.SendAsync("ReceiveOrder", resultCreateOrder);
+
+        //    //Stock işlemi
+        //    //var order = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).Where(x => x.ID == value.ID).SingleOrDefault();
+        //    //if (order == null)
+        //    //{
+        //    //    return NotFound("sipariş bulunamadı");
+        //    //}
+        //    //var orderproducts = order?.OrderDetails;
+        //    //if (orderproducts != null)
+        //    //{
+        //    //    foreach (var item in orderproducts)
+        //    //    {
+        //    //        item.Product.Stock = item.Product.Stock - (int)Math.Floor(item.Count);
+        //    //    }
+        //    //}
+        //    //else
+        //    //{
+        //    //    return NotFound("siparişin detayları bulunamadı");
+        //    //}
+        //    //Stock işlemi
+
+        //    return Ok("Order Eklendi");
+        //}
 
     }
 }

@@ -22,44 +22,44 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult TermsAndConditionList()
+        public async Task<IActionResult> TermsAndConditionList()
         {
-            var values = _TermsAndConditionService.TGetListAll();
+            var values = await _TermsAndConditionService.TGetListAllAsync();
             var result = _mapper.Map<List<ResultTermsAndConditionVM>>(values);
             return Ok(result);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddTermsAndCondition(CreateTermsAndConditionVM TermsAndConditionVM)
+        public async Task<IActionResult> AddTermsAndCondition(CreateTermsAndConditionVM TermsAndConditionVM)
         {
             var value = _mapper.Map<TermsAndCondition>(TermsAndConditionVM);
-            _TermsAndConditionService.TAdd(value);
+            await _TermsAndConditionService.TAddAsync(value);
             return Ok("TermsAndCondition Eklendi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public IActionResult DeleteTermsAndCondition(int id)
+        public async Task<IActionResult> DeleteTermsAndCondition(int id)
         {
-            var values = _TermsAndConditionService.TGetByID(id);
-            _TermsAndConditionService.TDelete(values);
+            var values = await _TermsAndConditionService.TGetByIDAsync(id);
+            await _TermsAndConditionService.TDeleteAsync(values);
             return Ok("TermsAndCondition Silindi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
-        public IActionResult UpdateTermsAndCondition(UpdateTermsAndConditionVM TermsAndConditionVM)
+        public async Task<IActionResult> UpdateTermsAndCondition(UpdateTermsAndConditionVM TermsAndConditionVM)
         {
             var value = _mapper.Map<TermsAndCondition>(TermsAndConditionVM);
-            _TermsAndConditionService.TUpdate(value);
+            await _TermsAndConditionService.TUpdateAsync(value);
             return Ok("TermsAndCondition Güncellendi");
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetTermsAndCondition(int id)
+        public async Task<IActionResult> GetTermsAndCondition(int id)
         {
-            var values = _TermsAndConditionService.TGetByID(id);
+            var values = await _TermsAndConditionService.TGetByIDAsync(id);
             var result = _mapper.Map<ResultTermsAndConditionVM>(values);
             return Ok(result);
         }

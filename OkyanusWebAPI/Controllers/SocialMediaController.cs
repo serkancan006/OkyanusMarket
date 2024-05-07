@@ -21,9 +21,9 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult SocialMediaList()
+        public async Task<IActionResult> SocialMediaList()
         {
-            var values = _SocialMediaService.TGetListAll();
+            var values = await _SocialMediaService.TGetListAllAsync();
             var result = _mapper.Map<List<ResultSocialMediaVM>>(values);
             return Ok(result);
         }
@@ -45,17 +45,17 @@ namespace OkyanusWebAPI.Controllers
         //}
 
         [HttpPut]
-        public IActionResult UpdateSocialMedia(UpdateSocialMediaVM SocialMediaVM)
+        public async Task<IActionResult> UpdateSocialMedia(UpdateSocialMediaVM SocialMediaVM)
         {
             var value = _mapper.Map<SocialMedia>(SocialMediaVM);
-            _SocialMediaService.TUpdate(value);
+            await _SocialMediaService.TUpdateAsync(value);
             return Ok("SocialMedia Güncellendi");
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetSocialMedia(int id)
+        public async Task<IActionResult> GetSocialMedia(int id)
         {
-            var values = _SocialMediaService.TGetByID(id);
+            var values = await _SocialMediaService.TGetByIDAsync(id);
             var result = _mapper.Map<ResultSocialMediaVM>(values);
             return Ok(result);
         }

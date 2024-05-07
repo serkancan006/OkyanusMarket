@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _DeliveryTimeDal = DeliveryTimeDal;
         }
 
-        public void TAdd(DeliveryTime entity)
+        public async Task TAddAsync(DeliveryTime entity)
         {
-            _DeliveryTimeDal.Add(entity);
+            await _DeliveryTimeDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<DeliveryTime> entities)
+        public async Task TAddRangeAsync(IEnumerable<DeliveryTime> entities)
         {
-            _DeliveryTimeDal.AddRange(entities);
+            await _DeliveryTimeDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<DeliveryTime, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<DeliveryTime, bool>> filter = null)
         {
-            return _DeliveryTimeDal.Any(filter, tracking);
+            return await _DeliveryTimeDal.AnyAsync(filter);
         }
 
-        public IQueryable<DeliveryTime> TAsQueryable(bool tracking = true)
+        public IQueryable<DeliveryTime> TAsQueryable()
         {
-            return _DeliveryTimeDal.AsQueryable(tracking);
+            return _DeliveryTimeDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<DeliveryTime, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<DeliveryTime, bool>> filter = null)
         {
-            return _DeliveryTimeDal.Count();
+            return await _DeliveryTimeDal.CountAsync();
         }
 
-        public void TDelete(DeliveryTime entity)
+        public async Task TDeleteAsync(DeliveryTime entity)
         {
-            _DeliveryTimeDal.Delete(entity);
+            await _DeliveryTimeDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<DeliveryTime> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<DeliveryTime> entities)
         {
-            _DeliveryTimeDal.DeleteRange(entities);
+            await _DeliveryTimeDal.DeleteRangeAsync(entities);
         }
 
-        public DeliveryTime TGetByID(int id)
+        public async Task<DeliveryTime> TGetByIDAsync(int id)
         {
-            return _DeliveryTimeDal.GetByID(id);
+            return await _DeliveryTimeDal.GetByIDAsync(id);
         }
 
-        public DeliveryTime TGetFirstOrDefault(Expression<Func<DeliveryTime, bool>> filter, bool tracking = true)
+        public async Task<DeliveryTime> TGetFirstOrDefaultAsync(Expression<Func<DeliveryTime, bool>> filter)
         {
-            return _DeliveryTimeDal.GetFirstOrDefault(filter, tracking);
+            return await _DeliveryTimeDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<DeliveryTime> TGetListAll(bool tracking = true)
+        public async Task<List<DeliveryTime>> TGetListAllAsync()
         {
-            return _DeliveryTimeDal.GetListAll();
+            return await _DeliveryTimeDal.GetListAllAsync();
         }
 
-        public IQueryable<DeliveryTime> TInclude(Expression<Func<DeliveryTime, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<DeliveryTime> TInclude(Expression<Func<DeliveryTime, object>> navigationPropertyPath)
         {
-            return _DeliveryTimeDal.Include(navigationPropertyPath, tracking);
+            return _DeliveryTimeDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<DeliveryTime> TOrderBy(Expression<Func<DeliveryTime, object>> keySelector, bool tracking = true)
+        public IQueryable<DeliveryTime> TOrderBy(Expression<Func<DeliveryTime, object>> keySelector)
         {
-            return _DeliveryTimeDal.OrderBy(keySelector, tracking);
+            return _DeliveryTimeDal.OrderBy(keySelector);
         }
 
-        public IQueryable<DeliveryTime> TOrderByDescending(Expression<Func<DeliveryTime, object>> keySelector, bool tracking = true)
+        public IQueryable<DeliveryTime> TOrderByDescending(Expression<Func<DeliveryTime, object>> keySelector)
         {
-            return _DeliveryTimeDal.OrderByDescending(keySelector, tracking);
+            return _DeliveryTimeDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(DeliveryTime entity)
+        public async Task TUpdateAsync(DeliveryTime entity)
         {
-            _DeliveryTimeDal.Update(entity);
+            await _DeliveryTimeDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<DeliveryTime> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<DeliveryTime> entities)
         {
-            _DeliveryTimeDal.UpdateRange(entities);
+            await _DeliveryTimeDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<DeliveryTime> TWhere(Expression<Func<DeliveryTime, bool>> filter, bool tracking = true)
+        public IQueryable<DeliveryTime> TWhere(Expression<Func<DeliveryTime, bool>> filter)
         {
-            return _DeliveryTimeDal.Where(filter, tracking);
+            return _DeliveryTimeDal.Where(filter);
         }
     }
 }

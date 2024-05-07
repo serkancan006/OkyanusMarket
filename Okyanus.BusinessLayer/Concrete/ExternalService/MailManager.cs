@@ -19,7 +19,7 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
             _configuration = configuration;
         }
 
-        public void SendMailConfirm(string userName, string userMail, string subject, string callbackUrl)
+        public async Task SendMailConfirmAsync(string userName, string userMail, string subject, string callbackUrl)
         {
             MimeMessage mimeMessage = new MimeMessage();
             MailboxAddress mailboxAddressFrom = new MailboxAddress(_configuration["MailOptions:MailName"], _configuration["MailOptions:MailAdress"]);
@@ -57,15 +57,15 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
 
             using (SmtpClient client = new SmtpClient())
             {
-                client.Connect(_configuration["MailOptions:MailService"], int.Parse(_configuration["MailOptions:MailPort"]), bool.Parse(_configuration["MailOptions:MailSecurity"]));
-                client.Authenticate(_configuration["MailOptions:MailAdress"], _configuration["MailOptions:MailAppKey"]);
-                client.Send(mimeMessage);
-                client.Disconnect(true);
+                await client.ConnectAsync(_configuration["MailOptions:MailService"], int.Parse(_configuration["MailOptions:MailPort"]), bool.Parse(_configuration["MailOptions:MailSecurity"]));
+                await client.AuthenticateAsync(_configuration["MailOptions:MailAdress"], _configuration["MailOptions:MailAppKey"]);
+                await client.SendAsync(mimeMessage);
+                await client.DisconnectAsync(true);
             }
 
         }
 
-        public void SendMail(string userName, string userMail, string subject, string message)
+        public async Task SendMailAsync(string userName, string userMail, string subject, string message)
         {
             MimeMessage mimeMessage = new MimeMessage();
             MailboxAddress mailboxAddressFrom = new MailboxAddress(_configuration["MailOptions:MailName"], _configuration["MailOptions:MailAdress"]);
@@ -82,15 +82,15 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
 
             using (SmtpClient client = new SmtpClient())
             {
-                client.Connect(_configuration["MailOptions:MailService"], int.Parse(_configuration["MailOptions:MailPort"]), bool.Parse(_configuration["MailOptions:MailSecurity"]));
-                client.Authenticate(_configuration["MailOptions:MailAdress"], _configuration["MailOptions:MailAppKey"]);
-                client.Send(mimeMessage);
-                client.Disconnect(true);
+                await client.ConnectAsync(_configuration["MailOptions:MailService"], int.Parse(_configuration["MailOptions:MailPort"]), bool.Parse(_configuration["MailOptions:MailSecurity"]));
+                await client.AuthenticateAsync(_configuration["MailOptions:MailAdress"], _configuration["MailOptions:MailAppKey"]);
+                await client.SendAsync(mimeMessage);
+                await client.DisconnectAsync(true);
             }
 
         }
 
-        public void SendMailForgotPassword(string userName, string userMail, string subject, string callbackUrl)
+        public async Task SendMailForgotPasswordAsync(string userName, string userMail, string subject, string callbackUrl)
         {
             MimeMessage mimeMessage = new MimeMessage();
             MailboxAddress mailboxAddressFrom = new MailboxAddress(_configuration["MailOptions:MailName"], _configuration["MailOptions:MailAdress"]);
@@ -128,10 +128,10 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
 
             using (SmtpClient client = new SmtpClient())
             {
-                client.Connect(_configuration["MailOptions:MailService"], int.Parse(_configuration["MailOptions:MailPort"]), bool.Parse(_configuration["MailOptions:MailSecurity"]));
-                client.Authenticate(_configuration["MailOptions:MailAdress"], _configuration["MailOptions:MailAppKey"]);
-                client.Send(mimeMessage);
-                client.Disconnect(true);
+                await client.ConnectAsync(_configuration["MailOptions:MailService"], int.Parse(_configuration["MailOptions:MailPort"]), bool.Parse(_configuration["MailOptions:MailSecurity"]));
+                await client.AuthenticateAsync(_configuration["MailOptions:MailAdress"], _configuration["MailOptions:MailAppKey"]);
+                await client.SendAsync(mimeMessage);
+                await client.DisconnectAsync(true);
             }
 
         }

@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _BranchUsDal = BranchUsDal;
         }
 
-        public void TAdd(BranchUs entity)
+        public async Task TAddAsync(BranchUs entity)
         {
-            _BranchUsDal.Add(entity);
+            await _BranchUsDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<BranchUs> entities)
+        public async Task TAddRangeAsync(IEnumerable<BranchUs> entities)
         {
-            _BranchUsDal.AddRange(entities);
+            await _BranchUsDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<BranchUs, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<BranchUs, bool>> filter = null)
         {
-            return _BranchUsDal.Any(filter, tracking);
+            return await _BranchUsDal.AnyAsync(filter);
         }
 
-        public IQueryable<BranchUs> TAsQueryable(bool tracking = true)
+        public IQueryable<BranchUs> TAsQueryable()
         {
-            return _BranchUsDal.AsQueryable(tracking);
+            return _BranchUsDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<BranchUs, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<BranchUs, bool>> filter = null)
         {
-            return _BranchUsDal.Count();
+            return await _BranchUsDal.CountAsync();
         }
 
-        public void TDelete(BranchUs entity)
+        public async Task TDeleteAsync(BranchUs entity)
         {
-            _BranchUsDal.Delete(entity);
+            await _BranchUsDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<BranchUs> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<BranchUs> entities)
         {
-            _BranchUsDal.DeleteRange(entities);
+            await _BranchUsDal.DeleteRangeAsync(entities);
         }
 
-        public BranchUs TGetByID(int id)
+        public async Task<BranchUs> TGetByIDAsync(int id)
         {
-            return _BranchUsDal.GetByID(id);
+            return await _BranchUsDal.GetByIDAsync(id);
         }
 
-        public BranchUs TGetFirstOrDefault(Expression<Func<BranchUs, bool>> filter, bool tracking = true)
+        public async Task<BranchUs> TGetFirstOrDefaultAsync(Expression<Func<BranchUs, bool>> filter)
         {
-            return _BranchUsDal.GetFirstOrDefault(filter, tracking);
+            return await _BranchUsDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<BranchUs> TGetListAll(bool tracking = true)
+        public async Task<List<BranchUs>> TGetListAllAsync()
         {
-            return _BranchUsDal.GetListAll();
+            return await _BranchUsDal.GetListAllAsync();
         }
 
-        public IQueryable<BranchUs> TInclude(Expression<Func<BranchUs, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<BranchUs> TInclude(Expression<Func<BranchUs, object>> navigationPropertyPath)
         {
-            return _BranchUsDal.Include(navigationPropertyPath, tracking);
+            return _BranchUsDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<BranchUs> TOrderBy(Expression<Func<BranchUs, object>> keySelector, bool tracking = true)
+        public IQueryable<BranchUs> TOrderBy(Expression<Func<BranchUs, object>> keySelector)
         {
-            return _BranchUsDal.OrderBy(keySelector, tracking);
+            return _BranchUsDal.OrderBy(keySelector);
         }
 
-        public IQueryable<BranchUs> TOrderByDescending(Expression<Func<BranchUs, object>> keySelector, bool tracking = true)
+        public IQueryable<BranchUs> TOrderByDescending(Expression<Func<BranchUs, object>> keySelector)
         {
-            return _BranchUsDal.OrderByDescending(keySelector, tracking);
+            return _BranchUsDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(BranchUs entity)
+        public async Task TUpdateAsync(BranchUs entity)
         {
-            _BranchUsDal.Update(entity);
+            await _BranchUsDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<BranchUs> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<BranchUs> entities)
         {
-            _BranchUsDal.UpdateRange(entities);
+            await _BranchUsDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<BranchUs> TWhere(Expression<Func<BranchUs, bool>> filter, bool tracking = true)
+        public IQueryable<BranchUs> TWhere(Expression<Func<BranchUs, bool>> filter)
         {
-            return _BranchUsDal.Where(filter, tracking);
+            return _BranchUsDal.Where(filter);
         }
     }
 }

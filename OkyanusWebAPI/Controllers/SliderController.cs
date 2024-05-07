@@ -22,29 +22,29 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult SliderList()
+        public async Task<IActionResult> SliderList()
         {
-            var values = _SliderService.TGetListAll();
+            var values = await _SliderService.TGetListAllAsync();
             var result = _mapper.Map<List<ResultSliderVM>>(values);
             return Ok(result);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddSlider(CreateSliderVM SliderVM)
+        public async Task<IActionResult> AddSlider(CreateSliderVM SliderVM)
         {
             var value = _mapper.Map<Slider>(SliderVM);
-            _SliderService.TAdd(value);
+            await _SliderService.TAddAsync(value);
             return Ok("Slider Eklendi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public IActionResult DeleteSlider(int id)
+        public async Task<IActionResult> DeleteSlider(int id)
         {
-            var values = _SliderService.TGetByID(id);
+            var values = await _SliderService.TGetByIDAsync(id);
             var oldImageSlider = values.ImageUrl;
-            _SliderService.TDelete(values);
+            await _SliderService.TDeleteAsync(values);
             return Ok(oldImageSlider?.Substring(1));
         }
 

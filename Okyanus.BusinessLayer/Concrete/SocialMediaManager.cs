@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _SocialMediaDal = SocialMediaDal;
         }
 
-        public void TAdd(SocialMedia entity)
+        public async Task TAddAsync(SocialMedia entity)
         {
-            _SocialMediaDal.Add(entity);
+            await _SocialMediaDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<SocialMedia> entities)
+        public async Task TAddRangeAsync(IEnumerable<SocialMedia> entities)
         {
-            _SocialMediaDal.AddRange(entities);
+            await _SocialMediaDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<SocialMedia, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<SocialMedia, bool>> filter = null)
         {
-            return _SocialMediaDal.Any(filter, tracking);
+            return await _SocialMediaDal.AnyAsync(filter);
         }
 
-        public IQueryable<SocialMedia> TAsQueryable(bool tracking = true)
+        public IQueryable<SocialMedia> TAsQueryable()
         {
-            return _SocialMediaDal.AsQueryable(tracking);
+            return _SocialMediaDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<SocialMedia, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<SocialMedia, bool>> filter = null)
         {
-            return _SocialMediaDal.Count();
+            return await _SocialMediaDal.CountAsync();
         }
 
-        public void TDelete(SocialMedia entity)
+        public async Task TDeleteAsync(SocialMedia entity)
         {
-            _SocialMediaDal.Delete(entity);
+            await _SocialMediaDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<SocialMedia> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<SocialMedia> entities)
         {
-            _SocialMediaDal.DeleteRange(entities);
+            await _SocialMediaDal.DeleteRangeAsync(entities);
         }
 
-        public SocialMedia TGetByID(int id)
+        public async Task<SocialMedia> TGetByIDAsync(int id)
         {
-            return _SocialMediaDal.GetByID(id);
+            return await _SocialMediaDal.GetByIDAsync(id);
         }
 
-        public SocialMedia TGetFirstOrDefault(Expression<Func<SocialMedia, bool>> filter, bool tracking = true)
+        public async Task<SocialMedia> TGetFirstOrDefaultAsync(Expression<Func<SocialMedia, bool>> filter)
         {
-            return _SocialMediaDal.GetFirstOrDefault(filter, tracking);
+            return await _SocialMediaDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<SocialMedia> TGetListAll(bool tracking = true)
+        public async Task<List<SocialMedia>> TGetListAllAsync()
         {
-            return _SocialMediaDal.GetListAll();
+            return await _SocialMediaDal.GetListAllAsync();
         }
 
-        public IQueryable<SocialMedia> TInclude(Expression<Func<SocialMedia, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<SocialMedia> TInclude(Expression<Func<SocialMedia, object>> navigationPropertyPath)
         {
-            return _SocialMediaDal.Include(navigationPropertyPath, tracking);
+            return _SocialMediaDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<SocialMedia> TOrderBy(Expression<Func<SocialMedia, object>> keySelector, bool tracking = true)
+        public IQueryable<SocialMedia> TOrderBy(Expression<Func<SocialMedia, object>> keySelector)
         {
-            return _SocialMediaDal.OrderBy(keySelector, tracking);
+            return _SocialMediaDal.OrderBy(keySelector);
         }
 
-        public IQueryable<SocialMedia> TOrderByDescending(Expression<Func<SocialMedia, object>> keySelector, bool tracking = true)
+        public IQueryable<SocialMedia> TOrderByDescending(Expression<Func<SocialMedia, object>> keySelector)
         {
-            return _SocialMediaDal.OrderByDescending(keySelector, tracking);
+            return _SocialMediaDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(SocialMedia entity)
+        public async Task TUpdateAsync(SocialMedia entity)
         {
-            _SocialMediaDal.Update(entity);
+            await _SocialMediaDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<SocialMedia> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<SocialMedia> entities)
         {
-            _SocialMediaDal.UpdateRange(entities);
+            await _SocialMediaDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<SocialMedia> TWhere(Expression<Func<SocialMedia, bool>> filter, bool tracking = true)
+        public IQueryable<SocialMedia> TWhere(Expression<Func<SocialMedia, bool>> filter)
         {
-            return _SocialMediaDal.Where(filter, tracking);
+            return _SocialMediaDal.Where(filter);
         }
     }
 }

@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _MyPhoneDal = MyPhoneDal;
         }
 
-        public void TAdd(MyPhone entity)
+        public async Task TAddAsync(MyPhone entity)
         {
-            _MyPhoneDal.Add(entity);
+            await _MyPhoneDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<MyPhone> entities)
+        public async Task TAddRangeAsync(IEnumerable<MyPhone> entities)
         {
-            _MyPhoneDal.AddRange(entities);
+            await _MyPhoneDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<MyPhone, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<MyPhone, bool>> filter = null)
         {
-            return _MyPhoneDal.Any(filter, tracking);
+            return await _MyPhoneDal.AnyAsync(filter);
         }
 
-        public IQueryable<MyPhone> TAsQueryable(bool tracking = true)
+        public IQueryable<MyPhone> TAsQueryable()
         {
-            return _MyPhoneDal.AsQueryable(tracking);
+            return _MyPhoneDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<MyPhone, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<MyPhone, bool>> filter = null)
         {
-            return _MyPhoneDal.Count();
+            return await _MyPhoneDal.CountAsync();
         }
 
-        public void TDelete(MyPhone entity)
+        public async Task TDeleteAsync(MyPhone entity)
         {
-            _MyPhoneDal.Delete(entity);
+            await _MyPhoneDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<MyPhone> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<MyPhone> entities)
         {
-            _MyPhoneDal.DeleteRange(entities);
+            await _MyPhoneDal.DeleteRangeAsync(entities);
         }
 
-        public MyPhone TGetByID(int id)
+        public async Task<MyPhone> TGetByIDAsync(int id)
         {
-            return _MyPhoneDal.GetByID(id);
+            return await _MyPhoneDal.GetByIDAsync(id);
         }
 
-        public MyPhone TGetFirstOrDefault(Expression<Func<MyPhone, bool>> filter, bool tracking = true)
+        public async Task<MyPhone> TGetFirstOrDefaultAsync(Expression<Func<MyPhone, bool>> filter)
         {
-            return _MyPhoneDal.GetFirstOrDefault(filter, tracking);
+            return await _MyPhoneDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<MyPhone> TGetListAll(bool tracking = true)
+        public async Task<List<MyPhone>> TGetListAllAsync()
         {
-            return _MyPhoneDal.GetListAll();
+            return await _MyPhoneDal.GetListAllAsync();
         }
 
-        public IQueryable<MyPhone> TInclude(Expression<Func<MyPhone, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<MyPhone> TInclude(Expression<Func<MyPhone, object>> navigationPropertyPath)
         {
-            return _MyPhoneDal.Include(navigationPropertyPath, tracking);
+            return _MyPhoneDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<MyPhone> TOrderBy(Expression<Func<MyPhone, object>> keySelector, bool tracking = true)
+        public IQueryable<MyPhone> TOrderBy(Expression<Func<MyPhone, object>> keySelector)
         {
-            return _MyPhoneDal.OrderBy(keySelector, tracking);
+            return _MyPhoneDal.OrderBy(keySelector);
         }
 
-        public IQueryable<MyPhone> TOrderByDescending(Expression<Func<MyPhone, object>> keySelector, bool tracking = true)
+        public IQueryable<MyPhone> TOrderByDescending(Expression<Func<MyPhone, object>> keySelector)
         {
-            return _MyPhoneDal.OrderByDescending(keySelector, tracking);
+            return _MyPhoneDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(MyPhone entity)
+        public async Task TUpdateAsync(MyPhone entity)
         {
-            _MyPhoneDal.Update(entity);
+            await _MyPhoneDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<MyPhone> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<MyPhone> entities)
         {
-            _MyPhoneDal.UpdateRange(entities);
+            await _MyPhoneDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<MyPhone> TWhere(Expression<Func<MyPhone, bool>> filter, bool tracking = true)
+        public IQueryable<MyPhone> TWhere(Expression<Func<MyPhone, bool>> filter)
         {
-            return _MyPhoneDal.Where(filter, tracking);
+            return _MyPhoneDal.Where(filter);
         }
     }
 }

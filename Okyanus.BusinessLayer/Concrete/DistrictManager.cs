@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _DistrictDal = DistrictDal;
         }
 
-        public void TAdd(District entity)
+        public async Task TAddAsync(District entity)
         {
-            _DistrictDal.Add(entity);
+            await _DistrictDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<District> entities)
+        public async Task TAddRangeAsync(IEnumerable<District> entities)
         {
-            _DistrictDal.AddRange(entities);
+            await _DistrictDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<District, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<District, bool>> filter = null)
         {
-            return _DistrictDal.Any(filter, tracking);
+            return await _DistrictDal.AnyAsync(filter);
         }
 
-        public IQueryable<District> TAsQueryable(bool tracking = true)
+        public IQueryable<District> TAsQueryable()
         {
-            return _DistrictDal.AsQueryable(tracking);
+            return _DistrictDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<District, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<District, bool>> filter = null)
         {
-            return _DistrictDal.Count();
+            return await _DistrictDal.CountAsync();
         }
 
-        public void TDelete(District entity)
+        public async Task TDeleteAsync(District entity)
         {
-            _DistrictDal.Delete(entity);
+            await _DistrictDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<District> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<District> entities)
         {
-            _DistrictDal.DeleteRange(entities);
+            await _DistrictDal.DeleteRangeAsync(entities);
         }
 
-        public District TGetByID(int id)
+        public async Task<District> TGetByIDAsync(int id)
         {
-            return _DistrictDal.GetByID(id);
+            return await _DistrictDal.GetByIDAsync(id);
         }
 
-        public District TGetFirstOrDefault(Expression<Func<District, bool>> filter, bool tracking = true)
+        public async Task<District> TGetFirstOrDefaultAsync(Expression<Func<District, bool>> filter)
         {
-            return _DistrictDal.GetFirstOrDefault(filter, tracking);
+            return await _DistrictDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<District> TGetListAll(bool tracking = true)
+        public async Task<List<District>> TGetListAllAsync()
         {
-            return _DistrictDal.GetListAll();
+            return await _DistrictDal.GetListAllAsync();
         }
 
-        public IQueryable<District> TInclude(Expression<Func<District, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<District> TInclude(Expression<Func<District, object>> navigationPropertyPath)
         {
-            return _DistrictDal.Include(navigationPropertyPath, tracking);
+            return _DistrictDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<District> TOrderBy(Expression<Func<District, object>> keySelector, bool tracking = true)
+        public IQueryable<District> TOrderBy(Expression<Func<District, object>> keySelector)
         {
-            return _DistrictDal.OrderBy(keySelector, tracking);
+            return _DistrictDal.OrderBy(keySelector);
         }
 
-        public IQueryable<District> TOrderByDescending(Expression<Func<District, object>> keySelector, bool tracking = true)
+        public IQueryable<District> TOrderByDescending(Expression<Func<District, object>> keySelector)
         {
-            return _DistrictDal.OrderByDescending(keySelector, tracking);
+            return _DistrictDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(District entity)
+        public async Task TUpdateAsync(District entity)
         {
-            _DistrictDal.Update(entity);
+            await _DistrictDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<District> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<District> entities)
         {
-            _DistrictDal.UpdateRange(entities);
+            await _DistrictDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<District> TWhere(Expression<Func<District, bool>> filter, bool tracking = true)
+        public IQueryable<District> TWhere(Expression<Func<District, bool>> filter)
         {
-            return _DistrictDal.Where(filter, tracking);
+            return _DistrictDal.Where(filter);
         }
     }
 }

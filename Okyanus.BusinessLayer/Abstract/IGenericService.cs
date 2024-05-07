@@ -9,24 +9,24 @@ namespace Okyanus.BusinessLayer.Abstract
 {
     public interface IGenericService<T>
     {
-        void TAddRange(IEnumerable<T> entities);
-        void TDeleteRange(IEnumerable<T> entities);
-        void TUpdateRange(IEnumerable<T> entities);
+        Task TAddRangeAsync(IEnumerable<T> entities);
+        Task TDeleteRangeAsync(IEnumerable<T> entities);
+        Task TUpdateRangeAsync(IEnumerable<T> entities);
 
-        void TAdd(T entity);
-        void TDelete(T entity);
-        void TUpdate(T entity);
+        Task TAddAsync(T entity);
+        Task TDeleteAsync(T entity);
+        Task TUpdateAsync(T entity);
 
-        T TGetByID(int id);
-        List<T> TGetListAll(bool tracking = true);
+        Task<T> TGetByIDAsync(int id);
+        Task<List<T>> TGetListAllAsync();
 
-        IQueryable<T> TAsQueryable(bool tracking = true);
-        IQueryable<T> TInclude(Expression<Func<T, object>> navigationPropertyPath, bool tracking = true);
-        T TGetFirstOrDefault(Expression<Func<T, bool>> filter, bool tracking = true);
-        int TCount(Expression<Func<T, bool>> filter = null, bool tracking = true);
-        bool TAny(Expression<Func<T, bool>> filter = null, bool tracking = true);
-        IQueryable<T> TOrderBy(Expression<Func<T, object>> keySelector, bool tracking = true);
-        IQueryable<T> TOrderByDescending(Expression<Func<T, object>> keySelector, bool tracking = true);
-        IQueryable<T> TWhere(Expression<Func<T, bool>> filter, bool tracking = true);
+        IQueryable<T> TAsQueryable();
+        IQueryable<T> TInclude(Expression<Func<T, object>> navigationPropertyPath);
+        Task<T> TGetFirstOrDefaultAsync(Expression<Func<T, bool>> filter);
+        Task<int> TCountAsync(Expression<Func<T, bool>> filter = null);
+        Task<bool> TAnyAsync(Expression<Func<T, bool>> filter = null);
+        IQueryable<T> TOrderBy(Expression<Func<T, object>> keySelector);
+        IQueryable<T> TOrderByDescending(Expression<Func<T, object>> keySelector);
+        IQueryable<T> TWhere(Expression<Func<T, bool>> filter);
     }
 }

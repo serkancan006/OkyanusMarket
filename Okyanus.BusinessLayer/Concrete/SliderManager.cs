@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _SliderDal = SliderDal;
         }
 
-        public void TAdd(Slider entity)
+        public async Task TAddAsync(Slider entity)
         {
-            _SliderDal.Add(entity);
+            await _SliderDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<Slider> entities)
+        public async Task TAddRangeAsync(IEnumerable<Slider> entities)
         {
-            _SliderDal.AddRange(entities);
+            await _SliderDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<Slider, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<Slider, bool>> filter = null)
         {
-            return _SliderDal.Any(filter, tracking);
+            return await _SliderDal.AnyAsync(filter);
         }
 
-        public IQueryable<Slider> TAsQueryable(bool tracking = true)
+        public IQueryable<Slider> TAsQueryable()
         {
-            return _SliderDal.AsQueryable(tracking);
+            return _SliderDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<Slider, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<Slider, bool>> filter = null)
         {
-            return _SliderDal.Count();
+            return await _SliderDal.CountAsync();
         }
 
-        public void TDelete(Slider entity)
+        public async Task TDeleteAsync(Slider entity)
         {
-            _SliderDal.Delete(entity);
+            await _SliderDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<Slider> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<Slider> entities)
         {
-            _SliderDal.DeleteRange(entities);
+            await _SliderDal.DeleteRangeAsync(entities);
         }
 
-        public Slider TGetByID(int id)
+        public async Task<Slider> TGetByIDAsync(int id)
         {
-            return _SliderDal.GetByID(id);
+            return await _SliderDal.GetByIDAsync(id);
         }
 
-        public Slider TGetFirstOrDefault(Expression<Func<Slider, bool>> filter, bool tracking = true)
+        public async Task<Slider> TGetFirstOrDefaultAsync(Expression<Func<Slider, bool>> filter)
         {
-            return _SliderDal.GetFirstOrDefault(filter, tracking);
+            return await _SliderDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<Slider> TGetListAll(bool tracking = true)
+        public async Task<List<Slider>> TGetListAllAsync()
         {
-            return _SliderDal.GetListAll();
+            return await _SliderDal.GetListAllAsync();
         }
 
-        public IQueryable<Slider> TInclude(Expression<Func<Slider, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<Slider> TInclude(Expression<Func<Slider, object>> navigationPropertyPath)
         {
-            return _SliderDal.Include(navigationPropertyPath, tracking);
+            return _SliderDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<Slider> TOrderBy(Expression<Func<Slider, object>> keySelector, bool tracking = true)
+        public IQueryable<Slider> TOrderBy(Expression<Func<Slider, object>> keySelector)
         {
-            return _SliderDal.OrderBy(keySelector, tracking);
+            return _SliderDal.OrderBy(keySelector);
         }
 
-        public IQueryable<Slider> TOrderByDescending(Expression<Func<Slider, object>> keySelector, bool tracking = true)
+        public IQueryable<Slider> TOrderByDescending(Expression<Func<Slider, object>> keySelector)
         {
-            return _SliderDal.OrderByDescending(keySelector, tracking);
+            return _SliderDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(Slider entity)
+        public async Task TUpdateAsync(Slider entity)
         {
-            _SliderDal.Update(entity);
+            await _SliderDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<Slider> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<Slider> entities)
         {
-            _SliderDal.UpdateRange(entities);
+            await _SliderDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<Slider> TWhere(Expression<Func<Slider, bool>> filter, bool tracking = true)
+        public IQueryable<Slider> TWhere(Expression<Func<Slider, bool>> filter)
         {
-            return _SliderDal.Where(filter, tracking);
+            return _SliderDal.Where(filter);
         }
     }
 }

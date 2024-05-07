@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _CityDal = CityDal;
         }
 
-        public void TAdd(City entity)
+        public async Task TAddAsync(City entity)
         {
-            _CityDal.Add(entity);
+            await _CityDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<City> entities)
+        public async Task TAddRangeAsync(IEnumerable<City> entities)
         {
-            _CityDal.AddRange(entities);
+            await _CityDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<City, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<City, bool>> filter = null)
         {
-            return _CityDal.Any(filter, tracking);
+            return await _CityDal.AnyAsync(filter);
         }
 
-        public IQueryable<City> TAsQueryable(bool tracking = true)
+        public IQueryable<City> TAsQueryable()
         {
-            return _CityDal.AsQueryable(tracking);
+            return _CityDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<City, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<City, bool>> filter = null)
         {
-            return _CityDal.Count();
+            return await _CityDal.CountAsync();
         }
 
-        public void TDelete(City entity)
+        public async Task TDeleteAsync(City entity)
         {
-            _CityDal.Delete(entity);
+            await _CityDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<City> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<City> entities)
         {
-            _CityDal.DeleteRange(entities);
+            await _CityDal.DeleteRangeAsync(entities);
         }
 
-        public City TGetByID(int id)
+        public async Task<City> TGetByIDAsync(int id)
         {
-            return _CityDal.GetByID(id);
+            return await _CityDal.GetByIDAsync(id);
         }
 
-        public City TGetFirstOrDefault(Expression<Func<City, bool>> filter, bool tracking = true)
+        public async Task<City> TGetFirstOrDefaultAsync(Expression<Func<City, bool>> filter)
         {
-            return _CityDal.GetFirstOrDefault(filter, tracking);
+            return await _CityDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<City> TGetListAll(bool tracking = true)
+        public async Task<List<City>> TGetListAllAsync()
         {
-            return _CityDal.GetListAll();
+            return await _CityDal.GetListAllAsync();
         }
 
-        public IQueryable<City> TInclude(Expression<Func<City, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<City> TInclude(Expression<Func<City, object>> navigationPropertyPath)
         {
-            return _CityDal.Include(navigationPropertyPath, tracking);
+            return _CityDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<City> TOrderBy(Expression<Func<City, object>> keySelector, bool tracking = true)
+        public IQueryable<City> TOrderBy(Expression<Func<City, object>> keySelector)
         {
-            return _CityDal.OrderBy(keySelector, tracking);
+            return _CityDal.OrderBy(keySelector);
         }
 
-        public IQueryable<City> TOrderByDescending(Expression<Func<City, object>> keySelector, bool tracking = true)
+        public IQueryable<City> TOrderByDescending(Expression<Func<City, object>> keySelector)
         {
-            return _CityDal.OrderByDescending(keySelector, tracking);
+            return _CityDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(City entity)
+        public async Task TUpdateAsync(City entity)
         {
-            _CityDal.Update(entity);
+            await _CityDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<City> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<City> entities)
         {
-            _CityDal.UpdateRange(entities);
+            await _CityDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<City> TWhere(Expression<Func<City, bool>> filter, bool tracking = true)
+        public IQueryable<City> TWhere(Expression<Func<City, bool>> filter)
         {
-            return _CityDal.Where(filter, tracking);
+            return _CityDal.Where(filter);
         }
     }
 }

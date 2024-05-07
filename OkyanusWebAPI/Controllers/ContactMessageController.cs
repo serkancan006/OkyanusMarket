@@ -23,44 +23,44 @@ namespace OkyanusWebAPI.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public IActionResult ContactMessageList()
+        public async Task<IActionResult> ContactMessageList()
         {
-            var values = _ContactMessageService.TGetListAll();
+            var values = await _ContactMessageService.TGetListAllAsync();
             var result = _mapper.Map<List<ResultContactMessageVM>>(values);
             return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult AddContactMessage(CreateContactMessageVM ContactMessageVM)
+        public async Task<IActionResult> AddContactMessage(CreateContactMessageVM ContactMessageVM)
         {
             var value = _mapper.Map<ContactMessage>(ContactMessageVM);
-            _ContactMessageService.TAdd(value);
+            await _ContactMessageService.TAddAsync(value);
             return Ok("ContactMessage Eklendi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public IActionResult DeleteContactMessage(int id)
+        public async Task<IActionResult> DeleteContactMessage(int id)
         {
-            var values = _ContactMessageService.TGetByID(id);
-            _ContactMessageService.TDelete(values);
+            var values = await _ContactMessageService.TGetByIDAsync(id);
+            await _ContactMessageService.TDeleteAsync(values);
             return Ok("ContactMessage Silindi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
-        public IActionResult UpdateContactMessage(UpdateContactMessageVM ContactMessageVM)
+        public async Task<IActionResult> UpdateContactMessage(UpdateContactMessageVM ContactMessageVM)
         {
             var value = _mapper.Map<ContactMessage>(ContactMessageVM);
-            _ContactMessageService.TUpdate(value);
+            await _ContactMessageService.TUpdateAsync(value);
             return Ok("ContactMessage Güncellendi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
-        public IActionResult GetContactMessage(int id)
+        public async Task<IActionResult> GetContactMessage(int id)
         {
-            var values = _ContactMessageService.TGetByID(id);
+            var values = await _ContactMessageService.TGetByIDAsync(id);
             var result = _mapper.Map<ResultContactMessageVM>(values);
             return Ok(result);
         }

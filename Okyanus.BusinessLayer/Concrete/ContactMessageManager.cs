@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _ContactMessageDal = ContactMessageDal;
         }
 
-        public void TAdd(ContactMessage entity)
+        public async Task TAddAsync(ContactMessage entity)
         {
-            _ContactMessageDal.Add(entity);
+            await _ContactMessageDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<ContactMessage> entities)
+        public async Task TAddRangeAsync(IEnumerable<ContactMessage> entities)
         {
-            _ContactMessageDal.AddRange(entities);
+            await _ContactMessageDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<ContactMessage, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<ContactMessage, bool>> filter = null)
         {
-            return _ContactMessageDal.Any(filter, tracking);
+            return await _ContactMessageDal.AnyAsync(filter);
         }
 
-        public IQueryable<ContactMessage> TAsQueryable(bool tracking = true)
+        public IQueryable<ContactMessage> TAsQueryable()
         {
-            return _ContactMessageDal.AsQueryable(tracking);
+            return _ContactMessageDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<ContactMessage, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<ContactMessage, bool>> filter = null)
         {
-            return _ContactMessageDal.Count();
+            return await _ContactMessageDal.CountAsync();
         }
 
-        public void TDelete(ContactMessage entity)
+        public async Task TDeleteAsync(ContactMessage entity)
         {
-            _ContactMessageDal.Delete(entity);
+            await _ContactMessageDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<ContactMessage> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<ContactMessage> entities)
         {
-            _ContactMessageDal.DeleteRange(entities);
+            await _ContactMessageDal.DeleteRangeAsync(entities);
         }
 
-        public ContactMessage TGetByID(int id)
+        public async Task<ContactMessage> TGetByIDAsync(int id)
         {
-            return _ContactMessageDal.GetByID(id);
+            return await _ContactMessageDal.GetByIDAsync(id);
         }
 
-        public ContactMessage TGetFirstOrDefault(Expression<Func<ContactMessage, bool>> filter, bool tracking = true)
+        public async Task<ContactMessage> TGetFirstOrDefaultAsync(Expression<Func<ContactMessage, bool>> filter)
         {
-            return _ContactMessageDal.GetFirstOrDefault(filter, tracking);
+            return await _ContactMessageDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<ContactMessage> TGetListAll(bool tracking = true)
+        public async Task<List<ContactMessage>> TGetListAllAsync()
         {
-            return _ContactMessageDal.GetListAll();
+            return await _ContactMessageDal.GetListAllAsync();
         }
 
-        public IQueryable<ContactMessage> TInclude(Expression<Func<ContactMessage, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<ContactMessage> TInclude(Expression<Func<ContactMessage, object>> navigationPropertyPath)
         {
-            return _ContactMessageDal.Include(navigationPropertyPath, tracking);
+            return _ContactMessageDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<ContactMessage> TOrderBy(Expression<Func<ContactMessage, object>> keySelector, bool tracking = true)
+        public IQueryable<ContactMessage> TOrderBy(Expression<Func<ContactMessage, object>> keySelector)
         {
-            return _ContactMessageDal.OrderBy(keySelector, tracking);
+            return _ContactMessageDal.OrderBy(keySelector);
         }
 
-        public IQueryable<ContactMessage> TOrderByDescending(Expression<Func<ContactMessage, object>> keySelector, bool tracking = true)
+        public IQueryable<ContactMessage> TOrderByDescending(Expression<Func<ContactMessage, object>> keySelector)
         {
-            return _ContactMessageDal.OrderByDescending(keySelector, tracking);
+            return _ContactMessageDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(ContactMessage entity)
+        public async Task TUpdateAsync(ContactMessage entity)
         {
-            _ContactMessageDal.Update(entity);
+            await _ContactMessageDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<ContactMessage> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<ContactMessage> entities)
         {
-            _ContactMessageDal.UpdateRange(entities);
+            await _ContactMessageDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<ContactMessage> TWhere(Expression<Func<ContactMessage, bool>> filter, bool tracking = true)
+        public IQueryable<ContactMessage> TWhere(Expression<Func<ContactMessage, bool>> filter)
         {
-            return _ContactMessageDal.Where(filter, tracking);
+            return _ContactMessageDal.Where(filter);
         }
     }
 }

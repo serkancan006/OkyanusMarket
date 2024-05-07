@@ -18,84 +18,84 @@ namespace Okyanus.BusinessLayer.Concrete
             _TermsAndConditionDal = TermsAndConditionDal;
         }
 
-        public void TAdd(TermsAndCondition entity)
+        public async Task TAddAsync(TermsAndCondition entity)
         {
-            _TermsAndConditionDal.Add(entity);
+            await _TermsAndConditionDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<TermsAndCondition> entities)
+        public async Task TAddRangeAsync(IEnumerable<TermsAndCondition> entities)
         {
-            _TermsAndConditionDal.AddRange(entities);
+            await _TermsAndConditionDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<TermsAndCondition, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<TermsAndCondition, bool>> filter = null)
         {
-            return _TermsAndConditionDal.Any(filter, tracking);
+            return await _TermsAndConditionDal.AnyAsync(filter);
         }
 
-        public IQueryable<TermsAndCondition> TAsQueryable(bool tracking = true)
+        public IQueryable<TermsAndCondition> TAsQueryable()
         {
-            return _TermsAndConditionDal.AsQueryable(tracking);
+            return _TermsAndConditionDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<TermsAndCondition, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<TermsAndCondition, bool>> filter = null)
         {
-            return _TermsAndConditionDal.Count();
+            return await _TermsAndConditionDal.CountAsync();
         }
 
-        public void TDelete(TermsAndCondition entity)
+        public async Task TDeleteAsync(TermsAndCondition entity)
         {
-            _TermsAndConditionDal.Delete(entity);
+            await _TermsAndConditionDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<TermsAndCondition> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<TermsAndCondition> entities)
         {
-            _TermsAndConditionDal.DeleteRange(entities);
+            await _TermsAndConditionDal.DeleteRangeAsync(entities);
         }
 
-        public TermsAndCondition TGetByID(int id)
+        public async Task<TermsAndCondition> TGetByIDAsync(int id)
         {
-            return _TermsAndConditionDal.GetByID(id);
+            return await _TermsAndConditionDal.GetByIDAsync(id);
         }
 
-        public TermsAndCondition TGetFirstOrDefault(Expression<Func<TermsAndCondition, bool>> filter, bool tracking = true)
+        public async Task<TermsAndCondition> TGetFirstOrDefaultAsync(Expression<Func<TermsAndCondition, bool>> filter)
         {
-            return _TermsAndConditionDal.GetFirstOrDefault(filter, tracking);
+            return await _TermsAndConditionDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<TermsAndCondition> TGetListAll(bool tracking = true)
+        public async Task<List<TermsAndCondition>> TGetListAllAsync()
         {
-            return _TermsAndConditionDal.GetListAll();
+            return await _TermsAndConditionDal.GetListAllAsync();
         }
 
-        public IQueryable<TermsAndCondition> TInclude(Expression<Func<TermsAndCondition, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<TermsAndCondition> TInclude(Expression<Func<TermsAndCondition, object>> navigationPropertyPath)
         {
-            return _TermsAndConditionDal.Include(navigationPropertyPath, tracking);
+            return _TermsAndConditionDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<TermsAndCondition> TOrderBy(Expression<Func<TermsAndCondition, object>> keySelector, bool tracking = true)
+        public IQueryable<TermsAndCondition> TOrderBy(Expression<Func<TermsAndCondition, object>> keySelector)
         {
-            return _TermsAndConditionDal.OrderBy(keySelector, tracking);
+            return _TermsAndConditionDal.OrderBy(keySelector);
         }
 
-        public IQueryable<TermsAndCondition> TOrderByDescending(Expression<Func<TermsAndCondition, object>> keySelector, bool tracking = true)
+        public IQueryable<TermsAndCondition> TOrderByDescending(Expression<Func<TermsAndCondition, object>> keySelector)
         {
-            return _TermsAndConditionDal.OrderByDescending(keySelector, tracking);
+            return _TermsAndConditionDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(TermsAndCondition entity)
+        public async Task TUpdateAsync(TermsAndCondition entity)
         {
-            _TermsAndConditionDal.Update(entity);
+            await _TermsAndConditionDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<TermsAndCondition> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<TermsAndCondition> entities)
         {
-            _TermsAndConditionDal.UpdateRange(entities);
+            await _TermsAndConditionDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<TermsAndCondition> TWhere(Expression<Func<TermsAndCondition, bool>> filter, bool tracking = true)
+        public IQueryable<TermsAndCondition> TWhere(Expression<Func<TermsAndCondition, bool>> filter)
         {
-            return _TermsAndConditionDal.Where(filter, tracking);
+            return _TermsAndConditionDal.Where(filter);
         }
     }
 }

@@ -12,90 +12,90 @@ namespace Okyanus.BusinessLayer.Concrete
 {
     public class GroupManager : IGroupService
     {
-        IGroupDal _CategoryDal;
-        public GroupManager(IGroupDal CategoryDal)
+        IGroupDal _GroupDal;
+        public GroupManager(IGroupDal GroupDal)
         {
-            _CategoryDal = CategoryDal;
+            _GroupDal = GroupDal;
         }
 
-        public void TAdd(Group entity)
+        public async Task TAddAsync(Group entity)
         {
-            _CategoryDal.Add(entity);
+            await _GroupDal.AddAsync(entity);
         }
 
-        public void TAddRange(IEnumerable<Group> entities)
+        public async Task TAddRangeAsync(IEnumerable<Group> entities)
         {
-            _CategoryDal.AddRange(entities);
+            await _GroupDal.AddRangeAsync(entities);
         }
 
-        public bool TAny(Expression<Func<Group, bool>> filter = null, bool tracking = true)
+        public async Task<bool> TAnyAsync(Expression<Func<Group, bool>> filter = null)
         {
-            return _CategoryDal.Any(filter, tracking);
+            return await _GroupDal.AnyAsync(filter);
         }
 
-        public IQueryable<Group> TAsQueryable(bool tracking = true)
+        public IQueryable<Group> TAsQueryable()
         {
-            return _CategoryDal.AsQueryable(tracking);
+            return _GroupDal.AsQueryable();
         }
 
-        public int TCount(Expression<Func<Group, bool>> filter = null, bool tracking = true)
+        public async Task<int> TCountAsync(Expression<Func<Group, bool>> filter = null)
         {
-            return _CategoryDal.Count();
+            return await _GroupDal.CountAsync();
         }
 
-        public void TDelete(Group entity)
+        public async Task TDeleteAsync(Group entity)
         {
-            _CategoryDal.Delete(entity);
+            await _GroupDal.DeleteAsync(entity);
         }
 
-        public void TDeleteRange(IEnumerable<Group> entities)
+        public async Task TDeleteRangeAsync(IEnumerable<Group> entities)
         {
-            _CategoryDal.DeleteRange(entities);
+            await _GroupDal.DeleteRangeAsync(entities);
         }
 
-        public Group TGetByID(int id)
+        public async Task<Group> TGetByIDAsync(int id)
         {
-            return _CategoryDal.GetByID(id);
+            return await _GroupDal.GetByIDAsync(id);
         }
 
-        public Group TGetFirstOrDefault(Expression<Func<Group, bool>> filter, bool tracking = true)
+        public async Task<Group> TGetFirstOrDefaultAsync(Expression<Func<Group, bool>> filter)
         {
-            return _CategoryDal.GetFirstOrDefault(filter, tracking);
+            return await _GroupDal.GetFirstOrDefaultAsync(filter);
         }
 
-        public List<Group> TGetListAll(bool tracking = true)
+        public async Task<List<Group>> TGetListAllAsync()
         {
-            return _CategoryDal.GetListAll();
+            return await _GroupDal.GetListAllAsync();
         }
 
-        public IQueryable<Group> TInclude(Expression<Func<Group, object>> navigationPropertyPath, bool tracking = true)
+        public IQueryable<Group> TInclude(Expression<Func<Group, object>> navigationPropertyPath)
         {
-            return _CategoryDal.Include(navigationPropertyPath, tracking);
+            return _GroupDal.Include(navigationPropertyPath);
         }
 
-        public IQueryable<Group> TOrderBy(Expression<Func<Group, object>> keySelector, bool tracking = true)
+        public IQueryable<Group> TOrderBy(Expression<Func<Group, object>> keySelector)
         {
-            return _CategoryDal.OrderBy(keySelector, tracking);
+            return _GroupDal.OrderBy(keySelector);
         }
 
-        public IQueryable<Group> TOrderByDescending(Expression<Func<Group, object>> keySelector, bool tracking = true)
+        public IQueryable<Group> TOrderByDescending(Expression<Func<Group, object>> keySelector)
         {
-            return _CategoryDal.OrderByDescending(keySelector, tracking);
+            return _GroupDal.OrderByDescending(keySelector);
         }
 
-        public void TUpdate(Group entity)
+        public async Task TUpdateAsync(Group entity)
         {
-            _CategoryDal.Update(entity);
+            await _GroupDal.UpdateAsync(entity);
         }
 
-        public void TUpdateRange(IEnumerable<Group> entities)
+        public async Task TUpdateRangeAsync(IEnumerable<Group> entities)
         {
-            _CategoryDal.UpdateRange(entities);
+            await _GroupDal.UpdateRangeAsync(entities);
         }
 
-        public IQueryable<Group> TWhere(Expression<Func<Group, bool>> filter, bool tracking = true)
+        public IQueryable<Group> TWhere(Expression<Func<Group, bool>> filter)
         {
-            return _CategoryDal.Where(filter, tracking);
+            return _GroupDal.Where(filter);
         }
     }
 }

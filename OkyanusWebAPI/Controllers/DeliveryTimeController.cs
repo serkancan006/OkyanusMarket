@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models.DeliveryTimeVM;
@@ -22,52 +23,52 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet("[action]")]
-        public IActionResult LastDeliveryTimeList()
+        public async Task<IActionResult> LastDeliveryTimeList()
         {
-            var values = _DeliveryTimeService.TWhere(x => x.StartedTime <= DateTime.UtcNow).ToList();
+            var values = await _DeliveryTimeService.TWhere(x => x.StartedTime <= DateTime.UtcNow).ToListAsync();
             var result = _mapper.Map<List<ResultDeliveryTimeVM>>(values);
             return Ok(result);
         }
 
         [HttpGet]
-        public IActionResult DeliveryTimeList()
+        public async Task<IActionResult> DeliveryTimeList()
         {
-            var values = _DeliveryTimeService.TWhere(x => x.StartedTime > DateTime.UtcNow).ToList();
+            var values = await _DeliveryTimeService.TWhere(x => x.StartedTime > DateTime.UtcNow).ToListAsync();
             var result = _mapper.Map<List<ResultDeliveryTimeVM>>(values);
             return Ok(result);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddDeliveryTime(CreateDeliveryTimeVM DeliveryTimeVM)
+        public async Task<IActionResult> AddDeliveryTime(CreateDeliveryTimeVM DeliveryTimeVM)
         {
             var value = _mapper.Map<DeliveryTime>(DeliveryTimeVM);
-            _DeliveryTimeService.TAdd(value);
+            await _DeliveryTimeService.TAddAsync(value);
             return Ok("DeliveryTime Eklendi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public IActionResult DeleteDeliveryTime(int id)
+        public async Task<IActionResult> DeleteDeliveryTime(int id)
         {
-            var values = _DeliveryTimeService.TGetByID(id);
-            _DeliveryTimeService.TDelete(values);
+            var values = await _DeliveryTimeService.TGetByIDAsync(id);
+            await _DeliveryTimeService.TDeleteAsync(values);
             return Ok("DeliveryTime Silindi");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
-        public IActionResult UpdateDeliveryTime(UpdateDeliveryTimeVM DeliveryTimeVM)
+        public async Task<IActionResult> UpdateDeliveryTime(UpdateDeliveryTimeVM DeliveryTimeVM)
         {
             var value = _mapper.Map<DeliveryTime>(DeliveryTimeVM);
-            _DeliveryTimeService.TUpdate(value);
+            await _DeliveryTimeService.TUpdateAsync(value);
             return Ok("DeliveryTime Güncellendi");
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetDeliveryTime(int id)
+        public async Task<IActionResult> GetDeliveryTime(int id)
         {
-            var values = _DeliveryTimeService.TGetByID(id);
+            var values = await _DeliveryTimeService.TGetByIDAsync(id);
             var result = _mapper.Map<ResultDeliveryTimeVM>(values);
             return Ok(result);
         }

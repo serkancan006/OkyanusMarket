@@ -8,8 +8,8 @@ namespace Okyanus.BusinessLayer.Abstract.ExternalService
 {
     public interface IMailService
     {
-        void SendMailConfirm(string userName, string userMail, string subject, string callbackUrl);
-        void SendMailForgotPassword(string userName, string userMail, string subject, string callbackUrl);
-        void SendMail(string userName, string userMail, string subject, string message);
+        Task SendMailConfirmAsync(string userName, string userMail, string subject, string callbackUrl);
+        Task SendMailForgotPasswordAsync(string userName, string userMail, string subject, string callbackUrl);
+        Task SendMailAsync(string userName, string userMail, string subject, string message);
     }
 }
