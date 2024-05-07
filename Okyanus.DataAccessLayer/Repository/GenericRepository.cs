@@ -71,7 +71,7 @@ namespace Okyanus.DataAccessLayer.Repository
                 return await _context.Set<T>().ToListAsync();
         }
 
-        public IQueryable<T> AsQueryable(bool tracking = true)
+        public IQueryable<T> AsQueryable(bool tracking = false)
         {
             if (!tracking)
                 return _context.Set<T>().AsNoTracking();

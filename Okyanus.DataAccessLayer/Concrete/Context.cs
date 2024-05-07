@@ -47,11 +47,10 @@ namespace Okyanus.DataAccessLayer.Concrete
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Sss> Ssses { get; set; }
         public DbSet<TermsAndCondition> TermsAndConditions { get; set; }
-        
 
 
         //Interceptor
-        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             var timeZone = TimeZoneInfo.FindSystemTimeZoneById("Turkey Standard Time");
 
@@ -78,7 +77,38 @@ namespace Okyanus.DataAccessLayer.Concrete
                 }
             }
 
-            return base.SaveChanges(acceptAllChangesOnSuccess);
+            return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
+
+
+        //public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        //{
+        //    var timeZone = TimeZoneInfo.FindSystemTimeZoneById("Turkey Standard Time");
+
+        //    foreach (var entry in ChangeTracker.Entries())
+        //    {
+        //        if (entry.Entity is BaseEntity baseEntity)
+        //        {
+        //            switch (entry.State)
+        //            {
+        //                case EntityState.Added:
+        //                    baseEntity.CreatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
+        //                    baseEntity.UpdatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
+        //                    baseEntity.Status = true;
+        //                    break;
+        //                case EntityState.Modified:
+        //                    baseEntity.UpdatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
+        //                    entry.Property("CreatedDate").IsModified = false;
+        //                    entry.Property("Status").IsModified = false;
+        //                    break;
+        //                default:
+        //                    // Bilinmeyen bir durumla karşılaşıldığında yapılacaklar
+        //                    break;
+        //            }
+        //        }
+        //    }
+
+        //    return base.SaveChanges(acceptAllChangesOnSuccess);
+        //}
     }
 }
