@@ -12,7 +12,7 @@ namespace Okyanus.EntityLayer.Entities
     {
         public double TotalPrice { get; set; }
         public string? Description { get; set; }
-        public List<OrderDetail> OrderDetails { get; set; }
+        public virtual List<OrderDetail> OrderDetails { get; set; }
         public string OrderStatus { get; set; }
 
         public string TeslimatYontemi { get; set; }

@@ -29,6 +29,6 @@ namespace Okyanus.EntityLayer.Entities
         public Marka Marka { get; set; }
         public int ProductTypeID { get; set; }
         public ProductType ProductType { get; set; }
-        public List<OrderDetail> OrderDetails { get; set; }
+        public virtual List<OrderDetail> OrderDetails { get; set; }
     }
 }

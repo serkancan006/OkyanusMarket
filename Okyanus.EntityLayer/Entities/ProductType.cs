@@ -12,6 +12,6 @@ namespace Okyanus.EntityLayer.Entities
         public string Birim { get; set; }
         public double IncreaseAmount { get; set; }
 
-        public List<Product> Products { get; set; }
+        public virtual List<Product> Products { get; set; }
     }
 }
