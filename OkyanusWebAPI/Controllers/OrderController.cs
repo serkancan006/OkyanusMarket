@@ -248,8 +248,6 @@ namespace OkyanusWebAPI.Controllers
             return Ok("Order Eklendi");
         }
 
-
-
         //[Authorize]
         //[HttpPost]
         //public async Task<IActionResult> AddOrder(CreateOrderRequestVM createOrderRequestVM)

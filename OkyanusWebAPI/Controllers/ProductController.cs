@@ -174,41 +174,182 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> HomeCategorizeProductList()
         {
-            var list = new List<CategorizeProductVM>();
+            var result = new List<CategorizeProductVM>();
+
             var anaGrupList = await _categoryService.TWhere(x => x.ANAGRUP != "0" && x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0").ToListAsync();
 
-            foreach (var anagrup in anaGrupList)
+            var tasks = anaGrupList.Select(async anagrup =>
             {
-                var altKategoriler = await _categoryService.TWhere(x => x.ANAGRUP == anagrup.ANAGRUP && x.ALTGRUP1 != "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0").Take(4).ToListAsync();
+                var altKategoriler = await _categoryService.TWhere(x => x.ANAGRUP == anagrup.ANAGRUP && x.ALTGRUP1 != "0" && x.Products.Count > 1 && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0")
+                                                          .Take(4)
+                                                          .ToListAsync();
 
-                var a = new List<CategorizeProductVM.Altkategoriler>();
-                foreach (var altkategori in altKategoriler)
+                var altKategoriTasks = altKategoriler.Select(async altkategori =>
                 {
-                    var urunler = await _categoryService.TAsQueryable().Include(x => x.Products).Where(x => x.ANAGRUP == anagrup.ANAGRUP && x.ALTGRUP1 == altkategori.ALTGRUP1 && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0").Select(x => x.Products).FirstOrDefaultAsync();
-                    var n = new List<ResultProductVM>();
-                    a.Add(new()
+                    var urunler = await _ProductService.TAsQueryable()
+                                                      .Where(x => x.ANAGRUP == altkategori.ANAGRUP && x.ALTGRUP1 == altkategori.ALTGRUP1)
+                                                      .Take(4)
+                                                      .ToListAsync();
+
+                    var mappedUrunler = urunler.Select(urun => _mapper.Map<ResultProductVM>(urun)).ToList();
+
+                    return new CategorizeProductVM.Altkategoriler
                     {
                         AltKategoriAdı = altkategori.GRUPADI,
-                        Ürünler = n,
-                    });
-                    if (urunler != null)
-                    {
-                        foreach (var urun in urunler)
-                        {
-                            var value = _mapper.Map<ResultProductVM>(urun);
-                            n.Add(value);
-                        }
-                    }
-                   
-                }
-                list.Add(new CategorizeProductVM()
-                {
-                    KategoriAdı = anagrup.GRUPADI,
-                    AltKategoriler = a
+                        Ürünler = mappedUrunler
+                    };
                 });
-            }
-            return Ok(list);
+
+                var altKategorilerList = await Task.WhenAll(altKategoriTasks);
+                var nonEmptyAltKategoriler = altKategorilerList.Where(alt => alt.Ürünler.Any()).ToList();
+
+                if (nonEmptyAltKategoriler.Any())
+                {
+                    return new CategorizeProductVM
+                    {
+                        KategoriAdı = anagrup.GRUPADI,
+                        AltKategoriler = nonEmptyAltKategoriler
+                    };
+                }
+                else
+                {
+                    return null;
+                }
+            });
+
+            var processedResults = await Task.WhenAll(tasks);
+            result.AddRange(processedResults.Where(x => x != null));
+
+            return Ok(result);
         }
+
+        //[HttpGet("[action]")]
+        //public async Task<IActionResult> HomeCategorizeProductList()
+        //{
+        //    var result = new List<CategorizeProductVM>();
+
+        //    var anaGrupList = await _categoryService.TWhere(x => x.ANAGRUP != "0" && x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0").ToListAsync();
+
+        //    foreach (var anagrup in anaGrupList)
+        //    {
+        //        var altKategoriler = await _categoryService.TWhere(x => x.ANAGRUP == anagrup.ANAGRUP && x.ALTGRUP1 != "0" && x.Products.Count > 1 && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0")
+        //                                                  .Take(4)
+        //                                                  .ToListAsync();
+
+        //        var altKategoriTasks = altKategoriler.Select(async altkategori =>
+        //        {
+        //            var urunler = await _ProductService.TAsQueryable()
+        //                                              .Where(x => x.ANAGRUP == altkategori.ANAGRUP && x.ALTGRUP1 == altkategori.ALTGRUP1)
+        //                                              .Take(4)
+        //                                              .ToListAsync();
+
+        //            var mappedUrunler = urunler.Select(urun => _mapper.Map<ResultProductVM>(urun)).ToList();
+
+        //            return new CategorizeProductVM.Altkategoriler
+        //            {
+        //                AltKategoriAdı = altkategori.GRUPADI,
+        //                Ürünler = mappedUrunler
+        //            };
+        //        });
+
+        //        var altKategorilerList = await Task.WhenAll(altKategoriTasks);
+        //        var nonEmptyAltKategoriler = altKategorilerList.Where(alt => alt.Ürünler.Any()).ToList();
+
+        //        if (nonEmptyAltKategoriler.Any())
+        //        {
+        //            result.Add(new CategorizeProductVM
+        //            {
+        //                KategoriAdı = anagrup.GRUPADI,
+        //                AltKategoriler = nonEmptyAltKategoriler
+        //            });
+        //        }
+        //    }
+
+        //    return Ok(result);
+        //}
+
+        //[HttpGet("[action]")]
+        //public async Task<IActionResult> HomeCategorizeProductList()
+        //{
+        //    var list = new List<CategorizeProductVM>();
+        //    var anaGrupList = await _categoryService.TWhere(x => x.ANAGRUP != "0" && x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0").ToListAsync();
+
+        //    foreach (var anagrup in anaGrupList)
+        //    {
+        //        var altKategoriler = await _categoryService.TWhere(x => x.ANAGRUP == anagrup.ANAGRUP && x.ALTGRUP1 != "0" && x.Products.Count > 1 && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0")
+        //                                                  .Take(4)
+        //                                                  .ToListAsync();
+
+        //        var altKategoriTasks = altKategoriler.Select(async altkategori =>
+        //        {
+        //            var urunler = await _ProductService.TAsQueryable()
+        //                                              .Where(x => x.ANAGRUP == altkategori.ANAGRUP && x.ALTGRUP1 == altkategori.ALTGRUP1)
+        //                                              .Take(4)
+        //                                              .ToListAsync();
+
+        //            var mappedUrunler = urunler.Select(urun => _mapper.Map<ResultProductVM>(urun)).ToList();
+
+        //            return new CategorizeProductVM.Altkategoriler
+        //            {
+        //                AltKategoriAdı = altkategori.GRUPADI,
+        //                Ürünler = mappedUrunler
+        //            };
+        //        });
+
+        //        var altKategorilerList = await Task.WhenAll(altKategoriTasks);
+        //        list.Add(new CategorizeProductVM
+        //        {
+        //            KategoriAdı = anagrup.GRUPADI,
+        //            AltKategoriler = altKategorilerList.Where(alt => alt.Ürünler.Any()).ToList()
+        //        });
+        //    }
+
+        //    return Ok(list);
+        //}
+
+
+
+        //[HttpGet("[action]")]
+        //public async Task<IActionResult> HomeCategorizeProductList()
+        //{
+        //    var list = new List<CategorizeProductVM>();
+        //    var anaGrupList = await _categoryService.TWhere(x => x.ANAGRUP != "0" && x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0").ToListAsync();
+
+        //    foreach (var anagrup in anaGrupList)
+        //    {
+
+        //        var altKategoriler = await _categoryService.TWhere(x => x.ANAGRUP == anagrup.ANAGRUP && x.ALTGRUP1 != "0" && x.Products.Count > 1).Where(x => x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0").Take(4).ToListAsync();
+
+        //        var a = new List<CategorizeProductVM.Altkategoriler>();
+        //        foreach (var altkategori in altKategoriler)
+        //        {
+        //            //var urunler = await _categoryService.TAsQueryable().Include(x => x.Products).Where(x => x.ANAGRUP == anagrup.ANAGRUP && x.ALTGRUP1 == altkategori.ALTGRUP1 && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0").Select(x => x.Products).FirstOrDefaultAsync();
+        //            var urunler = await _ProductService.TAsQueryable().Where(x => x.ANAGRUP == altkategori.ANAGRUP && x.ALTGRUP1 == altkategori.ALTGRUP1).Take(4).ToListAsync();
+        //            var n = new List<ResultProductVM>();
+        //            a.Add(new()
+        //            {
+        //                AltKategoriAdı = altkategori.GRUPADI,
+        //                Ürünler = n,
+        //            });
+        //            if (urunler != null)
+        //            {
+        //                foreach (var urun in urunler)
+        //                {
+        //                    var value = _mapper.Map<ResultProductVM>(urun);
+        //                    n.Add(value);
+        //                }
+        //            }
+
+        //        }
+        //        list.Add(new CategorizeProductVM()
+        //        {
+        //            KategoriAdı = anagrup.GRUPADI,
+        //            AltKategoriler = a
+        //        });
+        //    }
+        //    var result = list.Where(x => x.AltKategoriler.Count > 0);
+        //    return Ok(result);
+        //}
 
         [Authorize(Roles = "Admin")]
         [HttpGet("[action]")]
