@@ -59,24 +59,40 @@ namespace OkyanusWebUI.Controllers
             //return Redirect(Request.Headers["Referer"].ToString());
         }
 
+       
+
         [HttpPost]
-        public IActionResult UpdateBasketItemQuantity(int id, string quantity, string birim)
+        public IActionResult UpdateBasketItemQuantity(UpdateBasketQuantity model)
         {
-            //Console.WriteLine(birim);
-            double convertQuantity = double.Parse(quantity.Replace(',', '.'), CultureInfo.InvariantCulture);
-            if (convertQuantity <= 0)
+            if (!ModelState.IsValid)
             {
-                return Ok();
-            }
-            if (birim == "Adet")
-            {
-                // Tam sayı kontrolü
-                if (convertQuantity % 1 != 0)
+                string errorMessage = "";
+                foreach (var modelState in ModelState.Values)
                 {
-                    convertQuantity = (int)convertQuantity;
+                    foreach (var error in modelState.Errors)
+                    {
+                        errorMessage += error.ErrorMessage + "</br>";
+                        Console.WriteLine(error.ErrorMessage);
+                    }
                 }
+                return BadRequest(errorMessage);
             }
-            _basketService.UpdateQuantity(id, convertQuantity);
+            //Console.WriteLine(birim);
+            //double convertQuantity = double.Parse(model.quantity.Replace(',', '.'), CultureInfo.InvariantCulture);
+            //if (convertQuantity <= 0)
+            //{
+            //    return Ok();
+            //}
+            //if (model.birim == "Adet")
+            //{
+            //    // Tam sayı kontrolü
+            //    if (convertQuantity % 1 != 0)
+            //    {
+            //        convertQuantity = (int)convertQuantity;
+            //    }
+            //}
+            //_basketService.UpdateQuantity(model.id, convertQuantity);
+            _basketService.UpdateQuantity(model.id, model.quantity);
             return Ok();
         }
 
@@ -87,4 +103,14 @@ namespace OkyanusWebUI.Controllers
         }
 
     }
+
+    public class UpdateBasketQuantity
+    {
+        public int id { get; set; }
+        //public string quantity { get; set; }
+        public double quantity { get; set; }
+        public string birim { get; set; }
+        public int stock { get; set; }
+    }
+
 }

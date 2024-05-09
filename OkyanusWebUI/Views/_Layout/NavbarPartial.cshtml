@@ -23,6 +23,7 @@
                         }
                         else
                         {
+                            <li><a href="/User/FavoriUrunler/Index/"><i class="fa fa-heart" aria-hidden="true"></i>Favoriler</a></li>
                             <li><a href="/User/UserOrder/Index/"><i class="fa fa-first-order" aria-hidden="true"></i>Siparişlerim</a></li>
                             <li><a href="/User/UserAdres/Index/"><i class="fa fa-address-book" aria-hidden="true"></i>Adreslerim</a></li>
                             <li><a href="/User/UserProfile/Index/"><i class="fa fa-user" aria-hidden="true"></i>Hesabım</a></li>
@@ -129,7 +130,7 @@
                     <td class="text-center" style="width: 50px;"><img width="50px" height="50px" src="${item.imageUrl ? item.imageUrl : "/web/images/resimhazirlaniyor.png"}" /></td>
                     <td>${item.name}</td>
                     <td><label>₺${item.price}</label> ${item.realPrice != null ? '<p style="text-decoration: line-through;">₺'+item.realPrice+'</p>' : ""}</td>
-                    <td><input type="number" max="${item.stock}" min="${item.increaseAmount}" step="${item.increaseAmount}" style="width: 70px;" class="my-product-quantity" value="${item.quantity}" onchange="updateBasketItemQuantity(${item.productId}, '${item.birim}', this.value)" /></td>
+                    <td><input type="number" max="${item.stock}" min="${item.increaseAmount}" step="${item.increaseAmount}" style="width: 70px;" class="my-product-quantity" value="${item.quantity}" onchange="updateBasketItemQuantity(${item.productId}, '${item.birim}', this.value, ${item.productId})" /></td>
                     <td>${item.birim}</td>
                     <td class="my-product-total">₺${item.totalPrice}</td>
                     <td class="text-center" style="width: 30px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger my-product-remove" onclick="deleteBasketItem(${item.productId})">X</a></td>
@@ -169,16 +170,21 @@
         });
     }
 
-    function updateBasketItemQuantity(id, birim, quantity) {
+    function updateBasketItemQuantity(id, birim, quantity, stock) {
+        quantity = parseFloat(quantity);
         $.ajax({
             url: '/Basket/UpdateBasketItemQuantity/',
             type: 'POST',
-            data: { id: id, quantity: quantity, birim: birim },
+            data: { id: id, quantity: quantity, birim: birim, stock: stock },
             success: function (data) {
                 getBasketItems();
                 orderSummaryComponenetRender();
             },
             error: function (err) {
+                getBasketItems();
+                orderSummaryComponenetRender();
+                toastNotifyError(err.responseText, 3000);
+                //console.log(err.responseText);
             }
         });
     }

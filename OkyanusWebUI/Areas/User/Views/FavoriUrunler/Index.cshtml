@@ -1,0 +1,33 @@
+﻿@model List<OkyanusWebUI.Models.FavoriUrunlerVM.ResultFavoriUrunlerVM>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int count = 0;
+}
+
+<div class="container table-responsive">
+    <h1>Favori Urunlerimiz</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Ürün Resmi</th>
+                <th>Ürün Adı</th>
+                <th>Sil</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <th>@count</th>
+                    <td><img src="@item.Product.ImageUrl" height="75" width="75" /></td>
+                    <td>@item.Product.ProductName</td>
+                    <td><a class="btn btn-danger" href="/User/FavoriUrunler/DeleteFavoriUrunler/@item.ID">Sil</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

@@ -8,7 +8,9 @@ namespace OkyanusWebUI.Validations.Admin.Product
         public UpdateProductVMValidator()
         {
             RuleFor(x => x.ProductName).NotNull().WithMessage("Ürün Adı Boş geçilemez");
-            RuleFor(x => x.Price).NotNull().WithMessage("Ürün Fiyatı Boş geçilemez");
+            RuleFor(x => x.Price).NotNull().WithMessage("Ürün Fiyatı Boş geçilemez")
+                .GreaterThan(0).WithMessage("Ürün fiyatı 0 dan büyük olmalıdır");
+            RuleFor(x => x.DiscountedPrice).LessThan(x => x.Price).WithMessage("İndirim fiyatı ana fiyattan az olmalıdır.");
             //RuleFor(x => x.DiscountedPrice).NotNull().WithMessage("Ürün Fiyatı Boş geçilemez"); 
             //RuleFor(x => x.ImageUrl).NotNull().WithMessage("Ürün Fiyatı Boş geçilemez"); 
             RuleFor(x => x.Description).NotNull().WithMessage("Ürün Açıklaması Boş geçilemez");

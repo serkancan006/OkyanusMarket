@@ -1,4 +1,5 @@
 ﻿@model List<ResultProductVM>
+@inject OkyanusWebUI.Service.TokenService _tokenService
 
 @if (Model != null && Model.Count > 0 )
 {
@@ -29,6 +30,12 @@
                                 </div>
                                 <div class="mid-2">
                                     <p><label>&#8378;@item.Price</label><em class="item_price">&#8378;@item.DiscountedPrice</em></p> <!-- Normal ve indirimli fiyat -->
+                                    <div class="block">
+                                        @if (_tokenService.IsAuthonticate())
+                                        {
+                                            <i class="fa fa-heart likebutton" onclick="addFavoriteProduct(@item.ID)" data-toggle="tooltip" title="Favoriye Ekle"></i>
+                                        }
+                                    </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="add add-2">

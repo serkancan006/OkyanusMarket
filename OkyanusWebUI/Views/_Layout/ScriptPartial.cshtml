@@ -36,3 +36,17 @@
 
 <script src="~/lib/sweetalert2/dist/sweetalert2.min.js"></script>
 
+<script>
+    function addFavoriteProduct(id) {
+        $.ajax({
+            url: '/User/FavoriUrunler/AddFavoriUrunler/' + id,
+            type: 'GET',
+            success: function (data) {
+                toastNotifySuccess(data, 3000);
+            },
+            error: function (err) {
+                toastNotifyError(err.responseText, 3000);
+            }
+        });
+    }
+</script>

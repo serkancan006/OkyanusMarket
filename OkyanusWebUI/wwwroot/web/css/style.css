@@ -1,3 +1,15 @@
+.block .likebutton {
+    cursor: pointer;
+    font-size: 20px;
+    color: gray;
+    transition: color 1s;
+    opacity: 0.5;
+}
+
+.block .likebutton:hover {
+    color: #ED0612;
+    opacity: 1;
+}
 
 body{
 	margin:0;
@@ -3163,4 +3175,5 @@ h1.t-button {
 .grid_3 p, .page-header p {
     font-size: 13px;
 }
+
 }

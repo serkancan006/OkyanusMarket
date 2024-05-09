@@ -24,7 +24,7 @@ namespace OkyanusWebUI.Service
                 selectListItems.Add(new SelectListItem()
                 {
                     Value = null,
-                    Text = "Online Siparişler Devre dışı",
+                    Text = "online siparişlerimiz şimdilik kapılıdır!",
                     Disabled = true,
                 });
             }

@@ -78,6 +78,9 @@ namespace Okyanus.BusinessLayer.Container
             services.AddScoped<ITermsAndConditionDal, EfTermsAndConditionDal>();
             services.AddScoped<ITermsAndConditionService, TermsAndConditionManager>();
 
+            services.AddScoped<IFavoriUrunlerDal, EfFavoriUrunlerDal>();
+            services.AddScoped<IFavoriUrunlerService, FavoriUrunlerManager>();
+
             //External Service
             services.AddScoped<IMailService, MailManager>();
             services.AddScoped<ICreateTokenService, CreateTokenManager>();

@@ -1,4 +1,5 @@
 ﻿using Okyanus.EntityLayer.Entities.Common;
+using Okyanus.EntityLayer.Entities.identitiy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,5 +31,6 @@ namespace Okyanus.EntityLayer.Entities
         public int ProductTypeID { get; set; }
         public ProductType ProductType { get; set; }
         public virtual List<OrderDetail> OrderDetails { get; set; }
+        public virtual List<FavoriUrunler> FavoriUrunlers { get; set; }
     }
 }

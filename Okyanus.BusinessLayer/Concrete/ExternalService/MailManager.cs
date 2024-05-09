@@ -42,7 +42,7 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
     <div style='width: 80%; padding: 20px; font-family: Arial, sans-serif;'>
         <div style='background-color: #f8f9fa; padding: 20px;'>
             <h1 style='font-size: 28px;'>Hesabınızı Onaylayın</h1>
-            <p style='font-size: 16px;'>Lütfen aşağıdaki butona tıklayarak hesabınızı onaylayın.</p>
+            <p style='font-size: 16px;'>Aşağıdaki butona tıklayarak hesabınızı onaylayabilirsiniz.</p>
             <hr style='border: none; border-top: 1px solid #ccc;'>
             <p style='font-size: 16px;'>
                 <a href='{callbackUrl}' role='button' style='background-color: #007bff; color: white; padding: 10px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 20px;'>Onayla</a>
@@ -113,7 +113,7 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
     <div style='width: 80%; padding: 20px; font-family: Arial, sans-serif;'>
         <div style='background-color: #f8f9fa; padding: 20px;'>
             <h1 style='font-size: 28px;'>Şifrenizi Değiştirin</h1>
-            <p style='font-size: 16px;'>Lütfen aşağıdaki butona tıklayarak şifrenizi değiştirebilirsiniz.</p>
+            <p style='font-size: 16px;'>Aşağıdaki butona tıklayarak şifrenizi değiştirebilirsiniz.</p>
             <hr style='border: none; border-top: 1px solid #ccc;'>
             <p style='font-size: 16px;'>
                 <a href='{callbackUrl}' role='button' style='background-color: #007bff; color: white; padding: 10px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 20px;'>Onayla</a>

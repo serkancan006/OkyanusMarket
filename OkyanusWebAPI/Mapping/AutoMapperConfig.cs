@@ -8,6 +8,7 @@ using OkyanusWebAPI.Models.ContactMessageVM;
 using OkyanusWebAPI.Models.ContactVM;
 using OkyanusWebAPI.Models.DeliveryTimeVM;
 using OkyanusWebAPI.Models.DistrictVM;
+using OkyanusWebAPI.Models.FavoriUrunlerVM;
 using OkyanusWebAPI.Models.GroupVM;
 using OkyanusWebAPI.Models.MarkaVM;
 using OkyanusWebAPI.Models.MyPhoneVM;
@@ -107,6 +108,9 @@ namespace OkyanusWebAPI.Mapping
             CreateMap<CreateTermsAndConditionVM, TermsAndCondition>().ReverseMap();
             CreateMap<UpdateTermsAndConditionVM, TermsAndCondition>().ReverseMap();
 
+            CreateMap<ResultFavoriUrunlerVM, FavoriUrunler>().ReverseMap();
+            CreateMap<CreateFavoriUrunlerVM, FavoriUrunler>().ReverseMap();
+            CreateMap<UpdateFavoriUrunlerVM, FavoriUrunler>().ReverseMap();
         }
     }
 }

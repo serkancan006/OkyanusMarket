@@ -1,4 +1,5 @@
 ﻿@model OkyanusWebUI.Controllers.ProductListResponse
+@inject OkyanusWebUI.Service.TokenService _tokenService;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -57,10 +58,17 @@
                                         {
                                             <p><em class="item_price">₺@item.Price</em></p>
                                         }
+                                        <div class="block">
+                                            @if (_tokenService.IsAuthonticate())
+                                            {
+                                                <i class="fa fa-heart likebutton" onclick="addFavoriteProduct(@item.ID)" toggle="tooltip" title="Favoriye Ekle"> </i>
+                                            }
+                                        </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="add add-2">
                                         <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket(@item.ID)">Sepete Ekle</button>
+                                     
                                     </div>
                                 </div>
                             </div>

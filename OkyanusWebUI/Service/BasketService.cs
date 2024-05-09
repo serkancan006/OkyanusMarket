@@ -86,6 +86,8 @@ namespace OkyanusWebUI.Service
             }
         }
 
+      
+
         // Sepetteki ürünlerin toplam fiyatını getir
         public double GetTotalPrice()
         {

@@ -47,6 +47,7 @@ namespace Okyanus.DataAccessLayer.Concrete
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Sss> Ssses { get; set; }
         public DbSet<TermsAndCondition> TermsAndConditions { get; set; }
+        public DbSet<FavoriUrunler> FavoriUrunlers { get; set; }
 
 
         //Interceptor
