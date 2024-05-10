@@ -512,12 +512,13 @@ span.fa.fa-shopping-cart.my-cart-icon {
     border: 1px solid #FFF;
     background: rgba(255, 255, 255, 0.45);
 }
-.search-form input[type='submit']{
-	    width: 40px;
+.search-form input[type='submit'] {
+    width: 40px;
     height: 41px;
     outline: none;
     border: 1px solid #fff;
-    background: url(../images/can.png) no-repeat 6px 7px #FCCD1E;
+    /* background: url(../images/can.png) no-repeat 6px 7px #FCCD1E; */
+    background: url(../images/can.png) no-repeat 6px 7px #FAB005;
     display: inline-block;
 }
 .search-form input[type='submit']:hover {
