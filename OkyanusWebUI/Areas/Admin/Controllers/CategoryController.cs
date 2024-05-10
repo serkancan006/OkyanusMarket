@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OkyanusWebUI.Areas.Admin.Models.AdminGroupVM;
 using OkyanusWebUI.Models.CategoryVM;
+using OkyanusWebUI.Models.GroupVM;
 using OkyanusWebUI.Service;
 
 namespace OkyanusWebUI.Areas.Admin.Controllers
@@ -12,9 +13,11 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         private readonly CustomHttpClient _customHttpClient;
-        public CategoryController(CustomHttpClient customHttpClient)
+        private readonly FileOperationService _fileOperationService;
+        public CategoryController(CustomHttpClient customHttpClient, FileOperationService fileOperationService)
         {
             _customHttpClient = customHttpClient;
+            _fileOperationService = fileOperationService;
         }
 
         public async Task<IActionResult> Index()
@@ -82,6 +85,84 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult changeImageGroup(string id)
+        {
+            return ViewComponent("ChangeGroupImagePartial", new { categoryName = id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeImageGroup(ChangeCategoryImageRequest request)
+        {
+            if (request.FormFile == null)
+            {
+                var changeImageRequestApi = new ChangeGroupImageApiRequest
+                {
+                    CategoryName = request.CategoryName,
+                    ImagePath = null
+                };
+
+                var responseMessage = await _customHttpClient.Post<ChangeGroupImageApiRequest>(
+                    new() { Controller = "Group", Action = "ChangeGroupImage" },
+                    changeImageRequestApi
+                );
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var oldProductImage = await responseMessage.Content.ReadAsStringAsync();
+                    //Console.WriteLine(oldProductImage);
+                    if (oldProductImage != null)
+                    {
+                        _fileOperationService.DeleteFile(oldProductImage);
+                    }
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                var (fileName, databasePath) = await _fileOperationService.SaveFileAsync(request.FormFile, "images/group/");
+
+                var changeImageRequestApi = new ChangeGroupImageApiRequest
+                {
+                    CategoryName = request.CategoryName,
+                    ImagePath = databasePath
+                };
+
+                var responseMessage = await _customHttpClient.Post<ChangeGroupImageApiRequest>(
+                    new() { Controller = "Group", Action = "ChangeGroupImage" },
+                    changeImageRequestApi
+                );
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var oldProductImage = await responseMessage.Content.ReadAsStringAsync();
+                    //Console.WriteLine(oldProductImage);
+                    if (oldProductImage != null)
+                    {
+                        _fileOperationService.DeleteFile(oldProductImage);
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    // Hata durumunda dosyayı silme işlemi
+                    _fileOperationService.DeleteFile(databasePath);
+                    return BadRequest();
+                }
+            }
+
+        }
+        private class ChangeGroupImageApiRequest
+        {
+            public string? ImagePath { get; set; }
+            public string CategoryName { get; set; }
         }
     }
 }

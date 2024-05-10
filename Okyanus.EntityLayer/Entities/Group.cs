@@ -15,6 +15,7 @@ namespace Okyanus.EntityLayer.Entities
         public string ALTGRUP3 { get; set; } 
         public string GRUPADI { get; set; }
         public string? Description { get; set; }
+        public string? ImageUrl { get; set; }
 
         public virtual List<Product> Products { get; set; }
     }

@@ -25,7 +25,9 @@
                         <th>#</th>
                         <th>Kategori Adı</th>
                         <th>Açıklaması</th>
+                        <th>Detaylar</th>
                         <th>Sil</th>
+                        <th>Resim Değiştir</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,7 +39,8 @@
                             <td>@item.GRUPADI</td>
                             <td>@item?.Description</td>
                             <td><a href="/Admin/Category/UpdateCategory/@item.GRUPADI" class="btn btn-warning">Detaylar</a></td>
-                            <td><a href="/Admin/Category/DeleteCategory/@item.GRUPADI" class="btn btn-danger"  onclick="return confirm('Dikkat Silmek istediğinize emin misiniz? Kategori silindiğinde ürünlere ait kategorileride silinir!!!');">Sil</a></td>
+                            <td><a href="/Admin/Category/DeleteCategory/@item.GRUPADI" class="btn btn-danger" onclick="return confirm('Dikkat Silmek istediğinize emin misiniz? Kategori silindiğinde ürünlere ait kategorileride silinir!!!');">Sil</a></td>
+                            <td><button data-toggle="modal" data-target="#groupImageModal" class="btn btn-info" onclick="openCategoryImageModal('@item.GRUPADI')">R.Değiştir</button></td>
                         </tr>
                     }
                 </tbody>
@@ -47,4 +50,33 @@
     </div>
 </div>
 
+<!-- Change Category Image Modal -->
+<div class="modal" id="groupImageModal" tabindex="-1" role="dialog" aria-labelledby="groupImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" style="width:90%;" id="groupImageModalContainer">
 
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function openCategoryImageModal(id) {
+        $.ajax({
+            url: '/Admin/Category/changeImageGroup/' + id,
+            type: 'GET',
+            success: function (data) {
+                $('#groupImageModalContainer').html(data);
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('imagePreview');
+            output.innerHTML = '<img src="' + reader.result + '" width="40%" />';
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>

@@ -22,19 +22,28 @@ namespace OkyanusWebAPI.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("[Action]")] //anasayfa da random 4 kategori listeleme için kullanılıyor
-        public async Task<IActionResult> Get4AnaGroupRandomList()
+        //[HttpGet("[Action]")] //anasayfa da random 4 kategori listeleme için kullanılıyor
+        //public async Task<IActionResult> Get4AnaGroupRandomList()
+        //{
+        //    var values = await _GroupService.TAsQueryable()
+        //        .Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" 
+        //        )
+        //        //.OrderBy(x => new Random().Next())
+        //        .Select(x => new { 
+        //            x.GRUPADI, x.Description })
+        //        .Take(4)
+        //        .ToListAsync();
+        //    return Ok(values);
+        //}
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAnaGroups()
         {
-            var values = await _GroupService.TAsQueryable()
-                .Where(x => x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0" 
-                //&& x.Status == true
-                )
-                //.OrderBy(x => new Random().Next())
-                .Select(x => new { 
-                    //x.ID,
-                    x.GRUPADI, x.Description })
-                .Take(4)
-                .ToListAsync();
+            var values = await _GroupService.TWhere(x => x.ANAGRUP != "0" && x.ALTGRUP1 == "0" && x.ALTGRUP2 == "0" && x.ALTGRUP3 == "0").Select(x => new
+            {
+                x.GRUPADI,
+                x.ImageUrl
+            }).ToListAsync();
             return Ok(values);
         }
 
@@ -134,5 +143,22 @@ namespace OkyanusWebAPI.Controllers
             var result = _mapper.Map<ResultGroupVM>(values);
             return Ok(result);
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ChangeGroupImage(ChangeCategoryImageRequest request)
+        {
+            var group = await _GroupService.TWhere(x => x.GRUPADI == request.CategoryName).SingleOrDefaultAsync();
+            var oldGroupImage = group.ImageUrl;
+            group.ImageUrl = request.ImagePath;
+            await _GroupService.TUpdateAsync(group);
+            if (oldGroupImage == null)
+            {
+                return Ok();
+            }
+            return Ok(oldGroupImage.Substring(1));
+        }
+
+
     }
 }

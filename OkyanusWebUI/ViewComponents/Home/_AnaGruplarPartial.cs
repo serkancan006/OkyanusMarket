@@ -16,16 +16,21 @@ namespace OkyanusWebUI.ViewComponents.Home
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "Group", Action= "Get4AnaGroupRandomList" });
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "Group", Action= "GetAnaGroups" });
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultCategoryVM>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultAnaGroupList>>(jsonData);
                 return View(values);
             }
             return View();
         }
-
        
+    }
+    public class ResultAnaGroupList
+    {
+        public string GRUPADI { get; set; }
+        public string? Description { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

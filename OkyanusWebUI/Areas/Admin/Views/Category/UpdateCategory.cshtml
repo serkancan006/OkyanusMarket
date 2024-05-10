@@ -6,7 +6,10 @@
 
 
 <div class="container">
-    <form method="post">
+    <img src="@(Model.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" style="height:200px;width:100%;object-fit:contain;" />
+    <form  method="post">
+        <input type="hidden" asp-for="ImageUrl" value="@Model.ImageUrl" />
+
         <label>Kategori Adı</label>
         <input type="text" asp-for="GRUPADI" class="form-control" />
         <span class="text-danger" asp-validation-for="GRUPADI"></span>
@@ -30,14 +33,14 @@
         @*<label>Alt Grup-2 Kodu Giriniz</label>*@
         <input type="hidden" asp-for="ALTGRUP2" class="form-control" />
         <span class="text-danger" asp-validation-for="ALTGRUP2"></span>
-        <br />
+        @*<br />*@
 
         @*<label>Alt Grup-3 Kodu Giriniz</label>*@
         <input type="hidden" asp-for="ALTGRUP3" class="form-control" />
         <span class="text-danger" asp-validation-for="ALTGRUP3"></span>
         @*<br />*@
 
-        <button class="btn btn-primary">Kategori Güncelle</button>
+        <button type="submit" class="btn btn-primary">Kategori Güncelle</button>
     </form>
 </div>
 
