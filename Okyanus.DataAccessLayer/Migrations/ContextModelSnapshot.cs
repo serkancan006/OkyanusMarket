@@ -410,9 +410,6 @@ namespace Okyanus.DataAccessLayer.Migrations
                     b.HasIndex("GRUPADI")
                         .IsUnique();
 
-                    b.HasIndex("ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3")
-                        .IsUnique();
-
                     b.ToTable("Groups");
                 });
 

@@ -12,8 +12,8 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace Okyanus.DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240511103022_mig_9")]
-    partial class mig_9
+    [Migration("20240511131410_mig_1")]
+    partial class mig_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -410,9 +410,6 @@ namespace Okyanus.DataAccessLayer.Migrations
                     b.HasKey("ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3");
 
                     b.HasIndex("GRUPADI")
-                        .IsUnique();
-
-                    b.HasIndex("ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3")
                         .IsUnique();
 
                     b.ToTable("Groups");

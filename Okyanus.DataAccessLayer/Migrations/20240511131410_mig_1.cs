@@ -165,21 +165,17 @@ namespace Okyanus.DataAccessLayer.Migrations
                 name: "Groups",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
                     ANAGRUP = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     ALTGRUP1 = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     ALTGRUP2 = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     ALTGRUP3 = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     GRUPADI = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
+                    ImageUrl = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Groups", x => x.ID);
+                    table.PrimaryKey("PK_Groups", x => new { x.ANAGRUP, x.ALTGRUP1, x.ALTGRUP2, x.ALTGRUP3 });
                 });
 
             migrationBuilder.CreateTable(
@@ -222,7 +218,7 @@ namespace Okyanus.DataAccessLayer.Migrations
                     ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
                     Birim = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    IncreaseAmount = table.Column<double>(type: "BINARY_DOUBLE", nullable: false),
+                    IncreaseAmount = table.Column<decimal>(type: "DECIMAL(18, 2)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
                     Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
@@ -411,7 +407,7 @@ namespace Okyanus.DataAccessLayer.Migrations
                 {
                     ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    TotalPrice = table.Column<double>(type: "BINARY_DOUBLE", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "DECIMAL(18, 2)", nullable: false),
                     Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     OrderStatus = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     TeslimatYontemi = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
@@ -501,16 +497,16 @@ namespace Okyanus.DataAccessLayer.Migrations
                     ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
                     ProductName = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Price = table.Column<double>(type: "BINARY_DOUBLE", nullable: false),
-                    DiscountedPrice = table.Column<double>(type: "BINARY_DOUBLE", nullable: true),
+                    Price = table.Column<decimal>(type: "DECIMAL(18, 2)", nullable: false),
+                    DiscountedPrice = table.Column<decimal>(type: "DECIMAL(18, 2)", nullable: true),
                     ImageUrl = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
-                    Stock = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    AnaBarcode = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    ANAGRUP = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    ALTGRUP1 = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
-                    ALTGRUP2 = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
-                    ALTGRUP3 = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Stock = table.Column<decimal>(type: "DECIMAL(18, 2)", nullable: false),
+                    AnaBarcode = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    ANAGRUP = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    ALTGRUP1 = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    ALTGRUP2 = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    ALTGRUP3 = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     MarkaID = table.Column<int>(type: "NUMBER(10)", nullable: false),
                     ProductTypeID = table.Column<int>(type: "NUMBER(10)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
@@ -520,6 +516,12 @@ namespace Okyanus.DataAccessLayer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Products_Groups_ANAGRUP_ALTGRUP1_ALTGRUP2_ALTGRUP3",
+                        columns: x => new { x.ANAGRUP, x.ALTGRUP1, x.ALTGRUP2, x.ALTGRUP3 },
+                        principalTable: "Groups",
+                        principalColumns: new[] { "ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3" },
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_Markas_MarkaID",
                         column: x => x.MarkaID,
@@ -535,14 +537,43 @@ namespace Okyanus.DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FavoriUrunlers",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    ProductID = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    AppUserID = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavoriUrunlers", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_FavoriUrunlers_AspNetUsers_AppUserID",
+                        column: x => x.AppUserID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FavoriUrunlers_Products_ProductID",
+                        column: x => x.ProductID,
+                        principalTable: "Products",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderDetails",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Count = table.Column<double>(type: "BINARY_DOUBLE", nullable: false),
-                    UnitPrice = table.Column<double>(type: "BINARY_DOUBLE", nullable: false),
-                    TotalPrice = table.Column<double>(type: "BINARY_DOUBLE", nullable: false),
+                    Count = table.Column<decimal>(type: "DECIMAL(18, 2)", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "DECIMAL(18, 2)", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "DECIMAL(18, 2)", nullable: false),
                     ProductID = table.Column<int>(type: "NUMBER(10)", nullable: false),
                     OrderID = table.Column<int>(type: "NUMBER(10)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
@@ -611,10 +642,14 @@ namespace Okyanus.DataAccessLayer.Migrations
                 column: "CityID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Groups_ANAGRUP_ALTGRUP1_ALTGRUP2_ALTGRUP3",
-                table: "Groups",
-                columns: new[] { "ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3" },
-                unique: true);
+                name: "IX_FavoriUrunlers_AppUserID",
+                table: "FavoriUrunlers",
+                column: "AppUserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoriUrunlers_ProductID",
+                table: "FavoriUrunlers",
+                column: "ProductID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Groups_GRUPADI",
@@ -636,6 +671,17 @@ namespace Okyanus.DataAccessLayer.Migrations
                 name: "IX_Orders_AppUserID",
                 table: "Orders",
                 column: "AppUserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_AnaBarcode",
+                table: "Products",
+                column: "AnaBarcode",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ANAGRUP_ALTGRUP1_ALTGRUP2_ALTGRUP3",
+                table: "Products",
+                columns: new[] { "ANAGRUP", "ALTGRUP1", "ALTGRUP2", "ALTGRUP3" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_MarkaID",
@@ -689,7 +735,7 @@ namespace Okyanus.DataAccessLayer.Migrations
                 name: "Districts");
 
             migrationBuilder.DropTable(
-                name: "Groups");
+                name: "FavoriUrunlers");
 
             migrationBuilder.DropTable(
                 name: "MyPhones");
@@ -726,6 +772,9 @@ namespace Okyanus.DataAccessLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Groups");
 
             migrationBuilder.DropTable(
                 name: "Markas");
