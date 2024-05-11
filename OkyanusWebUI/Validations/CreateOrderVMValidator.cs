@@ -18,7 +18,8 @@ namespace OkyanusWebUI.Validations
             RuleFor(item => item.AlternatifUrun).NotNull().WithMessage("Lütfen Alternatif Ürün Seçiniz!");
             RuleFor(item => item.HasReadAndUnderstood).Must(x => x == true).WithMessage("Lütfen devam etmeden önce kullanım koşullarını ve şartlarını okuduğunuzu ve anladığınızı onaylayın!");
             RuleFor(item => item.TotalPrice).NotNull().WithMessage("Boş Fiyat verilemez!")
-                .GreaterThan(250).WithMessage("Minumum Sepet Tutarı 250 Tl olmalıdır");
+                .GreaterThan(250).WithMessage("Minumum Sepet Tutarı 250 Tl olmalıdır")
+                .LessThan(6900).WithMessage("Tek Maximum verilebilen toplam tutar 6900 Tl'dir! daha fazla sipariş vermek için 2. kez sepet oluşturabilirsiniz!");
 
             RuleFor(item => item.OrderItems).NotNull().NotEmpty().WithMessage("Boş sipariş verilemez!");
             RuleForEach(x => x.OrderItems).SetValidator(new CartItemValidator()).WithMessage("hayırdır!");

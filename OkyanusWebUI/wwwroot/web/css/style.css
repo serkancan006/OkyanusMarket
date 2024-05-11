@@ -179,8 +179,14 @@ img.img-head {
 }
 /*-- header --*/
 .header {
+    background-color: white;
+    z-index: 16;
+    top: 0;
+    position: sticky;
     text-align: center;
-    margin-top: 2em;
+    box-shadow: 0 4px 25px #a4a4a452;
+    min-height:150px;
+    margin-top: 1em;
 }
 .logo h1{
    font-family: 'Montserrat', sans-serif;
@@ -701,7 +707,9 @@ ul.nav.tabs {
     display: inline-block;
     font-weight: bold;
 }
-
+/*.modal-content{
+    z-index:1040;
+}*/
 .modal-body {
     padding: 1em 1em 0em;
 }
@@ -999,11 +1007,11 @@ ul.product-qty {
     margin-bottom: 30px;
 }
 .content-mid {
-    padding: 6em 0;
+    padding: 2em 0;
 }
 /*--content-mid--*/
 .product {
-	padding:8em 0 6em;
+	padding:2em;
 }
 .pro-1 {
     margin-bottom: 2em;
@@ -1791,7 +1799,7 @@ a#myTabDrop1 {
 }
 
 .key  input[type="text"] ,.key  input[type="password"]{
-    width: 89%;
+    width: 87%;
     padding: 10px 10px;
     font-size: 1em;
     border: none;
@@ -1802,7 +1810,7 @@ a#myTabDrop1 {
     background: none;
 }
 .key i{
-	    float: left;
+	float: left;
     color: #999;
     font-size: 1.1em;
     padding: 13px;

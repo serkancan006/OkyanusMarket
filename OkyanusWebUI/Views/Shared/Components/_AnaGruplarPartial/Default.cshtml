@@ -5,12 +5,20 @@
     <!--content-->
     <div class="content-mid">
         <div class="container">
+            <div class="spec ">
+                <h3>Kategoriler</h3>
+                <div class="ser-t">
+                    <b></b>
+                    <span><i></i></span>
+                    <b class="line"></b>
+                </div>
+            </div>
             @foreach (var item in Model)
             {
                 <div class="col-md-2 m-w3ls" style="margin-bottom:10px">
                     <div class="col-md1 " style="border:1px solid lightgray;border-radius:20px;display:flex;justify-content:center;align-items:center;">
                         <a href="/Product/Index?categoryName=@(item.GRUPADI)">
-                            <img src="@(item.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" class="img-responsive img" style="height:120px;width:120px;object-fit:contain;" >
+                            <img src="@(item.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" class="img-responsive img" style="height:120px;width:120px;object-fit:contain;">
                             @*<h6>New Collections</h6>*@
                             <p>@item.GRUPADI<span></span></p>
                             <p>@item.Description</p>

@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using Microsoft.AspNetCore.Authorization;
+using static iTextSharp.text.pdf.AcroFields;
 
 namespace OkyanusWebUI.Areas.Admin.Controllers
 {
@@ -46,7 +47,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             infoTable.WidthPercentage = 100;
             infoTable.SpacingAfter = 20;
             infoTable.AddCell(new PdfPCell(new Phrase($"Sipariş Oluşturulma Tarihi: {values?.createdDate.ToString("dd-MMM-yyyy HH:mm")}".TurkceyiIngilizceyeCevir(), fontNormal)));
-            infoTable.AddCell(new PdfPCell(new Phrase($"Toplam Fiyat: {values?.totalPrice}".TurkceyiIngilizceyeCevir(), fontNormal)));
+            infoTable.AddCell(new PdfPCell(new Phrase($"Toplam Tutar: {values?.totalPrice}₺".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable.AddCell(new PdfPCell(new Phrase($"Iletisim Bilgileri: ".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable.AddCell(new PdfPCell(new Phrase($"Adres Bilgileri: ".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable.AddCell(new PdfPCell(new Phrase($"Adı Soyadı: {values?.orderFirstName} {values?.orderSurname}".TurkceyiIngilizceyeCevir(), fontNormal)));
@@ -90,8 +91,6 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             orderDetailsTable.SpacingAfter = 10;
             // Başlık hücreleri
             orderDetailsTable.AddCell(new PdfPCell(new Phrase("#".TurkceyiIngilizceyeCevir(), fontNormal)));
-            //Resim Sütunu
-            //orderDetailsTable.AddCell(new PdfPCell(new Phrase("Resim", fontNormal)));
             orderDetailsTable.AddCell(new PdfPCell(new Phrase("Ürün".TurkceyiIngilizceyeCevir(), fontNormal)));
             orderDetailsTable.AddCell(new PdfPCell(new Phrase("Marka".TurkceyiIngilizceyeCevir(), fontNormal)));
             orderDetailsTable.AddCell(new PdfPCell(new Phrase("Fiyatı".TurkceyiIngilizceyeCevir(), fontNormal)));
@@ -104,7 +103,6 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             {
                 count++;
                 orderDetailsTable.AddCell(new PdfPCell(new Phrase(count.ToString(), fontNormal)));
-                // Resim ekleme işlemi
                 // Ürün adı
                 orderDetailsTable.AddCell(new PdfPCell(new Phrase(item.product.productName.TurkceyiIngilizceyeCevir(), fontNormal)));
                 // Marka
@@ -116,6 +114,12 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
                 // Toplam
                 orderDetailsTable.AddCell(new PdfPCell(new Phrase(item.totalPrice.ToString().TurkceyiIngilizceyeCevir(), fontNormal)));
             }
+            orderDetailsTable.AddCell(new PdfPCell(new Phrase()));
+            orderDetailsTable.AddCell(new PdfPCell(new Phrase()));
+            orderDetailsTable.AddCell(new PdfPCell(new Phrase()));
+            orderDetailsTable.AddCell(new PdfPCell(new Phrase()));
+            orderDetailsTable.AddCell(new PdfPCell(new Phrase("Toplam Tutar: ".TurkceyiIngilizceyeCevir(), fontNormal)));
+            orderDetailsTable.AddCell(new PdfPCell(new Phrase($" {values?.totalPrice}₺".TurkceyiIngilizceyeCevir(), fontNormal)));
 
             document.Add(orderDetailsTable);
 

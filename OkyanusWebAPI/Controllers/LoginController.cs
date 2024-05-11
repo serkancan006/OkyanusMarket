@@ -40,8 +40,12 @@ namespace OkyanusWebAPI.Controllers
                     // Kullanıcı e-posta adresini onaylamamışsa
                     if (!user.EmailConfirmed)
                     {
-                        return BadRequest(new { message = "Lütfen e-posta adresinizi onaylayınız.", status = false });
+                        return BadRequest(new { message = "Lütfen e-posta adresinizi onaylayınız!", status = false });
                     }
+                    //if (user.LockoutEnabled)
+                    //{
+                    //    return BadRequest(new { message = "Çok fazla yanlış giriş yaptınız lütfen 5 dk sonra tekrar deneyiniz!", status = false });
+                    //}
                     var result = await _signInManager.PasswordSignInAsync(user, loginUserVM.Password, false, true);
                     if (result.Succeeded)
                     {

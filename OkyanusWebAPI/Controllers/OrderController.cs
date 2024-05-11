@@ -156,7 +156,7 @@ namespace OkyanusWebAPI.Controllers
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
             if (user != null)
             {
-                var values = await _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).Where(x => x.AppUserID == user.Id).ToListAsync();
+                var values = await _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).Where(x => x.AppUserID == user.Id).OrderByDescending(x => x.CreatedDate).ToListAsync();
                 var result = _mapper.Map<List<ResultOrderVM>>(values);
                 return Ok(result);
             }
