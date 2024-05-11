@@ -174,7 +174,7 @@ namespace OkyanusWebAPI.Controllers
 
                 AlternatifUrun = createOrderRequestVM.AlternatifUrun,
                 TeslimatYontemi = createOrderRequestVM.TeslimatYontemi,
-                TeslimatSaati = deliveryTime.CreatedDate.ToString("dd-MMM-yyyy HH:mm") + " - " + deliveryTime.EndTime.ToString("dd-MMM-yyyy HH:mm"),
+                TeslimatSaati = deliveryTime.CreatedDate.ToString("hh\\:mm") + " - " + deliveryTime.EndTime.ToString("hh\\:mm"),
 
                 OrderPhone = createOrderRequestVM.TelefonNo, // Değiştirildi
 

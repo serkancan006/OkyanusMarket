@@ -12,7 +12,7 @@ namespace Okyanus.EntityLayer.Entities
     public class DeliveryTime : BaseEntity
     {
         public string? DeliveryTimeName { get; set; }
-        public DateTime StartedTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public TimeSpan StartedTime { get; set; }
+        public TimeSpan EndTime { get; set; }
     }
 }

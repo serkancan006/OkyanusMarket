@@ -35,12 +35,11 @@ namespace OkyanusWebUI.Service
                     SelectListItem item = new SelectListItem
                     {
                         Value = value.ID.ToString(),
-                        Text = $"{value.StartedTime.ToString("dd-MMM-yyyy HH:mm")} - {value.EndTime.ToString("dd-MMM-yyyy HH:mm")}",
+                        Text = $"{value.StartedTime:hh\\:mm} - {value.EndTime:hh\\:mm}",
                     };
                     selectListItems.Add(item);
                 }
             }
-            
             return selectListItems;
         }
     }

@@ -71,7 +71,7 @@ namespace OkyanusWebUI.Controllers
                     quantity = item.Quantity
                 }).ToList()
             };
-
+            
             var responseMessage = await _customHttpClient.Post<CreateOrderVmApi>(new() { Controller = "Order" }, createOrderVmApi);
             if (responseMessage.IsSuccessStatusCode)
             {

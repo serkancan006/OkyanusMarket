@@ -17,7 +17,7 @@
                     <div class="col"> <strong>Aranacak Numara:</strong> <br><i class="fa fa-phone"></i> @Model.orderPhone </div>
                     <div class="col"> <strong>Ad-Soyad:</strong> <br> @Model.orderFirstName @Model.orderSurname </div>
                     <div class="col"> <strong>Adres:</strong> <br> @Model.orderAdress </div>
-                    <div class="col"> <strong>Toplam Fiyat:</strong> <br> @Model.totalPrice </div>
+                    <div class="col"> <strong>Toplam Fiyat:</strong> <br> @Model.totalPrice₺</div>
                 </div>
             </article>
             <div class="track">
@@ -40,8 +40,8 @@
                     <th>Resim</th>
                     <th>Ürün Adı</th>
                     <th>Ürün Miktarı</th>
-                    <th>Ürün Fiyatı</th>
-                    <th>Ürün Toplam</th>
+                    <th>Ürün Fiyat</th>
+                    <th>Toplam Fiyat</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,8 +53,8 @@
                         <td><img src="@(item.product.imageUrl ?? "/web/images/resimhazirlaniyor.png")" width="60" height="60" style="object-fit: contain" /></td>
                         <td>@item.product.productName</td>
                         <td>@item.count</td>
-                        <td>@item.unitPrice</td>
-                        <td>@item.totalPrice</td>
+                        <td>@item.unitPrice₺</td>
+                        <td>@item.totalPrice₺</td>
                     </tr>
                 }
             </tbody>
