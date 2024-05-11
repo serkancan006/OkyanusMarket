@@ -11,7 +11,7 @@ namespace OkyanusWebUI.Areas.Admin.Models.AdminOrderVM
         public bool status { get; set; }
         public string orderStatus { get; set; }
         public string? description { get; set; }
-        public double totalPrice { get; set; }
+        public decimal totalPrice { get; set; }
         public string orderFirstName { get; set; }
         public string orderSurname { get; set; }
         public string orderMail { get; set; }
@@ -34,9 +34,9 @@ namespace OkyanusWebUI.Areas.Admin.Models.AdminOrderVM
             public DateTime createdDate { get; set; }
             public DateTime updatedDate { get; set; }
             public bool status { get; set; }
-            public double count { get; set; }
-            public double unitPrice { get; set; }
-            public double totalPrice { get; set; }
+            public decimal count { get; set; }
+            public decimal unitPrice { get; set; }
+            public decimal totalPrice { get; set; }
             public int productID { get; set; }
             public int orderID { get; set; }
             public Product product { get; set; }

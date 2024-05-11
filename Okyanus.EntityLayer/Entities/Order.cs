@@ -10,7 +10,7 @@ namespace Okyanus.EntityLayer.Entities
 {
     public class Order : BaseEntity
     {
-        public double TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
         public string? Description { get; set; }
         public virtual List<OrderDetail> OrderDetails { get; set; }
         public string OrderStatus { get; set; }

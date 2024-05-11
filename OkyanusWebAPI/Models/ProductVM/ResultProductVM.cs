@@ -12,11 +12,11 @@ namespace OkyanusWebAPI.Models.ProductVM
         public bool Status { get; set; }
 
         public string ProductName { get; set; }
-        public double Price { get; set; }
-        public double? DiscountedPrice { get; set; }
+        public decimal Price { get; set; }
+        public decimal? DiscountedPrice { get; set; }
         public string? ImageUrl { get; set; }
         public string? Description { get; set; }
-        public int Stock { get; set; }
+        public decimal Stock { get; set; }
         public string AnaBarcode { get; set; }
 
 

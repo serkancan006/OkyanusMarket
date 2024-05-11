@@ -20,7 +20,7 @@
     public class CartItem
     {
         public int ProductId { get; set; }
-        public double Quantity { get; set; }
+        public decimal Quantity { get; set; }
         //public double TotalPrice => Price * Quantity;
         //public double TotalPrice
         //{

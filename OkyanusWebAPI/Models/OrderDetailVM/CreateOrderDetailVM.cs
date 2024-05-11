@@ -2,9 +2,9 @@
 {
     public class CreateOrderDetailVM
     {
-        public double Count { get; set; }
-        public double UnitPrice { get; set; }
-        public double TotalPrice => UnitPrice * Count;
+        public decimal Count { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal TotalPrice => UnitPrice * Count;
         public int ProductID { get; set; }
         public int OrderID { get; set; }
     }

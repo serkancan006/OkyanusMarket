@@ -102,25 +102,6 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> OrderStatusIptal(int id)
         {
-            //stock
-            //var order = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).Where(x => x.ID == id).SingleOrDefault();
-            //if (order == null)
-            //{
-            //    return NotFound("sipariş bulunamadı");
-            //}
-            //var orderproducts = order?.OrderDetails;
-            //if (orderproducts != null)
-            //{
-            //    foreach (var item in orderproducts)
-            //    {
-            //        item.Product.Stock = item.Product.Stock + (int)Math.Floor(item.Count);
-            //    }
-            //}
-            //else
-            //{
-            //    return NotFound("siparişin detayları bulunamadı");
-            //}
-            //stock
             await _OrderService.UpdateOrderStatusAsync(id, "İptal Edildi");
             return Ok("Sipariş İptal Edildi olarak değiştirildi");
         }
@@ -235,15 +216,6 @@ namespace OkyanusWebAPI.Controllers
             await _hubContext.Clients.All.SendAsync("ReceiveOrderNotification", "Yeni Siparişiniz Var");
             var resultCreateOrder = _mapper.Map<ResultOrderVM>(await _OrderService.TGetByIDAsync(value.ID));
             await _hubContext.Clients.All.SendAsync("ReceiveOrder", resultCreateOrder);
-
-            // Stok işlemi
-            //foreach (var item in orderItemList)
-            //{
-            //    var product = await _productService.TGetByIDAsync(item.ProductID);
-            //    product.Stock -= (int)Math.Floor(item.Count);
-            //    await _productService.TUpdateAsync(product);
-            //}
-            // Stok işlemi
 
             return Ok("Order Eklendi");
         }

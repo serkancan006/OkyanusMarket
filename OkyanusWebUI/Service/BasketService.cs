@@ -76,7 +76,7 @@ namespace OkyanusWebUI.Service
         }
 
         // Ürün miktarını güncelle
-        public void UpdateQuantity(int itemId, double newQuantity)
+        public void UpdateQuantity(int itemId, decimal newQuantity)
         {
             var itemToUpdate = Items.FirstOrDefault(item => item.ProductId == itemId);
             if (itemToUpdate != null)
@@ -89,7 +89,7 @@ namespace OkyanusWebUI.Service
       
 
         // Sepetteki ürünlerin toplam fiyatını getir
-        public double GetTotalPrice()
+        public decimal GetTotalPrice()
         {
             return Math.Round(Items.Sum(item => item.Price * item.Quantity), 2);
         }
@@ -114,15 +114,15 @@ namespace OkyanusWebUI.Service
     public class CartItem
     {
         public int ProductId { get; set; }
-        public int Stock { get; set; }
+        public decimal Stock { get; set; }
         public string Name { get; set; }
         public string? ImageUrl { get; set; }
-        public double Price { get; set; }
-        public double? RealPrice { get; set; }
-        public double Quantity { get; set; }
+        public decimal Price { get; set; }
+        public decimal? RealPrice { get; set; }
+        public decimal Quantity { get; set; }
         public string Birim { get; set; }
-        public double IncreaseAmount { get; set; }
-        public double TotalPrice => Math.Round(Price * Quantity, 2);
+        public decimal IncreaseAmount { get; set; }
+        public decimal TotalPrice => Math.Round(Price * Quantity, 2);
         //public double TotalPrice
         //{
         //    get

@@ -13,7 +13,7 @@
         public class Orderitem
         {
             public int productId { get; set; }
-            public double quantity { get; set; }
+            public decimal quantity { get; set; }
         }
 
     }

@@ -5,6 +5,6 @@
         public int ID { get; set; }
 
         public string Birim { get; set; }
-        public double IncreaseAmount { get; set; }
+        public decimal IncreaseAmount { get; set; }
     }
 }

@@ -3,7 +3,7 @@
     public class CreateOrderVM
     {
         public string? Description { get; set; }
-        public double TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
         public string OrderStatus { get; set; }
 
 

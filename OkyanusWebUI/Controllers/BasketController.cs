@@ -108,9 +108,9 @@ namespace OkyanusWebUI.Controllers
     {
         public int id { get; set; }
         //public string quantity { get; set; }
-        public double quantity { get; set; }
+        public decimal quantity { get; set; }
         public string birim { get; set; }
-        public int stock { get; set; }
+        public decimal stock { get; set; }
     }
 
 }

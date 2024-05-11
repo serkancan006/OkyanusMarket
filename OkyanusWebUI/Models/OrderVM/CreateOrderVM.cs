@@ -13,7 +13,7 @@ namespace OkyanusWebUI.Models.OrderVM
         public string AlternatifUrun { get; set; }
 
         public List<CartItem>? OrderItems { get; set; }
-        public double? TotalPrice { get; set; }
+        public decimal? TotalPrice { get; set; }
         public bool HasReadAndUnderstood { get; set; }
     }
 }
