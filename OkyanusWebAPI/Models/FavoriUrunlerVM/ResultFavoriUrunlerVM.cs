@@ -6,6 +6,7 @@ namespace OkyanusWebAPI.Models.FavoriUrunlerVM
     public class ResultFavoriUrunlerVM
     {
         public int ID { get; set; }
+        public int ProductID { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool Status { get; set; }

@@ -24,6 +24,7 @@ namespace Okyanus.DataAccessLayer.EntityFramework
             return await _context.FavoriUrunlers.Where(x => x.AppUserID == id).Select(f => new FavoriUrunler
             {
                 ID = f.ID,
+                ProductID = f.ProductID,
                 Product = f.Product,
             }).ToListAsync();
         }

@@ -13,14 +13,14 @@
 <!-- smooth scrolling -->
 <script type="text/javascript">
     $(function () {
-        /*
+        
             var defaults = {
             containerID: 'toTop', // fading element id
             containerHoverID: 'toTopHover', // fading element hover id
             scrollSpeed: 1200,
             easingType: 'linear'
             };
-        */
+        
         $().UItoTop({ easingType: 'easeOutQuart' });
     });
 </script>
@@ -29,11 +29,7 @@
 <!-- //smooth scrolling -->
 <!-- for bootstrap working -->
 <script src="~/web/js/bootstrap.js"></script>
-<!-- //for bootstrap working -->
-@*<script type='text/javascript' src="~/web/js/jquery.mycart.js"></script>*@
-
 @await Component.InvokeAsync("Notyf")
-
 <script src="~/lib/sweetalert2/dist/sweetalert2.min.js"></script>
 
 <script>

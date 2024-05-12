@@ -2,32 +2,66 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int count = 0;
 }
 
-<div class="container table-responsive">
-    <h1>Favori Urunlerimiz</h1>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Ürün Resmi</th>
-                <th>Ürün Adı</th>
-                <th>Sil</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                count++;
-                <tr>
-                    <th>@count</th>
-                    <td><img src="@item.Product.ImageUrl" height="75" width="75" /></td>
-                    <td>@item.Product.ProductName</td>
-                    <td><a class="btn btn-danger" href="/User/FavoriUrunler/DeleteFavoriUrunler/@item.ID">Sil</a></td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+@if (Model != null && Model.Count > 0)
+{
+    <!--content-->
+    <div class="product">
+        <div class="container">
+            <div class="spec ">
+                <h3>Favori Ürünler</h3>
+                <div class="ser-t">
+                    <b></b>
+                    <span><i></i></span>
+                    <b class="line"></b>
+                </div>
+            </div>
 
+            <div class="con-w3l">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-3 pro-1">
+                        <div class="col-m">
+                            <a style="cursor:pointer" onclick="openProductDetailModal(@item.ProductID)" data-toggle="modal" data-target="#productDetailModal" class="offer-img">
+                                <img src="@(item.Product.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" class="img-responsive" style="height:123.75px;object-fit:contain;">
+                                <div class="offer"><p><span>İndirimde</span></p></div>
+                            </a>
+                            <div class="mid-1">
+                                <div class="women">
+                                    <h6>@(item.Product.ProductName.Length > 20 ? item.Product.ProductName.Substring(0, 20) : item.Product.ProductName)</h6> <!-- Ürün ismi ve ağırlığı -->
+                                </div>
+                                <div class="mid-2">
+                                    <p><label>&#8378;@item.Product.Price</label><em class="item_price">&#8378;@item.Product.DiscountedPrice</em></p> <!-- Normal ve indirimli fiyat -->
+                                    <div class="block">
+                                        <a class="btn btn-danger btn-sm" href="/User/FavoriUrunler/DeleteFavoriUrunler/@item.ID">x</a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="add add-2">
+                                    <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket('@item.ProductID')">Sepete Ekle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+    </div>
+}
+
+<script>
+    function openProductDetailModal(id) {
+        $.ajax({
+            url: '/Product/_OrderDetailModal/' + id,
+            type: 'GET',
+            success: function (data) {
+                $('#productDetailModalContainer').html(data);
+            },
+            error: function (err) {
+            }
+        });
+    }
+</script>
