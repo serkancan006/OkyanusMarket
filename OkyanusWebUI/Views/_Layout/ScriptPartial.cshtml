@@ -1,4 +1,4 @@
-﻿  <!-- tabs -->
+﻿<!-- tabs -->
 <script src="~/web/js/easyResponsiveTabs.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -13,36 +13,22 @@
 <!-- smooth scrolling -->
 <script type="text/javascript">
     $(function () {
-        
-            var defaults = {
+
+        var defaults = {
             containerID: 'toTop', // fading element id
             containerHoverID: 'toTopHover', // fading element hover id
             scrollSpeed: 1200,
             easingType: 'linear'
-            };
-        
+        };
+
         $().UItoTop({ easingType: 'easeOutQuart' });
     });
 </script>
-
 <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 <!-- //smooth scrolling -->
 <!-- for bootstrap working -->
 <script src="~/web/js/bootstrap.js"></script>
+<!-- MyJs -->
 @await Component.InvokeAsync("Notyf")
 <script src="~/lib/sweetalert2/dist/sweetalert2.min.js"></script>
-
-<script>
-    function addFavoriteProduct(id) {
-        $.ajax({
-            url: '/User/FavoriUrunler/AddFavoriUrunler/' + id,
-            type: 'GET',
-            success: function (data) {
-                toastNotifySuccess(data, 3000);
-            },
-            error: function (err) {
-                toastNotifyError(err.responseText, 3000);
-            }
-        });
-    }
-</script>
+<script src="~/web/js/myapp.js" type="text/javascript"></script>

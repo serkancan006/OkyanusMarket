@@ -12,7 +12,6 @@ namespace OkyanusWebUI.Controllers
         private readonly BasketService _basketService;
         private readonly CustomHttpClient _customHttpClient;
         private readonly INotyfService _notyfService;
-
         public BasketController(BasketService basketService, CustomHttpClient customHttpClient, INotyfService notyfService)
         {
             _basketService = basketService;
@@ -25,7 +24,6 @@ namespace OkyanusWebUI.Controllers
             var items = _basketService.GetItems();
             var totalPrice = _basketService.GetTotalPrice();
             var totalItems = _basketService.GetTotalItems();
-
             return Json(new { items, totalPrice, totalItems });
         }
 
@@ -46,7 +44,7 @@ namespace OkyanusWebUI.Controllers
                         RealPrice = values.DiscountedPrice != null ? values.Price : null,
                         ProductId = values.ID,
                         Stock = values.Stock,
-                        Quantity = 1,
+                        Quantity = 1, //gönderilecek miktar
                         Birim = values.ProductType.Birim,
                         IncreaseAmount = values.ProductType.IncreaseAmount,
                     };
@@ -55,11 +53,7 @@ namespace OkyanusWebUI.Controllers
                 }
             }
             return Ok();
-            //return ViewComponent("_BasketModalPartial");
-            //return Redirect(Request.Headers["Referer"].ToString());
         }
-
-       
 
         [HttpPost]
         public IActionResult UpdateBasketItemQuantity(UpdateBasketQuantity model)
@@ -77,21 +71,6 @@ namespace OkyanusWebUI.Controllers
                 }
                 return BadRequest(errorMessage);
             }
-            //Console.WriteLine(birim);
-            //double convertQuantity = double.Parse(model.quantity.Replace(',', '.'), CultureInfo.InvariantCulture);
-            //if (convertQuantity <= 0)
-            //{
-            //    return Ok();
-            //}
-            //if (model.birim == "Adet")
-            //{
-            //    // Tam sayı kontrolü
-            //    if (convertQuantity % 1 != 0)
-            //    {
-            //        convertQuantity = (int)convertQuantity;
-            //    }
-            //}
-            //_basketService.UpdateQuantity(model.id, convertQuantity);
             _basketService.UpdateQuantity(model.id, model.quantity);
             return Ok();
         }
@@ -103,14 +82,12 @@ namespace OkyanusWebUI.Controllers
         }
 
     }
-
     public class UpdateBasketQuantity
     {
         public int id { get; set; }
-        //public string quantity { get; set; }
         public decimal quantity { get; set; }
         public string birim { get; set; }
         public decimal stock { get; set; }
+        public decimal increaseAmount { get; set; }
     }
-
 }

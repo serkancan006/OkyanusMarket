@@ -36,12 +36,12 @@ namespace OkyanusWebUI.Models.ProductVM
 
         //public List<OrderDetail> OrderDetails { get; set; }
 
-        public bool HasProductInBasket
-        {
-            get
-            {
-                return new BasketService(new HttpContextAccessor()).hasProductInBasket(this.ID);
-            }
-        }
+        //public bool HasProductInBasket
+        //{
+        //    get
+        //    {
+        //        return new BasketService(new HttpContextAccessor()).hasProductInBasket(this.ID);
+        //    }
+        //}
     }
 }

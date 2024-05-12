@@ -4,20 +4,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model != null && Model.Count > 0)
-{
-    <!--content-->
-    <div class="product">
-        <div class="container">
-            <div class="spec ">
-                <h3>Favori Ürünler</h3>
-                <div class="ser-t">
-                    <b></b>
-                    <span><i></i></span>
-                    <b class="line"></b>
-                </div>
+<div class="product">
+    <div class="container">
+        <div class="spec ">
+            <h3>Favori Ürünler</h3>
+            <div class="ser-t">
+                <b></b>
+                <span><i></i></span>
+                <b class="line"></b>
             </div>
-
+        </div>
+        @if (Model != null && Model.Count > 0)
+        {
+            <!--content-->
             <div class="con-w3l">
                 @foreach (var item in Model)
                 {
@@ -47,21 +46,6 @@
                 }
                 <div class="clearfix"></div>
             </div>
-
-        </div>
+        }
     </div>
-}
-
-<script>
-    function openProductDetailModal(id) {
-        $.ajax({
-            url: '/Product/_OrderDetailModal/' + id,
-            type: 'GET',
-            success: function (data) {
-                $('#productDetailModalContainer').html(data);
-            },
-            error: function (err) {
-            }
-        });
-    }
-</script>
+</div>

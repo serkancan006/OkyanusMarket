@@ -13,7 +13,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
-
 //Localization Culture ayarlarý
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
@@ -26,7 +25,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedCultures = suppoertedcultures;
     options.SupportedUICultures = suppoertedcultures;
 });
-
+//Local Services
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
@@ -37,6 +36,7 @@ builder.Services.AddSession(options =>
     //options.Cookie.HttpOnly = true;
     //options.Cookie.IsEssential = true;
 });
+//Custom Services
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<CustomHttpClient>();
 builder.Services.AddScoped<BasketService>();
@@ -46,21 +46,17 @@ builder.Services.AddScoped<DeliveryTimeService>();
 builder.Services.AddScoped<CityService>();
 builder.Services.AddScoped<ProductTypeService>();
 builder.Services.AddScoped<MarkaService>();
-
-
-
+//Controller Views
 builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddRazorRuntimeCompilation();
 //Razor page mimarisini entegre ediyoruz.
 builder.Services.AddRazorPages();
-
+//Fluent Validation
 builder.Services.AddFluentValidation(configuration =>
 {
     configuration.RegisterValidatorsFromAssemblyContaining<Program>();
     //configuration.RegisterValidatorsFromAssemblyContaining<CartItemValidator>();
 });
-
-
-// Add Jwt Bearer Token
+//Jwt Bearer Token
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -78,12 +74,8 @@ builder.Services.AddAuthentication(options =>
         ClockSkew = TimeSpan.Zero   //zaman farký hesaplama 
     };
 });
-
 //Notfy Service
-builder.Services.AddNotyf(config => { config.DurationInSeconds = 3; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
-
-
-
+builder.Services.AddNotyf(config => { config.DurationInSeconds = 3; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
 
 var app = builder.Build();
 
@@ -107,7 +99,7 @@ app.UseRouting();
 
 //Session aþaðýdaki middlewareden önce gelmek zorunda çünkü aþaðýdaki middlewaredeki TokenService Session ile ilgili iþlemler yapýyor
 app.UseSession();
-//Middleware -> Authenticate iþlemlerinden önce gelmeleri çünkü authenticate ile ilgili iþlemi ekliyor sonra authenticatein çalýþmasý gerek.
+//Authenticate iþlemlerinden önce gelmeleri çünkü authenticate ile ilgili iþlemi ekliyor sonra authenticatein çalýþmasý gerek.
 app.Use(async (context, next) =>
 {
     var tokenService = context.RequestServices.GetRequiredService<TokenService>();
@@ -118,11 +110,9 @@ app.Use(async (context, next) =>
 
     await next();
 });
-
+//Authentication and Authorization
 app.UseAuthentication();
 app.UseAuthorization();
-
-
 
 app.UseEndpoints(endpoints =>
 {
@@ -139,6 +129,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
+//Notf Middleware
 app.UseNotyf();
 app.Run();

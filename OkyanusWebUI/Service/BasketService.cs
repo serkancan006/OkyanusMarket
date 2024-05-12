@@ -40,14 +40,26 @@ namespace OkyanusWebUI.Service
             _httpContextAccessor?.HttpContext?.Session.SetString(SessionKey, cartJson);
         }
 
+        // Sepetteki ürünlerin listesini döndür
+        public List<CartItem> GetItems()
+        {
+            return Items;
+        }
+
         // Sepete ürün ekle
         public void AddItem(CartItem newItem)
         {
             var existingItem = Items.FirstOrDefault(item => item.ProductId == newItem.ProductId);
             if (existingItem != null)
             {
-                // Eğer sepette zaten varsa, miktarını 1 arttır
-                existingItem.Quantity++;
+                //quantitiy stoktan küçük yada eşit ise
+                if (existingItem.Quantity + newItem.Quantity <= existingItem.Stock)
+                {
+                    // Eğer sepette zaten varsa, miktarını 1 arttır
+                    //existingItem.Quantity++;
+                    //newItemdan gelen quantitiy kadar quantitiyyi ekle
+                    existingItem.Quantity += newItem.Quantity;
+                }
             }
             else
             {
@@ -86,18 +98,10 @@ namespace OkyanusWebUI.Service
             }
         }
 
-      
-
         // Sepetteki ürünlerin toplam fiyatını getir
         public decimal GetTotalPrice()
         {
             return Math.Round(Items.Sum(item => item.Price * item.Quantity), 2);
-        }
-
-        // Sepetteki ürünlerin listesini döndür
-        public List<CartItem> GetItems()
-        {
-            return Items;
         }
 
         public int GetTotalItems()
@@ -123,13 +127,5 @@ namespace OkyanusWebUI.Service
         public string Birim { get; set; }
         public decimal IncreaseAmount { get; set; }
         public decimal TotalPrice => Math.Round(Price * Quantity, 2);
-        //public double TotalPrice
-        //{
-        //    get
-        //    {
-        //        return Price * Quantity;
-        //    }
-        //}
     }
-
 }
