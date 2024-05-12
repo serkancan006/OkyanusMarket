@@ -53,8 +53,12 @@ namespace OkyanusWebUI.Controllers
                 //        Console.WriteLine(error.ErrorMessage);
                 //    }
                 //}
-                _notyfService.Warning("Veriler Geçersiz!");
-                return View();
+                //foreach (var error in ModelState.Values.SelectMany(x => x.Errors))
+                //{
+                //    ModelState.AddModelError("", error.ErrorMessage);
+                //}
+                _notyfService.Warning("Veriler geçersiz sepetinizi ve sipariş formunu kontrol edin!");
+                return View(createOrderVM);
             }
 
             CreateOrderVmApi createOrderVmApi = new CreateOrderVmApi()
