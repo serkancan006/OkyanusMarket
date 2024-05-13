@@ -17,20 +17,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "DeliveryTime" });
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultDeliveryTimeVM>>(jsonData);
-                return View(values);
-            }
-
-            return View();
-        }
-
-        public async Task<IActionResult> LastDeliveryTimeList()
-        {
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "DeliveryTime", Action= "LastDeliveryTimeList" });
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "DeliveryTime", Action = "DeliveryTimeListAll" });
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();

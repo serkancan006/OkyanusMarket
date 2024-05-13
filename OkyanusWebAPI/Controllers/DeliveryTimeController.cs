@@ -22,18 +22,18 @@ namespace OkyanusWebAPI.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> LastDeliveryTimeList()
-        {
-            var values = await _DeliveryTimeService.TWhere(x => x.StartedTime <= DateTime.UtcNow.TimeOfDay).ToListAsync();
-            var result = _mapper.Map<List<ResultDeliveryTimeVM>>(values);
-            return Ok(result);
-        }
-
         [HttpGet]
         public async Task<IActionResult> DeliveryTimeList()
         {
             var values = await _DeliveryTimeService.TWhere(x => x.StartedTime > DateTime.UtcNow.TimeOfDay).ToListAsync();
+            var result = _mapper.Map<List<ResultDeliveryTimeVM>>(values);
+            return Ok(result);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> DeliveryTimeListAll()
+        {
+            var values = await _DeliveryTimeService.TAsQueryable().ToListAsync();
             var result = _mapper.Map<List<ResultDeliveryTimeVM>>(values);
             return Ok(result);
         }
