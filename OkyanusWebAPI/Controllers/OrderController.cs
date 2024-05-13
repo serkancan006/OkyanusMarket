@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using Okyanus.BusinessLayer.Abstract;
+using Okyanus.BusinessLayer.Abstract.ExternalService;
 using Okyanus.EntityLayer.Entities;
 using Okyanus.EntityLayer.Entities.identitiy;
 using OkyanusWebAPI.Hubs;
@@ -28,8 +29,9 @@ namespace OkyanusWebAPI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IUserAdresService _userAdresService;
         private readonly IDeliveryTimeService _deliveryTimeService;
+        private readonly IMailService _mailService;
 
-        public OrderController(IOrderService OrderService, IMapper mapper, IOrderDetailService orderDetailService, IHubContext<SignalRHub> hubContext, IProductService productService, UserManager<AppUser> userManager, IUserAdresService userAdresService, IDeliveryTimeService deliveryTimeService)
+        public OrderController(IOrderService OrderService, IMapper mapper, IOrderDetailService orderDetailService, IHubContext<SignalRHub> hubContext, IProductService productService, UserManager<AppUser> userManager, IUserAdresService userAdresService, IDeliveryTimeService deliveryTimeService, IMailService mailService)
         {
             _OrderService = OrderService;
             _mapper = mapper;
@@ -39,6 +41,7 @@ namespace OkyanusWebAPI.Controllers
             _userManager = userManager;
             _userAdresService = userAdresService;
             _deliveryTimeService = deliveryTimeService;
+            _mailService = mailService;
         }
 
         [Authorize(Roles = "Admin")]
@@ -95,6 +98,8 @@ namespace OkyanusWebAPI.Controllers
         public async Task<IActionResult> OrderStatusOnay(int id)
         {
             await _OrderService.UpdateOrderStatusAsync(id, "Sipariş Onaylandı");
+            //var order = await _OrderService.TGetByIDAsync(id);
+            //await _mailService.SendMailAsync($"{order.OrderFirstName} {order.OrderSurname}", order.OrderMail, "Siparişiniz Onaylandı", "Siparişiniz Onaylanmıştır");
             return Ok("Sipariş Onaylandı olarak değiştirildi");
         }
 
@@ -127,6 +132,8 @@ namespace OkyanusWebAPI.Controllers
         public async Task<IActionResult> OrderStatusTeslim(int id)
         {
             await _OrderService.UpdateOrderStatusAsync(id, "Teslim Edildi");
+            //var order = await _OrderService.TGetByIDAsync(id);
+            //await _mailService.SendMailAsync($"{order.OrderFirstName} {order.OrderSurname}", order.OrderMail, "Siparişiniz Teslim Edildi", "Siparişiniz Edilmiştir. Bizi tercih ettiğiniz için teşekkür ederiz!");
             return Ok("Sipariş Teslim Edildi olarak değiştirildi");
         }
 

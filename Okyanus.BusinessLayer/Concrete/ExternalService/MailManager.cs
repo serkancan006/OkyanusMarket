@@ -18,7 +18,7 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
         {
             _configuration = configuration;
         }
-
+        //Mail Onaylama
         public async Task SendMailConfirmAsync(string userName, string userMail, string subject, string callbackUrl)
         {
             MimeMessage mimeMessage = new MimeMessage();
@@ -89,7 +89,7 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
             }
 
         }
-
+        //Şifremi Unuttum
         public async Task SendMailForgotPasswordAsync(string userName, string userMail, string subject, string callbackUrl)
         {
             MimeMessage mimeMessage = new MimeMessage();
