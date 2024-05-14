@@ -245,7 +245,7 @@ namespace Okyanus.DataAccessLayer.Concrete
                 ALTGRUP1 = "4",
                 ALTGRUP2 = "0",
                 ALTGRUP3 = "0",
-                GRUPADI = "Ballar",
+                GRUPADI = "Peynirler",
             },
             new Group()
             {
@@ -253,7 +253,7 @@ namespace Okyanus.DataAccessLayer.Concrete
                 ALTGRUP1 = "0",
                 ALTGRUP2 = "0",
                 ALTGRUP3 = "0",
-                GRUPADI = "Peynirler",
+                GRUPADI = "Kozmetik",
                 Description = "kaliteli kozmetik ürünleri bulabilirsiniz",
             },
           
