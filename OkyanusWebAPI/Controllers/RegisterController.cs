@@ -48,7 +48,7 @@ namespace OkyanusWebAPI.Controllers
                 token = HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(token)));
                 //"https://localhost:7080/EmailConfirmView?userEmail=satakig519@hidelux.com&token=token"
                 string callbackurl = _configuration["WebSiteHosts:Https"] + $"/Login/EMailConfirm?userEmail={user.Email}&token={token}";
-                await _mailService.SendMailConfirmAsync(user.UserName, user.Email, "Hesap Onaylama", callbackurl);
+                await _mailService.SendMailConfirmAsync(user.UserName, user.Email, callbackurl);
                 return Ok("Kullanıcı başarıyla eklendi.Lütfen Mailinizi Aktif Ediniz.");
             }
             else

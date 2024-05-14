@@ -89,7 +89,7 @@ namespace OkyanusWebAPI.Controllers
             token = HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(token)));
             //"https://localhost:7080/EmailConfirmView?userEmail=satakig519@hidelux.com&token=token"
             string callbackurl = _configuration["WebSiteHosts:Https"] + $"/Login/ResetPassword?userEmail={user.Email}&token={token}";
-            await _mailService.SendMailForgotPasswordAsync(user.UserName, Email,"Şifre Sıfırlama", callbackurl);
+            await _mailService.SendMailForgotPasswordAsync(user.UserName, Email, callbackurl);
             return Ok();
         }
 
