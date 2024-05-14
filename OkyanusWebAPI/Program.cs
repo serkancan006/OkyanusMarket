@@ -18,7 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 //builder.Services.AddSingleton<IConfiguration>(configuration);
 // Context
-builder.Services.AddDbContext<Context>(options => options.UseOracle(configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<Context>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 //identitiy
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
 {

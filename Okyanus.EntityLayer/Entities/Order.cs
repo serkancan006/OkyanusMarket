@@ -2,6 +2,7 @@
 using Okyanus.EntityLayer.Entities.identitiy;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace Okyanus.EntityLayer.Entities
 {
     public class Order : BaseEntity
     {
+        [Column(TypeName = "decimal(18,2)")]
         public decimal TotalPrice { get; set; }
         public string? Description { get; set; }
         public virtual List<OrderDetail> OrderDetails { get; set; }

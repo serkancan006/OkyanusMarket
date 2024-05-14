@@ -1,12 +1,12 @@
 ﻿@model List<OkyanusWebAPI.Models.CategorizeProductVM.CategorizeProductVM>
 @inject OkyanusWebUI.Service.TokenService _tokenService
 
-@if (Model != null || Model.Count > 0)
-{
-    @foreach (var item in Model)
-    {
-        <div class="content-top ">
-            <div class="container ">
+<div class="content-top ">
+    <div class="container ">
+        @if (Model != null || Model?.Count > 0)
+        {
+            @foreach (var item in Model)
+            {
                 <div class="spec ">
                     <h3>@item.KategoriAdı </h3>
                     <div class="ser-t">
@@ -17,11 +17,11 @@
                 </div>
                 <div class="tab-head ">
                     <nav class="nav-sidebar">
-                         <ul class="nav tabs ">
-                        @foreach (var altkategoriler in item.AltKategoriler)
-                        {
-                            <li class="@(altkategoriler == item.AltKategoriler[0] ? "active" : "")" style="background-color: white"><a href="#@altkategoriler.AltKategoriAdı.Replace(" ","_")" data-toggle="tab">@altkategoriler.AltKategoriAdı</a></li>
-                        }
+                        <ul class="nav tabs ">
+                            @foreach (var altkategoriler in item.AltKategoriler)
+                            {
+                                <li class="@(altkategoriler == item.AltKategoriler[0] ? "active" : "")" style="background-color: white"><a href="#@altkategoriler.AltKategoriAdı.Replace(" ","_")" data-toggle="tab">@altkategoriler.AltKategoriAdı</a></li>
+                            }
                         </ul>
                     </nav>
 
@@ -80,7 +80,8 @@
                         }
                     </div>
                 </div>
-            </div>
-        </div>
-    }
-}
+
+            }
+        }
+    </div>
+</div>

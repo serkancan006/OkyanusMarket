@@ -2,6 +2,7 @@
 using Okyanus.EntityLayer.Entities.identitiy;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +12,13 @@ namespace Okyanus.EntityLayer.Entities
     public class Product : BaseEntity
     {
         public string ProductName { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
         public decimal? DiscountedPrice { get; set; }
         public string? ImageUrl { get; set; }
         public string? Description { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Stock { get; set; }
         public string AnaBarcode { get; set; }
 
