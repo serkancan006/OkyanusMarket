@@ -42,7 +42,7 @@ namespace OkyanusWebUI.Areas.User.Controllers
             var apiModel = new UpdateUserAccountVM()
             {
                 UserFirstName = model.UserFirstName,
-                UserPhoneNumber = model.UserPhoneNumber,
+                //UserPhoneNumber = model.UserPhoneNumber,
                 UserSurname = model.UserSurname
             };
             var responseMessage = await _customHttpClient.Post(new() { Controller = "UserAccount" }, apiModel);

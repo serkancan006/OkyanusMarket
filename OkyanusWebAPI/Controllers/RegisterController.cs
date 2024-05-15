@@ -33,7 +33,7 @@ namespace OkyanusWebAPI.Controllers
                 UserName = registerUserVM.UserName,
                 Name = registerUserVM.Name,
                 Surname = registerUserVM.Surname,
-                PhoneNumber = registerUserVM.PhoneNumber,
+                //PhoneNumber = registerUserVM.PhoneNumber,
                 CreatedDate = DateTime.UtcNow,
                 UpdatedDate = DateTime.UtcNow,
                 Status = true

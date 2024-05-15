@@ -60,6 +60,13 @@ namespace OkyanusWebAPI.Models
                 Description = $"E-posta adresi '{email}' zaten kullanımda."
             };
         }
-
+        public override IdentityError InvalidUserName(string userName)
+        {
+            return new IdentityError
+            {
+                Code = nameof(InvalidUserName),
+                Description = $"Kullanıcı adı '{userName}' geçersiz. Sadece harfler, rakamlar ve -._@ gibi karakterler kullanabilirsiniz."
+            };
+        }
     }
 }

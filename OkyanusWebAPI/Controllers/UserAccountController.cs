@@ -33,7 +33,7 @@ namespace OkyanusWebAPI.Controllers
                     UserEmail = user.Email,
                     UserFirstName = user.Name,
                     UserSurname = user.Surname,
-                    UserPhoneNumber = user.PhoneNumber
+                    //UserPhoneNumber = user.PhoneNumber
                 };
                 return Ok(result);
             }
@@ -52,7 +52,7 @@ namespace OkyanusWebAPI.Controllers
             {
                 user.Surname = model.UserSurname;
                 user.Name = model.UserFirstName;
-                user.PhoneNumber = model.UserPhoneNumber;
+                //user.PhoneNumber = model.UserPhoneNumber;
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {

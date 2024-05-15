@@ -23,6 +23,7 @@ builder.Services.AddDbContext<Context>(options => options.UseSqlServer(configura
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
 {
     options.User.RequireUniqueEmail = true;
+    options.User.AllowedUserNameCharacters = "abcçdefghiýjklmnoöpqrsþtuüvwxyzABCÇDEFGHIÝJKLMNOÖPQRSÞTUÜVWXYZ0123456789-._@+";
     options.SignIn.RequireConfirmedEmail = true;
 
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
