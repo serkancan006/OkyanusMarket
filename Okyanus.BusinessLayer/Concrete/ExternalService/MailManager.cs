@@ -63,7 +63,7 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
                 <div style='width: 80%; padding: 20px; font-family: Arial, sans-serif;'>
                     <div style='background-color: #f8f9fa; padding: 20px;'>
                         <h1 style='font-size: 28px; color: #007bff;'>Üyelik Onayı - Adl Okyanus</h1>
-                        <p style='font-size: 16px;'>Merhaba [İsim],</p>
+                        <p style='font-size: 16px;'>Merhaba {userName},</p>
                         <p style='font-size: 16px;'>Adl Okyanus ailesine hoş geldiniz! Üyelik başvurunuz için teşekkür ederiz.</p>
                         <p style='font-size: 16px;'>Hesabınızı tam olarak etkinleştirmek için lütfen aşağıdaki bağlantıya tıklayarak e-posta adresinizi doğrulayın:</p>
                         <p style='font-size: 16px;'><a target=""_blank"" href='{callbackUrl}'>Doğrulama Bağlantısı</a></p>

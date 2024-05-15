@@ -81,10 +81,14 @@ namespace Okyanus.BusinessLayer.Container
             services.AddScoped<IFavoriUrunlerDal, EfFavoriUrunlerDal>();
             services.AddScoped<IFavoriUrunlerService, FavoriUrunlerManager>();
 
+            //Default Service 
+            services.AddHttpClient();
+
             //External Service
             services.AddScoped<IMailService, MailManager>();
             services.AddScoped<ICreateTokenService, CreateTokenManager>();
             services.AddScoped<IFileOperationsService, FileOperationsManager>();
+            services.AddScoped<ISmsService, SmsManager>();
 
         }
     }

@@ -42,36 +42,42 @@ namespace OkyanusWebAPI.Controllers
                     {
                         return BadRequest(new { message = "Lütfen e-posta adresinizi onaylayınız!", status = false });
                     }
-                    //if (user.LockoutEnabled)
-                    //{
-                    //    return BadRequest(new { message = "Çok fazla yanlış giriş yaptınız lütfen 5 dk sonra tekrar deneyiniz!", status = false });
-                    //}
+
                     var result = await _signInManager.PasswordSignInAsync(user, loginUserVM.Password, false, true);
                     if (result.Succeeded)
                     {
-                        if (user != null)
+                        var userRoles = await _userManager.GetRolesAsync(user);
+                        if (userRoles.Contains("Admin"))
                         {
-                            var userRoles = await _userManager.GetRolesAsync(user);
-                            if (userRoles.Contains("Admin"))
-                            {
-                                // Kullanıcı Admin içeriği rolü içeriyorsa 
-                                var value = _createTokenService.TokenCreateAdmin(user, 60*60*24);
-                                return Ok(new { message = "Admin Girişi Başarılı.", value });
-                            }
-                            else
-                            {
-                                var value = _createTokenService.TokenCreate(user, 60*60*24);
-                                return Ok(new { message = "Kullanıcı Girişi Başarılı.", value });
-                            }
+                            // Kullanıcı Admin içeriği rolü içeriyorsa 
+                            var value = _createTokenService.TokenCreateAdmin(user, 60*60*24);
+                            return Ok(new { message = "Admin Girişi Başarılı.", value });
                         }
-                        //return Ok(value);
+                        else
+                        {
+                            var value = _createTokenService.TokenCreate(user, 60*60*24);
+                            return Ok(new { message = "Kullanıcı Girişi Başarılı.", value });
+                        }
+                    }
+                    else if (result.IsLockedOut)
+                    {
+                        var lockoutEndUtc = await _userManager.GetLockoutEndDateAsync(user);
+                        var timeLeft = lockoutEndUtc.Value - DateTime.Now;
+                        return BadRequest(new { message = $"çok fazla başarısız giriş denemesinden dolayı hesabınız kilitlenmiştir. Kalan süre: {timeLeft:hh\\:mm\\:ss}", status = false, error = result });
                     }
                     else
-                        return BadRequest(new { message = "Kullanıcı adı veya şifre hatalı.", status = false, error = result });
+                    {
+                        int accessFailedCount = await _userManager.GetAccessFailedCountAsync(user);
+                        int maxFailedAttempts = _userManager.Options.Lockout.MaxFailedAccessAttempts;
+                        int remainingAttempts = maxFailedAttempts - accessFailedCount;
+                        return BadRequest(new { message = $"Kullanıcı adı veya şifre hatalı! Kalan Hakkınız {remainingAttempts}", status = false, error = result });
+                    }
                 }
-                return BadRequest(new { message = "Bu kullanıcı bulunamadı", status = false });
+                else
+                    return BadRequest(new { message = "Kullanıcı bulunamadı", status = false });
             }
-            return BadRequest(new { message = "Gönderilen veriler hatalı.", status = false });
+            else
+                return BadRequest(new { message = "Veriler hatalı!", status = false });
         }
 
         [HttpPost("[action]")]

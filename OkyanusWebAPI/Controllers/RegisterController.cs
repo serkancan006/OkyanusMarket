@@ -42,7 +42,6 @@ namespace OkyanusWebAPI.Controllers
             var result = await _userManager.CreateAsync(user, registerUserVM.Password);
             if (result.Succeeded)
             {
-                await _userManager.SetLockoutEnabledAsync(user, false);
                 // Kullanıcı oluşturuldu, şimdi doğrulama e-postası gönder
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 token = HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(token)));

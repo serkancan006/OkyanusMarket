@@ -24,8 +24,9 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
 {
     options.User.RequireUniqueEmail = true;
     options.SignIn.RequireConfirmedEmail = true;
+
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.MaxFailedAccessAttempts = 10;
     options.Lockout.AllowedForNewUsers = true;
 }).AddEntityFrameworkStores<Context>().AddErrorDescriber<CustomIdentityValidator>().AddDefaultTokenProviders()
 .AddEntityFrameworkStores<Context>();
@@ -39,8 +40,8 @@ builder.Services.AddAuthentication(options =>
     opt.RequireHttpsMetadata = true; //https olmak zorunludur.
     opt.TokenValidationParameters = new TokenValidationParameters()
     {
-        ValidIssuer = configuration["JwtTokenOptions:ValidIssuer"], 
-        ValidAudience = configuration["JwtTokenOptions:ValidAudience"],  
+        ValidIssuer = configuration["JwtTokenOptions:ValidIssuer"],
+        ValidAudience = configuration["JwtTokenOptions:ValidAudience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtTokenOptions:IssuerSigningKey"])),
         ValidateIssuerSigningKey = true,
         ValidateLifetime = false,  //geçerlilik süresini dogrulamasý için false olursa süre dogrulama yapmaz.
