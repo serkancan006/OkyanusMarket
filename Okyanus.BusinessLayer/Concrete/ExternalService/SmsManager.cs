@@ -39,7 +39,6 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
                 </mainbody>
                 ";
 
-                _httpClient.DefaultRequestHeaders.Add("Content-Type", "application/xml");
                 StringContent content = new StringContent(xmlData, Encoding.UTF8, "application/xml");
                 HttpResponseMessage response = await _httpClient.PostAsync(endpoint, content);
                 string responseContent = await response.Content.ReadAsStringAsync();

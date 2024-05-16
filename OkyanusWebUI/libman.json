@@ -98,6 +98,24 @@
         "src/utils/dom/inputUtils.js",
         "src/utils/dom/parseHtmlToContainer.js"
       ]
+    },
+    {
+      "library": "jquery.mask@1.14.16",
+      "destination": "wwwroot/web/js/jquery.mask/"
+    },
+    {
+      "library": "jquery.inputmask@5.0.8",
+      "destination": "wwwroot/web/js/jquery.inputmask/",
+      "files": [
+        "jquery.inputmask.min.js"
+      ]
+    },
+    {
+      "library": "jquery@3.7.1",
+      "destination": "wwwroot/web/js/jquery/",
+      "files": [
+        "jquery.min.js"
+      ]
     }
   ]
 }

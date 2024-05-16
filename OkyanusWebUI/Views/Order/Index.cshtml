@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group">
                         <label>Telefon Numaranız:</label>
-                        <input type="tel" asp-for="@Model.TelefonNo" class="form-control" placeholder="telefon numaranız" />
+                        <input type="tel" asp-for="@Model.TelefonNo" class="form-control" placeholder="telefon numaranız" id="orderPhone" />
                         <span class="text-danger" asp-validation-for="@Model.TelefonNo"></span>
                     </div>
                     <div class="row">
@@ -43,9 +43,6 @@
                             <div class="form-group">
                                 <label>Teslimat Saati:</label>
                                 <select asp-for="@Model.TeslimatSaati" class="form-control" asp-items="@ViewBag.DeliveryTimeItems"></select>
-                                @*<select asp-for="@Model.TeslimatSaati" class="form-control">
-                                        <option value="10:00-18:00">10:00-18:00</option>
-                                    </select>*@
                                 <span class="text-danger" asp-validation-for="@Model.TeslimatSaati"></span>
                             </div>
                         </div>
@@ -87,7 +84,23 @@
         </div>
     </div>
     <!--<div>-->
-        @*<div class="text-danger" asp-validation-summary="ModelOnly"></div>*@
-        @*@Html.ValidationSummary(false, "Hatalar", new { @class = "text-danger" })*@
+    @*<div class="text-danger" asp-validation-summary="ModelOnly"></div>*@
+    @*@Html.ValidationSummary(false, "Hatalar", new { @class = "text-danger" })*@
     <!--</div>-->
 </div>
+
+<script>
+    $(document).ready(function () {
+            $('#orderPhone').on('focus', function () {
+                if (!this.value) {
+                    this.value = '+90';
+                }
+            });
+            $('#orderPhone').inputmask('+99-(999)-999-99-99', {
+                placeholder: ' ',
+                showMaskOnHover: false,
+                showMaskOnFocus: false,
+                clearIncomplete: true
+            });
+        });
+</script>

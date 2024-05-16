@@ -12,9 +12,9 @@ namespace OkyanusWebUI.Validations
             RuleFor(item => item.UserAdresID).NotNull().WithMessage("Lütfen Adres Seçiniz!")
                 .GreaterThan(0).WithMessage("Geçersiz Adres Seçimi!");
             RuleFor(item => item.TelefonNo)
-                .NotNull().WithMessage("Lütfen Telefon Numaranızı Giriniz!");
-                //.Matches(@"^05[0-9]{2}-[0-9]{3}-[0-9]{2}-[0-9]{2}$")
-                //.WithMessage("Geçersiz telefon numarası formatı (05xx-xxx-xx-xx) şeklinde yazınız");
+                .NotNull().WithMessage("Lütfen Telefon Numaranızı Giriniz!")
+                .Matches(@"^\+90-\([0-9]{3}\)-[0-9]{3}-[0-9]{2}-[0-9]{2}$")
+                .WithMessage("Telefon numarası '+90-(999)-999-99-99' formatında olmalıdır.");
             RuleFor(item => item.TeslimatYontemi).NotNull().WithMessage("Lütfen Teslimat Yöntemi Seçiniz!");
             RuleFor(item => item.TeslimatSaati).NotNull().WithMessage("Lütfen Teslimat Saati Seçiniz!");
             RuleFor(item => item.AlternatifUrun).NotNull().WithMessage("Lütfen Alternatif Ürün Seçiniz!");
