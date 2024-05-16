@@ -25,7 +25,7 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> DeliveryTimeList()
         {
-            var values = await _DeliveryTimeService.TWhere(x => x.StartedTime > DateTime.UtcNow.TimeOfDay).ToListAsync();
+            var values = await _DeliveryTimeService.TWhere(x => x.StartedTime > DateTime.Now.TimeOfDay).ToListAsync();
             var result = _mapper.Map<List<ResultDeliveryTimeVM>>(values);
             return Ok(result);
         }

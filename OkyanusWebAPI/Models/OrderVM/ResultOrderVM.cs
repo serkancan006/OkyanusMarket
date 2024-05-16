@@ -32,7 +32,7 @@
         public string TeslimatYontemi { get; set; }
         public string TeslimatSaati { get; set; }
         public string AlternatifUrun { get; set; }
-        public string OrderUserPhone { get; set; }
+        //public string OrderUserPhone { get; set; }
 
       
 

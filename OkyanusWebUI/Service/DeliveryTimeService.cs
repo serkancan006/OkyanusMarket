@@ -34,7 +34,8 @@ namespace OkyanusWebUI.Service
                 {
                     SelectListItem item = new SelectListItem
                     {
-                        Value = value.ID.ToString(),
+                        //Value = value.ID.ToString(),
+                        Value = $"{value.StartedTime:hh\\:mm} - {value.EndTime:hh\\:mm}",
                         Text = $"{value.StartedTime:hh\\:mm} - {value.EndTime:hh\\:mm}",
                     };
                     selectListItems.Add(item);

@@ -25,7 +25,7 @@ namespace Okyanus.EntityLayer.Entities
         public string OrderSurname { get; set; }
         public string OrderMail { get; set; }
         public string OrderPhone { get; set; }
-        public string OrderUserPhone { get; set; }
+        //public string OrderUserPhone { get; set; }
 
         public string OrderAdress { get; set; }
         public string OrderApartman { get; set; }

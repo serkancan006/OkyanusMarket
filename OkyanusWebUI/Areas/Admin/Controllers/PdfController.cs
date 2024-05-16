@@ -54,7 +54,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             infoTable.AddCell(new PdfPCell(new Phrase($"Apartman No: {values?.orderApartman}".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable.AddCell(new PdfPCell(new Phrase($"Email: {values?.orderMail}".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable.AddCell(new PdfPCell(new Phrase($"Daire No: {values?.orderDaire}".TurkceyiIngilizceyeCevir(), fontNormal)));
-            infoTable.AddCell(new PdfPCell(new Phrase($"Kullanıcı Telefon: {values?.orderUserPhone}".TurkceyiIngilizceyeCevir(), fontNormal)));
+            //infoTable.AddCell(new PdfPCell(new Phrase($"Kullanıcı Telefon: {values?.orderUserPhone}".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable.AddCell(new PdfPCell(new Phrase($"Kat: {values?.orderKat}".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable.AddCell(new PdfPCell(new Phrase()));
             infoTable.AddCell(new PdfPCell(new Phrase($"Şehir: {values?.orderSehir}".TurkceyiIngilizceyeCevir(), fontNormal)));

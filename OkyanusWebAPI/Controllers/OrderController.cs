@@ -172,7 +172,7 @@ namespace OkyanusWebAPI.Controllers
         {
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
             var adres = await _userAdresService.TGetByIDAsync(createOrderRequestVM.UserAdresID);
-            var deliveryTime = await _deliveryTimeService.TGetByIDAsync(int.Parse(createOrderRequestVM.TeslimatSaati));
+            //var deliveryTime = await _deliveryTimeService.TGetByIDAsync(int.Parse(createOrderRequestVM.TeslimatSaati));
 
             var createOrderVM = new CreateOrderVM()
             {
@@ -181,7 +181,8 @@ namespace OkyanusWebAPI.Controllers
 
                 AlternatifUrun = createOrderRequestVM.AlternatifUrun,
                 TeslimatYontemi = createOrderRequestVM.TeslimatYontemi,
-                TeslimatSaati = deliveryTime.CreatedDate.ToString("hh\\:mm") + " - " + deliveryTime.EndTime.ToString("hh\\:mm"),
+                //TeslimatSaati = deliveryTime.StartedTime.ToString("hh\\:mm") + " - " + deliveryTime.EndTime.ToString("hh\\:mm"),
+                TeslimatSaati = createOrderRequestVM.TeslimatSaati,
 
                 OrderPhone = createOrderRequestVM.TelefonNo, // Değiştirildi
 
@@ -204,7 +205,7 @@ namespace OkyanusWebAPI.Controllers
             var value = _mapper.Map<Order>(createOrderVM);
             value.OrderSurname = user.Surname;
             value.OrderFirstName = user.Name;
-            value.OrderUserPhone = user.PhoneNumber;
+            //value.OrderUserPhone = user.PhoneNumber;
             value.OrderMail = user.Email;
             value.AppUserID = user.Id;
             await _OrderService.TAddAsync(value);

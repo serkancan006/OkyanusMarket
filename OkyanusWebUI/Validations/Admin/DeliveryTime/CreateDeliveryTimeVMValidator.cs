@@ -12,8 +12,8 @@ namespace OkyanusWebUI.Validations.Admin.DeliveryTime
 
             RuleFor(x => x.StartedTime)
                 .NotEmpty().WithMessage("Başlangıç zamanı boş geçilemez")
-                .Must(BeAValidDate).WithMessage("Başlangıç zamanı geçerli bir zaman olmalı")
-                .GreaterThanOrEqualTo(DateTime.Now.TimeOfDay).WithMessage("Başlangıç zamanı şuanki zamandan büyük olmalı");
+                .Must(BeAValidDate).WithMessage("Başlangıç zamanı geçerli bir zaman olmalı");
+                //.GreaterThanOrEqualTo(DateTime.Now.TimeOfDay).WithMessage("Başlangıç zamanı şuanki zamandan büyük olmalı");
 
             RuleFor(x => x.EndTime)
                 .NotEmpty().WithMessage("Bitiş zamanı boş geçilemez")
