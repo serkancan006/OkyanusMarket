@@ -57,18 +57,6 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             return View();
         }
 
-        //public async Task<IActionResult> OrderItems(int id)
-        //{
-        //    var responseMessage = await _customHttpClient.Get(new() { Controller = "OrderDetail", Action= "OrderDetailList" }, id);
-        //    if (responseMessage.IsSuccessStatusCode)
-        //    {
-        //        var jsonData = await responseMessage.Content.ReadAsStringAsync();
-        //        var values = JsonConvert.DeserializeObject<List<ResultOrderDetailVM>>(jsonData);
-        //        return View(values);
-        //    }
-        //    return View();
-        //}
-
         public async Task<IActionResult> DeleteOrder(int id)
         {
             var responseMessage = await _customHttpClient.Delete(new() { Controller = "Order" }, id);
