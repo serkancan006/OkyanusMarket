@@ -1,4 +1,6 @@
 using FluentValidation.AspNetCore;
+using Hangfire;
+using Hangfire.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +10,8 @@ using Okyanus.BusinessLayer.Container;
 using Okyanus.DataAccessLayer.Concrete;
 using Okyanus.DataAccessLayer.OptionsPattern;
 using Okyanus.EntityLayer.Entities.identitiy;
+using OkyanusWebAPI.Hangfire.auth;
+using OkyanusWebAPI.Hangfire.Jobs;
 using OkyanusWebAPI.Hubs;
 using OkyanusWebAPI.Models;
 using System.Text;
@@ -16,6 +20,8 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 //appsettings.json
 var configuration = builder.Configuration;
+builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor();
 //builder.Services.AddSingleton<IConfiguration>(configuration);
 // Context
 builder.Services.AddDbContext<Context>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
@@ -59,7 +65,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 //builder.Services.AddControllers().AddFluentValidation(); //fluent validation için baþka iþlemler de yapýlabilir...
 builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
+// MVC
 builder.Services.AddControllersWithViews();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -107,7 +113,12 @@ builder.Services.AddCors(options =>
         policy.WithOrigins("https://localhost:7077", "http://localhost:7077").AllowAnyHeader().AllowAnyHeader().AllowCredentials();
     });
 });
-
+//Hangfire
+builder.Services.AddHangfire(x =>
+{
+    x.UseSqlServerStorage(configuration.GetConnectionString("HangfireConnection"));
+});
+builder.Services.AddHangfireServer();
 
 var app = builder.Build();
 
@@ -117,11 +128,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1"));
     SeedDatabase.Seed(app.Services);
+    // MVC
+    app.UseDeveloperExceptionPage();
+}else
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
 app.UseStaticFiles();
 //CORS 
 app.UseCors();
 app.UseHttpsRedirection();
+//MVC
+app.UseRouting();
 //Authentication ve Authorization
 app.UseAuthentication();
 app.UseAuthorization();
@@ -129,6 +148,33 @@ app.UseAuthorization();
 app.MapControllers();
 //signalR
 app.MapHub<SignalRHub>("/signalRHub");
+// Hangfire dashboard'ýný yapýlandýrýn
+//app.Use(async (context, next) =>
+//{
+//    var tokenService = context.RequestServices.GetRequiredService<TokenService>();
+//    var jwt = tokenService.GetToken();
 
+//    if (jwt != null)
+//        context.Request.Headers.Append("Authorization", "Bearer " + jwt);
+
+//    await next();
+//});
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    // Authorization = new[] { new RoleBasedAuthorizationFÝlter() }
+});
+// Hangfire Server
+app.UseHangfireServer();
+// hangire görevleri
+RecurringJob.AddOrUpdate<MyJobs>("email-job", job => job.SendEmail("example@example.com"), "0 0 * * *");
+RecurringJob.AddOrUpdate<MyJobs>("products-add-job", job => job.GetProducts(), "0 0 * * *");
+
+//MVC
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// Optionally map Razor Pages
+//app.MapRazorPages();
 
 app.Run();

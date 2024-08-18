@@ -89,6 +89,7 @@ namespace Okyanus.BusinessLayer.Container
             services.AddScoped<ICreateTokenService, CreateTokenManager>();
             services.AddScoped<IFileOperationsService, FileOperationsManager>();
             services.AddScoped<ISmsService, SmsManager>();
+            services.AddScoped<IOlimposSoapService, OlimposSoapManager>();
 
         }
     }

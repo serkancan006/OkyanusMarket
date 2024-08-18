@@ -417,7 +417,6 @@ namespace Okyanus.DataAccessLayer.Migrations
                     OrderSurname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrderMail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrderPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderUserPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrderAdress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrderApartman = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrderDaire = table.Column<string>(type: "nvarchar(max)", nullable: false),

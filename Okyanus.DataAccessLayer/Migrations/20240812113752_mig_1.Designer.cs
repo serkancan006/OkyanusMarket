@@ -12,8 +12,8 @@ using Okyanus.DataAccessLayer.Concrete;
 namespace Okyanus.DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240515143455_mig_2")]
-    partial class mig_2
+    [Migration("20240812113752_mig_1")]
+    partial class mig_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
