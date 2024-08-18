@@ -20,6 +20,7 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
             _httpClient = httpClient;
             _configuration = configuration;
         }
+         
 
         public async Task<ProductAllListSoapResponse> GetProductAllListSoap(string dbUserName = "WEBCRMUSER", string dbPassword = "WEBCRMUSER", string birimNo = "101")
         {
