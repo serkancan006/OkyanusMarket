@@ -58,6 +58,11 @@ namespace Okyanus.BusinessLayer.Concrete
             return await _SocialMediaDal.GetByIDAsync(id);
         }
 
+        public async Task<SocialMedia> TGetByIDAsync(string id)
+        {
+            return await _SocialMediaDal.GetByIDAsync(id);
+        }
+
         public async Task<SocialMedia> TGetFirstOrDefaultAsync(Expression<Func<SocialMedia, bool>> filter)
         {
             return await _SocialMediaDal.GetFirstOrDefaultAsync(filter);

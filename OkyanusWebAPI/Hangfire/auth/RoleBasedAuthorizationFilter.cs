@@ -2,7 +2,7 @@
 
 namespace OkyanusWebAPI.Hangfire.auth
 {
-    public class RoleBasedAuthorizationFİlter : IDashboardAuthorizationFilter
+    public class RoleBasedAuthorizationFilter : IDashboardAuthorizationFilter
     {
         public bool Authorize(DashboardContext context)
         {

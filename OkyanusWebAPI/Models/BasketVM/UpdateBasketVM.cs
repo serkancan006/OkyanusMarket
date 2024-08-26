@@ -4,7 +4,7 @@ namespace OkyanusWebAPI.Models.BasketVM
 {
     public class UpdateBasketVM
     {
-        public int ID { get; set; }
+        public Guid ID { get; set; }
 
         public double Price { get; set; }
         public double Count { get; set; }

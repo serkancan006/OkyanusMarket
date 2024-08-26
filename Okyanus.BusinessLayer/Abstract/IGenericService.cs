@@ -18,6 +18,7 @@ namespace Okyanus.BusinessLayer.Abstract
         Task TUpdateAsync(T entity);
 
         Task<T> TGetByIDAsync(int id);
+        Task<T> TGetByIDAsync(string id);
         Task<List<T>> TGetListAllAsync();
 
         IQueryable<T> TAsQueryable();

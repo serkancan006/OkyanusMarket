@@ -110,7 +110,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins("https://localhost:7077", "http://localhost:7077").AllowAnyHeader().AllowAnyHeader().AllowCredentials();
+        policy.WithOrigins(configuration["WebSiteHosts:Https"], configuration["WebSiteHosts:Http"]).AllowAnyHeader().AllowAnyHeader().AllowCredentials();
     });
 });
 //Hangfire
@@ -159,10 +159,7 @@ app.MapHub<SignalRHub>("/signalRHub");
 
 //    await next();
 //});
-app.UseHangfireDashboard("/hangfire", new DashboardOptions
-{
-    // Authorization = new[] { new RoleBasedAuthorizationFÝlter() }
-});
+app.UseHangfireDashboard("/hangfire");
 // Hangfire Server
 app.UseHangfireServer();
 // hangire görevleri

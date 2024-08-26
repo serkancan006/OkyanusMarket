@@ -14,7 +14,7 @@ namespace OkyanusWebUI.ViewComponents.Admin.Product
             _customHttpClient = customHttpClient;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int productID)
+        public async Task<IViewComponentResult> InvokeAsync(string productID)
         {
             var responseMessage = await _customHttpClient.Get(new() { Controller = "Product", Action= "AssignCategoryForProductList" }, productID);
             if (responseMessage.IsSuccessStatusCode)

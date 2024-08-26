@@ -53,6 +53,11 @@ namespace Okyanus.BusinessLayer.Concrete
             await _ProductDal.DeleteRangeAsync(entities);
         }
 
+        public async Task<Product> TGetByIDAsync(string id)
+        {
+            return await _ProductDal.GetByIDAsync(id);
+        }
+
         public async Task<Product> TGetByIDAsync(int id)
         {
             return await _ProductDal.GetByIDAsync(id);

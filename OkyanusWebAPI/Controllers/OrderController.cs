@@ -196,7 +196,7 @@ namespace OkyanusWebAPI.Controllers
 
             var totalPrice = createOrderRequestVM.OrderItems.Sum(x =>
             {
-                var product = _productService.TGetByIDAsync(x.ProductId).Result;
+                var product = _productService.TGetByIDAsync(x.ProductId.ToString()).Result;
                 return (product.DiscountedPrice ?? product.Price) * x.Quantity;
             });
 
@@ -214,7 +214,7 @@ namespace OkyanusWebAPI.Controllers
             {
                 ProductID = item.ProductId,
                 Count = item.Quantity,
-                UnitPrice = _productService.TGetByIDAsync(item.ProductId).Result.DiscountedPrice ?? _productService.TGetByIDAsync(item.ProductId).Result.Price,
+                UnitPrice = _productService.TGetByIDAsync(item.ProductId.ToString()).Result.DiscountedPrice ?? _productService.TGetByIDAsync(item.ProductId.ToString()).Result.Price,
                 OrderID = value.ID,
             }).ToList();
 

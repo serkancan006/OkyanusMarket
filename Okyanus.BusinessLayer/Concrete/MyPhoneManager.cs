@@ -58,6 +58,11 @@ namespace Okyanus.BusinessLayer.Concrete
             return await _MyPhoneDal.GetByIDAsync(id);
         }
 
+        public async Task<MyPhone> TGetByIDAsync(string id)
+        {
+            return await _MyPhoneDal.GetByIDAsync(id);
+        }
+
         public async Task<MyPhone> TGetFirstOrDefaultAsync(Expression<Func<MyPhone, bool>> filter)
         {
             return await _MyPhoneDal.GetFirstOrDefaultAsync(filter);

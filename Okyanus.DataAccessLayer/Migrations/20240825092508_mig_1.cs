@@ -493,15 +493,14 @@ namespace Okyanus.DataAccessLayer.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DiscountedPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Stock = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AnaBarcode = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AnaBarcode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ANAGRUP = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ALTGRUP1 = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ALTGRUP2 = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -541,7 +540,7 @@ namespace Okyanus.DataAccessLayer.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductID = table.Column<int>(type: "int", nullable: false),
+                    ProductID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AppUserID = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -573,7 +572,7 @@ namespace Okyanus.DataAccessLayer.Migrations
                     Count = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ProductID = table.Column<int>(type: "int", nullable: false),
+                    ProductID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrderID = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -670,12 +669,6 @@ namespace Okyanus.DataAccessLayer.Migrations
                 name: "IX_Orders_AppUserID",
                 table: "Orders",
                 column: "AppUserID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_AnaBarcode",
-                table: "Products",
-                column: "AnaBarcode",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ANAGRUP_ALTGRUP1_ALTGRUP2_ALTGRUP3",

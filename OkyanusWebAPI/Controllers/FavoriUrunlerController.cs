@@ -47,7 +47,7 @@ namespace OkyanusWebAPI.Controllers
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
             if (user != null)
             {
-                var hasfavoriUrunbyuser = await _FavoriUrunlerService.TAsQueryable().AnyAsync(x => x.ProductID == FavoriUrunlerVM.ProductID && x.AppUserID == user.Id);
+                var hasfavoriUrunbyuser = await _FavoriUrunlerService.TAsQueryable().AnyAsync(x => x.ProductID == Guid.Parse(FavoriUrunlerVM.ProductID) && x.AppUserID == user.Id);
                 if (hasfavoriUrunbyuser)
                 {
                     return Ok("Favori Ürün Eklendi");
@@ -55,7 +55,7 @@ namespace OkyanusWebAPI.Controllers
                 await _FavoriUrunlerService.TAddAsync(new()
                 {
                     AppUserID = user.Id,
-                    ProductID = FavoriUrunlerVM.ProductID
+                    ProductID = Guid.Parse(FavoriUrunlerVM.ProductID)
                 });
                 return Ok("Favori Ürün Eklendi");
             }

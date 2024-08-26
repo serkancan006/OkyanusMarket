@@ -31,9 +31,9 @@ namespace OkyanusWebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProduct(int id)
+        public async Task<IActionResult> GetProduct(string id)
         {
-            var values = await _ProductService.TAsQueryable().Include(x => x.Marka).Include(x => x.ProductType).Where(x => x.ID == id).SingleOrDefaultAsync();
+            var values = await _ProductService.TAsQueryable().Include(x => x.Marka).Include(x => x.ProductType).Where(x => x.ID == Guid.Parse(id)).SingleOrDefaultAsync();
             var result = _mapper.Map<ResultProductVM>(values);
             return Ok(result);
         }
@@ -436,7 +436,7 @@ namespace OkyanusWebAPI.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("[action]/{id}")]
-        public async Task<IActionResult> AssignCategoryForProductList(int id)
+        public async Task<IActionResult> AssignCategoryForProductList(string id)
         {
             var product = await _ProductService.TGetByIDAsync(id);
 
@@ -460,7 +460,7 @@ namespace OkyanusWebAPI.Controllers
         {
             try
             {
-                var product = await _ProductService.TGetByIDAsync(request.ProductID);
+                var product = await _ProductService.TGetByIDAsync(request.ProductID.ToString());
                 if (product == null)
                 {
                     return NotFound("Ürün bulunamadı.");
@@ -486,7 +486,7 @@ namespace OkyanusWebAPI.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> ChangeProductImage(ChangeProductImageRequest request)
         {
-            var product = await _ProductService.TGetByIDAsync(request.ProductID);
+            var product = await _ProductService.TGetByIDAsync(request.ProductID.ToString());
             var oldProductImage = product.ImageUrl;
             product.ImageUrl = request.ImagePath;
             await _ProductService.TUpdateAsync(product);

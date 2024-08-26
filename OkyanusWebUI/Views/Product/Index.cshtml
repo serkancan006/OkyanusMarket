@@ -36,7 +36,7 @@
                     {
                         <div class="col-md-3 pro-1" >
                             <div class="col-m" >
-                                <a style="cursor:pointer" onclick="openProductDetailModal(@item.ID)" data-toggle="modal" data-target="#productDetailModal" class="offer-img">
+                                <a style="cursor:pointer" onclick="openProductDetailModal('@item.ID')" data-toggle="modal" data-target="#productDetailModal" class="offer-img">
                                     <img src="@(!string.IsNullOrEmpty(item.ImageUrl) ? item.ImageUrl : "/web/images/resimhazirlaniyor.png")" class="img-responsive" style="height: 175px; object-fit: contain;">
                                     @if (item.DiscountedPrice != null)
                                     {
@@ -61,13 +61,13 @@
                                         <div class="block">
                                             @if (_tokenService.IsAuthonticate())
                                             {
-                                                <i class="fa fa-heart likebutton" onclick="addFavoriteProduct(@item.ID)" toggle="tooltip" title="Favoriye Ekle"> </i>
+                                                <i class="fa fa-heart likebutton" onclick="addFavoriteProduct('@item.ID')" toggle="tooltip" title="Favoriye Ekle"> </i>
                                             }
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="add add-2">
-                                        <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket(@item.ID)">Sepete Ekle</button>
+                                        <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket('@item.ID')">Sepete Ekle</button>
                                      
                                     </div>
                                 </div>

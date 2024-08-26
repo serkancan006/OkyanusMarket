@@ -18,6 +18,7 @@ namespace Okyanus.DataAccessLayer.Abstract
         Task UpdateAsync(T entity);
 
         Task<T> GetByIDAsync(int id);
+        Task<T> GetByIDAsync(string id);
         Task<List<T>> GetListAllAsync(bool tracking = false);
 
         // Linq sorguları oluşturmak için kullanılan IQueryable örneği döndüren metot.

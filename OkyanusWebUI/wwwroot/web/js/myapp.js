@@ -25,10 +25,10 @@ function getBasketItems() {
                     <td class="text-center" style="width: 50px;"><img width="50px" height="50px" src="${item.imageUrl ? item.imageUrl : "/web/images/resimhazirlaniyor.png"}" /></td>
                     <td>${item.name}</td>
                     <td><label>₺${item.price}</label> ${item.realPrice != null ? '<p style="text-decoration: line-through;">₺' + item.realPrice + '</p>' : ""}</td>
-                    <td><input type="number" max="${item.stock}" min="${item.increaseAmount}" step="${item.increaseAmount}" style="width: 70px;" class="my-product-quantity" value="${item.quantity}" onchange="updateBasketItemQuantity(${item.productId}, this.value, '${item.birim}', ${item.stock},${item.increaseAmount})" /></td>
+                    <td><input type="number" max="${item.stock}" min="${item.increaseAmount}" step="${item.increaseAmount}" style="width: 70px;" class="my-product-quantity" value="${item.quantity}" onchange="updateBasketItemQuantity('${item.productId}', this.value, '${item.birim}', ${item.stock},${item.increaseAmount})" /></td>
                     <td>${item.birim}</td>
                     <td class="my-product-total">₺${item.totalPrice}</td>
-                    <td class="text-center" style="width: 30px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger my-product-remove" onclick="deleteBasketItem(${item.productId})">X</a></td>
+                    <td class="text-center" style="width: 30px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger my-product-remove" onclick="deleteBasketItem('${item.productId}')">X</a></td>
                 </tr>`;
                 });
 
@@ -125,6 +125,7 @@ function deleteBasketItem(id) {
 //}
 
 function openProductDetailModal(id) {
+    console.log(id);
     $.ajax({
         url: '/Product/_OrderDetailModal/' + id,
         type: 'GET',

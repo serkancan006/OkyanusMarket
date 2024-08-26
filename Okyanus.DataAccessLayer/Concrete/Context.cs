@@ -82,34 +82,34 @@ namespace Okyanus.DataAccessLayer.Concrete
         }
 
 
-        //public override int SaveChanges(bool acceptAllChangesOnSuccess)
-        //{
-        //    var timeZone = TimeZoneInfo.FindSystemTimeZoneById("Turkey Standard Time");
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            var timeZone = TimeZoneInfo.FindSystemTimeZoneById("Turkey Standard Time");
 
-        //    foreach (var entry in ChangeTracker.Entries())
-        //    {
-        //        if (entry.Entity is BaseEntity baseEntity)
-        //        {
-        //            switch (entry.State)
-        //            {
-        //                case EntityState.Added:
-        //                    baseEntity.CreatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
-        //                    baseEntity.UpdatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
-        //                    baseEntity.Status = true;
-        //                    break;
-        //                case EntityState.Modified:
-        //                    baseEntity.UpdatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
-        //                    entry.Property("CreatedDate").IsModified = false;
-        //                    entry.Property("Status").IsModified = false;
-        //                    break;
-        //                default:
-        //                    // Bilinmeyen bir durumla karşılaşıldığında yapılacaklar
-        //                    break;
-        //            }
-        //        }
-        //    }
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.Entity is BaseEntity baseEntity)
+                {
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            baseEntity.CreatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
+                            baseEntity.UpdatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
+                            baseEntity.Status = true;
+                            break;
+                        case EntityState.Modified:
+                            baseEntity.UpdatedDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
+                            entry.Property("CreatedDate").IsModified = false;
+                            entry.Property("Status").IsModified = false;
+                            break;
+                        default:
+                            // Bilinmeyen bir durumla karşılaşıldığında yapılacaklar
+                            break;
+                    }
+                }
+            }
 
-        //    return base.SaveChanges(acceptAllChangesOnSuccess);
-        //}
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
     }
 }

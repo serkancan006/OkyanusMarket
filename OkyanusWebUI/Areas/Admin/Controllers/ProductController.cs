@@ -70,7 +70,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProduct(string id)
         {
             var responseMessage = await _customHttpClient.Delete(new() { Controller = "Product" }, id);
             if (responseMessage.IsSuccessStatusCode)
@@ -81,7 +81,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateProduct(int id)
+        public async Task<IActionResult> UpdateProduct(string id)
         {
             ViewBag.ProductTypeSelectListItems = await _productTypeService.GetProductTypeSelectListItems();
             ViewBag.MarkaSelectListItems = await _markaService.GetMarkaSelectListItems();
@@ -112,7 +112,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             return View(model);
         }
 
-        public IActionResult AssignCategoryForProductList(int id)
+        public IActionResult AssignCategoryForProductList(string id)
         {
             return ViewComponent("AssignCategoryPartial", new { productID = id });
         }
@@ -135,7 +135,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult changeImageProduct(int id)
+        public IActionResult changeImageProduct(string id)
         {
             return ViewComponent("ChangeProductImagePartial", new { productID = id });
         }
@@ -211,7 +211,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         private class ChangeProductImageApiRequest
         {
             public string? ImagePath { get; set; }
-            public int ProductID { get; set; }
+            public string ProductID { get; set; }
         }
 
         public class FilteredParameters

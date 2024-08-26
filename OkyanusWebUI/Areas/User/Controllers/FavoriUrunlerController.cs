@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using OkyanusWebUI.Models.FavoriUrunlerVM;
 using OkyanusWebUI.Models.ProductVM;
 using OkyanusWebUI.Service;
+using System;
 
 namespace OkyanusWebUI.Areas.User.Controllers
 {
@@ -32,7 +33,7 @@ namespace OkyanusWebUI.Areas.User.Controllers
             return View();
         }
 
-        public async Task<IActionResult> AddFavoriUrunler(int id)
+        public async Task<IActionResult> AddFavoriUrunler(string id)
         {
             CreateFavoriUrunlerVM favoriurun = new CreateFavoriUrunlerVM();
             favoriurun.ProductID = id;
@@ -43,7 +44,7 @@ namespace OkyanusWebUI.Areas.User.Controllers
                 return BadRequest("Favoriye Eklenemedi!");
         }
 
-        public async Task<IActionResult> DeleteFavoriUrunler(int id)
+        public async Task<IActionResult> DeleteFavoriUrunler(string id)
         {
             var responseMessage = await _customHttpClient.Delete(new() { Controller = "FavoriUrunler" }, id);
             if (responseMessage.IsSuccessStatusCode)

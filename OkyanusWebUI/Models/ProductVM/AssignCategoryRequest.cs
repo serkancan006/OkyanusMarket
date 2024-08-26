@@ -2,7 +2,7 @@
 {
     public class AssignCategoryRequest
     {
-        public int ProductID { get; set; }
+        public string ProductID { get; set; }
         public string GRUPADI { get; set; }
     }
 }

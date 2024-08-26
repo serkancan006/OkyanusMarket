@@ -58,6 +58,11 @@ namespace Okyanus.BusinessLayer.Concrete
             return await _BasketDal.GetByIDAsync(id);
         }
 
+        public async Task<Basket> TGetByIDAsync(string id)
+        {
+            return await _BasketDal.GetByIDAsync(id);
+        }
+
         public async Task<Basket> TGetFirstOrDefaultAsync(Expression<Func<Basket, bool>> filter)
         {
             return await _BasketDal.GetFirstOrDefaultAsync(filter);

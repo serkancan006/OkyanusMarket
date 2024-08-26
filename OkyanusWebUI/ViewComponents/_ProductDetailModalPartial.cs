@@ -13,7 +13,7 @@ namespace OkyanusWebUI.ViewComponents
             _customHttpClient = customHttpClient;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int productID)
+        public async Task<IViewComponentResult> InvokeAsync(string productID)
         {
             var responseMessage = await _customHttpClient.Get(new() { Controller = "Product" }, productID);
             if (responseMessage.IsSuccessStatusCode)

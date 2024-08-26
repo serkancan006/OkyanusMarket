@@ -38,7 +38,7 @@ namespace OkyanusWebUI.Controllers
         }
 
 
-        public IActionResult _OrderDetailModal(int id)
+        public IActionResult _OrderDetailModal(string id)
         {
             return ViewComponent("_ProductDetailModalPartial", new { productID = id });
         }

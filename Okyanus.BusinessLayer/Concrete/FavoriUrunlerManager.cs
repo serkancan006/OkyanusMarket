@@ -58,6 +58,11 @@ namespace Okyanus.BusinessLayer.Concrete
             return await _FavoriUrunlerDal.GetByIDAsync(id);
         }
 
+        public async Task<FavoriUrunler> TGetByIDAsync(string id)
+        {
+            return await _FavoriUrunlerDal.GetByIDAsync(id);
+        }
+
         public async Task<List<FavoriUrunler>> TGetFavoriUrunlersByUserAsync(int id)
         {
             return await _FavoriUrunlerDal.GetFavoriUrunlersByUserAsync(id);

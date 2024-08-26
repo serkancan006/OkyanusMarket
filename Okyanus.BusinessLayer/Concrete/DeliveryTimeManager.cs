@@ -58,6 +58,11 @@ namespace Okyanus.BusinessLayer.Concrete
             return await _DeliveryTimeDal.GetByIDAsync(id);
         }
 
+        public async Task<DeliveryTime> TGetByIDAsync(string id)
+        {
+            return await _DeliveryTimeDal.GetByIDAsync(id);
+        }
+
         public async Task<DeliveryTime> TGetFirstOrDefaultAsync(Expression<Func<DeliveryTime, bool>> filter)
         {
             return await _DeliveryTimeDal.GetFirstOrDefaultAsync(filter);

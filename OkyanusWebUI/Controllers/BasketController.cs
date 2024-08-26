@@ -27,7 +27,7 @@ namespace OkyanusWebUI.Controllers
             return Json(new { items, totalPrice, totalItems });
         }
 
-        public async Task<IActionResult> AddBasketItem(int id)
+        public async Task<IActionResult> AddBasketItem(string id)
         {
             var responseMessage = await _customHttpClient.Get(new() { Controller = "Product" }, id);
             if (responseMessage.IsSuccessStatusCode)
@@ -71,20 +71,20 @@ namespace OkyanusWebUI.Controllers
                 }
                 return BadRequest(errorMessage);
             }
-            _basketService.UpdateQuantity(model.id, model.quantity);
+            _basketService.UpdateQuantity(model.id.ToString(), model.quantity);
             return Ok();
         }
 
-        public IActionResult deleteBasketItem(int id)
+        public IActionResult deleteBasketItem(string id)
         {
-            _basketService.RemoveItem(id);
+            _basketService.RemoveItem(id.ToString());
             return Ok();
         }
 
     }
     public class UpdateBasketQuantity
     {
-        public int id { get; set; }
+        public string id { get; set; }
         public decimal quantity { get; set; }
         public string birim { get; set; }
         public decimal stock { get; set; }

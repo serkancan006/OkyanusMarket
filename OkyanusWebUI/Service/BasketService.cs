@@ -70,7 +70,7 @@ namespace OkyanusWebUI.Service
         }
 
         // Sepetten ürünü kaldır
-        public void RemoveItem(int itemId)
+        public void RemoveItem(string itemId)
         {
             var itemToRemove = Items.FirstOrDefault(item => item.ProductId == itemId);
             if (itemToRemove != null)
@@ -88,7 +88,7 @@ namespace OkyanusWebUI.Service
         }
 
         // Ürün miktarını güncelle
-        public void UpdateQuantity(int itemId, decimal newQuantity)
+        public void UpdateQuantity(string itemId, decimal newQuantity)
         {
             var itemToUpdate = Items.FirstOrDefault(item => item.ProductId == itemId);
             if (itemToUpdate != null)
@@ -109,7 +109,7 @@ namespace OkyanusWebUI.Service
             return Items.Count();
         }
 
-        public bool hasProductInBasket(int id)
+        public bool hasProductInBasket(string id)
         {
             return Items.Any(item => item.ProductId == id);
         }
@@ -117,7 +117,7 @@ namespace OkyanusWebUI.Service
 
     public class CartItem
     {
-        public int ProductId { get; set; }
+        public string ProductId { get; set; }
         public decimal Stock { get; set; }
         public string Name { get; set; }
         public string? ImageUrl { get; set; }

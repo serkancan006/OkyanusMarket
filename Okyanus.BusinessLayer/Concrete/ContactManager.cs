@@ -1,5 +1,6 @@
 ﻿using Okyanus.BusinessLayer.Abstract;
 using Okyanus.DataAccessLayer.Abstract;
+using Okyanus.DataAccessLayer.EntityFramework;
 using Okyanus.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,11 @@ namespace Okyanus.BusinessLayer.Concrete
         }
 
         public async Task<Contact> TGetByIDAsync(int id)
+        {
+            return await _ContactDal.GetByIDAsync(id);
+        }
+
+        public async Task<Contact> TGetByIDAsync(string id)
         {
             return await _ContactDal.GetByIDAsync(id);
         }

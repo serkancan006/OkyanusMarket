@@ -12,7 +12,7 @@ using Okyanus.DataAccessLayer.Concrete;
 namespace Okyanus.DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240812113752_mig_1")]
+    [Migration("20240825092508_mig_1")]
     partial class mig_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -365,8 +365,8 @@ namespace Okyanus.DataAccessLayer.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProductID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -692,8 +692,8 @@ namespace Okyanus.DataAccessLayer.Migrations
                     b.Property<int>("OrderID")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProductID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -718,11 +718,9 @@ namespace Okyanus.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.Product", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ALTGRUP1")
                         .IsRequired()
@@ -742,7 +740,7 @@ namespace Okyanus.DataAccessLayer.Migrations
 
                     b.Property<string>("AnaBarcode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -779,9 +777,6 @@ namespace Okyanus.DataAccessLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AnaBarcode")
-                        .IsUnique();
 
                     b.HasIndex("MarkaID");
 

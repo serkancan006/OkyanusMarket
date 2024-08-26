@@ -58,6 +58,11 @@ namespace Okyanus.BusinessLayer.Concrete
             return await _OrderDal.GetByIDAsync(id);
         }
 
+        public async Task<Order> TGetByIDAsync(string id)
+        {
+            return await _OrderDal.GetByIDAsync(id);
+        }
+
         public async Task<Order> TGetFirstOrDefaultAsync(Expression<Func<Order, bool>> filter)
         {
             return await _OrderDal.GetFirstOrDefaultAsync(filter);

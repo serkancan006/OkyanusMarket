@@ -8,7 +8,7 @@ namespace Okyanus.EntityLayer.Entities.Common
 {
     public class BaseEntity
     {
-        public int ID { get; set; }
+        virtual public int ID { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool Status { get; set; }

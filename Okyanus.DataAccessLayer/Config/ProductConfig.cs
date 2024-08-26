@@ -16,7 +16,7 @@ namespace Okyanus.DataAccessLayer.Config
             builder.HasOne(e => e.Group)
                 .WithMany(e => e.Products)
                 .HasForeignKey(e => new { e.ANAGRUP, e.ALTGRUP1, e.ALTGRUP2, e.ALTGRUP3 });
-            builder.HasIndex(e => e.AnaBarcode).IsUnique();
+            //builder.HasIndex(e => e.AnaBarcode).IsUnique();
 
         }
     }

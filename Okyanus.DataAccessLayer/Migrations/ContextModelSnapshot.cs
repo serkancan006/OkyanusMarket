@@ -363,8 +363,8 @@ namespace Okyanus.DataAccessLayer.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProductID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -690,8 +690,8 @@ namespace Okyanus.DataAccessLayer.Migrations
                     b.Property<int>("OrderID")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProductID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -716,11 +716,9 @@ namespace Okyanus.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Okyanus.EntityLayer.Entities.Product", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ALTGRUP1")
                         .IsRequired()
@@ -740,7 +738,7 @@ namespace Okyanus.DataAccessLayer.Migrations
 
                     b.Property<string>("AnaBarcode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -777,9 +775,6 @@ namespace Okyanus.DataAccessLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AnaBarcode")
-                        .IsUnique();
 
                     b.HasIndex("MarkaID");
 

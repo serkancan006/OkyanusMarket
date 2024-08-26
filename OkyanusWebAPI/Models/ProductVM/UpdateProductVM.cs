@@ -2,7 +2,7 @@
 {
     public class UpdateProductVM
     {
-        public int ID { get; set; }
+        public Guid ID { get; set; }
 
         public string ProductName { get; set; }
         public decimal Price { get; set; }

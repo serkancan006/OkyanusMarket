@@ -63,6 +63,11 @@ namespace Okyanus.DataAccessLayer.Repository
             return await _context.Set<T>().FindAsync(id);
         }
 
+        public async Task<T> GetByIDAsync(string id)
+        {
+            return await _context.Set<T>().FindAsync(Guid.Parse(id));
+        }
+
         public async Task<List<T>> GetListAllAsync(bool tracking = false)
         {
             if (!tracking)
@@ -135,5 +140,6 @@ namespace Okyanus.DataAccessLayer.Repository
                 return _context.Set<T>().Where(filter);
         }
 
+       
     }
 }

@@ -37,14 +37,14 @@ namespace OkyanusWebUI.Areas.Admin.Models.AdminOrderVM
             public decimal count { get; set; }
             public decimal unitPrice { get; set; }
             public decimal totalPrice { get; set; }
-            public int productID { get; set; }
+            public string productID { get; set; }
             public int orderID { get; set; }
             public Product product { get; set; }
         }
 
         public class Product
         {
-            public int id { get; set; }
+            public string id { get; set; }
             public DateTime createdDate { get; set; }
             public DateTime updatedDate { get; set; }
             public bool status { get; set; }
