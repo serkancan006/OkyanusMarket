@@ -1,6 +1,4 @@
-using FluentValidation.AspNetCore;
 using Hangfire;
-using Hangfire.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,12 +8,10 @@ using Okyanus.BusinessLayer.Container;
 using Okyanus.DataAccessLayer.Concrete;
 using Okyanus.DataAccessLayer.OptionsPattern;
 using Okyanus.EntityLayer.Entities.identitiy;
-using OkyanusWebAPI.Hangfire.auth;
 using OkyanusWebAPI.Hangfire.Jobs;
 using OkyanusWebAPI.Hubs;
 using OkyanusWebAPI.Models;
 using System.Text;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 //appsettings.json
