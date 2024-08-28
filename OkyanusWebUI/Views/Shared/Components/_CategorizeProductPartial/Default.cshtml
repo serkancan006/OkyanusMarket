@@ -3,7 +3,7 @@
 
 <div class="content-top ">
     <div class="container ">
-        @if (Model != null || Model?.Count > 0)
+        @if (Model != null && Model.Count > 0)
         {
             @foreach (var item in Model)
             {

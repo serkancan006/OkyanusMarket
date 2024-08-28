@@ -30,53 +30,60 @@
 
             </div>
             <!-- Product List -->
-            <div id="productList" class="col-md-9">
-                <div class=" con-w3l agileinf" id="productsContainer" style="margin-top:0px;padding-top:0px">
-                    @foreach (var item in Model.Product)
-                    {
-                        <div class="col-md-3 pro-1" >
-                            <div class="col-m" >
-                                <a style="cursor:pointer" onclick="openProductDetailModal('@item.ID')" data-toggle="modal" data-target="#productDetailModal" class="offer-img">
-                                    <img src="@(!string.IsNullOrEmpty(item.ImageUrl) ? item.ImageUrl : "/web/images/resimhazirlaniyor.png")" class="img-responsive" style="height: 175px; object-fit: contain;">
-                                    @if (item.DiscountedPrice != null)
-                                    {
-                                        <div class="offer">
-                                            <p><span>İndirimde</span></p>
-                                        </div>
-                                    }
-                                </a>
-                                <div class="mid-1">
-                                    <div class="women">
-                                        <h6>@(item.ProductName.Length > 20 ? item.ProductName.Substring(0, 13) : item.ProductName)</h6>
-                                    </div>
-                                    <div class="mid-2">
+            @if(Model != null && Model.Product.Count > 0)
+            {
+                <div id="productList" class="col-md-9">
+                    <div class=" con-w3l agileinf" id="productsContainer" style="margin-top:0px;padding-top:0px">
+                        @foreach (var item in Model.Product)
+                        {
+                            <div class="col-md-3 pro-1">
+                                <div class="col-m">
+                                    <a style="cursor:pointer" onclick="openProductDetailModal('@item.ID')" data-toggle="modal" data-target="#productDetailModal" class="offer-img">
+                                        <img src="@(!string.IsNullOrEmpty(item.ImageUrl) ? item.ImageUrl : "/web/images/resimhazirlaniyor.png")" class="img-responsive" style="height: 175px; object-fit: contain;">
                                         @if (item.DiscountedPrice != null)
                                         {
-                                            <p><label>₺@item.Price</label><em class="item_price">₺@item.DiscountedPrice</em></p>
+                                            <div class="offer">
+                                                <p><span>İndirimde</span></p>
+                                            </div>
                                         }
-                                        else
-                                        {
-                                            <p><em class="item_price">₺@item.Price</em></p>
-                                        }
-                                        <div class="block">
-                                            @if (_tokenService.IsAuthonticate())
-                                            {
-                                                <i class="fa fa-heart likebutton" onclick="addFavoriteProduct('@item.ID')" toggle="tooltip" title="Favoriye Ekle"> </i>
-                                            }
+                                    </a>
+                                    <div class="mid-1">
+                                        <div class="women">
+                                            <h6>@(item.ProductName.Length > 20 ? item.ProductName.Substring(0, 13) : item.ProductName)</h6>
                                         </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="add add-2">
-                                        <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket('@item.ID')">Sepete Ekle</button>
-                                     
+                                        <div class="mid-2">
+                                            @if (item.DiscountedPrice != null)
+                                            {
+                                                <p><label>₺@item.Price</label><em class="item_price">₺@item.DiscountedPrice</em></p>
+                                            }
+                                            else
+                                            {
+                                                <p><em class="item_price">₺@item.Price</em></p>
+                                            }
+                                            <div class="block">
+                                                @if (_tokenService.IsAuthonticate())
+                                                {
+                                                    <i class="fa fa-heart likebutton" onclick="addFavoriteProduct('@item.ID')" toggle="tooltip" title="Favoriye Ekle"> </i>
+                                                }
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="add add-2">
+                                            <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket('@item.ID')">Sepete Ekle</button>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    }
-                    <div class="clearfix"></div>
+                        }
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <h5>Ürünler Hazırlanıyor</h5>    
+            }
         </div>
     </div>
 </div>

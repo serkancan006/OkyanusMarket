@@ -6,7 +6,7 @@
 
 
 
-@if (Model != null)
+@if (Model != null && Model.Count > 0)
 {
 
     <ul class="social-fo">
@@ -18,10 +18,10 @@
     </ul>
 
     @functions {
-        string GetSocialMediaClass(int counter)
-        {
-            string[] classes = { "face", "twi", "pin", "dri" };
-            return classes[counter % 4];
-        }
+    string GetSocialMediaClass(int counter)
+    {
+        string[] classes = { "face", "twi", "pin", "dri" };
+        return classes[counter % 4];
+    }
     }
 }

@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model != null)
+@if (Model != null && Model.Count > 0)
 {
     <div class="contact">
         <div class="container">
@@ -101,5 +101,9 @@
             </div>
         </div>
     </div>
+}
+else
+{
+    <h5>İletişim Kısmı Hazırlanıyor</h5>
 }
 

@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model != null)
+@if (Model != null && Model.Count > 0)
 {
     <div class="about-w3 ">
         <!--about-->
@@ -47,4 +47,7 @@
         </div>
         <!--advantages-->
     </div>
+}else
+{
+    <h5>Hakkımızda Kısmı Hazırlanıyor</h5>
 }
