@@ -2,6 +2,7 @@
 {
     public class CreateProductVM
     {
+        public string ID { get; set; } = new Guid().ToString();
         public string ProductName { get; set; }
         public decimal Price { get; set; }
         public decimal? DiscountedPrice { get; set; }

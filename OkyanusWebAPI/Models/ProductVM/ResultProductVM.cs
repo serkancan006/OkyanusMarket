@@ -6,7 +6,7 @@ namespace OkyanusWebAPI.Models.ProductVM
 {
     public class ResultProductVM
     {
-        public Guid ID { get; set; }
+        public string ID { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool Status { get; set; }

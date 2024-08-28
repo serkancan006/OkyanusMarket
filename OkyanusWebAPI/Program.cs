@@ -163,7 +163,6 @@ app.UseHangfireDashboard("/hangfire", new DashboardOptions
 // Hangfire Server
 app.UseHangfireServer();
 // hangire görevleri
-RecurringJob.AddOrUpdate<MyJobs>("email-job", job => job.SendEmail("example@example.com"), "0 0 * * *");
 RecurringJob.AddOrUpdate<MyJobs>("products-add-job", job => job.GetProducts(), "0 0 * * *");
 
 //MVC

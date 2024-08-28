@@ -65,7 +65,7 @@ namespace Okyanus.DataAccessLayer.Repository
 
         public async Task<T> GetByIDAsync(string id)
         {
-            return await _context.Set<T>().FindAsync(Guid.Parse(id));
+            return await _context.Set<T>().FindAsync(id);
         }
 
         public async Task<List<T>> GetListAllAsync(bool tracking = false)

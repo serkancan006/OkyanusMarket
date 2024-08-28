@@ -10,7 +10,7 @@ namespace Okyanus.EntityLayer.Entities
 {
     public class FavoriUrunler : BaseEntity
     {
-        public Guid ProductID { get; set; }
+        public string ProductID { get; set; }
         public Product Product { get; set; }
         public int AppUserID { get; set; }
         public AppUser AppUser { get; set; }

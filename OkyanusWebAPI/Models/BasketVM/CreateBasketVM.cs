@@ -7,7 +7,7 @@ namespace OkyanusWebAPI.Models.BasketVM
         public double Price { get; set; }
         public double Count { get; set; }
         public double TotalPrice { get; set; }
-        public Guid ProductID { get; set; }
+        public string ProductID { get; set; }
         //public Product Product { get; set; }
     }
 }

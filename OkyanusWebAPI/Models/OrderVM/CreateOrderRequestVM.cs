@@ -19,7 +19,7 @@
     }
     public class CartItem
     {
-        public Guid ProductId { get; set; }
+        public string ProductId { get; set; }
         public decimal Quantity { get; set; }
         //public double TotalPrice => Price * Quantity;
         //public double TotalPrice

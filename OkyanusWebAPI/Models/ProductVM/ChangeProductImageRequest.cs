@@ -3,6 +3,6 @@
     public class ChangeProductImageRequest
     {
         public string? ImagePath { get; set; }
-        public Guid ProductID { get; set; }
+        public string ProductID { get; set; }
     }
 }

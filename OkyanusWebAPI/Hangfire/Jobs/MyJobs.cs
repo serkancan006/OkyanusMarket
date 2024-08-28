@@ -1,5 +1,7 @@
 ﻿using Okyanus.BusinessLayer.Abstract;
 using Okyanus.BusinessLayer.Abstract.ExternalService;
+using Okyanus.DataAccessLayer.Concrete;
+using System.Diagnostics;
 
 namespace OkyanusWebAPI.Hangfire.Jobs
 {
@@ -8,14 +10,16 @@ namespace OkyanusWebAPI.Hangfire.Jobs
         private readonly IOlimposSoapService _olimposSoapService;
         private readonly IProductService _productService;
         private readonly IProductTypeService _productTypeService;
-        public MyJobs(IOlimposSoapService olimposSoapService, IProductService productService, IProductTypeService productTypeService)
+        private readonly Context _context;
+        public MyJobs(IOlimposSoapService olimposSoapService, IProductService productService, IProductTypeService productTypeService, Context context)
         {
             _olimposSoapService = olimposSoapService;
             _productService = productService;
             _productTypeService = productTypeService;
+            _context = context;
         }
 
-        public void SendEmail(string email)
+        public void SendExample(string email)
         {
             // E-posta gönderme işlemi
             Console.WriteLine($"e-posta gönderme işlemi {email}");
@@ -23,52 +27,75 @@ namespace OkyanusWebAPI.Hangfire.Jobs
 
         public async Task GetProducts()
         {
-            // E-posta gönderme işlemi
-            var value = await _olimposSoapService.GetProductAllListSoap();
-            foreach (var product in value.Data)
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                await _productService.TAddAsync(new()
+                try
                 {
-                    ID = Guid.Parse(product.ID),
-                    ProductName = product.Name,
-                    Price = decimal.Parse(product.Price),
-                    AnaBarcode = product.Barcodes[0],
-                    ProductTypeID = product.ProductUnit == "Adet" ? 1 : 2, // veri tabanında Adet ilişkili tabloda 1 seninkisi bu yüzden
-                    MarkaID = 2,  // Markalar ypaılacak
-                    Stock = 10,  // Stoklar yapılacak
-                    ANAGRUP = "2",  // kategorileri yapılacak
-                    ALTGRUP1 = "0",
-                    ALTGRUP2 = "0",
-                    ALTGRUP3 = "0",
-                });
+                    // SOAP servisinden veri çekme
+                    var value = await _olimposSoapService.GetProductAllListSoap();
+
+                    foreach (var product in value.Data)
+                    {
+                        // Ürünün veritabanında mevcut olup olmadığını kontrol et
+                        var existingProduct = await _productService.TGetByIDAsync(product.ID);
+
+                        if (existingProduct != null)
+                        {
+                            // Ürün mevcutsa güncelle
+                            existingProduct.ProductName = product.Name;
+                            existingProduct.Price = decimal.Parse(product.Price);
+                            existingProduct.AnaBarcode = product.Barcodes[0];
+                            existingProduct.ProductTypeID = product.ProductUnit == "Adet" ? 1 : 2; // "Adet" için veritabanında 1'e eşleme
+                            existingProduct.MarkaID = 2;  // Markalar için placeholder
+                            existingProduct.Stock = 10;  // Stoklar için placeholder
+                            existingProduct.ANAGRUP = "2";  // Kategoriler için placeholder
+                            existingProduct.ALTGRUP1 = "0";
+                            existingProduct.ALTGRUP2 = "0";
+                            existingProduct.ALTGRUP3 = "0";
+
+                            await _productService.TUpdateAsync(existingProduct);
+                        }
+                        else
+                        {
+                            // Ürün mevcut değilse yeni kayıt ekle
+                            await _productService.TAddAsync(new()
+                            {
+                                ID = product.ID,
+                                ProductName = product.Name,
+                                Price = decimal.Parse(product.Price),
+                                AnaBarcode = product.Barcodes[0],
+                                ProductTypeID = product.ProductUnit == "Adet" ? 1 : 2, // "Adet" için veritabanında 1'e eşleme
+                                MarkaID = 2,  // Markalar için placeholder
+                                Stock = 10,  // Stoklar için placeholder
+                                ANAGRUP = "2",  // Kategoriler için placeholder
+                                ALTGRUP1 = "0",
+                                ALTGRUP2 = "0",
+                                ALTGRUP3 = "0",
+                            });
+                        }
+                    }
+
+                    // Tüm işlemler başarılı olursa işlemi onayla
+                    transaction.Commit();
+                    Console.WriteLine("SOAP servisi çağrısı ve veritabanı güncellemesi başarılı oldu.");
+                }
+                catch (Exception ex)
+                {
+                    // Herhangi bir hata durumunda işlemi geri al
+                    // 2.30 saat sürüyor
+                    transaction.Rollback();
+                    Console.WriteLine("SOAP servisi verisi işlenirken bir hata oluştu. İşlem geri alındı.");
+                    Console.WriteLine($"Hata: {ex.Message}");
+                }
             }
 
-            Console.WriteLine($"soap servisi çekme çalıştı");
+            // Stopwatch nesnesini durdur
+            stopwatch.Stop();
+            Console.WriteLine($"SOAP servisi işlemi tamamlandı. Geçen süre: {stopwatch.ElapsedMilliseconds} milisaniye.");
         }
 
-        //public void GetProducts()
-        //{
-        //    // E-posta gönderme işlemi
-        //    var value = _olimposSoapService.GetProductAllListSoap().GetAwaiter().GetResult();
-        //    foreach (var product in value.Data)
-        //    {
-        //        _productService.TAddAsync(new()
-        //        {
-        //            ProductName = product.Name,
-        //            Price = decimal.Parse(product.Price),
-        //            AnaBarcode = product.Barcodes[0],
-        //            ProductTypeID = product.ProductUnit == "Adet" ? 1 : 2,
-        //            MarkaID = 2,
-        //            Stock = 10,
-        //            ANAGRUP = "2",
-        //            ALTGRUP1 = "0",
-        //            ALTGRUP2 = "0",
-        //            ALTGRUP3 = "0",
-        //        }).GetAwaiter().GetResult();
-        //    }
-
-        //    Console.WriteLine($"soap servisi çekme");
-        //    //return Task.CompletedTask;
-        //}
     }
 }

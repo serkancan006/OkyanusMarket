@@ -33,7 +33,7 @@ namespace OkyanusWebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(string id)
         {
-            var values = await _ProductService.TAsQueryable().Include(x => x.Marka).Include(x => x.ProductType).Where(x => x.ID == Guid.Parse(id)).SingleOrDefaultAsync();
+            var values = await _ProductService.TAsQueryable().Include(x => x.Marka).Include(x => x.ProductType).Where(x => x.ID == id).SingleOrDefaultAsync();
             var result = _mapper.Map<ResultProductVM>(values);
             return Ok(result);
         }

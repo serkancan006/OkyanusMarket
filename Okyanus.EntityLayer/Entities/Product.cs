@@ -11,7 +11,7 @@ namespace Okyanus.EntityLayer.Entities
 {
     public class Product : BaseEntity
     {
-        public Guid ID { get; set; }
+        public string ID { get; set; }
         public string ProductName { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }

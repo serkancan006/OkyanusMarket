@@ -18,7 +18,7 @@ namespace Okyanus.EntityLayer.Entities
         public decimal TotalPrice { get; set; }
 
 
-        public Guid ProductID { get; set; }
+        public string ProductID { get; set; }
         public Product Product { get; set; }
         public int OrderID { get; set; }
         public Order Order { get; set; }
