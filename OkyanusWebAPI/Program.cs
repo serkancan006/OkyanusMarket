@@ -8,6 +8,7 @@ using Okyanus.BusinessLayer.Container;
 using Okyanus.DataAccessLayer.Concrete;
 using Okyanus.DataAccessLayer.OptionsPattern;
 using Okyanus.EntityLayer.Entities.identitiy;
+using OkyanusWebAPI.Hangfire.auth;
 using OkyanusWebAPI.Hangfire.Jobs;
 using OkyanusWebAPI.Hubs;
 using OkyanusWebAPI.Models;
@@ -155,7 +156,10 @@ app.MapHub<SignalRHub>("/signalRHub");
 
 //    await next();
 //});
-app.UseHangfireDashboard("/hangfire");
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    // Authorization = new[] { new RoleBasedAuthorizationFilter() }
+});
 // Hangfire Server
 app.UseHangfireServer();
 // hangire görevleri
