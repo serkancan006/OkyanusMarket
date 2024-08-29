@@ -27,9 +27,6 @@ namespace OkyanusWebAPI.Hangfire.Jobs
 
         public async Task GetProducts()
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
             using (var transaction = _context.Database.BeginTransaction())
             {
                 try
@@ -85,16 +82,15 @@ namespace OkyanusWebAPI.Hangfire.Jobs
                 catch (Exception ex)
                 {
                     // Herhangi bir hata durumunda işlemi geri al
-                    // 2.30 saat sürüyor
+
                     transaction.Rollback();
                     Console.WriteLine("SOAP servisi verisi işlenirken bir hata oluştu. İşlem geri alındı.");
                     Console.WriteLine($"Hata: {ex.Message}");
                 }
             }
 
-            // Stopwatch nesnesini durdur
-            stopwatch.Stop();
-            Console.WriteLine($"SOAP servisi işlemi tamamlandı. Geçen süre: {stopwatch.ElapsedMilliseconds} milisaniye.");
+            // 2.30 saat sürüyor
+            Console.WriteLine($"SOAP servisi işlemi tamamlandı.");
         }
 
     }
