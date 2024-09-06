@@ -6,11 +6,12 @@ namespace OkyanusWebAPI.Hangfire.auth
     {
         public bool Authorize(DashboardContext context)
         {
-            var httpContext = context.GetHttpContext();
-            var user = httpContext?.User;
+            //var httpContext = context.GetHttpContext();
+            //var user = httpContext?.User;
 
-            // Kullanıcının doğrulanmış olup olmadığını ve Admin rolüne sahip olup olmadığını kontrol edin
-            return user?.Identity?.IsAuthenticated == true && user.IsInRole("Admin");
+            //// Kullanıcının doğrulanmış olup olmadığını ve Admin rolüne sahip olup olmadığını kontrol edin
+            //return user?.Identity?.IsAuthenticated == true && user.IsInRole("Admin");
+            return true;
         }
     }
 }

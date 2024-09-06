@@ -1,5 +1,6 @@
 using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +13,8 @@ using OkyanusWebAPI.Hangfire.auth;
 using OkyanusWebAPI.Hangfire.Jobs;
 using OkyanusWebAPI.Hubs;
 using OkyanusWebAPI.Models;
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -116,6 +119,31 @@ builder.Services.AddCors(options =>
         policy.WithOrigins(configuration["WebSiteHosts:Https"], configuration["WebSiteHosts:Http"]).AllowAnyHeader().AllowAnyHeader().AllowCredentials();
     });
 });
+//Logging
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
+    .WriteTo.Console()
+    .WriteTo.Async(a => a.MSSqlServer(connectionString: configuration.GetConnectionString("DefaultConnection"), restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information,
+        sinkOptions: new MSSqlServerSinkOptions
+        {
+            TableName = "logs",
+            AutoCreateSqlTable = true,
+        }))
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+builder.Services.AddHttpLogging(logging =>
+{
+    logging.LoggingFields = HttpLoggingFields.All;
+    logging.RequestHeaders.Add("sec-ch-ua");
+    //logging.ResponseHeaders.Add("MyResponseHeader");
+    logging.MediaTypeOptions.AddText("application/javascript");
+    logging.RequestBodyLogLimit = 4096;
+    logging.ResponseBodyLogLimit = 4096;
+});
 //Hangfire
 builder.Services.AddHangfire(x =>
 {
@@ -139,6 +167,9 @@ if (app.Environment.IsDevelopment())
     app.UseHsts();
 }
 app.UseStaticFiles();
+//logging
+app.UseSerilogRequestLogging();
+app.UseHttpLogging();
 //CORS 
 app.UseCors();
 app.UseHttpsRedirection();
@@ -167,13 +198,14 @@ app.MapHub<SignalRHub>("/signalRHub");
 app.UseHangfireDashboard("/hangfire", new DashboardOptions
 {
     // Authorization = new[] { new RoleBasedAuthorizationFilter() }
+    Authorization = new[] { new RoleBasedAuthorizationFilter() }
 });
 // Hangfire Server
 app.UseHangfireServer();
 // hangire görevleri
-RecurringJob.AddOrUpdate<MyJobs>("products-Add-or-Update-job", job => job.GetProducts(), "0 */4 * * *");
+RecurringJob.AddOrUpdate<MyJobs>("products-Add-or-Update-job", job => job.GetProducts(), "30 0 * * *");
 // evrensel saate göre çalýþýr. +3 eklenir. türkiyeye göre þuanda "30 0 * * *" ifadesi 03:30 dur
-//  Cron.HourInterval(3) veya 0 */3 * * * her 33 saatde bir
+//  Cron.HourInterval(3) veya 0 */3 * * * her 3 saatde bir
 
 //MVC
 app.MapControllerRoute(

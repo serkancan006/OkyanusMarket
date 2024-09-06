@@ -11,12 +11,14 @@ namespace OkyanusWebAPI.Hangfire.Jobs
         private readonly IProductService _productService;
         private readonly IProductTypeService _productTypeService;
         private readonly Context _context;
-        public MyJobs(IOlimposSoapService olimposSoapService, IProductService productService, IProductTypeService productTypeService, Context context)
+        private readonly ILogger<MyJobs> _logger;
+        public MyJobs(IOlimposSoapService olimposSoapService, IProductService productService, IProductTypeService productTypeService, Context context, ILogger<MyJobs> logger)
         {
             _olimposSoapService = olimposSoapService;
             _productService = productService;
             _productTypeService = productTypeService;
             _context = context;
+            _logger = logger;
         }
         // Ekleme ve Güncellme işlemi yaparken status versende interceptora takıldığı için doğru gitmiyor bunu bir ara hallet
         public async Task GetProducts()
@@ -79,6 +81,8 @@ namespace OkyanusWebAPI.Hangfire.Jobs
                     transaction.Rollback();
                     Console.WriteLine("soap servisi verisi işlenirken bir hata oluştu. işlem geri alındı.");
                     Console.WriteLine($"hata: {ex.Message}");
+                    _logger.LogError("Hangfire Servisleri çekerken bir hata oluştu");
+                    _logger.LogError("Hata: "+ ex.Message);
                 }
             }
 
