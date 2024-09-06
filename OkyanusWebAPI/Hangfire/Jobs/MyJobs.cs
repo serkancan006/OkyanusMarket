@@ -18,13 +18,7 @@ namespace OkyanusWebAPI.Hangfire.Jobs
             _productTypeService = productTypeService;
             _context = context;
         }
-
-        public void SendExample(string email)
-        {
-            // E-posta gönderme işlemi
-            Console.WriteLine($"e-posta gönderme işlemi {email}");
-        }
-
+        // Ekleme ve Güncellme işlemi yaparken status versende interceptora takıldığı için doğru gitmiyor bunu bir ara hallet
         public async Task GetProducts()
         {
             using (var transaction = _context.Database.BeginTransaction())
@@ -33,6 +27,8 @@ namespace OkyanusWebAPI.Hangfire.Jobs
                 {
                     // SOAP servisinden veri çekme
                     var value = await _olimposSoapService.GetProductAllListSoap();
+                    // Servisden gelen ürünlerin fiyatlarının sadece 0 dan büyük olanlarını al bide status kontrolü yapman gerek;
+                    value.Data = value.Data.Where(x => decimal.Parse(x.Price) > 0).ToList();
 
                     foreach (var product in value.Data)
                     {
@@ -46,9 +42,9 @@ namespace OkyanusWebAPI.Hangfire.Jobs
                             existingProduct.Price = decimal.Parse(product.Price);
                             existingProduct.AnaBarcode = product.Barcodes[0];
                             existingProduct.ProductTypeID = product.ProductUnit == "Adet" ? 1 : 2; // "Adet" için veritabanında 1'e eşleme
-                            existingProduct.MarkaID = 2;  // Markalar için placeholder
-                            existingProduct.Stock = 10;  // Stoklar için placeholder
-                            existingProduct.ANAGRUP = "2";  // Kategoriler için placeholder
+                            existingProduct.MarkaID = 2;  // Markalar için 
+                            existingProduct.Stock = 10;  // Stoklar için 
+                            existingProduct.ANAGRUP = "2";  // Kategoriler için 
                             existingProduct.ALTGRUP1 = "0";
                             existingProduct.ALTGRUP2 = "0";
                             existingProduct.ALTGRUP3 = "0";
@@ -65,9 +61,9 @@ namespace OkyanusWebAPI.Hangfire.Jobs
                                 Price = decimal.Parse(product.Price),
                                 AnaBarcode = product.Barcodes[0],
                                 ProductTypeID = product.ProductUnit == "Adet" ? 1 : 2, // "Adet" için veritabanında 1'e eşleme
-                                MarkaID = 2,  // Markalar için placeholder
-                                Stock = 10,  // Stoklar için placeholder
-                                ANAGRUP = "2",  // Kategoriler için placeholder
+                                MarkaID = 2,  // Markalar için 
+                                Stock = 10,  // Stoklar için 
+                                ANAGRUP = "2",  // Kategoriler için 
                                 ALTGRUP1 = "0",
                                 ALTGRUP2 = "0",
                                 ALTGRUP3 = "0",
@@ -75,17 +71,14 @@ namespace OkyanusWebAPI.Hangfire.Jobs
                         }
                     }
 
-                    // Tüm işlemler başarılı olursa işlemi onayla
                     transaction.Commit();
                     Console.WriteLine("SOAP servisi çağrısı ve veritabanı güncellemesi başarılı oldu.");
                 }
                 catch (Exception ex)
                 {
-                    // Herhangi bir hata durumunda işlemi geri al
-
                     transaction.Rollback();
-                    Console.WriteLine("SOAP servisi verisi işlenirken bir hata oluştu. İşlem geri alındı.");
-                    Console.WriteLine($"Hata: {ex.Message}");
+                    Console.WriteLine("soap servisi verisi işlenirken bir hata oluştu. işlem geri alındı.");
+                    Console.WriteLine($"hata: {ex.Message}");
                 }
             }
 

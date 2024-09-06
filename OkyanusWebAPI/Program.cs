@@ -19,6 +19,12 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession(options =>
+{
+    //options.IdleTimeout = TimeSpan.FromMinutes(30); // Oturumun sona erme süresi
+    //options.Cookie.HttpOnly = true; // Güvenlik için çerez sadece HTTP üzerinden eriþilebilir olacak
+    //options.Cookie.IsEssential = true; // GDPR uyumluluðu için gerekli çerez
+});
 //builder.Services.AddSingleton<IConfiguration>(configuration);
 // Context
 builder.Services.AddDbContext<Context>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
@@ -142,6 +148,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseSession();
+
 app.MapControllers();
 //signalR
 app.MapHub<SignalRHub>("/signalRHub");
@@ -163,7 +171,9 @@ app.UseHangfireDashboard("/hangfire", new DashboardOptions
 // Hangfire Server
 app.UseHangfireServer();
 // hangire görevleri
-RecurringJob.AddOrUpdate<MyJobs>("products-add-job", job => job.GetProducts(), "0 0 * * *");
+RecurringJob.AddOrUpdate<MyJobs>("products-Add-or-Update-job", job => job.GetProducts(), "0 */4 * * *");
+// evrensel saate göre çalýþýr. +3 eklenir. türkiyeye göre þuanda "30 0 * * *" ifadesi 03:30 dur
+//  Cron.HourInterval(3) veya 0 */3 * * * her 33 saatde bir
 
 //MVC
 app.MapControllerRoute(
