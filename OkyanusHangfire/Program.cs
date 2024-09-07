@@ -10,6 +10,10 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
+builder.Services.AddSession(); // Session kullanýmý
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+//builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+//builder.Services.AddSingleton<HangfireAuthorization>();
 
 #region ContainerDependencies
 // Mssql context - repository
@@ -17,6 +21,7 @@ builder.Services.AddSingleton<DapperMsSqlContext>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IOlimposSoapService, OlimposSoapManager>();
 #endregion
+
 #region Logging
 //Logging Mysql Hangfire
 Log.Logger = new LoggerConfiguration()
@@ -41,13 +46,21 @@ builder.Services.AddHttpLogging(logging =>
     logging.ResponseBodyLogLimit = 4096;
 });
 #endregion
+
 #region Hangfire
 //Hangfire - Mysql
 builder.Services.AddHangfire(configuration =>
 {
     configuration.UseStorage(new MySqlStorage(builder.Configuration.GetConnectionString("HangfireConnection"), new MySqlStorageOptions()
     {
-        TablesPrefix = "Hangfire",
+        TablesPrefix = "hangfire_", // Tablo isimlerinde ön ek kullanýmý
+        //QueuePollInterval = TimeSpan.FromSeconds(15), // Kuyrukta iþ bekleme süresi
+        //JobExpirationCheckInterval = TimeSpan.FromHours(1), // Süresi dolmuþ iþlerin kontrol süresi
+        //CountersAggregateInterval = TimeSpan.FromMinutes(5), // Sayaçlarýn toplanma süresi
+        //PrepareSchemaIfNecessary = true, // Gerekirse tablo þemasýný oluþtur
+        //DashboardJobListLimit = 5000, // Gösterilecek maksimum iþ sayýsý
+        //TransactionTimeout = TimeSpan.FromMinutes(1), // Ýþlem zaman aþýmý
+        //InvisibilityTimeout = TimeSpan.FromMinutes(5), // Ýþ görünmezlik zaman aþýmý
     }));
 });
 builder.Services.AddHangfireServer();
@@ -82,17 +95,25 @@ app.UseHttpLogging();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 //hangfire
 app.UseHangfireDashboard("/hangfire", new DashboardOptions
 {
-    Authorization = new[] { new HangfireAuthorization() }
+    Authorization = new[] { new HangfireAuthorization(app.Services.GetRequiredService<IHttpContextAccessor>()) },
+    //Authorization = new[] { app.Services.GetRequiredService<HangfireAuthorization>() },
+    AppPath = "https://adlokyanus.com/", // Dashboard'dan çýkýþ yapýldýðýnda gidilecek yol
+    //StatsPollingInterval = 2000 // Ýstatistiklerin güncellenme süresi (ms)
 });
 RecurringJob.AddOrUpdate<MyJobs>("update-products-job", job => job.UpdateProductsBySoapApi(), "30 0 * * *");
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
-//app.MapHangfireDashboard();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Login}/{action=Index}/{id?}");
+
+//app.MapHangfireDashboard("/hangfire", new DashboardOptions
+//{
+//    Authorization = new[] { new HangfireAuthorization() },
+//});
 
 app.Run();
