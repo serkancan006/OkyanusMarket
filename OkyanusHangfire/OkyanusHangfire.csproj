@@ -24,8 +24,4 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Okyanus.BusinessLayer\Okyanus.BusinessLayer.csproj" />
-  </ItemGroup>
-
 </Project>
