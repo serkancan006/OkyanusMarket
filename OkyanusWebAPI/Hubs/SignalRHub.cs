@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities.identitiy;
-using OkyanusWebAPI.Models;
 using OkyanusWebAPI.Models.OrderVM;
 
 namespace OkyanusWebAPI.Hubs
@@ -30,12 +27,12 @@ namespace OkyanusWebAPI.Hubs
             //var user = await _userManager.FindByNameAsync(username);
             //if (user != null)
             //{
-                var values = _orderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product)
-                    .Where(x => x.ID == id 
-                    //&& x.AppUserID == user.Id
-                    ).SingleOrDefault();
-                var result = _mapper.Map<ResultOrderVM>(values);
-                await Clients.All.SendAsync("ReceiveUserOrderStatus", result.OrderStatus);
+            var values = _orderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product)
+                .Where(x => x.ID == id
+                //&& x.AppUserID == user.Id
+                ).SingleOrDefault();
+            var result = _mapper.Map<ResultOrderVM>(values);
+            await Clients.All.SendAsync("ReceiveUserOrderStatus", result.OrderStatus);
             //}
         }
 

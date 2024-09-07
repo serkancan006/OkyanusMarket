@@ -26,7 +26,7 @@
         public string OrderIlce { get; set; }
 
 
-      
+
         public List<OrderDetailVM.ResultOrderDetailVM> OrderDetails { get; set; }
 
         public string TeslimatYontemi { get; set; }
@@ -34,7 +34,7 @@
         public string AlternatifUrun { get; set; }
         //public string OrderUserPhone { get; set; }
 
-      
+
 
         //public int? AppUserID { get; set; }
     }

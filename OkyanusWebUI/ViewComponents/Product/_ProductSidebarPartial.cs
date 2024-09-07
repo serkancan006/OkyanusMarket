@@ -15,7 +15,7 @@ namespace OkyanusWebUI.ViewComponents.Product
 
         public async Task<IViewComponentResult> InvokeAsync(string? categoryName = null)
         {
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "Group", Action = "MultiGroupList", QueryString= $"categoryName={categoryName}" });
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "Group", Action = "MultiGroupList", QueryString = $"categoryName={categoryName}" });
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();

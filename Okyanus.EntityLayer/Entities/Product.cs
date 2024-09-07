@@ -1,11 +1,5 @@
 ﻿using Okyanus.EntityLayer.Entities.Common;
-using Okyanus.EntityLayer.Entities.identitiy;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Okyanus.EntityLayer.Entities
 {
@@ -26,7 +20,7 @@ namespace Okyanus.EntityLayer.Entities
 
         public string ANAGRUP { get; set; }
         public string ALTGRUP1 { get; set; }
-        public string ALTGRUP2 { get; set; } 
+        public string ALTGRUP2 { get; set; }
         public string ALTGRUP3 { get; set; }
         public Group Group { get; set; }
 

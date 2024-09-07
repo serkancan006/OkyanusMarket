@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
 using Okyanus.EntityLayer.Entities.identitiy;
@@ -120,7 +119,7 @@ namespace OkyanusWebAPI.Controllers
             }
             return NotFound();
         }
-        
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserAdres(int id)

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OkyanusWebUI.Models.BranchUsVM;
-using OkyanusWebUI.Models.MyPhoneVM;
 using OkyanusWebUI.Service;
 
 namespace OkyanusWebUI.ViewComponents.Contact

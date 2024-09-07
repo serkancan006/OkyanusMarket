@@ -1,12 +1,9 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
-using OkyanusWebUI.Models.DistrictVM;
 using OkyanusWebUI.Models.UserAdresVM;
 using OkyanusWebUI.Service;
-using System.Reflection;
 
 namespace OkyanusWebUI.Areas.User.Controllers
 {

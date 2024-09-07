@@ -78,7 +78,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateDistrict(int id)
         {
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "District", Action= "GetDistrict" }, id);
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "District", Action = "GetDistrict" }, id);
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();

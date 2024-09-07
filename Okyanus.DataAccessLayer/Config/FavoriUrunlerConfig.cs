@@ -2,12 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Okyanus.EntityLayer.Entities;
 using Okyanus.EntityLayer.Entities.identitiy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Okyanus.DataAccessLayer.Config
 {

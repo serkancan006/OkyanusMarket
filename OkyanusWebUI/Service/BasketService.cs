@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using OkyanusWebUI.Models.ProductVM;
-using System.Linq;
+﻿using Newtonsoft.Json;
 
 namespace OkyanusWebUI.Service
 {

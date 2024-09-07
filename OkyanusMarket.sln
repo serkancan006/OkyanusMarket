@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OkyanusWebAPI", "OkyanusWeb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OkyanusWebUI", "OkyanusWebUI\OkyanusWebUI.csproj", "{0C5C1AD4-2DF8-4FC6-BB6E-51D8AD7EFBEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OkyanusHangfire", "OkyanusHangfire\OkyanusHangfire.csproj", "{F70BC7F8-1DCA-4B5B-BC5F-17188CD1A60B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{0C5C1AD4-2DF8-4FC6-BB6E-51D8AD7EFBEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C5C1AD4-2DF8-4FC6-BB6E-51D8AD7EFBEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C5C1AD4-2DF8-4FC6-BB6E-51D8AD7EFBEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F70BC7F8-1DCA-4B5B-BC5F-17188CD1A60B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F70BC7F8-1DCA-4B5B-BC5F-17188CD1A60B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F70BC7F8-1DCA-4B5B-BC5F-17188CD1A60B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F70BC7F8-1DCA-4B5B-BC5F-17188CD1A60B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

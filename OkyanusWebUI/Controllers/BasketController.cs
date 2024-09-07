@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OkyanusWebUI.Models.ProductVM;
 using OkyanusWebUI.Service;
-using System.Globalization;
 
 namespace OkyanusWebUI.Controllers
 {

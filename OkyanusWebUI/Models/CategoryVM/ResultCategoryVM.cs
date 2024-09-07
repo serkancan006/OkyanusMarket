@@ -16,7 +16,7 @@
         public ResultCategoryVM[]? altgruP2 { get; set; }
         public ResultCategoryVM[]? alTGRUP3 { get; set; }
     }
-  
+
 
 
 }

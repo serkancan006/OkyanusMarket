@@ -1,17 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Okyanus.DataAccessLayer.OptionsPattern;
 using Okyanus.EntityLayer.Entities;
 using Okyanus.EntityLayer.Entities.Common;
 using Okyanus.EntityLayer.Entities.identitiy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Okyanus.DataAccessLayer.Concrete
 {

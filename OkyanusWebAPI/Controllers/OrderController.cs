@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.BusinessLayer.Abstract.ExternalService;
 using Okyanus.EntityLayer.Entities;

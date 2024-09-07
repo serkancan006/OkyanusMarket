@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Okyanus.BusinessLayer.Abstract;
-using Okyanus.EntityLayer.Entities;
 using Okyanus.EntityLayer.Entities.identitiy;
 using OkyanusWebAPI.Models.FavoriUrunlerVM;
-using OkyanusWebAPI.Models.ProductVM;
 
 namespace OkyanusWebAPI.Controllers
 {

@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using OkyanusWebUI.Models.SssVM;
-using OkyanusWebUI.Models.TermsAndConditionVM;
 using OkyanusWebUI.Service;
 
 namespace OkyanusWebUI.Pages

@@ -1,6 +1,4 @@
-﻿using Okyanus.EntityLayer.Entities;
-
-namespace OkyanusWebAPI.Models.BasketVM
+﻿namespace OkyanusWebAPI.Models.BasketVM
 {
     public class UpdateBasketVM
     {

@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Okyanus.DataAccessLayer.Abstract;
 using Okyanus.DataAccessLayer.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Okyanus.DataAccessLayer.Repository
 {
@@ -140,6 +135,6 @@ namespace Okyanus.DataAccessLayer.Repository
                 return _context.Set<T>().Where(filter);
         }
 
-       
+
     }
 }

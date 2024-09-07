@@ -40,7 +40,7 @@ namespace OkyanusWebUI.Controllers
                 {
                     errormesaj += error.ErrorMessage + "</br>";
                 }
-                _notyfService.Error(errormesaj,10);
+                _notyfService.Error(errormesaj, 10);
                 return RedirectToAction("Index");
             }
 

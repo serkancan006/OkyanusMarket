@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Okyanus.BusinessLayer.Abstract.ExternalService;
 using Okyanus.EntityLayer.Entities.identitiy;

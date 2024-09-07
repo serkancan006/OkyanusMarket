@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models.AboutVM;
-using OkyanusWebAPI.Models.BasketVM;
 using OkyanusWebAPI.Models.BranchUsVM;
 using OkyanusWebAPI.Models.CityVM;
 using OkyanusWebAPI.Models.ContactMessageVM;

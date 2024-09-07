@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OkyanusWebUI.Areas.Admin.Models.AdminOrderVM;
-using OkyanusWebUI.Models.OrderDetailVM;
 using OkyanusWebUI.Service;
 
 
@@ -69,7 +68,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> OrderStatusOnay(int id)
         {
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "Order", Action="OrderStatusOnay" }, id);
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "Order", Action = "OrderStatusOnay" }, id);
             if (responseMessage.IsSuccessStatusCode)
             {
                 _notyfService.Information("Sipariş Onaylandı");

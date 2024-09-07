@@ -17,7 +17,7 @@ namespace OkyanusWebUI.Service
             var responseMessage2 = await _customHttpClient.Get(new() { Controller = "DeliveryTime" });
             var jsonData2 = await responseMessage2.Content.ReadAsStringAsync();
             var values2 = JsonConvert.DeserializeObject<List<ResultDeliveryTimeVM>>(jsonData2);
-           
+
             List<SelectListItem> selectListItems = new List<SelectListItem>();
             if (values2 == null)
             {

@@ -1,7 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using OkyanusWebUI.Models.ProductVM;
 using OkyanusWebUI.Service;
 
@@ -106,7 +105,7 @@ namespace OkyanusWebUI.Controllers
                 }
             }
 
-            
+
 
             return queryString;
         }

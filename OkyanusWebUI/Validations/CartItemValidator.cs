@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using OkyanusWebUI.Models.ProductVM;
 using OkyanusWebUI.Service;
 
 namespace OkyanusWebUI.Validations

@@ -1,4 +1,3 @@
-using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Identity;
@@ -9,8 +8,6 @@ using Okyanus.BusinessLayer.Container;
 using Okyanus.DataAccessLayer.Concrete;
 using Okyanus.DataAccessLayer.OptionsPattern;
 using Okyanus.EntityLayer.Entities.identitiy;
-using OkyanusWebAPI.Hangfire.auth;
-using OkyanusWebAPI.Hangfire.Jobs;
 using OkyanusWebAPI.Hubs;
 using OkyanusWebAPI.Models;
 using Serilog;
@@ -18,17 +15,9 @@ using Serilog.Sinks.MSSqlServer;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-//appsettings.json
 var configuration = builder.Configuration;
 builder.Services.AddHttpClient();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddSession(options =>
-{
-    //options.IdleTimeout = TimeSpan.FromMinutes(30); // Oturumun sona erme süresi
-    //options.Cookie.HttpOnly = true; // Güvenlik için çerez sadece HTTP üzerinden eriþilebilir olacak
-    //options.Cookie.IsEssential = true; // GDPR uyumluluðu için gerekli çerez
-});
-//builder.Services.AddSingleton<IConfiguration>(configuration);
+#region Identitiy_Context_Authentication
 // Context
 builder.Services.AddDbContext<Context>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 //identitiy
@@ -61,6 +50,7 @@ builder.Services.AddAuthentication(options =>
         ClockSkew = TimeSpan.Zero   //zaman farký hesaplama 
     };
 });
+#endregion
 // Add services to the container.
 builder.Services.ContainerDependencies();
 //Options Pattern
@@ -71,8 +61,6 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 //builder.Services.AddControllers().AddFluentValidation(); //fluent validation için baþka iþlemler de yapýlabilir...
 builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-// MVC
-builder.Services.AddControllersWithViews();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -119,6 +107,7 @@ builder.Services.AddCors(options =>
         policy.WithOrigins(configuration["WebSiteHosts:Https"], configuration["WebSiteHosts:Http"]).AllowAnyHeader().AllowAnyHeader().AllowCredentials();
     });
 });
+#region Logging
 //Logging
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -144,12 +133,7 @@ builder.Services.AddHttpLogging(logging =>
     logging.RequestBodyLogLimit = 4096;
     logging.ResponseBodyLogLimit = 4096;
 });
-//Hangfire
-builder.Services.AddHangfire(x =>
-{
-    x.UseSqlServerStorage(configuration.GetConnectionString("HangfireConnection"));
-});
-builder.Services.AddHangfireServer();
+#endregion
 
 var app = builder.Build();
 
@@ -159,13 +143,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1"));
     SeedDatabase.Seed(app.Services);
-    // MVC
-    app.UseDeveloperExceptionPage();
-}else
+}
+else
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+//Default
 app.UseStaticFiles();
 //logging
 app.UseSerilogRequestLogging();
@@ -173,46 +157,12 @@ app.UseHttpLogging();
 //CORS 
 app.UseCors();
 app.UseHttpsRedirection();
-//MVC
-app.UseRouting();
 //Authentication ve Authorization
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseSession();
-
+// Default
 app.MapControllers();
 //signalR
 app.MapHub<SignalRHub>("/signalRHub");
-// Hangfire dashboard'ýný yapýlandýrýn
-//app.Use(async (context, next) =>
-//{
-//    var tokenService = context.RequestServices.GetRequiredService<TokenService>();
-//    var jwt = tokenService.GetToken();
-
-//    if (jwt != null)
-//        context.Request.Headers.Append("Authorization", "Bearer " + jwt);
-
-//    await next();
-//});
-app.UseHangfireDashboard("/hangfire", new DashboardOptions
-{
-    // Authorization = new[] { new RoleBasedAuthorizationFilter() }
-    Authorization = new[] { new RoleBasedAuthorizationFilter() }
-});
-// Hangfire Server
-app.UseHangfireServer();
-// hangire görevleri
-RecurringJob.AddOrUpdate<MyJobs>("products-Add-or-Update-job", job => job.GetProducts(), "30 0 * * *");
-// evrensel saate göre çalýþýr. +3 eklenir. türkiyeye göre þuanda "30 0 * * *" ifadesi 03:30 dur
-//  Cron.HourInterval(3) veya 0 */3 * * * her 3 saatde bir
-
-//MVC
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-// Optionally map Razor Pages
-//app.MapRazorPages();
 
 app.Run();

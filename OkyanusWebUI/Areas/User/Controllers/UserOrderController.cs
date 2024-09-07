@@ -18,7 +18,7 @@ namespace OkyanusWebUI.Areas.User.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "Order", Action="ListUserOrder" });
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "Order", Action = "ListUserOrder" });
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();

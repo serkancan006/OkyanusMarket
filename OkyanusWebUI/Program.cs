@@ -1,13 +1,10 @@
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using OkyanusWebUI.Service;
-using OkyanusWebUI.Validations;
 using System.Globalization;
 using System.Text;
 
@@ -22,7 +19,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
         new CultureInfo("en-Us"),
     };
     CultureInfo.CurrentCulture = new CultureInfo("en-Us");
-    options.DefaultRequestCulture = new RequestCulture("en-Us");       
+    options.DefaultRequestCulture = new RequestCulture("en-Us");
     options.SupportedCultures = suppoertedcultures;
     options.SupportedUICultures = suppoertedcultures;
 });

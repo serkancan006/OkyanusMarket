@@ -1,7 +1,5 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using OkyanusWebUI.Models.CategoryVM;
 using OkyanusWebUI.Service;
 
 namespace OkyanusWebUI.ViewComponents.Home
@@ -16,7 +14,7 @@ namespace OkyanusWebUI.ViewComponents.Home
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "Group", Action= "GetAnaGroups" });
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "Group", Action = "GetAnaGroups" });
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -25,7 +23,7 @@ namespace OkyanusWebUI.ViewComponents.Home
             }
             return View();
         }
-       
+
     }
     public class ResultAnaGroupList
     {

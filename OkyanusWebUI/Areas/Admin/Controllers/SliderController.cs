@@ -44,7 +44,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             {
                 return View(modelui);
             }
-            var (fileName,databasePath) = await _fileOperationService.SaveFileAsync(modelui.file, "images/Slider/");
+            var (fileName, databasePath) = await _fileOperationService.SaveFileAsync(modelui.file, "images/Slider/");
             CreateSliderVM model = new CreateSliderVM()
             {
                 ImageUrl = databasePath,

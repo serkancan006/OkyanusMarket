@@ -2,13 +2,9 @@
 using Microsoft.IdentityModel.Tokens;
 using Okyanus.BusinessLayer.Abstract.ExternalService;
 using Okyanus.EntityLayer.Entities.identitiy;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Okyanus.BusinessLayer.Concrete.ExternalService
 {

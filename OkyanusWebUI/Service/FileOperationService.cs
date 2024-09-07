@@ -18,7 +18,7 @@ namespace OkyanusWebUI.Service
                 var fullPath = Path.Combine(rootPath, path);
                 var fileName = GetUniqueFileName(file.FileName);
                 var filePath = Path.Combine(fullPath, fileName);
-                var databasePath = "/"+path + fileName;
+                var databasePath = "/" + path + fileName;
 
                 if (!Directory.Exists(fullPath))
                     Directory.CreateDirectory(fullPath);

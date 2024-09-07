@@ -3,11 +3,6 @@ using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using Okyanus.BusinessLayer.Abstract.ExternalService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Okyanus.BusinessLayer.Concrete.ExternalService
 {
@@ -30,8 +25,8 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
             mimeMessage.To.Add(mailboxAddressTo);
 
             var bodyBuilder = new BodyBuilder();
-            
-            bodyBuilder.HtmlBody = 
+
+            bodyBuilder.HtmlBody =
             $@"<!DOCTYPE html>
             <html>
             <head>
@@ -93,8 +88,8 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
             mimeMessage.To.Add(mailboxAddressTo);
 
             var bodyBuilder = new BodyBuilder();
-      
-            bodyBuilder.HtmlBody = 
+
+            bodyBuilder.HtmlBody =
             $@"
             <!DOCTYPE html>
             <html>

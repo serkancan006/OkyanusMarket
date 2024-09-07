@@ -10,7 +10,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class ContactMessageController : Controller
     {
-         private readonly CustomHttpClient _customHttpClient;
+        private readonly CustomHttpClient _customHttpClient;
         public ContactMessageController(CustomHttpClient customHttpClient)
         {
             _customHttpClient = customHttpClient;
@@ -51,6 +51,6 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             return View();
         }
 
-        
+
     }
 }

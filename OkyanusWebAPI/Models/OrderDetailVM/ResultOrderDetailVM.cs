@@ -1,5 +1,4 @@
-﻿using Okyanus.EntityLayer.Entities;
-using OkyanusWebAPI.Models.ProductVM;
+﻿using OkyanusWebAPI.Models.ProductVM;
 
 namespace OkyanusWebAPI.Models.OrderDetailVM
 {

@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OkyanusWebUI.Models.ProductVM;
 using OkyanusWebUI.Service;
-using System.Reflection;
-using System.Text;
 
 namespace OkyanusWebUI.Areas.Admin.Controllers
 {
@@ -162,7 +160,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
                     //Console.WriteLine(oldProductImage);
                     if (oldProductImage != null)
                     {
-                    _fileOperationService.DeleteFile(oldProductImage);
+                        _fileOperationService.DeleteFile(oldProductImage);
                     }
                     return RedirectToAction("Index");
                 }

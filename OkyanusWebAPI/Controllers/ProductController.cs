@@ -2,13 +2,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
 using OkyanusWebAPI.Models;
 using OkyanusWebAPI.Models.CategorizeProductVM;
 using OkyanusWebAPI.Models.ProductVM;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace OkyanusWebAPI.Controllers
@@ -533,7 +531,7 @@ namespace OkyanusWebAPI.Controllers
             return Ok("Product Güncellendi");
         }
 
-   
+
         private IQueryable<Product> Sort<T>(IQueryable<Product> source, Expression<Func<Product, T>> keySelector, bool ascending)
         {
             return ascending ? source.OrderBy(keySelector) : source.OrderByDescending(keySelector);

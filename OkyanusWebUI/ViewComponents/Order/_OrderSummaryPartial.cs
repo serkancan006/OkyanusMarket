@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using OkyanusWebUI.Service;
 
 namespace OkyanusWebUI.ViewComponents.Order

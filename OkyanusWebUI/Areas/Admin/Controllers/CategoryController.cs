@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OkyanusWebUI.Areas.Admin.Models.AdminGroupVM;
-using OkyanusWebUI.Models.CategoryVM;
 using OkyanusWebUI.Models.GroupVM;
 using OkyanusWebUI.Service;
 

@@ -1,5 +1,4 @@
-﻿using Okyanus.EntityLayer.Entities;
-using OkyanusWebAPI.Models.MarkaVM;
+﻿using OkyanusWebAPI.Models.MarkaVM;
 using OkyanusWebAPI.Models.ProductTypeVM;
 
 namespace OkyanusWebAPI.Models.ProductVM
@@ -21,9 +20,9 @@ namespace OkyanusWebAPI.Models.ProductVM
 
 
         public string ANAGRUP { get; set; }
-        public string ALTGRUP1 { get; set; } 
-        public string ALTGRUP2 { get; set; } 
-        public string ALTGRUP3 { get; set; } 
+        public string ALTGRUP1 { get; set; }
+        public string ALTGRUP2 { get; set; }
+        public string ALTGRUP3 { get; set; }
 
 
         public int MarkaID { get; set; }

@@ -1,7 +1,5 @@
 ﻿using FluentValidation;
 using OkyanusWebUI.Models.OrderVM;
-using OkyanusWebUI.Service;
-using static OkyanusWebUI.Models.OrderVM.CreateOrderVmApi;
 
 namespace OkyanusWebUI.Validations
 {

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OkyanusWebUI.Service;
 
 namespace OkyanusWebUI.Controllers
 {

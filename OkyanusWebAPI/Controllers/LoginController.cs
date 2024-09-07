@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Common;
 using Okyanus.BusinessLayer.Abstract.ExternalService;
 using Okyanus.EntityLayer.Entities.identitiy;
 using OkyanusWebAPI.Models.Identitiy;
@@ -50,12 +48,12 @@ namespace OkyanusWebAPI.Controllers
                         if (userRoles.Contains("Admin"))
                         {
                             // Kullanıcı Admin içeriği rolü içeriyorsa 
-                            var value = _createTokenService.TokenCreateAdmin(user, 60*60*24);
+                            var value = _createTokenService.TokenCreateAdmin(user, 60 * 60 * 24);
                             return Ok(new { message = "Admin Girişi Başarılı.", value });
                         }
                         else
                         {
-                            var value = _createTokenService.TokenCreate(user, 60*60*24);
+                            var value = _createTokenService.TokenCreate(user, 60 * 60 * 24);
                             return Ok(new { message = "Kullanıcı Girişi Başarılı.", value });
                         }
                     }

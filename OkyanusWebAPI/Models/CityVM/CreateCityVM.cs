@@ -1,6 +1,4 @@
-﻿using Okyanus.EntityLayer.Entities;
-
-namespace OkyanusWebAPI.Models.CityVM
+﻿namespace OkyanusWebAPI.Models.CityVM
 {
     public class CreateCityVM
     {

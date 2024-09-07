@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using OkyanusWebUI.Models.BranchUsVM;
 using OkyanusWebUI.Models.ProductVM;
 using OkyanusWebUI.Service;
 
@@ -16,7 +15,7 @@ namespace OkyanusWebUI.ViewComponents.Admin.Product
 
         public async Task<IViewComponentResult> InvokeAsync(string productID)
         {
-            var responseMessage = await _customHttpClient.Get(new() { Controller = "Product", Action= "AssignCategoryForProductList" }, productID);
+            var responseMessage = await _customHttpClient.Get(new() { Controller = "Product", Action = "AssignCategoryForProductList" }, productID);
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();

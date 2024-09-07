@@ -1,5 +1,4 @@
-﻿using Okyanus.EntityLayer.Entities.identitiy;
-using OkyanusWebAPI.Models.ProductVM;
+﻿using OkyanusWebAPI.Models.ProductVM;
 
 namespace OkyanusWebAPI.Models.FavoriUrunlerVM
 {
@@ -10,7 +9,7 @@ namespace OkyanusWebAPI.Models.FavoriUrunlerVM
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool Status { get; set; }
-        
+
         public ResultProductVM Product { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using OkyanusWebUI.Models.MarkaVM;
 using OkyanusWebUI.Models.ProductTypeVM;
-using OkyanusWebUI.Service;
 
 namespace OkyanusWebUI.Models.ProductVM
 {

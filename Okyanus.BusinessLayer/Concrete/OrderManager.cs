@@ -1,12 +1,7 @@
 ﻿using Okyanus.BusinessLayer.Abstract;
 using Okyanus.DataAccessLayer.Abstract;
 using Okyanus.EntityLayer.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Okyanus.BusinessLayer.Concrete
 {
@@ -107,7 +102,7 @@ namespace Okyanus.BusinessLayer.Concrete
         {
             var order = await _OrderDal.GetByIDAsync(id);
             order.OrderStatus = orderStatus;
-            await _OrderDal.UpdateAsync(order);    
+            await _OrderDal.UpdateAsync(order);
         }
     }
 }

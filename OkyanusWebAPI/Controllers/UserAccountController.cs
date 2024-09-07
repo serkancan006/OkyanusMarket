@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Okyanus.EntityLayer.Entities.identitiy;
 using OkyanusWebAPI.Models.UserAccountVM;
-using System.Security.Claims;
 
 namespace OkyanusWebAPI.Controllers
 {

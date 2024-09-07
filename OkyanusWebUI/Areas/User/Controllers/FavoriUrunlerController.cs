@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OkyanusWebUI.Models.FavoriUrunlerVM;
-using OkyanusWebUI.Models.ProductVM;
 using OkyanusWebUI.Service;
-using System;
 
 namespace OkyanusWebUI.Areas.User.Controllers
 {

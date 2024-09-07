@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using OkyanusWebUI.Areas.Admin.Models.AdminOrderVM;
 using OkyanusWebUI.Service;
-using Newtonsoft.Json;
-using iTextSharp.text.pdf;
-using iTextSharp.text;
-using Microsoft.AspNetCore.Authorization;
-using static iTextSharp.text.pdf.AcroFields;
 
 namespace OkyanusWebUI.Areas.Admin.Controllers
 {

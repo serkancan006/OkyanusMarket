@@ -1,16 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Okyanus.BusinessLayer.Abstract;
 using Okyanus.BusinessLayer.Abstract.ExternalService;
 using Okyanus.BusinessLayer.Concrete;
 using Okyanus.BusinessLayer.Concrete.ExternalService;
 using Okyanus.DataAccessLayer.Abstract;
 using Okyanus.DataAccessLayer.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Okyanus.BusinessLayer.Container
 {
@@ -89,8 +83,6 @@ namespace Okyanus.BusinessLayer.Container
             services.AddScoped<ICreateTokenService, CreateTokenManager>();
             services.AddScoped<IFileOperationsService, FileOperationsManager>();
             services.AddScoped<ISmsService, SmsManager>();
-            services.AddScoped<IOlimposSoapService, OlimposSoapManager>();
-
         }
     }
 }

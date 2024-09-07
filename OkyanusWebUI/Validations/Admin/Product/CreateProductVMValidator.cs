@@ -18,7 +18,7 @@ namespace OkyanusWebUI.Validations.Admin.Product
             RuleFor(x => x.AnaBarcode).NotNull().WithMessage("Ürün Ana Barkodu Boş geçilemez");
             RuleFor(x => x.ProductTypeID).NotNull().WithMessage("Ürün Tipi Boş geçilemez");
             RuleFor(x => x.Stock).NotNull().WithMessage("Ürün Stok Boş geçilemez");
-            RuleFor(x => x.GrupAdı).NotNull().WithMessage("Lütfen Grup adını giriniz büyük küçük harfe dikkat ediniz."); 
+            RuleFor(x => x.GrupAdı).NotNull().WithMessage("Lütfen Grup adını giriniz büyük küçük harfe dikkat ediniz.");
         }
     }
 }

@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Okyanus.DataAccessLayer.OptionsPattern;
 using Okyanus.EntityLayer.Entities;
 using Okyanus.EntityLayer.Entities.identitiy;
-using System;
-using System.Linq;
 
 namespace Okyanus.DataAccessLayer.Concrete
 {
@@ -256,7 +253,7 @@ namespace Okyanus.DataAccessLayer.Concrete
                 GRUPADI = "Kozmetik",
                 Description = "kaliteli kozmetik ürünleri bulabilirsiniz",
             },
-          
+
         };
 
         private static About[] Abouts = new[]

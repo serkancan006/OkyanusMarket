@@ -1,5 +1,4 @@
-﻿using Okyanus.EntityLayer.Entities;
-using OkyanusWebAPI.Models.DistrictVM;
+﻿using OkyanusWebAPI.Models.DistrictVM;
 
 namespace OkyanusWebAPI.Models.CityVM
 {

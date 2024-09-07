@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using OkyanusWebUI.Models.CityVM;
-using OkyanusWebUI.Models.DeliveryTimeVM;
 using OkyanusWebUI.Models.DistrictVM;
 
 namespace OkyanusWebUI.Service
@@ -33,7 +32,7 @@ namespace OkyanusWebUI.Service
                     selectListItems.Add(item);
                 }
             }
-            
+
             return selectListItems;
         }
 
