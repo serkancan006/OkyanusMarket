@@ -30,7 +30,7 @@
 
             </div>
             <!-- Product List -->
-            @if(Model != null && Model.Product.Count > 0)
+            @if (Model != null && Model.Product.Count > 0)
             {
                 <div id="productList" class="col-md-9">
                     <div class=" con-w3l agileinf" id="productsContainer" style="margin-top:0px;padding-top:0px">
@@ -49,7 +49,7 @@
                                     </a>
                                     <div class="mid-1">
                                         <div class="women">
-                                            <h6>@(item.ProductName.Length > 20 ? item.ProductName.Substring(0, 13) : item.ProductName)</h6>
+                                            <h6>@item.ProductName</h6>
                                         </div>
                                         <div class="mid-2">
                                             @if (item.DiscountedPrice != null)
@@ -68,9 +68,9 @@
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
+
                                         <div class="add add-2">
                                             <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket('@item.ID')">Sepete Ekle</button>
-
                                         </div>
                                     </div>
                                 </div>
@@ -82,29 +82,47 @@
             }
             else
             {
-                <h5>Ürünler Hazırlanıyor</h5>    
+                <h5>Ürünler Hazırlanıyor</h5>
             }
         </div>
     </div>
 </div>
 
-<!-- Pagination -->
+<!-- pagination -->
 <nav class="text-center" id="paginationContainer">
     <ul class="pagination pagination-lg">
-        <li><a href="@Url.Action("Index", "Product", new { PageNumber = 1, SearchName= ViewBag.SearchName, CategoryName = ViewBag.CategoryName, sortField = ViewBag.sortField, MarkaAdi = ViewBag.MarkaAdi })" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-        @for (int i = 1; i <= Model.TotalPages; i++)
+        <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Product", new { PageNumber = 1, SearchName= ViewBag.SearchName, CategoryName = ViewBag.CategoryName, sortField = ViewBag.sortField, MarkaAdi = ViewBag.MarkaAdi })">«</a></li>
+        @for (int i = 1; i < 6; i++)
         {
-            if (i == ViewBag.PageNumber)
+            int page = 0;
+            if (ViewBag.PageNumber - 4 < 0)
             {
-                <li class="active"><a href="@Url.Action("Index", "Product", new { PageNumber = i, SearchName= ViewBag.SearchName, CategoryName = ViewBag.CategoryName, sortField = ViewBag.sortField, MarkaAdi = ViewBag.MarkaAdi })"><span>@i</span></a></li>
+                page = i;
+            }
+            else if (ViewBag.PageNumber + 5 > Model.TotalPages && ViewBag.TotalPages - 5 > 0)
+            {
+                page = ViewBag.TotalPages - 5 + i;
             }
             else
             {
-                <li><a href="@Url.Action("Index", "Product", new { PageNumber = i, SearchName= ViewBag.SearchName, CategoryName = ViewBag.CategoryName, sortField = ViewBag.sortField, MarkaAdi = ViewBag.MarkaAdi })"><span>@i</span></a></li>
+                page = ViewBag.PageNumber - 3 + i;
+            }
+
+            string pageStr = page.ToString();
+
+            if (page == ViewBag.PageNumber)
+            {
+                <li class="page-item active"><a class="page-link" href="@Url.Action("Index", "Product", new { PageNumber = pageStr, SearchName= ViewBag.SearchName, CategoryName = ViewBag.CategoryName, sortField = ViewBag.sortField, MarkaAdi = ViewBag.MarkaAdi })">@pageStr</a></li>
+
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Product", new { PageNumber = pageStr, SearchName= ViewBag.SearchName, CategoryName = ViewBag.CategoryName, sortField = ViewBag.sortField, MarkaAdi = ViewBag.MarkaAdi })">@pageStr</a></li>
             }
         }
-        <li><a href="@Url.Action("Index", "Product", new { PageNumber = Model.TotalPages, SearchName= ViewBag.SearchName, CategoryName = ViewBag.CategoryName, sortField = ViewBag.sortField, MarkaAdi = ViewBag.MarkaAdi })" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Product", new { PageNumber = Model.TotalPages, SearchName= ViewBag.SearchName, CategoryName = ViewBag.CategoryName, sortField = ViewBag.sortField, MarkaAdi = ViewBag.MarkaAdi })">»</a></li>
     </ul>
 </nav>
 
+<!-- İndirimli ÜRünler -->
 @await Component.InvokeAsync("_DiscountProductPartial")

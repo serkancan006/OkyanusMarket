@@ -14,8 +14,10 @@
                 <div>
                     <h4 style="margin-bottom:20px;margin-top:20px">Sipariş Bilgileri</h4>
                     <div class="form-group">
-                        <label>Adresinizi Seçin:</label>
-                        <select asp-for="@Model.UserAdresID" class="form-control" asp-items="@ViewBag.SelectListItems"></select>
+                        <label>Adres Seçin:</label>
+                        <select asp-for="@Model.UserAdresID" class="form-control" asp-items="@ViewBag.SelectListItems">
+                            <option value="">Adres Seçin (eğer adresiniz yok ise adres tanımlayınız!)</option>
+                        </select>
                         <span class="text-danger" asp-validation-for="@Model.UserAdresID"></span>
                     </div>
                     <div class="form-group">
@@ -43,11 +45,7 @@
                             <div class="form-group">
                                 <label>Teslimat Saati:</label>
                                 <select asp-for="@Model.TeslimatSaati" class="form-control" asp-items="@ViewBag.DeliveryTimeItems">
-                                    <option value="">Teslimat Saati Seçiniz</option>
-                                    @if (ViewBag.DeliveryTimeItems == null || ViewBag.DeliveryTimeItems.Count <= 0)
-                                    {
-                                        <option value="">Teslimat saatimiz bulunmamaktadır.</option>
-                                    }
+                                    <option value="">Teslimat Saati Seçiniz (teslimat saatleri yok ise teslimat saatlerinin dışındasınızdır!)</option>
                                 </select>
                                 <span class="text-danger" asp-validation-for="@Model.TeslimatSaati"></span>
                             </div>

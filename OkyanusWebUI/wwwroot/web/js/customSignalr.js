@@ -6,7 +6,7 @@ $(document).ready(() => {
     let siparisYoldaContainer = $("#yoldaContainer");
     let siparisTeslimEdildiContainer = $("#teslimEdildiContainer");
 
-    let connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7080/SignalRHub").build();
+    let connection = new signalR.HubConnectionBuilder().withUrl("https://api.adlokyanus.com/SignalRHub").build();
 
     function start() {
         connection.start().then(() => {

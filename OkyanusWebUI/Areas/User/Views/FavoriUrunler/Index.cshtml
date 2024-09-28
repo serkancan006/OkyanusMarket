@@ -24,14 +24,26 @@
                         <div class="col-m">
                             <a style="cursor:pointer" onclick="openProductDetailModal('@item.ProductID')" data-toggle="modal" data-target="#productDetailModal" class="offer-img">
                                 <img src="@(item.Product.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" class="img-responsive" style="height: 175px; width:175px; object-fit: cover;">
-                                <div class="offer"><p><span>İndirimde</span></p></div>
+                                @if (item.Product.DiscountedPrice != null)
+                                {
+                                    <div class="offer">
+                                        <p><span>İndirimde</span></p>
+                                    </div>
+                                }
                             </a>
                             <div class="mid-1">
                                 <div class="women">
-                                    <h6>@(item.Product.ProductName.Length > 20 ? item.Product.ProductName.Substring(0, 20) : item.Product.ProductName)</h6> <!-- Ürün ismi ve ağırlığı -->
+                                    <h6>@item.Product.ProductName</h6> <!-- Ürün ismi ve ağırlığı -->
                                 </div>
                                 <div class="mid-2">
-                                    <p><label>&#8378;@item.Product.Price</label><em class="item_price">&#8378;@item.Product.DiscountedPrice</em></p> <!-- Normal ve indirimli fiyat -->
+                                    @if (item.Product.DiscountedPrice != null)
+                                    {
+                                        <p><label>₺@item.Product.Price</label><em class="item_price">₺@item.Product.DiscountedPrice</em></p>
+                                    }
+                                    else
+                                    {
+                                        <p><em class="item_price">₺@item.Product.Price</em></p>
+                                    }
                                     <div class="block">
                                         <a class="btn btn-danger btn-sm" href="/User/FavoriUrunler/DeleteFavoriUrunler/@item.ID">x</a>
                                     </div>

@@ -18,7 +18,6 @@ namespace OkyanusWebUI.Service
             var jsonData = await responseMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<ResultUserAdresVM>>(jsonData);
             List<SelectListItem> selectListItems = new List<SelectListItem>();
-            selectListItems.Add(new SelectListItem() { Value = "0", Text = "Adres Ekle" });
             foreach (var value in values)
             {
                 SelectListItem item = new SelectListItem

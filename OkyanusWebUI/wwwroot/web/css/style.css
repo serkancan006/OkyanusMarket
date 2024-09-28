@@ -638,7 +638,8 @@ ul.nav.tabs {
 
 /*----*/
 .mid-1 h6 {
-    font-size: 1.2em;
+    font-size: 1.1em;
+    height: 50px;
 }
 .mid-1 h6 a {
     color: #000000;
@@ -647,24 +648,27 @@ ul.nav.tabs {
 .mid-1 h6 a:hover {
     color: #FAB005;
 }
-.mid-2 p{
-	float:left;
-	font-size:0.9em;
-	color:#B4B4B4;
+.mid-2 p {
+    float: left;
+    font-size: 1.1em;
+    color: #FAB005;
 }
-.mid-2 p em{
-	font-style:normal;
+.mid-2 p em {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.1em;
 }
-.mid-2 p label{
-	text-decoration: line-through;
-	font-weight:400;
-	margin-right:6px;
+.mid-2 p label {
+    text-decoration: line-through;
+    font-weight: 400;
+    margin-right: 6px;
+    font-size: 1em;
 }
 .mid-2 {
     padding: 1em 0;
 }
 .mid-1 {
-    padding: 3em 0 0;
+    padding: 0px;
 }
 .block {
     float: right;
@@ -2698,9 +2702,6 @@ a.at-in {
 ul.nav.tabs {
     margin-bottom: 2em;
 }
-.mid-1 h6 {
-    font-size: 1em;
-}
 .m-w3ls, .m-w3ls1 {
     width: 85%;
 }
@@ -2852,14 +2853,8 @@ nav.navbar.navbar-default {
     margin-bottom: 1em;
     padding: 0 3px;
 }
-.mid-1 {
-    padding: 2em 0 0;
-}
 .col-m {
     padding: 0.5em;
-}
-.mid-1 h6 {
-    font-size: 0.85em;
 }
 .mid-2 p {
     float: none;
