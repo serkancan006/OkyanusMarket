@@ -101,11 +101,13 @@ app.UseSession();
 app.UseHangfireDashboard("/hangfire", new DashboardOptions
 {
     Authorization = new[] { new HangfireAuthorization(app.Services.GetRequiredService<IHttpContextAccessor>()) },
-    //Authorization = new[] { app.Services.GetRequiredService<HangfireAuthorization>() },
-    AppPath = "https://adlokyanus.com/", // Dashboard'dan çýkýþ yapýldýðýnda gidilecek yol
+    AppPath = "/Login/Logout/", // Dashboard'dan çýkýþ yapýldýðýnda gidilecek yol
     //StatsPollingInterval = 2000 // Ýstatistiklerin güncellenme süresi (ms)
 });
-RecurringJob.AddOrUpdate<MyJobs>("update-products-job", job => job.UpdateProductsBySoapApi(), "30 0 * * *");
+RecurringJob.AddOrUpdate<MyJobs>("update-products-job", job => job.UpdateProductsBySoapApi(), builder.Configuration["HangFireJobs:UpdateProductsBySoapApi"]);
+RecurringJob.AddOrUpdate<MyJobs>("clean-old-logs", job => job.CleanOldLogs(), builder.Configuration["HangFireJobs:CleanOldLogs"]);
+
+
 
 app.MapControllerRoute(
     name: "default",

@@ -12,7 +12,7 @@
             @foreach (var item in Model)
             {
                 <div class="carousel-item @(item == Model[0] ? "active" : "")">
-                    <img src="@item.ImageUrl" class="img-fluid" style="max-height:450px;min-height:200px;width:100%;object-fit:contain;">
+                    <img src="@item.ImageUrl" class="img-fluid" style="height:auto;width:100%;object-fit:contain;">
                     <div class="carousel-caption">
                         @*<p class="text-dark">@item.Description</p>*@
                     </div>

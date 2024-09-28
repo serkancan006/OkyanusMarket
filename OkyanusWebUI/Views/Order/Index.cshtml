@@ -42,7 +42,13 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Teslimat Saati:</label>
-                                <select asp-for="@Model.TeslimatSaati" class="form-control" asp-items="@ViewBag.DeliveryTimeItems"></select>
+                                <select asp-for="@Model.TeslimatSaati" class="form-control" asp-items="@ViewBag.DeliveryTimeItems">
+                                    <option value="">Teslimat Saati Seçiniz</option>
+                                    @if (ViewBag.DeliveryTimeItems == null || ViewBag.DeliveryTimeItems.Count <= 0)
+                                    {
+                                        <option value="">Teslimat saatimiz bulunmamaktadır.</option>
+                                    }
+                                </select>
                                 <span class="text-danger" asp-validation-for="@Model.TeslimatSaati"></span>
                             </div>
                         </div>
@@ -60,7 +66,7 @@
                     </div>
                     <div class="form-group">
                         <input type="checkbox" asp-for="@Model.HasReadAndUnderstood" class="form-check-input" style="margin-right:6px" />
-                        <label><a href="/termsandconditions" target="_blank">Kullanım Şartlarını ve Koşullarını</a> Okudum, Anladım.</label>
+                        <label><a href="/termsandconditions" target="_blank">Kullanım Şartlarını ve Koşullarını</a> Okudum, Anladım, Kabul Ediyorum.</label>
                         <span class="text-danger" asp-validation-for="@Model.HasReadAndUnderstood"></span>
                     </div>
                 </div>
@@ -91,16 +97,16 @@
 
 <script>
     $(document).ready(function () {
-            $('#orderPhone').on('focus', function () {
-                if (!this.value) {
-                    this.value = '+90';
-                }
-            });
-            $('#orderPhone').inputmask('+99-(999)-999-99-99', {
-                placeholder: ' ',
-                showMaskOnHover: false,
-                showMaskOnFocus: false,
-                clearIncomplete: true
-            });
+        $('#orderPhone').on('focus', function () {
+            if (!this.value) {
+                this.value = '+90';
+            }
         });
+        $('#orderPhone').inputmask('+99-(999)-999-99-99', {
+            placeholder: ' ',
+            showMaskOnHover: false,
+            showMaskOnFocus: false,
+            clearIncomplete: true
+        });
+    });
 </script>

@@ -39,7 +39,7 @@
                             <div class="col-md-3 pro-1">
                                 <div class="col-m">
                                     <a style="cursor:pointer" onclick="openProductDetailModal('@item.ID')" data-toggle="modal" data-target="#productDetailModal" class="offer-img">
-                                        <img src="@(!string.IsNullOrEmpty(item.ImageUrl) ? item.ImageUrl : "/web/images/resimhazirlaniyor.png")" class="img-responsive" style="height: 175px; object-fit: contain;">
+                                        <img src="@(!string.IsNullOrEmpty(item.ImageUrl) ? item.ImageUrl : "/web/images/resimhazirlaniyor.png")" class="img-responsive" style="height: 175px; width:175px; object-fit: cover;">
                                         @if (item.DiscountedPrice != null)
                                         {
                                             <div class="offer">

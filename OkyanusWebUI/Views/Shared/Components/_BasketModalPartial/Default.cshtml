@@ -24,7 +24,7 @@
                     {
                         <!-- Her ürün için bir satır oluştur -->
                         <tr data-id="1" data-price="19.99">
-                            <td class="text-center" style="width: 50px;"><img width="50px" height="50px" src="@item.ImageUrl" /></td>
+                            <td class="text-center"><img src="@item.ImageUrl" style="height: 50px; width:50px; object-fit: cover;" /></td>
                             <td>@item.Name</td>
                             <td>₺@item.Price</td>
                             <td><input type="number" min="1" style="width: 70px;" class="my-product-quantity" value="@item.Quantity" /></td>

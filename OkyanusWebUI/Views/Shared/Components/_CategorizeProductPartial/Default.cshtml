@@ -7,7 +7,7 @@
         {
             @foreach (var item in Model)
             {
-                <div class="spec ">
+                <div class="spec" style="margin-top: 30px">
                     <h3>@item.KategoriAdı </h3>
                     <div class="ser-t">
                         <b></b>
@@ -35,8 +35,8 @@
                                     {
                                         <div class="col-md-3 m-wthree">
                                             <div class="col-m">
-                                                <a style="cursor:pointer" onclick="openProductDetailModal(@urun.ID)" data-toggle="modal" data-target="#productDetailModal" class="offer-img">
-                                                    <img src="@(!string.IsNullOrEmpty(urun.ImageUrl) ? urun.ImageUrl : "/web/images/resimhazirlaniyor.png")" class="img-responsive" style="height: 123.75px; object-fit: contain;">
+                                                <a style="cursor:pointer" onclick="openProductDetailModal('@urun.ID')" data-toggle="modal" data-target="#productDetailModal" class="offer-img">
+                                                    <img src="@(!string.IsNullOrEmpty(urun.ImageUrl) ? urun.ImageUrl : "/web/images/resimhazirlaniyor.png")" class="img-responsive" style="height: 175px; width:175px; object-fit: cover;">
                                                     @if (urun.DiscountedPrice != null)
                                                     {
                                                         <div class="offer">
@@ -60,13 +60,13 @@
                                                         <div class="block">
                                                             @if (_tokenService.IsAuthonticate())
                                                             {
-                                                                <i class="fa fa-heart likebutton" onclick="addFavoriteProduct(@urun.ID)" toggle="tooltip" title="Favoriye Ekle"> </i>
+                                                                <i class="fa fa-heart likebutton" onclick="addFavoriteProduct('@urun.ID')" toggle="tooltip" title="Favoriye Ekle"> </i>
                                                             }
                                                         </div>
                                                         <div class="clearfix"></div>
                                                     </div>
                                                     <div class="add add-2">
-                                                        <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket(@urun.ID)">Sepete Ekle</button>
+                                                        <button class="btn btn-danger my-cart-btn my-cart-b" onclick="addBasket('@urun.ID')">Sepete Ekle</button>
                                                     </div>
                                                 </div>
                                             </div>

@@ -16,7 +16,7 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
             _configuration = configuration;
         }
 
-        public TokenDto TokenCreate(AppUser user, int second = 60)
+        public TokenDto TokenCreate(AppUser user, int second = 60 * 60 * 4)
         {
             var bytes = Encoding.UTF8.GetBytes(_configuration["JwtTokenOptions:IssuerSigningKey"]);
             SymmetricSecurityKey key = new SymmetricSecurityKey(bytes);
@@ -41,7 +41,7 @@ namespace Okyanus.BusinessLayer.Concrete.ExternalService
             return Token;
         }
 
-        public TokenDto TokenCreateAdmin(AppUser user, int second = 60)
+        public TokenDto TokenCreateAdmin(AppUser user, int second = 60 * 60 * 4)
         {
             var bytes = Encoding.UTF8.GetBytes(_configuration["JwtTokenOptions:IssuerSigningKey"]);
             SymmetricSecurityKey key = new SymmetricSecurityKey(bytes);

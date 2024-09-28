@@ -23,6 +23,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Resmi</th>
                         <th>Kategori Adı</th>
                         <th>Açıklaması</th>
                         <th>Detaylar</th>
@@ -36,6 +37,7 @@
                         count++;
                         <tr>
                             <td>@count</td>
+                            <td>   <img src="@(item.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" style="object-fit:cover;width: 80px; height:80px" /></td>
                             <td>@item.GRUPADI</td>
                             <td>@item?.Description</td>
                             <td><a href="/Admin/Category/UpdateCategory/@item.GRUPADI" class="btn btn-warning">Detaylar</a></td>
@@ -45,7 +47,7 @@
                     }
                 </tbody>
             </table>
-            <a href="/Admin/Category/AddCategory/" class="btn btn-primary">Yeni Kategori Ekle</a>
+            @* <a href="/Admin/Category/AddCategory/" class="btn btn-primary">Yeni Kategori Ekle</a> *@
         </div>
     </div>
 </div>
@@ -53,7 +55,6 @@
 <!-- Change Category Image Modal -->
 <div class="modal" id="groupImageModal" tabindex="-1" role="dialog" aria-labelledby="groupImageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" style="width:90%;" id="groupImageModalContainer">
-
     </div>
 </div>
 

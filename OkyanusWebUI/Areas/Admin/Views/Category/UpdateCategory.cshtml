@@ -6,7 +6,7 @@
 
 
 <div class="container">
-    <img src="@(Model.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" style="height:200px;width:100%;object-fit:contain;" />
+    <img src="@(Model.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" style="height:200px;width:200px;object-fit:cover;" />
     <form  method="post">
         <input type="hidden" asp-for="ImageUrl" value="@Model.ImageUrl" />
 

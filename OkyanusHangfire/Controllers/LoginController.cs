@@ -4,6 +4,12 @@ namespace OkyanusHangfire.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly IConfiguration _configuration;
+        public LoginController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -14,7 +20,7 @@ namespace OkyanusHangfire.Controllers
         public IActionResult Index(string username, string password)
         {
             // Basit bir kullanıcı adı ve şifre kontrolü
-            if (username == "admin" && password == "password")
+            if (username == _configuration["HangFireAuth:username"] && password == _configuration["HangFireAuth:password"])
             {
                 // Kullanıcıyı oturum açmış olarak işaretleyin
                 HttpContext.Session.SetString("HangfireUser", username);

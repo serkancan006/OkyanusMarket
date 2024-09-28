@@ -70,7 +70,7 @@
                         <tr>
                             <td>@count</td>
                             <td class="offer-img">
-                                <img src="@(item.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" width="80" height="80" />
+                                <img src="@(item.ImageUrl ?? "/web/images/resimhazirlaniyor.png")" style="object-fit:cover;width: 80px; height:80px" />
                                 @if (item.DiscountedPrice != null)
                                 {
                                     <div class="offer mr-3"><p><span style="font-size:9px">İndirimde</span></p></div>
