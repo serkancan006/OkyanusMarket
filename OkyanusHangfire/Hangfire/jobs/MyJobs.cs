@@ -89,6 +89,7 @@ namespace OkyanusHangfire.Hangfire.jobs
                         transaction.Rollback();
                         _logger.LogError("Hangfire Soap Servisi sonucu bir hata oluştu!");
                         _logger.LogError("Hata: " + ex.Message);
+                        throw;
                     }
                 }
             }
@@ -122,6 +123,8 @@ namespace OkyanusHangfire.Hangfire.jobs
             {
                 _logger.LogError(ex, "Log temizleme sırasında beklenmeyen bir hata oluştu: {Message}", ex.Message);
                 // Hata işleme kodu ekleyebilirsiniz (örn. hata bildirme, geri alma, vb.)
+                throw;
+
             }
             finally
             {
