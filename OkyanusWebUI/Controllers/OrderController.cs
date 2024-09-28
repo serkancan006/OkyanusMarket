@@ -68,6 +68,7 @@ namespace OkyanusWebUI.Controllers
                 telefonNo = createOrderVM.TelefonNo,
                 teslimatSaati = createOrderVM.TeslimatSaati,
                 teslimatYontemi = createOrderVM.TeslimatYontemi,
+                OrderPaymentType = createOrderVM.OrderPaymentType,
                 userAdresID = createOrderVM.UserAdresID,
                 orderItems = createOrderVM.OrderItems.Select(item => new CreateOrderVmApi.Orderitem
                 {

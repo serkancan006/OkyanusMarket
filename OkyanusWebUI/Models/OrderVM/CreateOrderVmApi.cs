@@ -8,6 +8,8 @@
         public string teslimatYontemi { get; set; }
         public string teslimatSaati { get; set; }
         public string alternatifUrun { get; set; }
+        public string OrderPaymentType { get; set; }
+
         public List<Orderitem> orderItems { get; set; }
 
         public class Orderitem

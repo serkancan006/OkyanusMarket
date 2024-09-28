@@ -79,6 +79,7 @@ namespace OkyanusWebUI.Areas.Admin.Controllers
             infoTable2.AddCell(new PdfPCell(new Phrase($"Teslimat Zamanı: {values?.teslimatSaati}".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable2.AddCell(new PdfPCell(new Phrase($"Teslimat Yontemi: {values?.teslimatYontemi}".TurkceyiIngilizceyeCevir(), fontNormal)));
             infoTable2.AddCell(new PdfPCell(new Phrase($"Aranacak Telefon: {values?.orderPhone}".TurkceyiIngilizceyeCevir(), fontNormal)));
+            infoTable2.AddCell(new PdfPCell(new Phrase($"Teslimat Yöntemi: {values?.orderPaymentType}".TurkceyiIngilizceyeCevir(), fontNormal)));
             document.Add(infoTable2);
 
             // Boşluk ekle

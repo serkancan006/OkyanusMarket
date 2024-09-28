@@ -16,6 +16,9 @@
         public string OrderMail { get; set; }
         public string OrderPhone { get; set; }
 
+        public string OrderPaymentType { get; set; }
+
+
         public string OrderAdress { get; set; }
         public string OrderApartman { get; set; }
         public string OrderDaire { get; set; }

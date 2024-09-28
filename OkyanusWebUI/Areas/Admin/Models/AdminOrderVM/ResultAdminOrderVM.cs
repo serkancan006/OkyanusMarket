@@ -27,6 +27,8 @@ namespace OkyanusWebUI.Areas.Admin.Models.AdminOrderVM
         public string teslimatSaati { get; set; }
         public string alternatifUrun { get; set; }
         //public string orderUserPhone { get; set; }
+        public string orderPaymentType { get; set; }
+
 
         public class Orderdetail
         {

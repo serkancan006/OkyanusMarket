@@ -7,6 +7,8 @@
         public string Description { get; set; }
         public decimal TotalPrice { get; set; }
         public string OrderStatus { get; set; }
+        public string OrderPaymentType { get; set; }
+
 
 
         //public string OrderFirstName { get; set; }

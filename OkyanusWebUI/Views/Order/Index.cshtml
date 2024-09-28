@@ -31,7 +31,7 @@
                         <span class="text-danger" asp-validation-for="@Model.TelefonNo"></span>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Teslimat Yöntemi:</label>
                                 <select asp-for="@Model.TeslimatYontemi" class="form-control">
@@ -41,7 +41,7 @@
                                 <span class="text-danger" asp-validation-for="@Model.TeslimatYontemi"></span>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Teslimat Saati:</label>
                                 <select asp-for="@Model.TeslimatSaati" class="form-control" asp-items="@ViewBag.DeliveryTimeItems">
@@ -50,7 +50,7 @@
                                 <span class="text-danger" asp-validation-for="@Model.TeslimatSaati"></span>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Altarnatif Ürün Tercihi:</label>
                                 <select asp-for="@Model.AlternatifUrun" class="form-control">
@@ -59,6 +59,16 @@
                                     <option value="İstemiyorum">İstemiyorum</option>
                                 </select>
                                 <span class="text-danger" asp-validation-for="@Model.AlternatifUrun"></span>
+                            </div>
+                        </div>
+                             <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Ödeme Yöntemi:</label>
+                                <select asp-for="@Model.OrderPaymentType" class="form-control">
+                                    <option value="Kapıda Nakit">Kapıda Nakit</option>
+                                    <option value="Kapıda Kredi">Kapıda Kredi</option>
+                                </select>
+                                <span class="text-danger" asp-validation-for="@Model.OrderPaymentType"></span>
                             </div>
                         </div>
                     </div>

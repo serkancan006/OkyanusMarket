@@ -11,6 +11,8 @@ namespace OkyanusWebUI.Models.OrderVM
         public string TeslimatYontemi { get; set; }
         public string TeslimatSaati { get; set; }
         public string AlternatifUrun { get; set; }
+        public string OrderPaymentType { get; set; }
+
 
         public List<CartItem>? OrderItems { get; set; }
         public decimal? TotalPrice { get; set; }

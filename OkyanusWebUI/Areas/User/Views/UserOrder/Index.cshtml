@@ -26,6 +26,7 @@
                                 <th>Sipariş Durumu</th>
                                 <th>Tarih</th>
                                 <th>Teslimat</th>
+                                <th>Ödeme Tipi</th>
                                 <th>Detay</th>
                             </tr>
                         </thead>
@@ -38,6 +39,7 @@
                                     <td>@item.orderStatus</td>
                                     <td>@item.createdDate.ToString("dd-MMM-yyyy HH:mm")</td>
                                     <td>@item.teslimatYontemi</td>
+                                    <td>@item.orderPaymentType</td>
                                     <td><a href="/User/UserOrder/UserOrderDetail/@item.id" class="btn btn-warning">Detaylar</a></td>
                                 </tr>
                             }

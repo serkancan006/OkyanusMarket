@@ -14,6 +14,7 @@ namespace OkyanusWebUI.Validations
                 .Matches(@"^\+90-\([0-9]{3}\)-[0-9]{3}-[0-9]{2}-[0-9]{2}$")
                 .WithMessage("Telefon numarası '+90-(999)-999-99-99' formatında olmalıdır.");
             RuleFor(item => item.TeslimatYontemi).NotNull().WithMessage("Lütfen Teslimat Yöntemi Seçiniz!");
+            RuleFor(item => item.OrderPaymentType).NotNull().WithMessage("Lütfen Ödeme Yöntemi Seçiniz!");
             RuleFor(item => item.TeslimatSaati).NotNull().WithMessage("Lütfen Teslimat Saati Seçiniz!");
             RuleFor(item => item.AlternatifUrun).NotNull().WithMessage("Lütfen Alternatif Ürün Seçiniz!");
             RuleFor(item => item.HasReadAndUnderstood).Must(x => x == true).WithMessage("Lütfen devam etmeden önce kullanım koşullarını ve şartlarını okuduğunuzu ve anladığınızı onaylayın!");
