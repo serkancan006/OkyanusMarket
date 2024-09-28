@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using Microsoft.Data.SqlClient;
 using OkyanusHangfire.Context;
 using OkyanusHangfire.Repositories.ProductRepository;
 using OkyanusHangfire.Services.OlimposSoapService;
