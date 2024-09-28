@@ -25,6 +25,7 @@
         public string OrderSehir { get; set; }
         public string OrderIlce { get; set; }
 
+        public string OrderPaymentType { get; set; }
 
 
         public List<OrderDetailVM.ResultOrderDetailVM> OrderDetails { get; set; }

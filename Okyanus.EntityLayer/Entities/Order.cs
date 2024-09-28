@@ -29,6 +29,8 @@ namespace Okyanus.EntityLayer.Entities
         public string OrderSehir { get; set; }
         public string OrderIlce { get; set; }
 
+        public string OrderPaymentType { get; set; }
+
         public int? AppUserID { get; set; }
         public AppUser? AppUser { get; set; }
     }

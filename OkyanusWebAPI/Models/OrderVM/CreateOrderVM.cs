@@ -22,5 +22,8 @@
         public string OrderKat { get; set; }
         public string OrderSehir { get; set; }
         public string OrderIlce { get; set; }
+
+        public string OrderPaymentType { get; set; }
+
     }
 }

@@ -15,6 +15,9 @@
         public string TeslimatSaati { get; set; }
         public string AlternatifUrun { get; set; }
 
+        public string OrderPaymentType { get; set; }
+
+
         public List<CartItem> OrderItems { get; set; }
     }
     public class CartItem

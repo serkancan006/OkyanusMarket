@@ -8,6 +8,8 @@
         public decimal TotalPrice { get; set; }
         public string OrderStatus { get; set; }
 
+        public string OrderPaymentType { get; set; }
+
 
         //public string OrderFirstName { get; set; }
         //public string OrderSurname { get; set; }

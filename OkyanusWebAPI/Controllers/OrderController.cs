@@ -179,6 +179,7 @@ namespace OkyanusWebAPI.Controllers
 
                 AlternatifUrun = createOrderRequestVM.AlternatifUrun,
                 TeslimatYontemi = createOrderRequestVM.TeslimatYontemi,
+                OrderPaymentType = createOrderRequestVM.OrderPaymentType,
                 //TeslimatSaati = deliveryTime.StartedTime.ToString("hh\\:mm") + " - " + deliveryTime.EndTime.ToString("hh\\:mm"),
                 TeslimatSaati = createOrderRequestVM.TeslimatSaati,
 
@@ -225,76 +226,6 @@ namespace OkyanusWebAPI.Controllers
 
             return Ok("Order Eklendi");
         }
-
-        //[Authorize]
-        //[HttpPost]
-        //public async Task<IActionResult> AddOrder(CreateOrderRequestVM createOrderRequestVM)
-        //{
-        //    var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
-        //    var adres = await _userAdresService.TGetByIDAsync(createOrderRequestVM.UserAdresID);
-        //    CreateOrderVM createOrderVM = new CreateOrderVM()
-        //    {
-        //        Description = createOrderRequestVM.Description,
-        //        OrderStatus = "Onay Bekliyor",
-
-        //        AlternatifUrun = createOrderRequestVM.AlternatifUrun,
-        //        TeslimatYontemi = createOrderRequestVM.TeslimatYontemi,
-        //        TeslimatSaati = _deliveryTimeService.TGetByIDAsync(int.Parse(createOrderRequestVM.TeslimatSaati)).CreatedDate.ToString("dd-MMM-yyyy HH:mm") + " - " + _deliveryTimeService.TGetByIDAsync(int.Parse(createOrderRequestVM.TeslimatSaati)).EndTime.ToString("dd-MMM-yyyy HH:mm"),
-
-        //        OrderPhone = createOrderRequestVM.TelefonNo,
-
-        //        OrderAdress = adres.UserAdress,
-        //        OrderApartman = adres.UserApartman,
-        //        OrderDaire = adres.UserDaire,
-        //        OrderKat = adres.UserKat,
-        //        OrderIlce = adres.UserIlce,
-        //        OrderSehir = adres.UserSehir,
-        //        TotalPrice = createOrderRequestVM.OrderItems.Sum(x => (_productService.TGetByIDAsync(x.ProductId).DiscountedPrice ?? _productService.TGetByIDAsync(x.ProductId).Price) * x.Quantity),
-        //    };
-        //    var value = _mapper.Map<Order>(createOrderVM);
-        //    value.OrderSurname = user.Surname;
-        //    value.OrderFirstName = user.Name;
-        //    //value.OrderPhone = user.PhoneNumber;
-        //    value.OrderUserPhone = user.PhoneNumber;
-        //    value.OrderMail = user.Email;
-        //    value.AppUserID = user.Id;
-        //    _OrderService.TAdd(value);
-        //    List<CreateOrderDetailVM> createOrderDetailVM = new List<CreateOrderDetailVM>();
-        //    createOrderDetailVM.AddRange(createOrderRequestVM.OrderItems.Select(item => new CreateOrderDetailVM()
-        //    {
-        //        ProductID = item.ProductId,
-        //        Count = item.Quantity,
-        //        UnitPrice = _productService.TGetByIDAsync(item.ProductId).DiscountedPrice ?? _productService.TGetByIDAsync(item.ProductId).Price,
-        //        OrderID = value.ID,
-        //    }));
-        //    var orderItemList = _mapper.Map<List<OrderDetail>>(createOrderDetailVM);
-        //    await _orderDetailService.TAddRangeAsync(orderItemList);
-        //    await _hubContext.Clients.All.SendAsync("ReceiveOrderNotification", "Yeni Siparişiniz Var");
-        //    var resultCreateOrder = _mapper.Map<ResultOrderVM>(await _OrderService.TGetByIDAsync(value.ID));
-        //    await _hubContext.Clients.All.SendAsync("ReceiveOrder", resultCreateOrder);
-
-        //    //Stock işlemi
-        //    //var order = _OrderService.TAsQueryable().Include(x => x.OrderDetails).ThenInclude(x => x.Product).Where(x => x.ID == value.ID).SingleOrDefault();
-        //    //if (order == null)
-        //    //{
-        //    //    return NotFound("sipariş bulunamadı");
-        //    //}
-        //    //var orderproducts = order?.OrderDetails;
-        //    //if (orderproducts != null)
-        //    //{
-        //    //    foreach (var item in orderproducts)
-        //    //    {
-        //    //        item.Product.Stock = item.Product.Stock - (int)Math.Floor(item.Count);
-        //    //    }
-        //    //}
-        //    //else
-        //    //{
-        //    //    return NotFound("siparişin detayları bulunamadı");
-        //    //}
-        //    //Stock işlemi
-
-        //    return Ok("Order Eklendi");
-        //}
 
     }
 }
